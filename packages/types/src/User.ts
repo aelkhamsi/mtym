@@ -10,4 +10,6 @@ export type User = {
   identifier: string;
 
   application: any;
+
+  team: any;
 }

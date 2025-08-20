@@ -9,7 +9,11 @@ const sidebarNavItems = [
   {
     title: "Candidature",
     href: "/profile/application",
-  }
+  },
+  {
+    title: "Équipe",
+    href: "/profile/team",
+  },
 ]
 
 interface ProfileLayoutProps {
