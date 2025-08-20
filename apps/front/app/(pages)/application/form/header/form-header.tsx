@@ -9,14 +9,14 @@ const FormHeader = ({
   return ( 
     <div className="flex justify-between">
       <div className="space-y-0.5">
-        <h2 className="text-xl font-bold tracking-tight">Application</h2>
+        <h2 className="text-xl font-bold tracking-tight">Candidature</h2>
         <div className="text-muted-foreground text-sm">
-          Follow the steps below to complete your application
+          Suivez les étapes ci-dessous pour compléter votre candidature.
         </div>
       </div>
 
       <div>
-        <Button onClick={onClickSave}>Save & Finish later</Button>
+        <Button onClick={onClickSave}>Sauvegarder & Terminer plus tard</Button>
       </div>
     </div>
   )

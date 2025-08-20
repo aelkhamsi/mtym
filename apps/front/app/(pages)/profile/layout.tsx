@@ -3,11 +3,11 @@ import { SidebarNav } from "./sidebar-nav"
 
 const sidebarNavItems = [
   {
-    title: "Accont",
+    title: "Compte",
     href: "/profile/account",
   },
   {
-    title: "Application",
+    title: "Candidature",
     href: "/profile/application",
   }
 ]
@@ -21,9 +21,9 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
     <div className="pt-24 w-full lg:w-3/4 px-5 lg:px-0 mb-10">
       <div className="space-y-6 py-10">
         <div className="space-y-0.5">
-          <h2 className="text-2xl font-bold tracking-tight">Profile</h2>
+          <h2 className="text-2xl font-bold tracking-tight">Profil</h2>
           <div className="text-muted-foreground">
-            Manage your application and account information.
+            Gérez votre candidature et les informations relatives à votre compte.
           </div>
         </div>
         <Separator className="my-6" />

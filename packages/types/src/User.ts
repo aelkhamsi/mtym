@@ -1,4 +1,4 @@
-type User = {
+export type User = {
   id: number;
 
   firstName: string;
@@ -11,5 +11,3 @@ type User = {
 
   application: any;
 }
-
-export default User;

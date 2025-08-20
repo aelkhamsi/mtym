@@ -105,7 +105,7 @@ export function AccountForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Update informations</Button>
+        <Button type="submit">Mettre à jour vos informations</Button>
       </form>
     </Form>
   )

@@ -26,25 +26,6 @@ export const Menu = () => {
   const template = (
     <NavigationMenu>
       <NavigationMenuList className={(isMobile || isTablet) ? 'flex flex-col space-y-4' : ''}>
-        <NavigationMenuItem>
-          <Link 
-            className="text-sm font-medium mr-6 hover:cursor-pointer hover:underline"
-            href="/results"
-            onClick={() => {setShowMenu(false)}}
-          >
-            Results
-          </Link>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <Link 
-            className="text-sm font-medium mr-6 hover:cursor-pointer hover:underline"
-            href="/solutions"
-            onClick={() => {setShowMenu(false)}}
-          >
-            Exams & Solutions
-          </Link>
-        </NavigationMenuItem>
 
         <NavigationMenuItem>
           <Link 
@@ -57,18 +38,13 @@ export const Menu = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="text-sm mr-6">Preparation</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[200px] gap-2 p-2 md:w-[300px] md:grid-cols-2 lg:w-[400px]">
-              <Link href="/selection" onClick={() => {setShowMenu(false)}}>
-                <ListItem title="Selection Test" />
-              </Link>
-
-              <Link href="/syllabus" onClick={() => {setShowMenu(false)}}>
-                <ListItem title="Syllabus" />
-              </Link>
-            </ul>
-          </NavigationMenuContent>
+          <Link 
+            className="text-sm font-medium mr-6 hover:cursor-pointer hover:underline"
+            href="/schedule"
+            onClick={() => {setShowMenu(false)}}
+          >
+            Test de sélection
+          </Link>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
@@ -78,16 +54,6 @@ export const Menu = () => {
             onClick={() => {setShowMenu(false)}}
           >
             Conferences
-          </Link>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <Link 
-            className="text-sm font-medium mr-6 hover:cursor-pointer hover:underline"
-            href="/past-editions"
-            onClick={() => {setShowMenu(false)}}
-          >
-            Past Editions
           </Link>
         </NavigationMenuItem>
 

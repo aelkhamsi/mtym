@@ -10,8 +10,7 @@ import {
 } from "@mdm/ui"
 import { Checkbox, Separator } from '@mdm/ui'
 import Link from 'next/link'
-
-const RequiredAsterisk = () => <span className="text-red-500"> * </span>;
+import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
 
 export const ValidationStep = ({
   form,
@@ -30,7 +29,7 @@ export const ValidationStep = ({
         Validation
       </h2>
       <p className='mt-1 text-sm leading-6 text-gray-600'>
-        Please read our General Terms and Conditions carefully before submitting your application.
+        Veuillez lire attentivement nos conditions générales avant de soumettre votre candidature.
         <Separator className='mt-4 bg-[#0284C7]'/>
       </p>
 
@@ -49,11 +48,11 @@ export const ValidationStep = ({
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <FormLabel>
-                    General Conditions <RequiredAsterisk />
+                    Conditions Générales <RequiredAsterisk />
                   </FormLabel>
                   <FormDescription>
-                  I confirm that I have read the regulations <Link className="text-blue-500 font-bold underline" href='https://drive.google.com/file/d/1spkc0-KyaBbeq9sWT2x8Vj0EEoO-FGi7/view?usp=sharing' target="_blank">(file)</Link> of the event and i undertake to respect it.<br/>
-                  In particular, I undertake to be present on the UM6P Benguerir campus for the entire duration of the competition (unless an exception is requested by e-mail and explicitly approved by the organizing committee).
+                  Je confirme avoir pris connaissance du règlement <Link className="text-blue-500 font-bold underline" href='https://drive.google.com/file/d/1spkc0-KyaBbeq9sWT2x8Vj0EEoO-FGi7/view?usp=sharing' target="_blank">(fichier)</Link> de l&apos;événement et m&apos;engage à le respecter.<br/>
+                  En particulier, je m&apos;engage à être présent sur le campus de l&apos;AUI pendant toute la durée de la compétition (sauf exception demandée par e-mail et explicitement approuvée par le comité d&apos;organisation).
                   </FormDescription>
                 </div>
               </FormItem>

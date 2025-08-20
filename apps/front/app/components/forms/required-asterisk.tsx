@@ -1,0 +1,1 @@
+export const RequiredAsterisk = () => <span className="text-red-500"> * </span>;

@@ -52,13 +52,13 @@ export default function ApplicationPage() {
     if (!application) {
       setContent({
         title: "Vous n'avez pas soumis une candidature",
-        subtitle: "On attend ta candidature avec impatience.",
+        subtitle: "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités.",
         ctaLabel: "Créer votre candidature",
       })
     } else if (applicationStatus === 'DRAFT') {
       setContent({
-        title: "Vous avez sauvegardé un brouillon de candidature. Elle n'est pas encore soumise!",
-        subtitle: "Terminez votre candidature pour qu’elle soit valide",
+        title: "Vous avez sauvegardé un brouillon de candidature. Elle n'est pas encore soumise.",
+        subtitle: "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités.",
         ctaLabel: "Continuer votre candidature",
       })
     } else {
@@ -90,14 +90,16 @@ export default function ApplicationPage() {
           </>
         }
       </CardContent>
-      
-      <CardFooter>
-        <Button
-          onClick={() => router.push('/application')}
-        >
-          {content?.ctaLabel}
-        </Button>
-      </CardFooter> 
+
+      {user?.application && user?.application?.status?.status !== 'DRAFT' &&
+        <CardFooter>
+          <Button
+            onClick={() => router.push('/application')}
+          >
+            {content?.ctaLabel}
+          </Button>
+        </CardFooter> 
+      }
     </Card>
   );
 

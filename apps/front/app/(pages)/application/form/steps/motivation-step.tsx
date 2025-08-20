@@ -10,9 +10,7 @@ import {
 } from "@mdm/ui"
 import { Separator, Textarea } from "@mdm/ui"
 import { RadioGroup, RadioGroupItem } from '@mdm/ui';
-import Link from 'next/link';
-
-const RequiredAsterisk = () => <span className="text-red-500"> * </span>;
+import { RequiredAsterisk } from '@/app/components/forms/required-asterisk';
 
 export const MotivationStep = ({
   form,
@@ -21,12 +19,12 @@ export const MotivationStep = ({
   form: UseFormReturn,
   delta: number,
 }) => {
-  const [hasPreviousMathMarocParticipations, setHasPreviousMathMarocParticipations] = useState(false)
+  const [hasPreviousMTYMParticipations, setHasPreviousMTYMParticipations] = useState(false)
   const [hasPreviousExperiences, setHasPreviousExperiences] = useState(false)
 
   useEffect(() => {
     const formState = form.watch()
-    setHasPreviousMathMarocParticipations(formState?.hasPreviousMathMarocParticipations === 'yes')
+    setHasPreviousMTYMParticipations(formState?.hasPreviousMTYMParticipations === 'yes')
     setHasPreviousExperiences(formState?.hasPreviousExperiences === 'yes')
   }, [])
 
@@ -41,30 +39,9 @@ export const MotivationStep = ({
       </h2>
 
       <p className='mt-1 text-sm leading-6 text-gray-600'>
-        Provide information about your past participations and your motivations.
+        Fournissez des informations sur vos participations passées et vos motivations.
         <Separator className='mt-4 bg-[#0284C7]'/>
       </p>
-
-      <div className='mt-6 grid grid-cols-1 gap-4 justify-between'>
-        {/* Motivations */}
-        <FormField
-          control={form.control}
-          name="motivations"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>What are your motivations to participate in MMC ?<RequiredAsterisk /></FormLabel>
-              <FormControl>
-              <Textarea
-                placeholder="Maximum 300 words"
-                className="resize-none"
-                {...field}
-              />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
 
       <div className='mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 justify-between'>
         {/* Has Previous Experiences */}
@@ -74,7 +51,7 @@ export const MotivationStep = ({
           render={({ field }) => (
             <FormItem className="space-y-3">
               
-              <FormLabel>Have you taken part in competitions before (Olympiads, concour, etc.)?<RequiredAsterisk /></FormLabel>
+              <FormLabel>Avez-vous déjà participé à des compétitions auparavant ? (Olympiades, concours, etc.)?<RequiredAsterisk /></FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={(value) => {
@@ -118,7 +95,7 @@ export const MotivationStep = ({
             name="previousExperiences"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Please specify which ones and the result obtained<RequiredAsterisk /></FormLabel>
+                <FormLabel>Veuillez préciser lesquels et le résultat obtenu.<RequiredAsterisk /></FormLabel>
                 <FormControl>
                 <Textarea
                   placeholder="Tell us about your achievements"
@@ -137,18 +114,18 @@ export const MotivationStep = ({
         {/* Has Previous Experiences */}
         <FormField
           control={form.control}
-          name="hasPreviousMathMarocParticipations"
+          name="hasPreviousMTYMParticipations"
           render={({ field }) => (
             <FormItem className="space-y-3">
               
-              <FormLabel>Have you ever taken part in Math Maroc Competition (MMC)?<RequiredAsterisk /></FormLabel>
+              <FormLabel>Avez-vous participé à MTYM en Mai 2024 ou en Décembre 2024 ?<RequiredAsterisk /></FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={(value) => {
-                    setHasPreviousMathMarocParticipations(value === 'yes')
+                    setHasPreviousMTYMParticipations(value === 'yes')
                     if (value === 'no') {
-                      form.setValue('previousExperiences', '')
-                      form.clearErrors('previousExperiences')
+                      form.setValue('previousMTYMParticipations', '')
+                      form.clearErrors('previousMTYMParticipations')
                     }
                     field.onChange(value)}
                   }
@@ -179,13 +156,13 @@ export const MotivationStep = ({
         />
 
         {/* Previous Experiences */}
-        {hasPreviousMathMarocParticipations && 
+        {hasPreviousMTYMParticipations && 
           <FormField
             control={form.control}
-            name="previousMathMarocParticipations"
+            name="previousMTYMParticipations"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Please specify in which edition (2023 or 2024) and what was your ranking (<Link className="text-blue-500 underline" href='/past-editions' target="_blank">results link</Link>)?<RequiredAsterisk /></FormLabel>
+                <FormLabel>Veuillez préciser le nom de votre équipe<RequiredAsterisk /></FormLabel>
                 <FormControl>
                 <Textarea
                   placeholder="Tell us about your achievements"
@@ -201,13 +178,34 @@ export const MotivationStep = ({
       </div>
 
       <div className='mt-6 grid grid-cols-1 gap-4 justify-between'>
+        {/* Motivations */}
+        <FormField
+          control={form.control}
+          name="motivations"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Quelles sont vos motivations pour participer à MTYM ?<RequiredAsterisk /></FormLabel>
+              <FormControl>
+              <Textarea
+                placeholder="Maximum 300 words"
+                className="resize-none"
+                {...field}
+              />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
+      <div className='mt-6 grid grid-cols-1 gap-4 justify-between'>
         {/* Comments */}
         <FormField
           control={form.control}
           name="comments"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Remarks / Comments</FormLabel>
+              <FormLabel>Remarques / Commentaires</FormLabel>
               <FormControl>
               <Textarea
                 placeholder="Anything to add?"

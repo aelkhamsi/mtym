@@ -11,11 +11,7 @@ export default function ApplicationPage() {
   const router = useRouter();
 
   if (user) {
-    if (user?.application && user?.application?.status?.status !== 'DRAFT') {
-      return <ApplicationForm user={user} />
-    } else {
-      router.push('/profile/application')
-    }
+    return <ApplicationForm user={user} />
   } else { 
     return <ProfileSkeleton />
   }

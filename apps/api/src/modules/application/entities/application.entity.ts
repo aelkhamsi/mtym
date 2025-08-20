@@ -52,56 +52,51 @@ export class Application {
   @Column({ type: 'varchar', default: '' })
   phoneNumber: string;
 
-  @Column({ type: 'varchar', default: '' })
-  emergencyContactFullName: string;
-
-  @Column({ type: 'varchar', default: '' })
-  emergencyContactPhoneNumber: string;
-
-  @Column({ type: 'varchar', default: '' })
-  emergencyContactRelationship: string;
-
   /* Education */
   @Column({ type: 'varchar', default: '' })
   educationLevel: string;
 
   @Column({ type: 'varchar', default: '' })
-  universityType: string;
-
-  @Column({ type: 'varchar', default: '' })
-  universityName: string;
-
-  @Column({ type: 'varchar', default: '' })
   educationField: string;
 
-  /* Motivations */
-  @Column({ type: 'text', nullable: true })
-  motivations: string;
+  @Column({ type: 'varchar', default: '' })
+  highschool: string;
 
   @Column({ type: 'varchar', default: '' })
-  hasPreviousMathMarocParticipations: string;
+  averageGrade: string;
 
-  @Column({ type: 'text', nullable: true })
-  previousMathMarocParticipations: string;
+  @Column({ type: 'varchar', default: '' })
+  mathAverageGrade: string;
 
+  @Column({ type: 'varchar', default: '' })
+  ranking: string;
+
+  @Column({ type: 'varchar', default: '' })
+  mathRanking: string;
+
+  @Column({ type: 'varchar', default: '' })
+  numberOfStudentsInClass: string;
+
+  /* Motivations */
   @Column({ type: 'varchar', default: '' })
   hasPreviousExperiences: string;
 
   @Column({ type: 'text', nullable: true })
   previousExperiences: string;
 
+  @Column({ type: 'varchar', default: '' })
+  hasPreviousMTYMParticipations: string;
+
+  @Column({ type: 'text', nullable: true })
+  previousMTYMParticipations: string;
+
+  @Column({ type: 'text', nullable: true })
+  motivations: string;
+
   @Column({ type: 'text', nullable: true })
   comments: string;
 
   /* Uploads */
-  @Column({ type: 'varchar', nullable: true })
-  fileCnieUrl: string;
-
-  @Column({ type: 'varchar', nullable: true })
-  fileSchoolCertificateUrl: string;
-
-  @Column({ type: 'varchar', nullable: true })
-  fileGradesUrl: string;
 
   @Column({ type: 'varchar', nullable: true })
   fileRegulationsUrl: string;

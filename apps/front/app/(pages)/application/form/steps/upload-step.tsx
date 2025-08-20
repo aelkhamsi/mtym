@@ -11,8 +11,7 @@ import {
 } from "@mdm/ui"
 import Link from 'next/link';
 import { FileInput } from '../components/file-input';
-
-const RequiredAsterisk = () => <span className="text-red-500"> * </span>;
+import { RequiredAsterisk } from '@/app/components/forms/required-asterisk';
 
 export const UploadStep = ({
   form,
@@ -43,52 +42,11 @@ export const UploadStep = ({
       </h2>
 
       <p className='mt-1 text-sm leading-6 text-gray-600'>
-        Provide the student&apos;s personal documents
+        Uploader les documents relatifs à votre candidature
         <Separator className='mt-4 bg-[#0284C7]'/>
       </p>
 
       <div className='mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 justify-between'>
-        {/* CNIE */}
-        <FormField
-          control={form.control}
-          name="fileCnie"
-          render={({ field }) => {
-            initFileInput(field, "fileCnie")
-
-            return (
-              <FormItem>
-                <FormLabel>CNIE (recto & verso) <RequiredAsterisk /></FormLabel>
-                <FormControl>
-                  <FileInput form={form} id="fileCnie" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )
-          }}
-        />
-
-        {/* School Certificate */}
-        <FormField
-          control={form.control}
-          name="fileSchoolCertificate"
-          render={({ field }) => {
-            initFileInput(field, "fileSchoolCertificate")
-
-            return (
-              <FormItem>
-                <FormLabel>Schooling certificate for the year 2024-2025<RequiredAsterisk /></FormLabel>
-                <FormControl>
-                  <FileInput form={form} id="fileSchoolCertificate" />
-                </FormControl>
-                <FormDescription>
-                  <span className="text-blue-500">Remark</span>: If you can't obtain them, please email us to request an exception
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )
-          }}
-        />
-
         {/* REGULATIONS */}
         <FormField
           control={form.control}
@@ -98,34 +56,12 @@ export const UploadStep = ({
 
             return (
               <FormItem>
-                <FormLabel>Regulations signed (<Link className="text-blue-500 underline" href='https://drive.google.com/file/d/1spkc0-KyaBbeq9sWT2x8Vj0EEoO-FGi7/view?usp=sharing' target="_blank">file</Link>)<RequiredAsterisk /></FormLabel>
+                <FormLabel>Règlement signé (<Link className="text-blue-500 underline" href='https://drive.google.com/file/d/1spkc0-KyaBbeq9sWT2x8Vj0EEoO-FGi7/view?usp=sharing' target="_blank">file</Link>)<RequiredAsterisk /></FormLabel>
                 <FormControl>
                   <FileInput form={form} id="fileRegulations" />
                 </FormControl>
                 <FormDescription>
-                    <span className="text-blue-500">Remark</span>:  print it out, sign it by hand, then scan it. <span className="font-bold">No need to legalize.</span>.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )
-          }}
-        />
-
-        {/* GRADES */}
-        <FormField
-          control={form.control}
-          name="fileGrades"
-          render={({ field }) => {
-            initFileInput(field, "fileGrades")
-
-            return (
-              <FormItem>
-                <FormLabel>Last bulletin obtained<RequiredAsterisk /></FormLabel>
-                <FormControl>
-                  <FileInput form={form} id="fileGrades" />
-                </FormControl>
-                <FormDescription>
-                  <span className="text-blue-500">Remark</span>: If you can't obtain them, please email us to request an exception
+                    <span className="text-blue-500">Remarque</span>: À imprimer, signer puis scanner. <span className="font-bold">Pas besoin de légaliser.</span>.
                 </FormDescription>
                 <FormMessage />
               </FormItem>

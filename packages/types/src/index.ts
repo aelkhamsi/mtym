@@ -1,1 +1,2 @@
-export { default as User } from './User'
+export { type User } from './User'
+export { type Option } from './Option'

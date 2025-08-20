@@ -18,12 +18,13 @@ const CtaButton = ({
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
-  const handleClickResults = () => {
-    router.push('/results')
-  }
-
-  const handleClickSolutions = () => {
-    router.push('/solutions')
+  const handleCtaClick = () => {
+    if (user) {
+      setIsLoading(true)
+      router.push('/profile/application')
+    } else {
+      setShowAuthModal(true)
+    }
   }
 
   return (
@@ -32,29 +33,14 @@ const CtaButton = ({
       
       <button 
         className="relative inline-flex h-11 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
-        onClick={handleClickResults}
+        onClick={handleCtaClick}
       >
         <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#1C55FF_0%,#FF4925_50%,#1C55FF_100%)]" />
         <span className="inline-flex h-full w-full gap-x-2 cursor-pointer items-center justify-center rounded-full bg-white px-6 py-1 text-black backdrop-blur-3xl">
           <Scroll className='h-5 w-5'/>
 
           {!isLoading
-            ? label ?? 'Results'
-            : <LoadingDots color="#808080" />
-          }
-        </span>
-      </button>
-
-      <button 
-        className="relative inline-flex h-11 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
-        onClick={handleClickSolutions}
-      >
-        <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#1C55FF_0%,#FF4925_50%,#1C55FF_100%)]" />
-        <span className="inline-flex h-full w-full gap-x-2 cursor-pointer items-center justify-center rounded-full bg-white px-6 py-1 text-black backdrop-blur-3xl">
-          <Scroll className='h-5 w-5'/>
-
-          {!isLoading
-            ? label ?? 'Exams & Solutions'
+            ? label ?? 'Participer'
             : <LoadingDots color="#808080" />
           }
         </span>

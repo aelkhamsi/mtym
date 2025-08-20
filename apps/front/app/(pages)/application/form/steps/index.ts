@@ -7,27 +7,27 @@ type Step = {
 export const steps: Step[] = [
   {
     id: 'Step 1',
-    name: 'Personal Informations',
-    getValidationFields: (_) => (['firstName', 'lastName', 'dateOfBirth', 'identityCardNumber', 'city', 'region', 'phoneNumber', 'emergencyContactFullName', 'emergencyContactPhoneNumber', 'emergencyContactRelationship'])
+    name: 'Informations personnelles',
+    getValidationFields: (_) => (['firstName', 'lastName', 'dateOfBirth', 'city', 'region', 'phoneNumber'])
   },
   {
     id: 'Step 2',
-    name: 'Education',
-    getValidationFields: (_) => ['educationLevel', 'universityType', 'universityName', 'educationField']
+    name: 'Éducation',
+    getValidationFields: (_) => (['educationLevel', 'educationField', 'highschool', 'averageGrade', 'mathAverageGrade', 'ranking', 'mathRanking', 'numberOfStudentsInClass'])
   },
   {
     id: 'Step 3',
     name: 'Motivations',
     getValidationFields: (formState) => {
-      const hasPreviousMathMarocParticipations = formState?.hasPreviousMathMarocParticipations === 'yes'
+      const hasPreviousMTYMParticipations = formState?.hasPreviousMTYMParticipations === 'yes'
       const hasPreviousExperiences = formState?.hasPreviousExperiences === 'yes'
 
       return [
-        'motivations', 
-        'hasPreviousMathMarocParticipations', 
-        ...(hasPreviousMathMarocParticipations ? ['previousMathMarocParticipations'] : []),
+        'hasPreviousMTYMParticipations', 
+        ...(hasPreviousMTYMParticipations ? ['previousMTYMParticipations'] : []),
         'hasPreviousExperiences',
         ...(hasPreviousExperiences ? ['previousExperiences'] : []),
+        'motivations',
         'comments'
       ]
     }
@@ -38,9 +38,6 @@ export const steps: Step[] = [
     getValidationFields: (formState) => {
       const isFileUploaded = (key: string) => !!formState?.[`${key}Url`]
       return [
-        !isFileUploaded('fileCnie') ? 'fileCnie' : '',
-        !isFileUploaded('fileSchoolCertificate') ? 'fileSchoolCertificate' : '',
-        !isFileUploaded('fileGrades') ? 'fileGrades' : '',
         !isFileUploaded('fileRegulations') ? 'fileRegulations' : '',
       ]
     }

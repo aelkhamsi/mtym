@@ -63,7 +63,7 @@ export function UserNav({
           <DropdownMenuItem
             onClick={() => router.push('/profile/account')}
           >
-            Profile
+            Profil
           </DropdownMenuItem>
         </DropdownMenuGroup>
         
@@ -72,7 +72,7 @@ export function UserNav({
         <DropdownMenuItem
           onClick={handleLogOut}
         >
-          Log out
+          Se déconnecter
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

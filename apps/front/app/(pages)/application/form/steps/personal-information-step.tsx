@@ -7,7 +7,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@mdm/ui"
-import { Textarea } from "@mdm/ui"
 import {
   Select,
   SelectGroup,
@@ -26,9 +25,11 @@ import {
 import { Calendar } from "@mdm/ui"
 import { CalendarIcon } from "@mdm/ui"
 import { PhoneInput } from "@mdm/ui"
-import { cn, isOverEighteen } from '@mdm/utils'
+import { cn } from '@mdm/utils'
 import { Button } from "@mdm/ui"
 import { format } from "@mdm/ui"
+import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
+import SelectOrInput from '@/app/components/forms/select-or-Input'
 
 const regions = [
   {label: "Tanger-Tétouan-Al Hoceïma", value:"tanger-tetouan-al-houceima"},
@@ -46,14 +47,49 @@ const regions = [
   {label: "Abroad", value:"abroad"},
 ]
 
-const relationshipsWithGuardian = [
-  {label: "Father", value:"father"},
-  {label: "Mother", value:"mother"},
-  {label: "Tutor", value:"guardian"},
-  {label: "Other", value:"other"},
+const cities = [
+  { label: "Agadir", value: "agadir" },
+  { label: "Aït Melloul", value: "ait-melloul" },
+  { label: "Al Hoceima", value: "al-hoceima" },
+  { label: "Ben Guerir", value: "ben-guerir" },
+  { label: "Beni Mellal", value: "beni-mellal" },
+  { label: "Berrechid", value: "berrechid" },
+  { label: "Berkane", value: "berkane" },
+  { label: "Bouskoura", value: "bouskoura" },
+  { label: "Casablanca", value: "casablanca" },
+  { label: "El Jadida", value: "el-jadida" },
+  { label: "Errachidia", value: "errachidia" },
+  { label: "Essaouira", value: "essaouira" },
+  { label: "Fez", value: "fez" },
+  { label: "Guelmim", value: "guelmim" },
+  { label: "Guercif", value: "guercif" },
+  { label: "Ifrane", value: 'ifrane' },
+  { label: "Kenitra", value: "kenitra" },
+  { label: "Khouribga", value: "khouribga" },
+  { label: "Khemisset", value: "khemisset" },
+  { label: "Khenifra", value: "khenifra" },
+  { label: "Larache", value: "larache" },
+  { label: "Marrakesh", value: "marrakesh" },
+  { label: "Meknes", value: "meknes" },
+  { label: "Mohammedia", value: "mohammedia" },
+  { label: "Nador", value: "nador" },
+  { label: "Ouarzazate", value: "ouarzazate" },
+  { label: "Oujda", value: "oujda" },
+  { label: "Rabat", value: "rabat" },
+  { label: "Safi", value: "safi" },
+  { label: "Salé", value: "sale" },
+  { label: "Sefrou", value: "sefrou" },
+  { label: "Settat", value: "settat" },
+  { label: "Tan-Tan", value: "tan-tan" },
+  { label: "Tangier", value: "tangier" },
+  { label: "Taroudant", value: "taroudant" },
+  { label: "Taza", value: "taza" },
+  { label: "Temara", value: "temara" },
+  { label: "Tetouan", value: "tetouan" },
+  { label: "Tifelt", value: "tifelt" },
+  { label: "Tiznit", value: "tiznit" },
+  { label: "(Autre)", value: 'other' }
 ]
-
-const RequiredAsterisk = () => <span className="text-red-500"> * </span>;
 
 export const PersonalInformationStep = ({
   form,
@@ -70,7 +106,7 @@ export const PersonalInformationStep = ({
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
       <h2 className='text-base font-semibold leading-7 text-[#0284C7]'>
-        Personal Informations
+        Informations personnelles
       </h2>
       <Separator className='my-6 bg-[#0284C7]'/>
 
@@ -81,7 +117,7 @@ export const PersonalInformationStep = ({
           name="firstName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>First Name <RequiredAsterisk /></FormLabel>
+              <FormLabel>Prénom <RequiredAsterisk /></FormLabel>
               <FormControl>
                 <Input disabled placeholder="Entrez une valeur" {...field} />
               </FormControl>
@@ -96,7 +132,7 @@ export const PersonalInformationStep = ({
           name="lastName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last Name <RequiredAsterisk /></FormLabel>
+              <FormLabel>Nom <RequiredAsterisk /></FormLabel>
               <FormControl>
                 <Input disabled placeholder="Entrez une valeur" {...field} />
               </FormControl>
@@ -111,7 +147,7 @@ export const PersonalInformationStep = ({
           name="dateOfBirth"
           render={({ field }) => (
             <FormItem className="flex flex-col mt-2">
-              <FormLabel>Date of birth <RequiredAsterisk /></FormLabel>
+              <FormLabel>Date de naissance <RequiredAsterisk /></FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -125,7 +161,7 @@ export const PersonalInformationStep = ({
                       {field.value ? (
                         format(field.value, "PPP")
                       ) : (
-                        <span>Choose a date</span>
+                        <span>Choisissez une date</span>
                       )}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
@@ -155,7 +191,7 @@ export const PersonalInformationStep = ({
           name="identityCardNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>CNIE Number<RequiredAsterisk /></FormLabel>
+              <FormLabel>CNIE</FormLabel>
               <FormControl>
                 <Input placeholder="Enter a value" {...field} />
               </FormControl>
@@ -165,19 +201,30 @@ export const PersonalInformationStep = ({
         />
 
         {/* City */}
-        <FormField
+
+        {/* <FormField
           control={form.control}
           name="city"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>City of residency<RequiredAsterisk /></FormLabel>
+              <FormLabel>Ville de résidence<RequiredAsterisk /></FormLabel>
               <FormControl>
                 <Input placeholder="Enter a value" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
+
+        <SelectOrInput
+          name="city"
+          form={form}
+          label="Ville de résidence"
+          options={cities}
+          required={true}
+        ></SelectOrInput>
+        
+        
 
         {/* Region */}
         <FormField
@@ -185,7 +232,7 @@ export const PersonalInformationStep = ({
           name="region"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Region of residency<RequiredAsterisk /></FormLabel>
+              <FormLabel>Région de résidence<RequiredAsterisk /></FormLabel>
               <FormControl>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <SelectTrigger>
@@ -193,7 +240,7 @@ export const PersonalInformationStep = ({
                   </SelectTrigger>
                   <SelectContent className="max-h-60">
                     <SelectGroup>
-                      <SelectLabel>Regions</SelectLabel>
+                      <SelectLabel>Régions</SelectLabel>
                       {regions.map(region =>
                         <SelectItem key={region.value} value={region.value}>{region.label}</SelectItem>
                       )}
@@ -212,73 +259,9 @@ export const PersonalInformationStep = ({
           name="phoneNumber"
           render={({ field }) => (
             <FormItem className="flex flex-col mt-2 items-start">
-              <FormLabel className="text-left">Phone Number <RequiredAsterisk /></FormLabel>
+              <FormLabel className="text-left">Téléphone <RequiredAsterisk /></FormLabel>
               <FormControl className="w-full">
                 <PhoneInput onValueChange={field.onChange} defaultValue={field.value} defaultCountry='MA' />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
-      
-      <h2 className='text-base font-semibold leading-7 text-[#0284C7] mt-6'>
-        Emergency Contact Informations
-      </h2>
-      <Separator className='mt-4 bg-[#0284C7]'/>
-
-      <div className='mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-between'>
-        {/* Guardian Full Name */}
-        <FormField
-          control={form.control}
-          name="emergencyContactFullName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Full Name of Emergency Contact<RequiredAsterisk /></FormLabel>
-              <FormControl>
-                <Input placeholder="Enter a full name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-    
-        {/* Guardian Phone Number */}
-        <FormField
-          control={form.control}
-          name="emergencyContactPhoneNumber"
-          render={({ field }) => (
-            <FormItem className="flex flex-col mt-2 items-start">
-              <FormLabel className="text-left">Phone Number of Emergency Contact <RequiredAsterisk /></FormLabel>
-              <FormControl className="w-full">
-                <PhoneInput onValueChange={field.onChange} defaultValue={field.value} defaultCountry='MA' />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Relationship with Guardian */}
-        <FormField
-          control={form.control}
-          name="emergencyContactRelationship"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Relationship with this person<RequiredAsterisk /></FormLabel>
-              <FormControl>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Choose an option" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Relationship with Emergency contact</SelectLabel>
-                      {relationshipsWithGuardian.map(relationship => 
-                        <SelectItem key={relationship.value} value={relationship.value}>{relationship.label}</SelectItem>
-                      )}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select> 
               </FormControl>
               <FormMessage />
             </FormItem>
