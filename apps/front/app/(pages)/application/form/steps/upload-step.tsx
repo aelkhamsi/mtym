@@ -68,6 +68,25 @@ export const UploadStep = ({
             )
           }}
         />
+
+        {/* GRADES */}
+        <FormField
+          control={form.control}
+          name="fileGrades"
+          render={({ field }) => {
+            initFileInput(field, "fileGrades")
+
+            return (
+              <FormItem>
+                <FormLabel>Bulletin de notes (année 2024/2025)<RequiredAsterisk /></FormLabel>
+                <FormControl>
+                  <FileInput form={form} id="fileGrades" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
+        />
       </div>
     </motion.div>
   )

@@ -39,6 +39,7 @@ export const steps: Step[] = [
       const isFileUploaded = (key: string) => !!formState?.[`${key}Url`]
       return [
         !isFileUploaded('fileRegulations') ? 'fileRegulations' : '',
+        !isFileUploaded('fileGrades') ? 'fileGrades' : '',
       ]
     }
   },

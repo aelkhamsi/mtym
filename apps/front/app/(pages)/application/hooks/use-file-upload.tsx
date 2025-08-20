@@ -10,10 +10,10 @@ export const useFileUpload = () => {
   const getFiles = (
     formData: z.infer<typeof applicationSchema>
   ) => {
-    const { fileRegulations } = formData;
-    const uploadFileNames = ['regulations']
+    const { fileRegulations, fileGrades } = formData;
+    const uploadFileNames = ['regulations', 'grades']
       .map(name => `${name}_${generateFileName()}`)
-    const files = [fileRegulations]
+    const files = [fileRegulations, fileGrades]
       .map((files, index) => {
         if (files && files.length) {
           return new File(
@@ -52,6 +52,7 @@ export const useFileUpload = () => {
     const uploadFolderName = getUploadFolderName(user?.firstName, user?.lastName);
     const fileUrls = {
       fileRegulationsUrl: files[0] ? `upload_mmc/${uploadFolderName}/${files[0].name}` : (formData?.fileRegulationsUrl ?? null),
+      fileGradesUrl: files[1] ? `upload_mmc/${uploadFolderName}/${files[1].name}` : (formData?.fileGradesUrl ?? null),
     }
 
     const result = await putApplication(formData?.id, fileUrls) as any

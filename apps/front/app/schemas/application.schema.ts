@@ -43,6 +43,7 @@ export const applicationSchema: ZodSchema = z.object({
 
   /* Uploads */
   fileRegulations: zodFileValidation,
+  fileGrades: zodFileValidation,
 
   /* Terms of agreement */
   termsAgreement: z.boolean().default(false).refine(value => value === true, { message: "Vous devez accepter les Conditions Générales."}),
@@ -78,6 +79,7 @@ export const applicationDefaultValues = {
 
   /* Uploads */
   fileRegulations: undefined,
+  fileGrades: undefined,
 
 
   /* Terms of agreement */
