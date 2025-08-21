@@ -83,7 +83,7 @@ export const JoinTeamForm = ({
                         ? teamsOptions?.find(
                             (team) => team.value === field.value
                           )?.label
-                        : "Select a team"
+                        : "Selectionnez une équipe"
                       }
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
@@ -117,7 +117,7 @@ export const JoinTeamForm = ({
                                 {team.label}
                               </div>
 
-                              <div className='ml-6'> <span className='text-gray-500'>Leader d&apos;équipe: </span>{team.leader}</div>
+                              <div className='ml-6'> <span className='text-gray-500'>Créateur de l&apos;équipe: </span>{team.leader}</div>
                             </div>
                             
                           </CommandItem>
@@ -148,7 +148,7 @@ export const JoinTeamForm = ({
                 <Input placeholder="Entrez votre code d&apos;accès" {...field} />
               </FormControl>
               <FormDescription>
-                Vous recevrez un code d&apos;accès de la part de votre chef d&apos;équipe pour vous permettre d&apos;accéder à cette équipe.
+                Vous recevrez un code d&apos;accès de la part du créateur de l&apos;équipe pour vous permettre d&apos;accéder à cette équipe.
               </FormDescription>
               <FormMessage />
             </FormItem>

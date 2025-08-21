@@ -73,7 +73,7 @@ export const CreateTeamForm = ({
             <FormItem>
               <FormLabel>Quadrigramme <RequiredAsterisk /></FormLabel>
               <FormControl>
-                <Input placeholder="Quadrigram de l'équipe" {...field} />
+                <Input placeholder="Quadrigramme de l'équipe" {...field} />
               </FormControl>
               <FormMessage />
               <FormDescription>

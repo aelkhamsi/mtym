@@ -31,7 +31,7 @@ export const CreateOrJoinTeamStep = ({
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-transparent px-2 text-muted-foreground">
-              Or
+              Ou
             </span>
           </div>
         </div>
