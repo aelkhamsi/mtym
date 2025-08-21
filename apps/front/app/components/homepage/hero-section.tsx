@@ -1,5 +1,4 @@
 import React from 'react'
-import TextureBg from '../texture-bg'
 import Link from 'next/link'
 import Image from 'next/image'
 import CtaButton from '../cta/cta-button'
@@ -8,40 +7,37 @@ import { BookIcon, CalendarMDMIcon, LocationIcon } from '@mdm/ui'
 
 const HeroSection = () => {
   return (
-    <TextureBg
-      className='bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-transparent via-[#fff9f3] to-transparent'
-    > 
-      {/* Hero Section */}
-      <div className="w-full flex flex-col items-center max-w-2xl">
+    <div className='w-full flex flex-col justify-center items-center pb-6 pt-24 bg-[#244B3A]'>
+      <div className="w-full flex flex-col items-center max-w-2xl text-white">
         {/* Logo */}
         <div 
           className="animate-fade-up opacity-0 z-10 md:p-0"
           style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
         >
           <Image
-            src="/mmc.png"
-            alt="MMC logo"
+            src="/mtym.svg"
+            alt="MTYM logo"
             width='400'
             height='150'
           />
         </div>
 
         <div className="w-[25rem] md:w-[80rem] relative mb-6">
-          <div className="absolute inset-x-40 top-0 bg-gradient-to-r from-transparent via-cyan-100 to-transparent h-[2px] md:w-3/4 blur-sm" />
-          <div className="absolute inset-x-40 top-0 bg-gradient-to-r from-transparent via-cyan-100 to-transparent h-px md:w-3/4" />
-          <div className="absolute inset-x-80 top-0 bg-gradient-to-r from-transparent via-[#252162] to-transparent h-[5px] md:w-2/4 blur-sm" />
-          <div className="absolute inset-x-80 top-0 bg-gradient-to-r from-transparent via-cyan-600 to-transparent h-px md:w-2/4" />
+          <div className="absolute inset-x-40 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-[2px] md:w-3/4 blur-sm" />
+          <div className="absolute inset-x-40 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-px md:w-3/4" />
+          <div className="absolute inset-x-80 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-[5px] md:w-2/4 blur-sm" />
+          <div className="absolute inset-x-80 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-px md:w-2/4" />
         </div>
 
-        <div className='space-y-6'>
+        <div className='space-y-8'>
           {/* Hero Title */}
           <div className='space-y-2'>
             <h1
               className="animate-fade-up opacity-0 text-center font-display text-4xl font-bold tracking-[0.05em] text-wrap:balance md:text-5xl md:leading-[3rem]"
               style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
             >
-              <span className='text-[#000102] font-neco'>
-                The results of MMC 2025 are available!
+              <span className='font-neco'>
+                Les inscriptions pour MTYM 2025 sont désormais ouvertes!
               </span>
             </h1>
           </div>
@@ -50,25 +46,23 @@ const HeroSection = () => {
           <div className='flex flex-col items-start space-y-2 gap-x-8 md:flex-row md:justify-center md:space-y-0'>
             <div className='flex items-center justify-center w-auto md:w-1/3 min-h-[4rem] space-x-2'>
               <CalendarMDMIcon className='h-12'/>
-              <div className="text-sm font-semibold text-gray-600">
-                <span className='text-[#252162]'> July 25th</span> to <br/> 
-                <span className='text-[#252162]'> July 29th</span>  2025
+              <div className="text-sm font-semibold text-[#629F73]"> 
+                du <span className='text-white'> 25</span> au <span className='text-white'>28</span> décembre 2025
               </div>
             </div>
 
             <div className='flex items-center justify-center w-auto md:w-1/3 min-h-[4rem] space-x-2'>
               <BookIcon className='h-12' />
-              <div className="text-sm font-semibold text-gray-600">
-                Top students from
-                <span className='text-[#252162]'> Bac+1</span> to
-                <span className='text-[#252162]'> Bac+4</span>
+              <div className="text-sm font-semibold text-[#629F73]">
+                Lycéens d&apos;orientation scientifique
               </div>
             </div>
 
             <div className='flex items-center justify-center w-auto md:w-1/3 min-h-[4rem] space-x-2'>
               <LocationIcon className='h-12' />
-              <div className="text-sm font-semibold text-gray-600 text-center">
-                <span className='text-[#252162]'>UM6P | College of Computing</span>,<br/> Benguerir
+              <div className="text-sm font-semibold text-[#629F73] text-center">
+                <span className='text-white'>Université Al Akhawayn</span> <br/> 
+                Ifrane
               </div>
             </div>
           </div>
@@ -134,7 +128,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </TextureBg>
+    </div>
   )
 }
 

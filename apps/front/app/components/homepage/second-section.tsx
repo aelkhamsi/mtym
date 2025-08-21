@@ -31,7 +31,7 @@ const images = [
 
 const SecondSection = () => {
   return (    
-    <div className='relative isolate overflow-hidden w-full flex flex-col justify-center items-center py-14 bg-[url(/logomark_beige.svg)] bg-no-repeat bg-center shadow-xl shadow-slate-800'>
+    <div className='relative isolate overflow-hidden w-full flex flex-col justify-center items-center py-14 bg-white shadow-xl shadow-slate-800'>
       <div
         className="flex flex-col w-full space-y-4 md:flex-row md:justify-between md:space-x-8 lg:w-3/4 text-base mb-12 md:mb-20"
       >

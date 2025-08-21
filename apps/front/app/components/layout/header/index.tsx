@@ -33,14 +33,14 @@ export default function Header() {
       <div
         className={`fixed top-0 flex w-full justify-center ${
           scrolled
-            ? "border-b border-gray-200 bg-white/50 backdrop-blur-xl"
-            : "bg-white/0"
+            ? "border-b border-gray-200 bg-white/50 text-black backdrop-blur-xl"
+            : "bg-white/0 text-white"
         } z-30 transition-all`}
       >
         <div className="mx-5 flex h-16 w-full lg:w-3/4 items-center justify-between">
           <Link href="/" className="flex items-center font-display text-2xl">
             <Image
-              src="/logomark.png"
+              src="/mtym_square.svg"
               alt="MMC logo"
               width={45}
               height={45}
