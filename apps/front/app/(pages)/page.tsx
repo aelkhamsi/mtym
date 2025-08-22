@@ -41,9 +41,9 @@ export default async function Home() {
 
       <div className="panel w-full">
         <SecondSection />
+        <ThirdSection />
         <FourthSection />
-        <SecondSection />
-        <FourthSection />
+        <FifthSection />
       </div>
     </>
   );

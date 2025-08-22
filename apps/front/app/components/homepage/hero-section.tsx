@@ -10,9 +10,9 @@ const HeroSection = () => {
     <div className='w-full flex flex-col justify-center items-center pb-6 pt-24 bg-[#244B3A]'>
       <div className="w-full flex flex-col items-center max-w-2xl text-white">
         {/* Logo */}
-        <div 
-          className="animate-fade-up opacity-0 z-10 md:p-0"
-          style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
+        <div
+          className="flex flex-col items-center animate-fade-up opacity-0 z-10 md:p-0 "
+          style={{ animationDelay: "0.10s", animationFillMode: "forwards" }}
         >
           <Image
             src="/mtym.svg"
@@ -20,21 +20,24 @@ const HeroSection = () => {
             width='400'
             height='150'
           />
+
+          <div className="w-[25rem] md:w-[80rem] relative mb-6">
+            <div className="absolute inset-x-40 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-[2px] md:w-3/4 blur-sm" />
+            <div className="absolute inset-x-40 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-px md:w-3/4" />
+            <div className="absolute inset-x-80 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-[5px] md:w-2/4 blur-sm" />
+            <div className="absolute inset-x-80 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-px md:w-2/4" />
+          </div>
         </div>
 
-        <div className="w-[25rem] md:w-[80rem] relative mb-6">
-          <div className="absolute inset-x-40 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-[2px] md:w-3/4 blur-sm" />
-          <div className="absolute inset-x-40 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-px md:w-3/4" />
-          <div className="absolute inset-x-80 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-[5px] md:w-2/4 blur-sm" />
-          <div className="absolute inset-x-80 top-0 bg-gradient-to-r from-transparent via-[#F6A806] to-transparent h-px md:w-2/4" />
-        </div>
-
-        <div className='space-y-8'>
+        
+        <div 
+          className='space-y-8 animate-fade-up opacity-0'
+          style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
+        >
           {/* Hero Title */}
           <div className='space-y-2'>
             <h1
-              className="animate-fade-up opacity-0 text-center font-display text-4xl font-bold tracking-[0.05em] text-wrap:balance md:text-5xl md:leading-[3rem]"
-              style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
+              className="text-center font-display text-4xl font-bold tracking-[0.05em] text-wrap:balance md:text-5xl md:leading-[3rem]"
             >
               <span className='font-neco'>
                 Les inscriptions pour MTYM 2025 sont désormais ouvertes!
@@ -69,8 +72,7 @@ const HeroSection = () => {
 
           {/* CTA buttons */}
           <div
-            className="mx-auto flex animate-fade-up items-center justify-center space-x-5 opacity-0"
-            style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+            className="mx-auto flex items-center justify-center space-x-5"
           >
             <CtaButton />
             <FaqButton />
@@ -78,8 +80,7 @@ const HeroSection = () => {
 
           {/* Organizer & sponsors */}
           <div
-            className="flex flex-col items-center justify-between w-full space-y-4 md:flex-row md:space-y-0 animate-fade-up opacity-0 "
-            style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
+            className="flex flex-col items-center justify-between w-full space-y-4 md:flex-row md:space-y-0"
           >
             <div className='flex items-center space-x-4'>
               <p className='text-sm text-gray-500'>

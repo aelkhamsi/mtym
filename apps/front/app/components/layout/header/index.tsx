@@ -25,7 +25,7 @@ const NavBarActionButtonContent = ({
 
 export default function Header() {
   const { AuthModal, setShowAuthModal } = useAuthModal();
-  const scrolled = useScroll(50)
+  const scrolled = useScroll(600)
 
   return (
     <>
