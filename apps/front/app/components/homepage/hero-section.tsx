@@ -111,14 +111,14 @@ const HeroSection = () => {
                 Organized by
               </p>
 
-              <Link className="h-[3.5rem] flex items-center bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#d38e31]/[.15] via-transparent to-transparent" href="/partners">
+              <Link className="h-[3.5rem] flex items-center bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#F6A806]/[.15] via-transparent to-transparent" href="/partners">
                 <Image
                   src="/mm.png"
                   alt="Math&Maroc Logo"
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="h-10 w-auto filter grayscale brightness-100 contrast-125 hover:grayscale-0 hover:brightness-100 hover:contrast-100"
+                  className="h-10 w-auto filter grayscale brightness-100 contrast-125 invert hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:invert-0"
                 />
               </Link>
             </div>
@@ -128,25 +128,25 @@ const HeroSection = () => {
                 Trusted by
               </p>
               
-              <Link className="h-[3.5rem] flex items-center bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#d38e31]/[.15] via-transparent to-transparent" href="/partners">
+              <Link className="h-[3.5rem] flex items-center bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#F6A806]/[.15] via-transparent to-transparent" href="/partners">
                 <Image
                   src="/adria_official_partner.png"
                   alt="Adria Logo"
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="h-12 w-auto filter grayscale brightness-50 contrast-125 hover:grayscale-0 hover:brightness-100 hover:contrast-100"
+                  className="h-12 w-auto filter grayscale brightness-50 contrast-125 invert hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:invert-0"
                 />
               </Link>
 
-              <Link className="h-[3.5rem] flex items-center bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#d38e31]/[.15] via-transparent to-transparent" href="/partners">
+              <Link className="h-[3.5rem] flex items-center bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#F6A806]/[.15] via-transparent to-transparent" href="/partners">
                 <Image
-                  src="/um6p_cc.png"
-                  alt="UM6P CC Logo"
+                  src="/aui.png"
+                  alt="AUI Logo"
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="h-11 w-auto filter grayscale brightness-70 contrast-125 hover:grayscale-0 hover:brightness-100 hover:contrast-100"
+                  className="h-11 w-auto filter grayscale brightness-70 contrast-125 invert hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:invert-0"
                 />
               </Link>
             </div>
