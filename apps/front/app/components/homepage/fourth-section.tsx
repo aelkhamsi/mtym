@@ -4,41 +4,57 @@ import { Button } from "@mdm/ui";
 
 const ParticipationStepsSection = () => {
   return (
-    <div className="w-full flex flex-col justify-center items-center py-12 px-2 space-y-6">
+    <div className="w-full flex flex-col justify-center items-center pt-12 px-2 space-y-14">
       <h1 className='text-3xl text-center font-bold font-neco'>
-        How to participate ?
+        Comment participer ?
       </h1>
 
       <div
         className="flex flex-col space-y-10 md:flex-row md:space-y-0 w-full lg:w-3/4 my-4"
       >
         <div className='w-full text-center'>
-          <span className="inline-block border border-black px-4 py-2 rounded-full text-2xl">
+          <span className="inline-block border bg-[#244B3A] text-white px-4 py-2 rounded-full text-2xl">
             1
           </span>
 
-          <div className='text-center p-6 text-lg font-semibold'>
-            Submit your application
+          <div className='text-center p-6 text-lg font-semibold text-[#244B3A]'>
+            Soumets ta candidature
           </div>
 
           <div className='text-center p-6'>
-            You have to fill and submit your application before  <span className='font-bold'>June 4th</span>
+            Vous devez remplir et soumettre votre candidature de façon individuelle avant le <span className='font-bold'>20 septembre 2025</span>.
           </div>
 
-          <CtaButton label="Application Form"/>
+          <CtaButton label="Candidature" />
         </div>
 
         <div className='w-full text-center'>
-          <span className="inline-block border border-black px-4 py-2 rounded-full text-2xl">
+          <span className="inline-block border bg-[#244B3A] text-white px-4 py-2 rounded-full text-2xl">
             2
           </span>
 
-          <div className='text-center p-6 text-lg font-semibold'>
-            Pass the Selection Test
+          <div className='text-center p-6 text-lg font-semibold text-[#244B3A]'>
+            Crée ou Rejoins ton équipe
           </div>
 
           <div className='text-center p-6'>
-            After <span className='font-bold'>June 4th</span>, participants with complete applications will be required to take a selection test.
+            Vous devez créer voter propore équipe ou rejoindre une équipe déjà existante avant le  <span className='font-bold'>20 septembre 2025</span>.
+          </div>
+
+          <CtaButton label="Équipe" href='/profile/team' />
+        </div>
+
+        <div className='w-full text-center'>
+          <span className="inline-block border bg-[#244B3A] text-white px-4 py-2 rounded-full text-2xl">
+            3
+          </span>
+
+          <div className='text-center p-6 text-lg font-semibold text-[#244B3A]'>
+            Passe le test de sélection
+          </div>
+
+          <div className='text-center p-6'>
+            Les participants ayant soumis un dossier complet et faisant partie d&apos;une équipe composée de 3 à 5 membres seront invités à passer un test de sélection le <span className="font-bold">28 septembre 2025</span>.
           </div>
 
           <Link href="selection">
@@ -48,6 +64,16 @@ const ParticipationStepsSection = () => {
           </Link>
         </div>
       </div>
+    </div>
+  )
+}
+
+const TutorialSection = () => {
+  return (
+    <div 
+      className="flex justify-center p-4"
+    >
+      <iframe width="718" height="450" src="https://www.youtube.com/embed/bLxunPmuipQ?si=h58D0wPOWl11apqj" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
     </div>
   )
 }
@@ -77,7 +103,7 @@ const FourthSection = () => {
   return (
     <div className='space-y-10 mb-10'>
       <ParticipationStepsSection />
-      <SyllabusSection />
+      <TutorialSection />
     </div>
   )
 }

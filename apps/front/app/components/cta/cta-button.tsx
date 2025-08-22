@@ -9,9 +9,11 @@ import { useState } from 'react';
 import { LoadingDots } from '@mdm/ui';
 
 const CtaButton = ({
-  label
+  label,
+  href,
 }:{
-  label?: string
+  label?: string,
+  href?: string,
 }) => {
   const { AuthModal, setShowAuthModal } = useAuthModal();
   const user = useAtomValue(userAtom)
@@ -21,7 +23,7 @@ const CtaButton = ({
   const handleCtaClick = () => {
     if (user) {
       setIsLoading(true)
-      router.push('/profile/application')
+      router.push(href ?? '/profile/application')
     } else {
       setShowAuthModal(true)
     }

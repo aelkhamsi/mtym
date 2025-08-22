@@ -89,8 +89,7 @@ const SecondSection = () => {
           <h1 className='text-center font-bold text-xl'>Retour sur les éditions précédentes</h1>
           <p>
             La dernière édition, à l&apos;instar de celle-ci, s&apos;est tenue à l&apos;Université Al Akhawayn à Ifrane (AUI).<br/>
-            L&apos;événement a connu une forte affluence de lycéens venant des quatre coins du Maroc pour relever des défis hors du cadre scolaire traditionnel.<br/>
-            En effet, 200 participants on franchi les portes du campus.
+            L&apos;événement a connu une forte affluence de plus de 200 lycéens venant des quatre coins du Maroc pour relever des défis hors du cadre scolaire traditionnel.
           </p>
         </div>
       </div>

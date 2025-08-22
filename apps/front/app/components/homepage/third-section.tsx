@@ -22,12 +22,12 @@ const ThirdSection = () => {
       </div>
 
       <div className='relative isolate overflow-hidden w-full flex flex-col justify-center items-center py-14 bg-[#122019] text-white space-y-10'>
-        <h1 className='text-3xl font-bold font-neco'>
-          You Event Journey
+        <h1 className='text-3xl font-bold font-neco text-[#F6A806]'>
+          Votre aventure MTYM
         </h1>
 
         <div className='max-w-screen-md text-center xl:p-0'>
-          Structured to educate, challenge, and connect — here&apos;s what&apos;s on the agenda
+          Tous les piliers qui font de MTYM une expérience unique
         </div>
 
         <div
