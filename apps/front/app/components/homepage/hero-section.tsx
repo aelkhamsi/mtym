@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import CtaButton from '../cta/cta-button'
@@ -10,6 +8,11 @@ import gsap from "gsap";
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (heroRef.current) {
@@ -28,11 +31,11 @@ const HeroSection = () => {
   })
 
   return (
-    <div className='w-full flex flex-col justify-center items-center pb-6 pt-24 bg-[#244B3A]'>
+    <div className='w-full flex flex-col justify-center items-center pb-8 pt-24 bg-[#244B3A]'>
       <div ref={heroRef} className="w-full flex flex-col items-center max-w-2xl text-white">
         {/* Logo */}
         <div
-          className="flex flex-col items-center animate-fade-up opacity-0 z-10 md:p-0 "
+          className={`flex flex-col items-center ${mounted ? 'animate-fade-up' : ''} opacity-0 z-10 md:p-0`}
           style={{ animationDelay: "0.10s", animationFillMode: "forwards" }}
         >
           <Image
@@ -52,7 +55,7 @@ const HeroSection = () => {
 
         
         <div 
-          className='space-y-8 animate-fade-up opacity-0'
+          className={`space-y-8 ${mounted ? 'animate-fade-up' : ''} opacity-0`}
           style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
         >
           {/* Hero Title */}
