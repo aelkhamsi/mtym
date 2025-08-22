@@ -33,7 +33,7 @@ const SecondSection = () => {
   return (    
     <div className='w-full flex flex-col items-center bg-gradient-to-b from-[#244B3A] via-[#244B3A] to-[#122019]'>
 
-      <div className='w-full relative lg:w-3/4 bg-white p-6 rounded-3xl shadow-[inset_0_0_0_10px_#F6A806]'>
+      <div className='w-full relative lg:w-3/4 bg-white p-6 rounded-3xl shadow-[0_0_80px_0_rgba(246,168,6,0.3),inset_0_10px_0_0_#122019,inset_10px_0_0_0_#122019,inset_-10px_0_0_0_#122019]'>
 
         {/* SECTION 1 */}
         <div
