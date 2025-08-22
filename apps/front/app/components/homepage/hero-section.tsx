@@ -1,14 +1,35 @@
-import React from 'react'
+"use client";
+
+import React, { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import CtaButton from '../cta/cta-button'
 import FaqButton from '../cta/faq-button'
 import { BookIcon, CalendarMDMIcon, LocationIcon } from '@mdm/ui'
+import gsap from "gsap";
 
 const HeroSection = () => {
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (heroRef.current) {
+      gsap.to(heroRef.current, {
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom+=200 top",
+          scrub: true,
+        },
+        scale: 0.8,
+        opacity: 0,
+        ease: "none",
+      });
+    }
+  })
+
   return (
     <div className='w-full flex flex-col justify-center items-center pb-6 pt-24 bg-[#244B3A]'>
-      <div className="w-full flex flex-col items-center max-w-2xl text-white">
+      <div ref={heroRef} className="w-full flex flex-col items-center max-w-2xl text-white">
         {/* Logo */}
         <div
           className="flex flex-col items-center animate-fade-up opacity-0 z-10 md:p-0 "

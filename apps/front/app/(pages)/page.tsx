@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -11,7 +11,7 @@ import FifthSection from "../components/homepage/fifth-section";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default async function Home() {
+export default function Home() {
 
   useEffect(() => {
     const panels = gsap.utils.toArray<HTMLElement>(".panel");
@@ -20,9 +20,7 @@ export default async function Home() {
       ScrollTrigger.create({
         trigger: panel,
         start: () =>
-          panel.offsetHeight < window.innerHeight
-            ? "top top"
-            : "bottom bottom",
+          panel.offsetHeight < window.innerHeight ? "top top" : "bottom bottom",
         pin: true,
         pinSpacing: false,
       });
@@ -31,12 +29,12 @@ export default async function Home() {
     return () => {
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
-  }, [])
+  }, []);
 
   return (
     <>
       <div className="panel w-full">
-        <HeroSection />  
+        <HeroSection />
       </div>
 
       <div className="panel w-full">
@@ -48,4 +46,3 @@ export default async function Home() {
     </>
   );
 }
-
