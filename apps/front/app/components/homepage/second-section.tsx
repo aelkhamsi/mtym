@@ -61,7 +61,11 @@ const SecondSection = () => {
           </div>
 
           <h1 className='text-center font-bold text-xl'>L&apos;esprit du tournoi</h1>
-          <p>Le MTYM valorise le travail collaboratif, l&apos;esprit critique et la persévérance. Les problèmes proposés sont ouverts et peuvent avoir plusieurs pistes de solution. L&apos;objectif est d&apos;encourager l&apos;analyse en profondeur, le raisonnement autonome et l&apos;esprit critique. </p>
+          <p>
+            Le MTYM valorise le travail collaboratif, l&apos;esprit critique et la persévérance.<br/>
+            Les problèmes proposés sont ouverts et peuvent avoir plusieurs pistes de solution.<br/>
+            L&apos;objectif est d&apos;encourager l&apos;analyse en profondeur, le raisonnement autonome et l&apos;esprit critique.
+          </p>
         </div>
 
         <div className="w-full space-y-4 p-8 bg-[#F9FAFB] rounded-3xl shadow-sm border-[1px] border-gray-100">
@@ -83,7 +87,11 @@ const SecondSection = () => {
           </div>
 
           <h1 className='text-center font-bold text-xl'>Retour sur les éditions précédentes</h1>
-          <p>La dernière édition, à l&apos;instar de celle-ci, s&apos;est tenue à l&apos;Université Al Akhawayn à Ifrane (AUI). L&apos;événement a connu une forte affluence de lycéens venant des quatre coins du Maroc pour relever des défis hors du cadre scolaire traditionnel. En effet, 200 participants on franchi les portes du campus.</p>
+          <p>
+            La dernière édition, à l&apos;instar de celle-ci, s&apos;est tenue à l&apos;Université Al Akhawayn à Ifrane (AUI).<br/>
+            L&apos;événement a connu une forte affluence de lycéens venant des quatre coins du Maroc pour relever des défis hors du cadre scolaire traditionnel.<br/>
+            En effet, 200 participants on franchi les portes du campus.
+          </p>
         </div>
       </div>
     </div>

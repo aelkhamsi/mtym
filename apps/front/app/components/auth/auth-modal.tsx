@@ -63,10 +63,10 @@ const AuthModal = ({
           <>
             {/* Title */}
             <h3 className="font-display text-2xl font-bold">
-              {formType === 'sign-in' && 'Log In'}
-              {formType === 'sign-up' && 'Sign up'}
-              {formType === 'reset-password' && 'Reset your password'}
-              {formType === 'email-verification' && 'Verify your account'}
+              {formType === 'sign-in' && 'Se connecter'}
+              {formType === 'sign-up' && "Créer un compte"}
+              {formType === 'reset-password' && 'Récupérer mon mot de passe'}
+              {formType === 'email-verification' && 'Vérifier mon compte'}
             </h3>
 
             <div className="w-full space-y-5">
@@ -76,7 +76,7 @@ const AuthModal = ({
                   <SignInForm className="w-full" verifyEmail={verifyEmail} /> 
                   <p className="w-full text-sm text-muted-foreground text-center">
                     <Link href="/" className="underline underline-offset-4 hover:text-primary" onClick={() => setFormType('reset-password')}>
-                      Forgotten password?
+                      Mot de passe oublié?
                     </Link>
                   </p>
                 </>
@@ -88,16 +88,16 @@ const AuthModal = ({
               
               {/* Footer */}
               <p className="w-full text-sm text-muted-foreground">
-                {formType === 'sign-in' && `Don't have an account?` }
-                {formType === 'sign-up' && 'Already have an account?' }
+                {formType === 'sign-in' && `Pas de compte?` }
+                {formType === 'sign-up' && 'Vous avez déjà un compte?' }
                 
                 <Button
                   variant="link"
                   onClick={() => onFormToggle((formType === 'sign-in') ? 'sign-up' : 'sign-in')}
                   className="underline underline-offset-4 hover:text-primary text-blue-500"
                 >
-                  {formType === 'sign-in' && 'Create an account' }
-                  {formType === 'sign-up' && 'Log In' }
+                  {formType === 'sign-in' && 'Créer un compte' }
+                  {formType === 'sign-up' && 'Se connecter' }
                 </Button>
               </p>
             </div>

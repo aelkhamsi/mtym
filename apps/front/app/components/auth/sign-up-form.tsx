@@ -66,7 +66,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
                   <FormControl>
                     <Input
                       id="first-name"
-                      placeholder="First Name"
+                      placeholder="Prénom"
                       type="text"
                       autoCapitalize="none"
                       autoComplete="first-name"
@@ -88,7 +88,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
                   <FormControl>
                     <Input
                       id="last-name"
-                      placeholder="Last Name"
+                      placeholder="Nom"
                       type="text"
                       autoCapitalize="none"
                       autoComplete="last-name"
@@ -131,7 +131,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
                   <FormControl>
                     <Input
                       id="password"
-                      placeholder="Password"
+                      placeholder="Mot de passe"
                       type="password"
                       autoCapitalize="none"
                       autoComplete="password"
@@ -153,7 +153,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
                   <FormControl>
                     <Input
                       id="confirm-password"
-                      placeholder="Confirm Password"
+                      placeholder="Confirmez mot de passe"
                       type="password"
                       autoCapitalize="none"
                       autoComplete="confirm-password"
@@ -172,7 +172,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
               {isFormLoading ? (
                 <LoadingDots color="#808080" />
               ) : (
-                <p>Create my account</p>
+                <p>Créer mon compte</p>
               )}
             </Button>
 

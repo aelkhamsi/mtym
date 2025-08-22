@@ -39,5 +39,5 @@ body {
 
 .custom-shadow {
   @apply rounded-3xl;
-  box-shadow: 0px 0px 50px 0px #1C55FF;
+  box-shadow: 0px 0px 50px 0px #629F73;
 }
