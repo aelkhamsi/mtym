@@ -31,7 +31,7 @@ const HeroSection = () => {
   })
 
   return (
-    <div className='w-full flex flex-col justify-center items-center pb-8 pt-24 bg-[#244B3A]'>
+    <div className='w-full flex flex-col justify-center items-center pb-8 pt-24 bg-gradient-to-b from-[#244B3A] via-[#244B3A] to-[#122019]'>
       <div ref={heroRef} className="w-full flex flex-col items-center max-w-2xl text-white">
         {/* Logo */}
         <div

@@ -32,7 +32,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-[#244B3A]">
+    <>
       <div className="panel w-full">
         <HeroSection />
       </div>
@@ -43,6 +43,6 @@ export default function Home() {
         <FourthSection />
         <FifthSection />
       </div>
-    </div>
+    </>
   );
 }
