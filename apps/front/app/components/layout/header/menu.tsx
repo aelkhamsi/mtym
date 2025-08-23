@@ -80,7 +80,7 @@ export const Menu = () => {
 
       <div 
         className={(isMobile || isTablet) 
-          ? `absolute min-h-screen w-full top-14 left-0 bg-white p-4 ${!showMenu ? 'hidden' : ''} transition-all text-center`
+          ? `absolute min-h-screen w-full top-14 left-0 bg-white text-black p-4 ${!showMenu ? 'hidden' : ''} transition-all text-center`
           : ''
         }
       >
