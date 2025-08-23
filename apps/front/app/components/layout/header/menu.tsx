@@ -47,15 +47,15 @@ export const Menu = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="text-sm mr-6">Organizers & Partners</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="text-sm mr-6">Organizateurs & Partenaires</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[200px] gap-2 p-2 md:w-[300px] md:grid-cols-2 lg:w-[400px]">
               <Link href="/organizing-team" onClick={() => {setShowMenu(false)}}>
-                <ListItem title="Organizing Team" />
+                <ListItem title="Équipe organisatrice" />
               </Link>
 
               <Link href="/partners" onClick={() => {setShowMenu(false)}}>
-                <ListItem title="Partners" />
+                <ListItem title="Partenaires" />
               </Link>
             </ul>
           </NavigationMenuContent>
