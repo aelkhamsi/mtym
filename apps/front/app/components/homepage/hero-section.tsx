@@ -79,14 +79,14 @@ const HeroSection = () => {
             <div className='flex items-center justify-center w-auto md:w-1/3 min-h-[4rem] space-x-2'>
               <CalendarMDMIcon className='h-12'/>
               <div className="text-sm font-semibold text-[#629F73]"> 
-                du <span className='text-white'> 25</span> au <span className='text-white'>28</span> décembre 2025
+                du <span className='text-white'> 25</span> au <span className='text-white'>28 décembre 2025</span>
               </div>
             </div>
 
             <div className='flex items-center justify-center w-auto md:w-1/3 min-h-[4rem] space-x-2'>
               <BookIcon className='h-12' />
               <div className="text-sm font-semibold text-[#629F73]">
-                Lycéens d&apos;orientation scientifique
+                <span className='text-white'>Lycéens</span> d&apos;orientation scientifique
               </div>
             </div>
 

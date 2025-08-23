@@ -10,7 +10,7 @@ const FifthSection = () => {
     .map((member, index) => ({id: index, image: member?.imageSrc, name: member?.name}))
 
   return (
-    <div className='relative isolate overflow-hidden w-full flex flex-col justify-center items-center py-12 px-2 space-y-6 bg-[#fff9f3] bg-[url(/arches.png)] bg-center bg-repeat'>
+    <div className='relative isolate overflow-hidden w-full flex flex-col justify-center items-center py-12 px-2 space-y-6 text-[#122019] bg-[#F6A806]/70 bg-[url(/arches.png)] bg-center bg-repeat'>
       <h1 className='text-3xl font-bold font-neco px-14 py-6'>
         Qui sommes-nous ?
       </h1>
