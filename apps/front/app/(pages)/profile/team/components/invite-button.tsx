@@ -7,6 +7,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
+  LoadingDots,
   toast,
 } from "@mdm/ui"
 import { Button } from "@mdm/ui";
@@ -14,22 +15,22 @@ import { useState } from "react";
 import { generateAccessCode } from "@/app/api/TeamAccessCodeApi";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
+import { sleep } from "@mdm/utils";
 
 export const InviteButton = () => {
   const userData = useAtomValue(userAtom)
   const [accessCode, setAccessCode] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onGenerateAccessCode = async () => {
+    setIsLoading(true)
+    await sleep(2000)
     const teamId = userData?.team?.id;
 
     try {
       const result = await generateAccessCode(teamId) as any;
       if (result?.statusCode !== 200) {
-        toast({
-          title: 'This operation have failed',
-          description: result?.message,
-          variant: 'destructive',
-        });  
+        throw new Error(result?.message) 
       }
 
       const accessCode = result?.accessCode;
@@ -41,6 +42,8 @@ export const InviteButton = () => {
         variant: 'destructive',
       });
     }
+
+    setIsLoading(false)
   }
 
   return (
@@ -64,7 +67,10 @@ export const InviteButton = () => {
               <Button
                 onClick={onGenerateAccessCode}
               >
-                Générer un nouveau code d&apos;accès
+                {isLoading 
+                  ? <LoadingDots color="#808080" />
+                  : <span>Générer un nouveau code d&apos;accès</span>
+                }
               </Button>
 
               {accessCode && 

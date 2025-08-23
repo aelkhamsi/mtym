@@ -4,7 +4,7 @@ import {
   Inject,
   Injectable,
 } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { LessThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TeamAccessCode } from '../entities/team-access-code.entity';
 import { v4 as uuidv4 } from 'uuid';
@@ -66,5 +66,14 @@ export class TeamAccessCodeService {
       .delete()
       .andWhere('team.id = :teamId', { teamId })
       .execute();
+  }
+
+  async deleteOldAccessCodes() {
+    const dayAgo = new Date();
+    dayAgo.setDate(dayAgo.getDate() - 1);
+
+    return this.teamAccessCodeRepository.delete({
+      createdAt: LessThan(dayAgo),
+    });
   }
 }

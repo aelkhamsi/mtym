@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { TeamAccessCodeService } from '../services/team-access-code.service';
 import { CheckTeamAccessCodeDto } from '../dto/check-team-access-code.dto';
+import { LessThan } from 'typeorm';
 
 @Controller('mtym-api/teams-access-code')
 export class TeamAccessCodeController {
@@ -18,6 +19,7 @@ export class TeamAccessCodeController {
   @Get(':teamId')
   async create(@Param('teamId', ParseIntPipe) teamId: number) {
     const result = await this.teamAccessCodeService?.create(+teamId);
+    await this.teamAccessCodeService.deleteOldAccessCodes();
 
     return {
       accessCode: result?.accessCode,

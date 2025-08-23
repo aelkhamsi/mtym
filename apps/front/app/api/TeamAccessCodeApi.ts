@@ -15,3 +15,8 @@ export const deleteAccessCode = (id: number) => {
   const url = `teams-access-code/${id}`;
   return ApiMethods.delete(url);
 }
+
+export const cleanOldAccessCodes = () => {
+  const url = 'teams-access-code/clean'
+  return ApiMethods.delete(url);
+}

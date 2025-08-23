@@ -98,3 +98,5 @@ export function formatDate(input: string | number): string {
     year: "numeric",
   })
 }
+
+export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
