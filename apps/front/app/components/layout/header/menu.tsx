@@ -26,24 +26,13 @@ export const Menu = () => {
   const template = (
     <NavigationMenu>
       <NavigationMenuList className={(isMobile || isTablet) ? 'flex flex-col space-y-4' : ''}>
-
         <NavigationMenuItem>
           <Link 
             className="text-sm font-medium mr-6 hover:cursor-pointer hover:underline"
-            href="/"
+            href="/past-edition"
             onClick={() => {setShowMenu(false)}}
           >
-            Problèmes 2025
-          </Link>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <Link 
-            className="text-sm font-medium mr-6 hover:cursor-pointer hover:underline"
-            href="/"
-            onClick={() => {setShowMenu(false)}}
-          >
-            Editions passées
+            Edition passée
           </Link>
         </NavigationMenuItem>
 

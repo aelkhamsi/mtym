@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { AnimatedTooltip } from '@/app/components/animated-tooltip';
 import { organizingCommittee, webDevelopment } from "@/app/(pages)/(static)/organizing-team/data";
-import CtaSection from "../cta/cta-section";
 
 const FifthSection = () => {
   const members = [...organizingCommittee, ...webDevelopment]
@@ -10,8 +9,8 @@ const FifthSection = () => {
     .map((member, index) => ({id: index, image: member?.imageSrc, name: member?.name}))
 
   return (
-    <div className='relative isolate overflow-hidden w-full flex flex-col justify-center items-center py-12 px-2 space-y-6 text-[#122019] bg-[#F6A806]/70 bg-[url(/arches.png)] bg-center bg-repeat'>
-      <h1 className='text-3xl font-bold font-neco px-14 py-6'>
+    <div className='relative overflow-hidden w-full flex flex-col justify-center items-center py-12 px-2 space-y-6 text-white bg-[#244B3A]'> 
+      <h1 className='text-3xl text-[#F6A806] font-bold font-neco px-14 py-6'>
         Qui sommes-nous ?
       </h1>
 
@@ -37,7 +36,9 @@ const FifthSection = () => {
         </button>
       </Link>
 
-      <CtaSection className="mt-6 mb-20" />
+      <div className="relative overflow-hidden w-full h-[40rem] bg-[#244B3A] bg-[url(/group_photo.webp)] bg-center bg-cover bg-blend-overlay">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#244B3A] via-transparent to-[#244B3A]" />
+      </div>
     </div>
   )
 }

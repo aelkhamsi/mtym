@@ -1,35 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import CtaButton from '../cta/cta-button'
 import FaqButton from '../cta/faq-button'
 import { BookIcon, CalendarMDMIcon, LocationIcon } from '@mdm/ui'
-import gsap from "gsap";
 
 const HeroSection = () => {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (heroRef.current) {
-      gsap.to(heroRef.current, {
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom+=200 top",
-          scrub: true,
-        },
-        scale: 0.8,
-        opacity: 0,
-        ease: "none",
-      });
-    }
-  })
-
   return (
     <div 
       className='relative w-full flex flex-col justify-center items-center pb-8 pt-24'
@@ -37,10 +12,10 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-[#244B3A] via-[#244B3A] to-[#122019]"></div>
       <div className="absolute inset-0 bg-[url(/topography.svg)] bg-center bg-repeat opacity-5"></div>
 
-      <div ref={heroRef} className="relative z-10 w-full flex flex-col items-center max-w-2xl text-white">
+      <div className="relative z-10 w-full flex flex-col items-center max-w-2xl text-white">
         {/* Logo */}
         <div
-          className={`flex flex-col items-center ${mounted ? 'animate-fade-up' : ''} opacity-0 z-10 md:p-0`}
+          className={`flex flex-col items-center animate-fade-up opacity-0 z-10 md:p-0`}
           style={{ animationDelay: "0.10s", animationFillMode: "forwards" }}
         >
           <Image
@@ -60,7 +35,7 @@ const HeroSection = () => {
 
         
         <div 
-          className={`space-y-8 ${mounted ? 'animate-fade-up' : ''} opacity-0`}
+          className={`space-y-8 animate-fade-up opacity-0`}
           style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
         >
           {/* Hero Title */}

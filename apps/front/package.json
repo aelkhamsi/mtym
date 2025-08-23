@@ -11,8 +11,7 @@
     "lint": "next lint"
   },
   "prettier": "config/prettier.config.js",
-  "dependencies": {
-    "@gsap/react": "^2.1.2",
+  "dependencies": {    
     "@hookform/resolvers": "^3.3.4",
     "@mdm/hooks": "workspace:*",
     "@mdm/types": "workspace:*",
@@ -30,9 +29,7 @@
     "clsx": "^2.0.0",
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1",
-    "focus-trap-react": "^10.2.2",
     "framer-motion": "^8.5.5",
-    "gsap": "^3.13.0",
     "jotai": "^2.10.3",
     "lucide-react": "0.105.0-alpha.4",
     "ms": "^2.1.3",
