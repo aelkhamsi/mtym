@@ -54,7 +54,7 @@ const ThirdSection = () => {
           </div>
         </div>
 
-        <div className="relative overflow-hidden w-full h-[30rem] bg-[#122019] bg-[url(/mtym_evaluation.webp)] bg-center bg-cover bg-blend-overlay">
+        <div className="relative overflow-hidden w-full h-[35rem] bg-[#122019] bg-[url(/opening_ceremony.webp)] bg-center bg-cover bg-blend-overlay">
           <div className="absolute inset-0 bg-gradient-to-b from-[#122019] via-transparent to-[#122019]" />
         </div>
       </div>
