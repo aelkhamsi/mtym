@@ -4,26 +4,26 @@ import { Separator } from '@mdm/ui';
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className='panel'>
       {/* Transition border */}
       <div className="relative w-full flex justify-between -mt-11 h-11">
-        <div className="mr-[calc(-1*(theme(spacing.8)-theme(spacing[1.5])))] h-11 flex-auto bg-[#030712]"></div>
+        <div className="mr-[calc(-1*(theme(spacing.8)-theme(spacing[1.5])))] h-11 flex-auto bg-[#122019]"></div>
         <div className="flex justify-between mx-auto w-full px-[1.6rem] sm:max-w-[40rem] md:max-w-[48rem] lg:max-w-[64rem] xl:max-w-[80rem]">
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="0,100 0,0 100,100" fill="#030712" />
+            <polygon points="0,100 0,0 100,100" fill="#122019" />
             <polygon points="100,0 0,0 100,100" fill="#FFF" />
           </svg>
 
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <polygon points="0,0 100,0 0,100" fill="#FFF" />
-            <polygon points="100,100 100,0 0,100" fill="#030712" />
+            <polygon points="100,100 100,0 0,100" fill="#122019" />
           </svg>
         </div>
-        <div className="ml-[calc(-1*(theme(spacing.8)-theme(spacing[1.5])))] h-11 flex-auto bg-[#030712]"></div>
+        <div className="ml-[calc(-1*(theme(spacing.8)-theme(spacing[1.5])))] h-11 flex-auto bg-[#122019]"></div>
       </div>
 
       {/* Content */}
-      <div className='flex flex-col justify-center items-center w-full py-12 space-y-6 bg-[#030712] text-white'>
+      <div className='flex flex-col justify-center items-center w-full py-12 space-y-6 bg-[#122019] text-white'>
         <div className='flex flex-col space-y-8 md:flex-row md:justify-between md:space-y-0 w-3/4'>
           {/* LEFT */}
           <div>

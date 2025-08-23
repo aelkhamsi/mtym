@@ -69,7 +69,7 @@ const HeroSection = () => {
               className="text-center font-display text-4xl font-bold tracking-[0.05em] text-wrap:balance md:text-5xl md:leading-[3rem]"
             >
               <span className='font-neco'>
-                Les inscriptions pour MTYM 2025 sont désormais ouvertes!
+                Les inscriptions pour MTYM 2025 sont ouvertes!
               </span>
             </h1>
           </div>

@@ -10,7 +10,6 @@ import JotaiContextProvider from "./jotaiContextProvider";
 import { DataProvider } from "../providers/data.provider";
 import { Toaster } from "@mdm/ui";
 
-
 export const metadata = {
   title: "MMC 2025",
   description: "MMC: The ultimate university math challenge",

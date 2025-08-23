@@ -38,9 +38,9 @@ const SecondSection = () => {
         <div className="w-full space-y-4 p-4 lg:p-0">
           <p className='font-bold text-xs text-[#244B3A]'>Qu&apos;est-ce que le MTYM ?</p>
           <h1 className='font-bold text-3xl font-neco'>MTYM, la scène de la recherche mathématique pour les lycéens</h1>
-          <p>Organisé par <span className='font-semibold'>Math&Maroc</span>, le <span className='font-semibold'>le Moroccan Tournament of Young Mathematicians (MTYM)</span> est un tournoi national destiné aux lycéens d&apos;orientation scientifique du Maroc.</p>
-          <p>Il valorise la curiosité, l&apos;esprit critique et la créativité à travers des problèmes mathématiques ouverts, conçus pour stimuler la réflexion et l&apos;investigation collective.</p>
-          <p>Chaque équipe, formée de trois à cinq personnes, est encouragée à explorer différentes pistes et à développer ses propres idées.</p>
+          <p>Organisé par <span className='font-semibold'>Math&Maroc</span>, le <span className='font-semibold'> Moroccan Tournament of Young Mathematicians (MTYM)</span> est un tournoi national destiné aux lycéens d&apos;orientation scientifique du Maroc.</p>
+          <p>Il offre aux participants une expérience de recherche scientifique en mathématiques, en valorisant la curiosité, l&apos;esprit critique et la créativité à travers des problèmes mathématiques ouverts, conçus pour stimuler la réflexion et l&apos;investigation collective.</p>
+          <p>Chaque équipe, formée de trois à cinq personnes, est encouragée à explorer différentes pistes, à développer ses propres idées et à présenter ses résultats, à l&apos;image du travail d&apos;un chercheur en mathématiques.</p>
         </div>
 
         <div className="w-full">
