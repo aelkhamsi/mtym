@@ -15,6 +15,6 @@ async function bootstrap() {
     }),
   );
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-  await app.listen(5000);
+  await app.listen(process.env.API_PORT || 5000);
 }
 bootstrap();
