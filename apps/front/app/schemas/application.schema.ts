@@ -30,9 +30,9 @@ export const applicationSchema: ZodSchema = z.object({
 
   /* Motivation */
   hasPreviousExperiences: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  previousExperiences: z.string().min(1).refine(async text => text.split(' ').length <= 300, { message: "Text can't be more than 300 words", }),
+  previousExperiences: z.string().min(1).refine(async text => text.split(' ').length <= 100, { message: "Text can't be more than 100 words", }),
   hasPreviousMTYMParticipations: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  previousMTYMParticipations: z.string().min(1).refine(async text => text.split(' ').length <= 300, { message: "Text can't be more than 300 words", }),
+  previousMTYMParticipations: z.string().min(1).refine(async text => text.split(' ').length <= 100, { message: "Text can't be more than 100 words", }),
   motivations: z.string().min(1).refine(async text => text.split(' ').length <= 300, { message: "Maximum 300 mots", }),
   comments: z.string().optional().refine((val) => {
     if (val) {

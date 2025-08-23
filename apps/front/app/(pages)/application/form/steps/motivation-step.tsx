@@ -98,7 +98,7 @@ export const MotivationStep = ({
                 <FormLabel>Veuillez préciser lesquels et le résultat obtenu.<RequiredAsterisk /></FormLabel>
                 <FormControl>
                 <Textarea
-                  placeholder="Tell us about your achievements"
+                  placeholder="Maximum 100 mots"
                   className="resize-none"
                   {...field}
                 />
@@ -165,7 +165,7 @@ export const MotivationStep = ({
                 <FormLabel>Veuillez préciser le nom de votre équipe<RequiredAsterisk /></FormLabel>
                 <FormControl>
                 <Textarea
-                  placeholder="Tell us about your achievements"
+                  placeholder="Maximum 100 mots"
                   className="resize-none"
                   {...field}
                 />
@@ -208,7 +208,7 @@ export const MotivationStep = ({
               <FormLabel>Remarques / Commentaires</FormLabel>
               <FormControl>
               <Textarea
-                placeholder="Anything to add?"
+                placeholder="Quelque chose à rajouter?"
                 className="resize-none"
                 {...field}
               />

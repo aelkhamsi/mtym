@@ -82,6 +82,9 @@ export const UploadStep = ({
                 <FormControl>
                   <FileInput form={form} id="fileGrades" />
                 </FormControl>
+                <FormDescription>
+                  <span className="text-blue-500">Remarque</span>: Ce fichier sera utilisé pour vérifier les notes que vous avez fournies plus tôt dans le formulaire.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )

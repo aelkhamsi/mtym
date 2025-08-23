@@ -193,7 +193,7 @@ export const PersonalInformationStep = ({
             <FormItem>
               <FormLabel>CNIE</FormLabel>
               <FormControl>
-                <Input placeholder="Enter a value" {...field} />
+                <Input placeholder="Entrez une valeur" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -201,21 +201,6 @@ export const PersonalInformationStep = ({
         />
 
         {/* City */}
-
-        {/* <FormField
-          control={form.control}
-          name="city"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Ville de résidence<RequiredAsterisk /></FormLabel>
-              <FormControl>
-                <Input placeholder="Enter a value" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
         <SelectOrInput
           name="city"
           form={form}
@@ -236,7 +221,7 @@ export const PersonalInformationStep = ({
               <FormControl>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a region" />
+                    <SelectValue placeholder="Selectionnez une région" />
                   </SelectTrigger>
                   <SelectContent className="max-h-60">
                     <SelectGroup>

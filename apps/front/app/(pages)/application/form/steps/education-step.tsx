@@ -80,7 +80,7 @@ export const EducationStep = ({
               <FormControl>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Choose an option" />
+                    <SelectValue placeholder="Choosissez une option" />
                   </SelectTrigger>
                   <SelectContent className="max-h-60">
                     <SelectGroup>
@@ -107,7 +107,7 @@ export const EducationStep = ({
               <FormControl>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Choose an option" />
+                    <SelectValue placeholder="Choosissez une option" />
                   </SelectTrigger>
                   <SelectContent className="max-h-60">
                     <SelectGroup>
@@ -132,7 +132,7 @@ export const EducationStep = ({
             <FormItem>
               <FormLabel>Nom du lycée<RequiredAsterisk /></FormLabel>
               <FormControl>
-                <Input placeholder="Enter a value" {...field} />
+                <Input placeholder="Entrez une valeur" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
