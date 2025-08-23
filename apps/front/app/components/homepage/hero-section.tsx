@@ -31,8 +31,13 @@ const HeroSection = () => {
   })
 
   return (
-    <div className='w-full flex flex-col justify-center items-center pb-8 pt-24 bg-gradient-to-b from-[#244B3A] via-[#244B3A] to-[#122019]'>
-      <div ref={heroRef} className="w-full flex flex-col items-center max-w-2xl text-white">
+    <div 
+      className='relative w-full flex flex-col justify-center items-center pb-8 pt-24'
+    >
+      <div className="absolute inset-0 bg-gradient-to-b from-[#244B3A] via-[#244B3A] to-[#122019]"></div>
+      <div className="absolute inset-0 bg-[url(/topography.svg)] bg-center bg-repeat opacity-5"></div>
+
+      <div ref={heroRef} className="relative z-10 w-full flex flex-col items-center max-w-2xl text-white">
         {/* Logo */}
         <div
           className={`flex flex-col items-center ${mounted ? 'animate-fade-up' : ''} opacity-0 z-10 md:p-0`}

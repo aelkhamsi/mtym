@@ -21,7 +21,7 @@ const ThirdSection = () => {
         <div className="ml-[calc(-1*(theme(spacing.8)-theme(spacing[1.5])))] h-11 flex-auto bg-[#122019]"></div>
       </div>
 
-      <div className='relative isolate overflow-hidden w-full flex flex-col justify-center items-center py-14 bg-[#122019] text-white space-y-10'>
+      <div className='relative overflow-hidden w-full flex flex-col justify-center items-center pt-14 bg-[#122019] text-white space-y-10'>
         <h1 className='text-3xl font-bold font-neco text-[#F6A806]'>
           Votre aventure MTYM
         </h1>
@@ -52,6 +52,10 @@ const ThirdSection = () => {
               </Card>
             </div>
           </div>
+        </div>
+
+        <div className="relative overflow-hidden w-full h-[30rem] bg-[#122019] bg-[url(/mtym_evaluation.webp)] bg-center bg-cover bg-blend-overlay">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#122019] via-transparent to-[#122019]" />
         </div>
       </div>
 
