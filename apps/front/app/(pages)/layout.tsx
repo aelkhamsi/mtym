@@ -11,9 +11,9 @@ import { DataProvider } from "../providers/data.provider";
 import { Toaster } from "@mdm/ui";
 
 export const metadata = {
-  title: "MMC 2025",
-  description: "MMC: The ultimate university math challenge",
-  metadataBase: new URL("https://mmc.mathmaroc.org"),
+  title: "MTYM 2025",
+  description: "MTYM: Explorer, Élaborer, Collaborer",
+  metadataBase: new URL("https://mtym.mathmaroc.org"),
 };
 
 export default async function RootLayout({
