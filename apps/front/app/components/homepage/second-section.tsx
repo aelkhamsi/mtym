@@ -1,6 +1,5 @@
-import { Button, GlitterIcon, LightbulbIcon, StarShineIcon} from '@mdm/ui'
+import { GlitterIcon, LightbulbIcon, StarShineIcon} from '@mdm/ui'
 import { ImageStack } from '../image-stack'
-import Link from 'next/link';
 
 const images = [
   {
