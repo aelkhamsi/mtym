@@ -10,6 +10,7 @@ import { Dispatch, SetStateAction, Suspense, useState } from "react";
 import { useAtomValue } from "jotai";
 import AuthButton from "./auth-button";
 import { Menu } from './menu'
+import { usePathname } from "next/navigation";
 
 const NavBarActionButtonContent = ({
   setShowAuthModal
@@ -25,7 +26,9 @@ const NavBarActionButtonContent = ({
 
 export default function Header() {
   const { AuthModal, setShowAuthModal } = useAuthModal();
-  const scrolled = useScroll(600)
+  const pathname = usePathname()
+  const isHomepage = pathname === '/'
+  const scrolled = useScroll(isHomepage ? 600 : 50)
 
   return (
     <>
@@ -34,7 +37,7 @@ export default function Header() {
         className={`fixed top-0 flex w-full justify-center ${
           scrolled
             ? "border-b border-gray-200 bg-white/50 text-black backdrop-blur-xl"
-            : "bg-white/0 text-white"
+            : `bg-white/0 ${isHomepage ? 'text-white' : 'text-black'}`
         } z-30 transition-all`}
       >
         <div className="mx-5 flex h-16 w-full lg:w-3/4 items-center justify-between">
