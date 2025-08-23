@@ -1,8 +1,13 @@
+"use client"
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { Separator } from '@mdm/ui';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
+  const pathname = usePathname()
+
   return (
     <footer className='panel'>
       {/* Transition border */}
@@ -11,11 +16,11 @@ export default function Footer() {
         <div className="flex justify-between mx-auto w-full px-[1.6rem] sm:max-w-[40rem] md:max-w-[48rem] lg:max-w-[64rem] xl:max-w-[80rem]">
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <polygon points="0,100 0,0 100,100" fill="#122019" />
-            <polygon points="100,0 0,0 100,100" fill="#244B3A" />
+            <polygon points="100,0 0,0 100,100" fill={pathname === '/' ? '#244B3A' : '#FFF'} />
           </svg>
 
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="0,0 100,0 0,100" fill="#244B3A" />
+            <polygon points="0,0 100,0 0,100" fill={pathname === '/' ? '#244B3A' : '#FFF'} />
             <polygon points="100,100 100,0 0,100" fill="#122019" />
           </svg>
         </div>
