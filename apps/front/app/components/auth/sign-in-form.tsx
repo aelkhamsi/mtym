@@ -35,14 +35,14 @@ export function SignInForm({
 
     switch(response?.statusCode) {
       case 200:
-        // if (response?.verified) {
-        localStorage.setItem('access_token', response?.access_token);
-        document.cookie = `access_token=${response?.access_token}`;
-        router.push('/')
-        window.location.reload()
-        // } else {
-        //   verifyEmail(email, response?.access_token)
-        // }
+        if (response?.verified) {
+          localStorage.setItem('access_token', response?.access_token);
+          document.cookie = `access_token=${response?.access_token}`;
+          router.push('/')
+          window.location.reload()
+        } else {
+          verifyEmail(email, response?.access_token)
+        }
         break;
       case 400:
       case 401:

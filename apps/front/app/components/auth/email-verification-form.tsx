@@ -73,12 +73,12 @@ export function EmailVerificationForm({
       {/* Sending email verification code */}
       {formStep === 1 &&
         <>
-          <p>We will send a verification code to your e-mail address</p>
+          <p>Nous allons vous envoyer un code de vérification à votre adresse email</p>
           <Button type="submit" disabled={isFormLoading} onClick={onSendingVerificationCode}>
             {isFormLoading ? (
               <LoadingDots color="#808080" />
             ) : (
-              <p>Send the code</p>
+              <p>Envoyer le code</p>
             )}
           </Button>
           {errorMessage
@@ -94,8 +94,8 @@ export function EmailVerificationForm({
       {formStep === 2 &&
         <>
           <p className="w-full text-green-800 text-sm font-bold">
-            A verification code was sent to your mail inbox<br/>
-            Remember to check your spam if necessary.
+            Un code de vérification a été envoyé à votre boite mail<br/>
+            N'oubliez pas de vérifier votre dossier spam si nécessaire
           </p>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onCheckingVerificationCode)}>

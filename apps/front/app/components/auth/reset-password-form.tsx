@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@mdm/ui"
 import { resetPasswordSchema, resetPasswordDefaultValues } from "@/app/schemas/reset-password.schema"
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 import { resetPassword } from "@/app/api/AuthApi"
 
 
@@ -21,7 +21,7 @@ export function ResetPasswordForm({ className, ...props }: ResetPasswordFormProp
   })
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
-  const [successMessage, setSuccessMessage] = useState<string>('')
+  const [successMessage, setSuccessMessage] = useState<ReactNode>(null)
 
   const onSubmit = async (formData: any) => {
     const { email } = formData;
@@ -31,7 +31,11 @@ export function ResetPasswordForm({ className, ...props }: ResetPasswordFormProp
     switch(response?.statusCode) {
       case 200:
         setIsFormLoading(false)
-        setSuccessMessage(`An email was sent to your inbox.\n Please check your SPAM folder if it didn't reach your inbox`);
+        setSuccessMessage(
+          <span>Un code de vérification a été envoyé à votre boite mail<br/>
+          N'oubliez pas de vérifier votre dossier spam si nécessaire
+          </span>
+        );
         break;
       case 400:
       case 401:
