@@ -13,7 +13,7 @@ const PartnerCard = ({
 }) => {
   return (
     <div
-      className="w-[16rem] md:h-[16rem] md:w-[34rem] bg-white shadow-lg border-b-4 border-red-500 md:flex justify-center items-center rounded-md"
+      className="w-[16rem] md:h-[16rem] md:w-[34rem] bg-white shadow-lg border-b-4 border-[#F6A806] md:flex justify-center items-center rounded-md"
       key={key}
     > 
       <div className="h-[8rem] w-[16rem] md:h-fit md:w-[18rem] flex justify-center items-center">

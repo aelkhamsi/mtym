@@ -20,9 +20,9 @@ const partners = [
 
 const hosts = [
   {
-    key: 'um6p_cc',
-    label: 'UM6P CC',
-    imageHref: '/um6p_cc.png',
+    key: 'aui',
+    label: 'AUI',
+    imageHref: '/aui.png',
     imageHeight: '120px',
   }
 ]
@@ -35,16 +35,16 @@ const sponsors = [
     imageHeight: '45px',
   },
   {
-    key: 'oncf',
-    label: 'ONCF',
-    imageHref: '/oncf.svg',
-    imageHeight: '90px',
-  },
-  {
     key: 'ram',
     label: 'RAM',
     imageHref: '/ram.svg',
     imageHeight: '110px',
+  },
+  {
+    key: 'sidi_ali',
+    label: 'Sidi Ali',
+    imageHref: '/sidi_ali.png',
+    imageHeight: '140px',
   },
 ]
 
@@ -59,7 +59,7 @@ export default function PartnersPage() {
               className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
               style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
             >
-              <span className='font-neco'>Organizer</span>
+              <span className='font-neco text-[#244B3A]'>Organisateur</span>
             </h1>
 
             <div
@@ -72,8 +72,9 @@ export default function PartnersPage() {
                 imageHeight={organizers[0].imageHeight}
               >
                 <div className="text-sm space-y-2">
-                  <div><span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span> is a non-profit organization established in 2016 by young Moroccans eager to give back to the community.</div>
-                  <div><span className="font-bold">Our mission</span> is to promote mathematics and science in Morocco, inspire and guide youth towards excellence, and contribute to the development of our country.</div>
+                  <div><span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span> est une association à but non lucratif créée en 2016 par de jeunes Marocains souhaitant redonner à la collectivité.</div>
+                  <div><span className="font-bold">Notre mission</span> est de promouvoir les mathématiques et les sciences au Maroc, et ainsi guider les jeunes vers l&apos;excellence.</div>
+                  <div><span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span> organise <span className="font-bold">MTYM</span> depuis sa première édition en mai 2024.</div>
                 </div>
               </PartnerCard>
             </div>
@@ -87,7 +88,7 @@ export default function PartnersPage() {
               className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
               style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
             >
-              <span className='font-neco'>Official Partner</span>
+              <span className='font-neco text-[#244B3A]'>Partenaire officiel</span>
             </h1>
 
             <div 
@@ -100,8 +101,8 @@ export default function PartnersPage() {
                 imageHeight={partners[0].imageHeight}
               >
                 <div className="text-sm space-y-2">
-                  <div><span className='mb-8 bg-gradient-to-br from-stone-500 to-[#FC5C00] text-transparent bg-clip-text font-semibold'>Adria Business and Technology</span> is an expert in the development and integration of software for financial institutions.</div>
-                  <div>It is the <span className="font-semibold">official partner</span> of <span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span>, enabling the majority of our events to come to life.</div>
+                  <div><span className='mb-8 bg-gradient-to-br from-stone-500 to-[#FC5C00] text-transparent bg-clip-text font-semibold'>Adria Business and Technology</span> est un expert dans l&apos;édition et l&apos;intégration des logiciels destinés aux institutions financières.</div>
+                  <div>Il s&apos;agit du <span className="font-semibold">partenaire officiel</span> de <span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span>, qui a permis à la majorité de nos événements de voir le jour.</div>
                 </div>
               </PartnerCard>
             </div>
@@ -113,7 +114,7 @@ export default function PartnersPage() {
               className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
               style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
             >
-              <span className='font-neco'>Host</span>
+              <span className='font-neco text-[#244B3A]'>Co-organisateur</span>
             </h1>
 
             <div
@@ -126,7 +127,8 @@ export default function PartnersPage() {
                 imageHeight={hosts[0].imageHeight}
               >
                 <div className="text-sm">
-                  <div>The <span className="text-slate-800 font-semibold">UM6P College of Computing</span>, located at <span className='text-[#FF4925] font-semibold'>Mohammed VI Polytechnic University (UM6P)</span> in Benguerir,  establishes itself as a leading institution in Computer Science education and research, offering world-class university education led by esteemed professors, while promoting innovation in Computer Science.</div>
+                  <div><span className='mb-8 bg-gradient-to-br from-[#1d9145] to-[#166432] text-transparent bg-clip-text font-semibold'>Université Al Akhawayn (AUI)</span> est une institution d&apos;élite au Maroc, reconnue pour son excellence académique. Elle forme des leaders ouverts sur le monde, dans un cadre multiculturel et moderne.</div>
+                  <div><span className='mb-8 bg-gradient-to-br from-[#1d9145] to-[#166432] text-transparent bg-clip-text font-semibold'>AUI</span> co-organise cette 3ème édition de <span className="font-bold">MTYM</span> avec <span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span></div>
                 </div>
               </PartnerCard>
             </div>
@@ -140,7 +142,7 @@ export default function PartnersPage() {
               className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
               style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
             >
-              <span className='font-neco'>Sponsors</span>
+              <span className='font-neco text-[#244B3A]'>Sponsors</span>
             </h1>
 
             <div
@@ -152,7 +154,7 @@ export default function PartnersPage() {
                 imageSrc={sponsors[0].imageHref}
                 imageHeight={sponsors[0].imageHeight}
               >
-                <div className="text-sm"><span className='mb-8 bg-gradient-to-br from-[#7cb9ff] to-[#3691FB] text-transparent bg-clip-text font-semibold'>Evalmee</span> is a remote examination platform that is simple, secure, and educational. Its goal is to support teachers and students towards comprehensive and caring education.</div>
+                <div className="text-sm"><span className='mb-8 bg-gradient-to-br from-[#7cb9ff] to-[#3691FB] text-transparent bg-clip-text font-semibold'>Evalmee</span> est une plateforme d&apos;évaluation en ligne offrant des outils précis et personnalisés pour dévoiler et perfectionner les compétences. Découvrez une approche dynamique pour révéler le potentiel caché et atteindre l&apos;excellence professionnelle.</div>
               </PartnerCard>
 
               <PartnerCard
@@ -161,8 +163,7 @@ export default function PartnersPage() {
                 imageHeight={sponsors[1].imageHeight}
               >
                 <div className="text-sm">
-                  <span className='mb-8 text-[#f47216] font-semibold'>ONCF Partenaire Transport (Office National des Chemins de Fer)</span> is Morocco&apos;s national railway company.<br/>
-                  As a key player in transportation and infrastructure, ONCF supports educational and scientific initiatives that contribute to the country&apos;s development.
+                  <div>La <span className='mb-8 bg-gradient-to-br from-[#f9597c] to-[#c3022d] text-transparent bg-clip-text font-semibold'>Royal Air Maroc</span>, compagnie aérienne nationale du Maroc, est une référence en matière d&apos;excellence et de service. Alliant modernité et tradition, elle relie le Maroc au monde tout en offrant une expérience de voyage unique et authentique.</div>
                 </div>
               </PartnerCard>
 
@@ -171,10 +172,7 @@ export default function PartnersPage() {
                 imageSrc={sponsors[2].imageHref}
                 imageHeight={sponsors[2].imageHeight}
               >
-                <div className="text-sm">
-                  <span className='mb-8 text-[#c20831] font-semibold'>Royal Air Maroc (RAM)</span> is the national airline of Morocco.<br/>
-                  As a leading African carrier, RAM supports educational and cultural initiatives that promote knowledge, innovation, and international collaboration.
-                </div>
+                <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Sidi Ali</span> est une entreprise engagée à offrir une eau minérale naturelle d'une pureté exceptionnelle, puisée au cœur des montagnes marocaines. <br/>Elle s&apos;impose comme un leader emblématique alliant qualité, tradition et innovation.</div>
               </PartnerCard>
             </div>
           </div>
