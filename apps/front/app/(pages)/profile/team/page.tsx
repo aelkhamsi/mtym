@@ -40,7 +40,7 @@ export default function TeamPage() {
     if (!team) {
       setContent({
         title: "Vous ne faites pas partie d'une équipe!",
-        subtitle: "Merci pour l'intérêt que vous portez à MTYM! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités.",
+        subtitle: "Votre candidature n'est pas valide tant que vous n'avez pas rejoint une équipe.",
       })
     } else {
       setContent({

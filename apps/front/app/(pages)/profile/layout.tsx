@@ -1,21 +1,6 @@
 import { Separator } from "@mdm/ui"
 import { SidebarNav } from "./sidebar-nav"
 
-const sidebarNavItems = [
-  {
-    title: "Compte",
-    href: "/profile/account",
-  },
-  {
-    title: "Candidature",
-    href: "/profile/application",
-  },
-  {
-    title: "Équipe",
-    href: "/profile/team",
-  },
-]
-
 interface ProfileLayoutProps {
   children: React.ReactNode
 }
@@ -33,7 +18,7 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
         <Separator className="my-6" />
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
           <aside className="-mx-4 lg:w-1/5">
-            <SidebarNav items={sidebarNavItems} />
+            <SidebarNav />
           </aside>
           <div className="flex-1 lg:max-w-3xl">{children}</div>
         </div>
