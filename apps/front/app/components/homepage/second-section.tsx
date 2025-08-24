@@ -4,27 +4,27 @@ import { ImageStack } from '../image-stack'
 const images = [
   {
     name: 'Summer camp photo',
-    src: '/past-edition/contest.webp' 
+    src: '/slideshow/competition.webp' 
   },
   {
     name: 'Summer camp photo',
-    src: '/past-edition/panel.webp' 
+    src: '/slideshow/amphi2.webp' 
   },
   {
     name: 'Summer camp photo',
-    src: '/past-edition/sports.webp' 
+    src: '/slideshow/workshop_ai.webp' 
   },
   {
     name: 'Summer camp photo',
-    src: '/past-edition/board_games.webp' 
+    src: '/slideshow/board_games.webp' 
   },
   {
     name: 'Summer camp photo',
-    src: '/past-edition/closing_ceremony.webp'
+    src: '/slideshow/closing_ceremony.webp'
   },
   {
     name: 'Summer camp photo',
-    src: '/past-edition/closing_ceremony_2.webp'
+    src: '/slideshow/president_aui.webp'
   },
 ]
 

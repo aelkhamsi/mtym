@@ -35,20 +35,20 @@ const ThirdSection = () => {
         >
           <div className='w-full'>
             <div className="flex flex-col space-y-8 md:flex-row md:space-y-0 md:space-x-6 text-center px-14">
-              <Card className="h-[20rem]" bgImageUrl="/past-edition/contest_2.webp">
-                Math Competition
+              <Card className="h-[20rem]" bgImageUrl="/slideshow/competition2.webp">
+                Compétition de Math
               </Card>
 
-              <Card href='/conferences' className="h-[20rem]" bgImageUrl="/past-edition/panel.webp">
-                Conferences & Panel
+              <Card href='/conferences' className="h-[20rem]" bgImageUrl="/slideshow/conference_amine.webp">
+                Conférences & Panel
               </Card>
 
-              <Card className="h-[20rem]" bgImageUrl="/past-edition/workshop.webp">
+              <Card className="h-[20rem]" bgImageUrl="/slideshow/workshop_math.webp">
                 Workshops
               </Card>
 
-              <Card className="h-[20rem]" bgImageUrl="/past-edition/board_games.webp">
-                Games & Fun
+              <Card className="h-[20rem]" bgImageUrl="/slideshow/board_games.webp">
+                Jeux & Divertissements
               </Card>
             </div>
           </div>
