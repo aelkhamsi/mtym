@@ -11,7 +11,6 @@ import { emailVerificationSchema, emailVerificationDefaultValues } from "@/app/s
 import { useState } from "react"
 import { checkEmailVerificationCode, sendEmailVerificationCode } from "@/app/api/AuthApi"
 
-
 export function EmailVerificationForm({ 
   className, 
   email,
@@ -124,7 +123,7 @@ export function EmailVerificationForm({
                   {isFormLoading ? (
                     <LoadingDots color="#808080" />
                   ) : (
-                    <p>Verify my account </p>
+                    <p>Vérifier mon compte </p>
                   )}
                 </Button>
                 

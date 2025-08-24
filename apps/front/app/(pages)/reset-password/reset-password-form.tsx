@@ -45,8 +45,8 @@ export default function ResetPasswordForm() {
     switch(response?.statusCode) {
       case 200:
         toast({
-          title: 'Your password was reset!',
-          description: "You can log in with your new password",
+          title: 'Votre mot de passe a été réinitialisé',
+          description: "Vous pouvez vous connecter avec votre nouveau mot de passe",
         })
         setTimeout(() => {
           router.push('/');
@@ -54,7 +54,7 @@ export default function ResetPasswordForm() {
         break;
 
       default:
-        setErrorMessage('The reset password link has expired')
+        setErrorMessage('Le lien de réinitialisation a expiré')
         setIsFormLoading(false)
         break;
     }
