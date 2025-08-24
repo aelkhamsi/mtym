@@ -34,7 +34,7 @@ export const generalQuestions = [
   },
   {
     question: "What if I have a question, a special request ?",
-    anwser: "Write to math.maroc.competition@gmail.com. Any response provided through any other method or by any other individual is not considered official."
+    anwser: "Write to math.maroc.mtym@gmail.com. Any response provided through any other method or by any other individual is not considered official."
   },
   {
     question: "What if I don’t have my official transcripts for this year?",

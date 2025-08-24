@@ -28,7 +28,7 @@ const FormErrorDialog = ({
               Message de l&apos;erreur: <span className="text-black">{error?.message}</span>
             </div>
             <div>
-              Veuillez réessayer plus tard <span className="text-black">ou</span> contactez-nous sur l&apos;addresse email <span className="text-blue-500">math.maroc.competition@gmail.com</span> en précisant votre nom, prénom et en joignant le message de l&apos;erreur çi-haut.
+              Veuillez réessayer plus tard <span className="text-black">ou</span> contactez-nous sur l&apos;addresse email <span className="text-blue-500">math.maroc.mtym@gmail.com</span> en précisant votre nom, prénom et en joignant le message de l&apos;erreur çi-haut.
             </div>
           </DialogDescription>
         </DialogHeader>

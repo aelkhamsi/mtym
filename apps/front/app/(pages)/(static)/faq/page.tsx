@@ -22,7 +22,7 @@ export default function ConferencesPage() {
           style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
         >
           
-          For any other questions not covered on this page, you can contact us via our social networks or by email at <span className="text-blue-500">math.maroc.competition@gmail.com</span>.<br/>
+          For any other questions not covered on this page, you can contact us via our social networks or by email at <span className="text-blue-500">math.maroc.mtym@gmail.com</span>.<br/>
           Please note that we will not respond to emails for questions already addressed in this FAQ.
         </p>
 
