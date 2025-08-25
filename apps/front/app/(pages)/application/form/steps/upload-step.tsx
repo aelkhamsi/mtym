@@ -56,7 +56,7 @@ export const UploadStep = ({
 
             return (
               <FormItem>
-                <FormLabel>Règlement signé (<Link className="text-blue-500 underline" href='https://drive.google.com/file/d/1spkc0-KyaBbeq9sWT2x8Vj0EEoO-FGi7/view?usp=sharing' target="_blank">file</Link>)<RequiredAsterisk /></FormLabel>
+                <FormLabel>Règlement signé (<Link className="text-blue-500 underline" href='https://drive.google.com/file/d/1tE5qMUjEoeicBQ01XqsF5LyzLqT34rsm/view?usp=sharing' target="_blank">file</Link>)<RequiredAsterisk /></FormLabel>
                 <FormControl>
                   <FileInput form={form} id="fileRegulations" />
                 </FormControl>
