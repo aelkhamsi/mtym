@@ -103,7 +103,7 @@ const FourthSection = () => {
   return (
     <div className='space-y-10 mb-10'>
       <ParticipationStepsSection />
-      <TutorialSection />
+      {/* <TutorialSection /> */}
     </div>
   )
 }
