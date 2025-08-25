@@ -39,7 +39,7 @@ const ThirdSection = () => {
                 Compétition de Math
               </Card>
 
-              <Card href='/conferences' className="h-[20rem]" bgImageUrl="/slideshow/conference_amine.webp">
+              <Card className="h-[20rem]" bgImageUrl="/slideshow/conference_amine.webp">
                 Conférences & Panel
               </Card>
 

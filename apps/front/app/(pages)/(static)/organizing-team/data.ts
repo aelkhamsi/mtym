@@ -26,6 +26,7 @@ export const organizingCommittee = [
   { name: "Rania Daya", portfolioSrc: "https://www.linkedin.com/in/rania-daya-09b758296/", imageSrc: "/organizing-team/rania_daya.webp" },
   { name: "Mouad Enoua", portfolioSrc: "https://www.linkedin.com/in/mouad-enoua-48a984327/", imageSrc: "/organizing-team/mouad_enoua.webp" },
   { name: "Manal Saoui", portfolioSrc: "https://www.linkedin.com/in/manal-saoui/", imageSrc: "/organizing-team/manal_saoui.webp" },
+  { name: "Mohammed Younes El Gueddari", portfolioSrc: "https://www.linkedin.com/in/mohammed-younes-gueddari-4299b6147/?originalSubdomain=fr", imageSrc: "/organizing-team/mohammed_younes_gueddari.webp" },
 ];
 
 export const webDevelopment = [

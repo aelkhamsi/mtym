@@ -1,3 +1,5 @@
+"use client"
+
 import { CustomPlusIcon } from '@mdm/ui';
 import { ReactNode } from 'react';
 import Link from 'next/link'
@@ -17,7 +19,8 @@ const Card = ({
   return (
     
     <Link 
-      href={href || '#'} 
+      href={href || ''}
+      onClick={(e) => e.preventDefault()}
       className={`border group/canvas-card flex items-center justify-center border-${color}/[0.2] w-full p-4 relative h-[10rem] relative ${href ? 'hover:cursor-pointer' : ''} ${className}`}
       scroll={true}
     >

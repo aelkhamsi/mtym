@@ -29,7 +29,7 @@ const FifthSection = () => {
         <button
           className="p-[3px] relative text-sm"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-[#122019] via-[#244B3A] to-[#629F73] rounded-lg" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F6A806] via-[#F6A806]/80 to-[#F6A806]/50 rounded-lg" />
           <div className="px-8 py-2 bg-white rounded-[6px] relative group transition duration-200 text-black hover:bg-transparent hover:text-white">
             Rencontrez l'équipe organisatrice
           </div>

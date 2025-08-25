@@ -56,7 +56,7 @@ export const generalQuestions = [
     anwser: "Oui, aucune limite sur des équipes provenant du même lycée n’est imposée."
   },
   {
-    question: "Dans une même équipe peut-il y avoir des élèves de filières différentes (ex : sciences mathématiques et sciences physiques) ?",
+    question: "Peut-il y avoir des élèves de filières différentes dans le même équipe ? (ex: sciences mathématiqus et sciences physiques) ?",
     anwser: "Oui, il n'y a pas de restriction sur les branches des élèves."
   },
   {
