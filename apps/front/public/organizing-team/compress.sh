@@ -1,12 +1,33 @@
 #!/bin/bash
 
-# Loop through all PNG files in the current directory
-for img in *.jpg; do
-  # Check if there are any PNG files
+# Default values
+EXT="jpg"
+QUALITY=10
+
+# Parse arguments
+for arg in "$@"; do
+  case $arg in
+    --ext=*)
+      EXT="${arg#*=}"   # strip '--ext='
+      shift
+      ;;
+    --quality=*)
+      QUALITY="${arg#*=}"  # strip '--quality='
+      shift
+      ;;
+    *)
+      ;;
+  esac
+done
+
+# Loop through all files with the given extension
+for img in *."$EXT"; do
   if [[ -f "$img" ]]; then
-    # Convert PNG to WebP using cwebp and rename the output to lowercase
-    output_name=$(echo "$img" | tr '[:upper:]' '[:lower:]') # Convert the filename to lowercase
-    cwebp -q 60 "$img" -o "${output_name}.webp"
-    rm "$img"
+    # Remove extension and lowercase the base name
+    base_name=$(basename "$img" ".$EXT")
+    output_name=$(echo "$base_name" | tr '[:upper:]' '[:lower:]')
+
+    # Convert to WebP
+    cwebp -q "$QUALITY" "$img" -o "${output_name}.webp"
   fi
 done
