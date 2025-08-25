@@ -78,7 +78,7 @@ export const UploadStep = ({
 
             return (
               <FormItem>
-                <FormLabel>Bulletin de notes (année 2024/2025)<RequiredAsterisk /></FormLabel>
+                <FormLabel>Bulletin de notes (dernière année 2024/2025)<RequiredAsterisk /></FormLabel>
                 <FormControl>
                   <FileInput form={form} id="fileGrades" />
                 </FormControl>
