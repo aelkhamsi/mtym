@@ -17,7 +17,7 @@ export const generalQuestions = [
   },
   {
     question: "Où pourrais-je vous contacter si j’ai une demande spéciale, ou une autre question ?",
-    anwser: "Vous pouvez envoyer un email à la boîte mail suivante: EMAIL"
+    anwser: "Vous pouvez envoyer un email à la boîte mail suivante: math.maroc.mtym@gmail.com."
   },
   {
     question: "Pourrais-je participer même si je n’ai pas encore de carte d’identité nationale ?",
