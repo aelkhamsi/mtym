@@ -1,5 +1,6 @@
 import CtaButton from './cta-button'
 import FaqButton from './faq-button'
+import RegulationButton from './regulation-button'
 import '../pattern.css'
 
 const CtaSection = ({
@@ -17,6 +18,7 @@ const CtaSection = ({
       <div className='flex justify-center space-x-4'>
         <CtaButton />
         <FaqButton />
+        <RegulationButton />
       </div>
     </div>
   )
