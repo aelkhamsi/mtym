@@ -22,11 +22,11 @@ export const applicationSchema: ZodSchema = z.object({
   educationLevel: z.string().nonempty("Choisissez une option"),
   educationField: z.string().min(1).max(50),
   highschool: z.string().min(1).max(50),
-  averageGrade: z.string().min(1).max(50),
-  mathAverageGrade: z.string().min(1).max(50),
-  ranking: z.string().min(1).max(50),
-  mathRanking: z.string().min(1).max(50),
-  numberOfStudentsInClass: z.string().min(1).max(50),
+  averageGrade: z.coerce.number().min(0).max(20),
+  mathAverageGrade: z.coerce.number().min(0).max(20),
+  ranking: z.coerce.number().min(0).max(20),
+  mathRanking: z.coerce.number().min(0).max(20),
+  numberOfStudentsInClass: z.coerce.number().min(1),
 
   /* Motivation */
   hasPreviousExperiences: z.enum(["yes", "no"], { message: "Choisissez une option" }),

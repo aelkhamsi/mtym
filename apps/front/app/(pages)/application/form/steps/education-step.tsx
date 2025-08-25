@@ -145,7 +145,7 @@ export const EducationStep = ({
       </h2>
 
       <p className='mt-1 text-sm leading-6 text-gray-600'>
-        Fournir les notes (sur 20) de la <span className='font-semibold'>dernière année scolaire 2024/2025</span>
+        Fournir les notes (sur 20) du <span className='font-semibold'>dernier bulletin obtenu</span>
         <Separator className='mt-4 bg-[#0284C7]'/>
       </p>
 
