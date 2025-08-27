@@ -11,7 +11,7 @@ const HeroSection = () => {
       className='relative w-full flex flex-col justify-center items-center pb-8 pt-24'
     >
       <div className="absolute inset-0 bg-gradient-to-b from-[#244B3A] via-[#244B3A] to-[#122019]"></div>
-      <div className="absolute inset-0 bg-[url(/topography.svg)] bg-center bg-repeat opacity-5"></div>
+      <div className="absolute inset-0 bg-[url(/topography.svg)] bg-center bg-repeat opacity-10"></div>
 
       <div className="relative z-10 w-full flex flex-col items-center max-w-2xl text-white">
         {/* Logo */}
