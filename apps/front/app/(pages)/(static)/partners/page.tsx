@@ -82,6 +82,32 @@ export default function PartnersPage() {
         </div>
 
         <div className="flex justify-around flex-wrap">
+          {/* En partenariat avec */}
+          <div>
+            <h1 
+              className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
+              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+            >
+              <span className='font-neco text-[#244B3A]'>Co-organisateur</span>
+            </h1>
+
+            <div
+              className="flex justify-around flex-wrap gap-6 p-6 rounded-lg animate-fade-up opacity-0"
+              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+            >
+              <PartnerCard
+                key={hosts[0].key}
+                imageSrc={hosts[0].imageHref}
+                imageHeight={hosts[0].imageHeight}
+              >
+                <div className="text-sm">
+                  <div><span className='mb-8 bg-gradient-to-br from-[#1d9145] to-[#166432] text-transparent bg-clip-text font-semibold'>Université Al Akhawayn (AUI)</span> est une institution d&apos;élite au Maroc, reconnue pour son excellence académique. Elle forme des leaders ouverts sur le monde, dans un cadre multiculturel et moderne.</div>
+                  <div><span className='mb-8 bg-gradient-to-br from-[#1d9145] to-[#166432] text-transparent bg-clip-text font-semibold'>AUI</span> co-organise cette 3ème édition de <span className="font-bold">MTYM</span> avec <span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span></div>
+                </div>
+              </PartnerCard>
+            </div>
+          </div>
+
           {/* PARTENAIRE OFFICIEL */}
           <div>
             <h1 
@@ -103,32 +129,6 @@ export default function PartnersPage() {
                 <div className="text-sm space-y-2">
                   <div><span className='mb-8 bg-gradient-to-br from-stone-500 to-[#FC5C00] text-transparent bg-clip-text font-semibold'>Adria Business and Technology</span> est un expert dans l&apos;édition et l&apos;intégration des logiciels destinés aux institutions financières.</div>
                   <div>Il s&apos;agit du <span className="font-semibold">partenaire officiel</span> de <span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span>, qui a permis à la majorité de nos événements de voir le jour.</div>
-                </div>
-              </PartnerCard>
-            </div>
-          </div>
-
-          {/* En partenariat avec */}
-          <div>
-            <h1 
-              className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
-              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-            >
-              <span className='font-neco text-[#244B3A]'>Co-organisateur</span>
-            </h1>
-
-            <div
-              className="flex justify-around flex-wrap gap-6 p-8 rounded-lg animate-fade-up opacity-0"
-              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-            >
-              <PartnerCard
-                key={hosts[0].key}
-                imageSrc={hosts[0].imageHref}
-                imageHeight={hosts[0].imageHeight}
-              >
-                <div className="text-sm">
-                  <div><span className='mb-8 bg-gradient-to-br from-[#1d9145] to-[#166432] text-transparent bg-clip-text font-semibold'>Université Al Akhawayn (AUI)</span> est une institution d&apos;élite au Maroc, reconnue pour son excellence académique. Elle forme des leaders ouverts sur le monde, dans un cadre multiculturel et moderne.</div>
-                  <div><span className='mb-8 bg-gradient-to-br from-[#1d9145] to-[#166432] text-transparent bg-clip-text font-semibold'>AUI</span> co-organise cette 3ème édition de <span className="font-bold">MTYM</span> avec <span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span></div>
                 </div>
               </PartnerCard>
             </div>
