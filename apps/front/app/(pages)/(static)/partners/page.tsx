@@ -41,6 +41,12 @@ const sponsors = [
     imageHeight: '110px',
   },
   {
+    key: 'afretec_network',
+    label: 'Afretek Network',
+    imageHref: '/afretec_network.jpeg',
+    imageHeight: '160px',
+  },
+  {
     key: 'sidi_ali',
     label: 'Sidi Ali',
     imageHref: '/sidi_ali.png',
@@ -171,6 +177,14 @@ export default function PartnersPage() {
                 key={sponsors[2].key}
                 imageSrc={sponsors[2].imageHref}
                 imageHeight={sponsors[2].imageHeight}
+              >
+                <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Afretec</span> est un réseau panafricain d&apos;universités technologiques, mené par Carnegie Mellon University Africa, pour accélérer la transformation numérique du continent. Il favorise l&apos;enseignement, la recherche et l&apos;entrepreneuriat inclusifs en ingénierie et technologie.</div>
+              </PartnerCard>
+
+              <PartnerCard
+                key={sponsors[3].key}
+                imageSrc={sponsors[3].imageHref}
+                imageHeight={sponsors[3].imageHeight}
               >
                 <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Sidi Ali</span> est une entreprise engagée à offrir une eau minérale naturelle d'une pureté exceptionnelle, puisée au cœur des montagnes marocaines. <br/>Elle s&apos;impose comme un leader emblématique alliant qualité, tradition et innovation.</div>
               </PartnerCard>
