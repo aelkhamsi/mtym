@@ -73,7 +73,7 @@ const TutorialSection = () => {
     <div 
       className="flex justify-center p-4"
     >
-      <iframe width="718" height="450" src="https://www.youtube.com/embed/bLxunPmuipQ?si=h58D0wPOWl11apqj" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+      <iframe width="718" height="450" src="https://www.youtube.com/embed/4FmoWRmPn64?si=33vWIDqmvNKTE7lu" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
     </div>
   )
 }
@@ -103,7 +103,7 @@ const FourthSection = () => {
   return (
     <div className='space-y-10 mb-10'>
       <ParticipationStepsSection />
-      {/* <TutorialSection /> */}
+      <TutorialSection />
     </div>
   )
 }
