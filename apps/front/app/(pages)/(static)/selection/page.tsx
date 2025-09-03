@@ -32,7 +32,7 @@ export default function MathSprintPage() {
           <p>L&apos;ensemble de ces ressources va vous permettre d&apos;aborder la sélection de manière sereine et de vous donner les meilleures chances de réussite.</p>
 
           <div className="flex flex-col items-center space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-            <Link target="_blank" href='https://drive.google.com/file/d/19Nz9tYgi9tvoV-qNI4ArmgJeLS3CwtIE/view?usp=sharing'>
+            <Link target="_blank" href='https://drive.google.com/file/d/1X--arueHStELN-8aDRGJtyXPE0sRXGYT/view?usp=sharing'>
               <div className="flex flex-col items-center justify-center text-center h-[8rem] w-[9rem] bg-white border-b-4 border-b-[#629F73] bg-gray-200 border-2 shadow-md flex justify-center rounded-md">
                 <span className="font-bold text-gray-600">Syllabus</span>
                 <CompassIcon className="h-[4rem]"/>
