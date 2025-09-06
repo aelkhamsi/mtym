@@ -17,7 +17,7 @@ export default function MathSprintPage() {
           <p className='font-bold text-sm text-[#F6A806]'>La sélection</p>
           <h1 className='font-bold text-3xl'>Comment va se dérouler la sélection ?</h1>
           <p>La sélection pour participer à MTYM repose principalement sur un test qui se tiendra le <span className="font-semibold">28 septembre 2025</span>. </p>
-          <p>Ce test Le test se présentera sous la forme d'un questionnaire à choix multiples (QCM), et évaluera les connaissances et les compétences des candidats sur les sujets du syllabus, conçu pour couvrir l&apos;essentiel des notions à maîtriser.</p>
+          <p>Le test se présentera sous la forme d'un questionnaire à choix multiples (QCM), et évaluera les connaissances et les compétences des candidats sur les sujets du syllabus, conçu pour couvrir l&apos;essentiel des notions à maîtriser.</p>
 
           <h2 className="font-bold">Quelques consignes</h2>
           <p>Afin de garantir l'intégrité de la sélection, la webcam doit rester activée pendant toute la durée du test. Veillez donc à disposer d'un ordinateur fiable, d'une connexion Internet stable et d'un espace de travail calme et bien éclairé.</p>
