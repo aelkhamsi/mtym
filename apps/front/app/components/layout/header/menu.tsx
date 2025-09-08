@@ -47,7 +47,7 @@ export const Menu = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="text-sm mr-6">Organizateurs & Partenaires</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="text-sm mr-6">Organisateurs & Partenaires</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[200px] gap-2 p-2 md:w-[300px] md:grid-cols-2 lg:w-[400px]">
               <Link href="/organizing-team" onClick={() => {setShowMenu(false)}}>
