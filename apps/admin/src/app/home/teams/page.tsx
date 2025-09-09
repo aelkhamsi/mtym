@@ -18,6 +18,7 @@ export default function TeamsPage() {
         .map((team: any) => ({
           id: team?.id,
           name: team?.name,
+          quadrigram: team?.quadrigram,
           slogan: team?.slogan,
           mentorFullname: team?.mentorFullname,
           leaderId: team?.leader?.id,

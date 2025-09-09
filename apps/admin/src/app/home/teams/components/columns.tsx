@@ -6,6 +6,7 @@ import TeamsMembers from "./teams-members"
 export type TeamRow = {
   id: string,
   name: string,
+  quadrigram: string,
   slogan: string,
   mentorFullname: string,
   leaderName: string,
@@ -37,6 +38,20 @@ export const columns: ColumnDef<TeamRow>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+  },
+  {
+    accessorKey: "quadrigram",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Quadrigram
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -84,7 +99,7 @@ export const columns: ColumnDef<TeamRow>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Créateur
+          Creator
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
