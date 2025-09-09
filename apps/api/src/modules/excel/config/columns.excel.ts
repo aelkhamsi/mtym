@@ -8,52 +8,40 @@ export const columns = [
   { header: 'City', key: 'city', width: 15 },
   { header: 'Region', key: 'region', width: 20 },
   { header: 'Phone number', key: 'phone-number', width: 17 },
-  {
-    header: 'Emergency Contact Full Name',
-    key: 'emergency-contact-full-name',
-    width: 20,
-  },
-  {
-    header: 'Emergency Contact Phone Number',
-    key: 'emergency-contact-phone-number',
-    width: 20,
-  },
-  {
-    header: 'Emergency Contact Relationship',
-    key: 'emergency-contact-relationship',
-    width: 20,
-  },
 
   { header: 'Education Level', key: 'education-level', width: 20 },
-  { header: 'University Type', key: 'university-type', width: 20 },
-  { header: 'University Name', key: 'university-name', width: 15 },
   { header: 'Education Field', key: 'education-field', width: 15 },
+  { header: 'Highschool', key: 'university-name', width: 15 },
+
+  { header: 'Average Grade', key: 'average-grade', width: 10 },
+  { header: 'Math Average Grade', key: 'math-average-grade', width: 10 },
+  { header: 'Ranking', key: 'ranking', width: 10 },
+  { header: 'Math Ranking', key: 'math-ranking', width: 10 },
+  { header: 'Nb of students in class', key: 'nb-student-class', width: 10 },
 
   {
-    header: 'Have you participated in MMC before ?',
-    key: 'has-previously-participated-in-mmc',
+    header: 'Have you participated in competitions before ?',
+    key: 'has-previous-experiences',
     width: 15,
   },
   {
-    header: 'Results in MMC',
-    key: 'details-of-mmc',
+    header: '[detail] Previous experiences',
+    key: 'previous-experiences',
     width: 20,
   },
   {
-    header: 'Have you participated in competitions before ?',
-    key: 'has-previously-participated',
+    header: 'Have you participated in MTYM before ?',
+    key: 'has-previous-mtym-participations',
     width: 15,
   },
   {
-    header: 'Details of experiences',
-    key: 'details-of-experience',
+    header: '[details] Previous MTYM participation',
+    key: 'previous-mtym-participations',
     width: 20,
   },
   { header: 'Motivations', key: 'id', width: 30 },
   { header: 'Comments', key: 'id', width: 30 },
 
-  { header: 'CNIE', key: 'cnie', width: 10 },
-  { header: 'School Certificate', key: 'school-certificate', width: 10 },
   { header: 'Grades', key: 'grades', width: 10 },
   { header: 'Regulations', key: 'regulations', width: 10 },
 

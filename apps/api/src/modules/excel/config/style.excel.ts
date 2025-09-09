@@ -10,7 +10,7 @@ export const styleSheet = (sheet) => {
   }
 
   // personal informations style
-  for (let i = 2; i <= 12; i++) {
+  for (let i = 2; i <= 9; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -20,7 +20,7 @@ export const styleSheet = (sheet) => {
   }
 
   // education style
-  for (let i = 13; i <= 16; i++) {
+  for (let i = 10; i <= 12; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -30,7 +30,7 @@ export const styleSheet = (sheet) => {
   }
 
   // motivations style
-  for (let i = 17; i <= 22; i++) {
+  for (let i = 13; i <= 17; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -40,7 +40,7 @@ export const styleSheet = (sheet) => {
   }
 
   // files style
-  for (let i = 23; i <= 26; i++) {
+  for (let i = 18; i <= 23; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -50,7 +50,7 @@ export const styleSheet = (sheet) => {
   }
 
   // status style
-  for (let i = 27; i <= 27; i++) {
+  for (let i = 24; i <= 26; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',

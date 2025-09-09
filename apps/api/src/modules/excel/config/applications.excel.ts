@@ -1,4 +1,4 @@
-import { educationLevels, regionLabels, universityTypes } from '../labels';
+import { educationLevels, regionLabels, educationFields } from '../labels';
 
 export const rowFactory = (applications: any[], configService) => {
   const awsBucketName = configService.get('AWS_BUCKET_NAME');
@@ -14,36 +14,28 @@ export const rowFactory = (applications: any[], configService) => {
     city: application?.city,
     region: regionLabels[application?.region],
     phoneNumber: application?.phoneNumber,
-    emergencyContactFullName: application?.emergencyContactFullName,
-    emergencyContactPhoneNumber: application?.emergencyContactPhoneNumber,
-    emergencyContactRelationship: application?.emergencyContactRelationship,
 
     educationLevel: educationLevels.find(
       (level) => level.value == application?.educationLevel,
     )?.label,
-    universityType: universityTypes.find(
-      (type) => type.value == application?.universityType,
+    educationField: educationFields.find(
+      (level) => level.value == application?.educationField,
     )?.label,
-    educationField: application?.educationField,
-    universityName: application?.universityName,
+    universityType: application?.highschool,
 
-    hasPreviousMathMarocParticipations:
-      application?.hasPreviousMathMarocParticipations,
-    previousMathMarocParticipations:
-      application?.previousMathMarocParticipations,
+    averageGrade: application?.averageGrade,
+    mathAverageGrade: application?.mathAverageGrade,
+    ranking: application?.ranking,
+    mathRanking: application?.mathRanking,
+    numberOfStudentsInClass: application?.numberOfStudentsInClass,
+
     hasPreviousExperiences: application?.hasPreviousExperiences,
     previousExperiences: application?.previousExperiences,
+    hasPreviousMTYMParticipations: application?.hasPreviousMTYMParticipations,
+    previousMTYMParticipations: application?.previousMTYMParticipations,
     motivations: application?.motivations,
     comments: application?.comments,
 
-    fileCnie: {
-      text: application?.fileCnieUrl ? 'link' : ' ',
-      hyperlink: `https://${awsBucketName}.s3.${awsBucketRegion}.amazonaws.com/${application?.fileCnieUrl}`,
-    },
-    fileSchoolCertificateUrl: {
-      text: application?.fileSchoolCertificateUrl ? 'link' : ' ',
-      hyperlink: `https://${awsBucketName}.s3.${awsBucketRegion}.amazonaws.com/${application?.fileSchoolCertificateUrl}`,
-    },
     fileGrades: {
       text: application?.fileGradesUrl ? 'link' : ' ',
       hyperlink: `https://${awsBucketName}.s3.${awsBucketRegion}.amazonaws.com/${application?.fileGradesUrl}`,
