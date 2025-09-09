@@ -19,6 +19,7 @@ export default function UsersPage() {
           lastName: user?.lastName,
           email: user?.email,
           applicationId: user?.application?.id,
+          teamId: user?.team?.id,
         }))
       )
     }

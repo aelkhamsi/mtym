@@ -1,17 +1,19 @@
 import { Button } from "@/components/shared/button"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
+import TeamsMembers from "./teams-members"
  
-export type UserRow = {
+export type TeamRow = {
   id: string,
-  firstName: string,
-  lastName: string,
-  email: string,
-  applicationId: string,
-  teamId: string,
+  name: string,
+  slogan: string,
+  mentorFullname: string,
+  leaderName: string,
+  leaderId: string,
+  members: any[],
 }
  
-export const columns: ColumnDef<UserRow>[] = [
+export const columns: ColumnDef<TeamRow>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {
@@ -24,76 +26,104 @@ export const columns: ColumnDef<UserRow>[] = [
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
-    },
+    }
   },
   {
-    accessorKey: "firstName",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          First Name
+          Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
   },
   {
-    accessorKey: "lastName",
+    accessorKey: "slogan",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Last Name
+          Slogan
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
   },
   {
-    accessorKey: "email",
+    accessorKey: "mentorFullname",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Mentor
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
+    },
+    cell: ({ row }) => {
+      const mentorFullname = row.getValue("mentorFullname") as string;
+      return <>
+        {mentorFullname ? mentorFullname : <span className="text-gray-300">{"(empty)"}</span>}
+      </>
+    }
+  },
+  {
+    accessorKey: "leader",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Leader
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const leaderId = row.original?.leaderId;
+      const leaderName = row.original?.leaderName;
+      return <>
+        {leaderName} <span className="text-gray-300">(id={leaderId})</span>
+      </>
     },
   },
   {
-    accessorKey: "applicationId",
+    accessorKey: "numberOfMembers",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Application Id
+          Number of Members
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
+    },
+    cell: ({ row }) => {
+      return <div className="text-center">
+        {row.getValue('numberOfMembers') as string}
+      </div>
     },
   },
   {
-    accessorKey: "teamId",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Team Id
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
+    id: "showButton",
+    cell: ({ row }) => {
+      const members = row.original?.members;
+ 
+      return <div className='flex justify-end'>
+        <TeamsMembers members={members}/>
+      </div>
+    }
   },
 ]
