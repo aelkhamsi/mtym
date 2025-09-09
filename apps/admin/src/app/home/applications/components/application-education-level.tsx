@@ -1,8 +1,7 @@
 const educationLevels = {
-  'bac-plus-1': 'Bac +1',
-  'bac-plus-2': 'Bac +2',
-  'bac-plus-3': 'Bac +3',
-  'bac-plus-4': 'Bac +4',
+  "tronc-commun": "Tronc commun",
+  "1bac": "1ère année Bac",
+  "2bac": "2ème année Bac",
 } as any;
 
 const ApplicationEducationLevel = ({

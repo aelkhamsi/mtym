@@ -33,25 +33,32 @@ const regionLabels = {
   'abroad': "Abroad",
 } as any;
 
-const relationshipWithGuardianLabels = {
-  'father': 'Father',
-  'mother': 'Mother',
-  'guardian': 'Tutor',
-  'other': 'Other'
+const educationLevelsLabels = {
+  "tronc-commun": "Tronc commun",
+  "1bac": "1ère année Bac",
+  "2bac": "2ème année Bac",
 } as any;
 
-const educationLevelLabels = {
-  "bac-plus-1": "Bac +1",
-  "bac-plus-2": "Bac +2",
-  "bac-plus-3": "Bac +3",
-  "bac-plus-4": "Bac +4",
-} as any;
-
-const universityTypesLabels = {
-  "cpge": "Classes préparatoires (CPGE)",
-  "university": "University",
-  "engineering-post-bac": "Engineering School post-Bac",
-  "engineering-post-cpge": "Engineering School post-CPGE",
+const educationFieldsLabels = {
+  "tc-sciences": "TC sciences",
+  "tc-technologique": "TC technologique",
+  "1bac-sciences-economiques-et-gestion": "1BAC Sciences Economiques et Gestion",
+  "1bac-arts-appliques": "1BAC Arts Appliqués",
+  "1bac-sciences-experimentales": "1BAC Sciences Expérimentales",
+  "1bac-sciences-mathematiques": "1BAC Sciences Mathématiques",
+  "1bac-sciences-et-technologies-electriques": "1BAC Sciences et Technologies Electriques",
+  "1bac-sciences-et-technologies-mecaniques": "1BAC Sciences et Technologies Mécaniques",
+  "2bac-sciences-economiques": "2BAC Sciences Economiques",
+  "2bac-sciences-de-gestion-et-comptabilite": "2BAC Sciences de Gestion et Comptabilité",
+  "2bac-arts-appliques ": "2BAC Arts Appliqués",
+  "2bac-sciences-de-la-vie-et-de-la-terre": "2BAC Sciences de la Vie et de la Terre",
+  "2bac-sciences-physique-chimie": "2BAC Sciences Physique Chimie",
+  "2bac-sciences-agronomiques": "2BAC Sciences Agronomiques",
+  "2bac-sciences-mathematiques-a": "2BAC Sciences Mathématiques A",
+  "2bac-sciences-mathematiques-b": "2BAC Sciences Mathématiques B",
+  "2bac-sciences-et-technologies-electrique": "2BAC Sciences et Technologies Electrique",
+  "2bac-sciences-et-technologies-mecanique": "2BAC Sciences et Technologies Mécanique",
+  "autre": "Autre",
 } as any;
 
 const booleanLabels = {
@@ -132,38 +139,39 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
                 <Field label='City of residence'>{renderText(application?.city)}</Field>
                 <Field label='Region of residence'>{renderText(regionLabels[application?.region])}</Field>
                 <Field label='Phone number'>{renderText(application?.phoneNumber)}</Field>
-                <Separator className="my-6" />
-                <Field label='Emergency Contact Full Name'>{renderText(application?.emergencyContactFullName)}</Field>
-                <Field label='Emergency Contact Phone Number'>{renderText(application?.emergencyContactPhoneNumber)}</Field>
-                <Field label='Emergency Contact Relationship'>{renderText(relationshipWithGuardianLabels[application?.emergencyContactRelationship])}</Field>
               </div>
             </TabsContent>
             
             {/* EDUCATION */}
             <TabsContent value="education">
               <div className='space-y-6'>
-                <Field label='Education Level'>{renderText(educationLevelLabels[application?.educationLevel])}</Field>
-                <Field label='University Type'>{renderText(universityTypesLabels[application?.universityType])}</Field>
-                <Field label='University Name'>{renderText(application?.universityName)}</Field>
-                <Field label='Field of study'>{renderText(application?.educationField)}</Field>               
+                <Field label='Education Level'>{renderText(educationLevelsLabels[application?.educationLevel])}</Field>
+                <Field label='University Type'>{renderText(educationFieldsLabels[application?.educationField])}</Field>
+                <Field label='University Name'>{renderText(application?.highschool)}</Field>
+                <Separator className="my-6" />
+                <Field label='Average Grade'>{renderText(application?.averageGrade)}</Field>
+                <Field label='Math Average Grade'>{renderText(application?.mathAverageGrade)}</Field>
+                <Field label='Ranking'>{renderText(application?.ranking)}</Field>
+                <Field label='Math Ranking'>{renderText(application?.mathRanking)}</Field>
+                <Field label='Number of Students in the class'>{renderText(application?.numberOfStudentsInClass)}</Field>
               </div>
             </TabsContent>
               
             {/* COMPETTION */}
             <TabsContent value="competition">
               <div className='space-y-6'>
-                <Field label='Have you taken part in competitions before (Olympiads, concour, etc.)?'>{renderText(booleanLabels[application?.hasPreviousExperiences])}</Field>
-                <Field label='Please specify which ones and the result obtained'>{renderText(application?.previousExperiences)}</Field>
+                <Field label='Avez-vous déjà participé à des compétitions auparavant ? (Olympiades, concours, etc.)?'>{renderText(booleanLabels[application?.hasPreviousExperiences])}</Field>
+                <Field label='Veuillez préciser lesquels et le résultat obtenu.'>{renderText(application?.previousExperiences)}</Field>
 
                 <Separator />
 
-                <Field label='Have you ever taken part in Math Maroc Competition (MMC)?'>{renderText(booleanLabels[application?.hasPreviousMathMarocParticipations])}</Field>
-                <Field label='Please specify in which edition (2023 or 2024) and what was your ranking'>{renderText(application?.previousMathMarocParticipations)}</Field>
+                <Field label='Avez-vous participé à MTYM en Mai 2024 ou en Décembre 2024 ?'>{renderText(booleanLabels[application?.hasPreviousMTYMParticipations])}</Field>
+                <Field label='Veuillez préciser le nom de votre équipe'>{renderText(application?.previousMTYMParticipations)}</Field>
 
                 <Separator />
                 
                 <Field label='Motivations'>{renderText(application?.motivations)}</Field>
-                <Field label='Comments'>{renderText(application?.comments)}</Field>
+                <Field label='Commentaires'>{renderText(application?.comments)}</Field>
               </div>
             </TabsContent>
             

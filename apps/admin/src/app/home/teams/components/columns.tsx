@@ -84,7 +84,7 @@ export const columns: ColumnDef<TeamRow>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Leader
+          Créateur
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
