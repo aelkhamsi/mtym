@@ -5,6 +5,7 @@ import Image from "next/image";
 import Stats from "./stats";
 import { useRecoilValue } from "recoil";
 import { applicationsState } from "@/store/applicationsState";
+import { teamsState } from "@/store/teamsState";
 
 const links = [
   {
@@ -54,9 +55,28 @@ const countApplications = (applications: any[]) => {
   );
 }
 
+const countTeams = (teams: any[]) => {
+  return (teams||[])?.reduce(
+    (count: any[], team: any) => {
+      const membersNumber = team?.users?.length
+      count[0]++
+      if (membersNumber < 3 || membersNumber > 5) {
+        count[2]++
+      } else {
+        count[1]++
+      }
+
+      return count
+    },
+    [0, 0, 0]
+  )
+}
+
 export default function Home() {
   const applications = useRecoilValue(applicationsState);
-  const [countAll, countPending, countTC, countBac1, countBac2] = countApplications(applications)
+  const teams = useRecoilValue(teamsState)
+  const [countAllApplications, countPendingApplications, countTC, countBac1, countBac2] = countApplications(applications)
+  const [countAllTeams, countCompleteTeams, countIncompleteTeams] = countTeams(teams)
 
   return (
     <>
@@ -72,11 +92,14 @@ export default function Home() {
       <div className="flex gap-x-4">
         <Stats
           className="text-white bg-[#244B3A]" 
-          valueAll={countAll} 
-          valuePending={countPending} 
+          valueAllApplications={countAllApplications} 
+          valuePendingApplications={countPendingApplications} 
           valueBac1={countBac1} 
           valueBac2={countBac2} 
           valueTC={countTC}
+          valueAllTeams={countAllTeams}
+          valueCompleteTeams={countCompleteTeams}
+          valueIncompleteTeams={countIncompleteTeams}
         />
       </div>
     </>
