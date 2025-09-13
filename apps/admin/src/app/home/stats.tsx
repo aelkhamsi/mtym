@@ -1,9 +1,9 @@
 const Stats = ({
   valueAllApplications,
   valuePendingApplications,
-  valueBac1,
-  valueBac2,
-  valueTC,
+  valueBac1Applications,
+  valueBac2Applications,
+  valueTCApplications,
   valueAllTeams,
   valueCompleteTeams,
   valueIncompleteTeams,
@@ -11,9 +11,9 @@ const Stats = ({
 }:{
   valueAllApplications: number,
   valuePendingApplications: number,
-  valueBac1: number,
-  valueBac2: number,
-  valueTC: number,
+  valueBac1Applications: number,
+  valueBac2Applications: number,
+  valueTCApplications: number,
   valueAllTeams: number,
   valueCompleteTeams: number,
   valueIncompleteTeams: number,
@@ -37,15 +37,15 @@ const Stats = ({
         <div>Submitted Applications by Level</div>
         <div className="flex items-center space-x-4 text-sm">
           <div className="rounded-lg px-2 py-1 bg-gray-300 text-black">Tronc commun</div>
-          <div className={'text-zinc-100'}>{valueTC}</div>
+          <div className={'text-zinc-100'}>{valueTCApplications}</div>
         </div>
         <div className="flex items-center space-x-4 text-sm">
           <div className="rounded-lg px-2 py-1 bg-gray-300 text-black">Bac +1</div>
-          <div className={'text-zinc-100'}>{valueBac1}</div>
+          <div className={'text-zinc-100'}>{valueBac1Applications}</div>
         </div>
         <div className="flex items-center space-x-4 text-sm">
           <div className="rounded-lg px-2 py-1 bg-gray-300 text-black">Bac +2</div>
-          <div className={'text-zinc-100'}>{valueBac2}</div>
+          <div className={'text-zinc-100'}>{valueBac2Applications}</div>
         </div>
       </div>
 

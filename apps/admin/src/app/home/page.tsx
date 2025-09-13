@@ -94,9 +94,9 @@ export default function Home() {
           className="text-white bg-[#244B3A]" 
           valueAllApplications={countAllApplications} 
           valuePendingApplications={countPendingApplications} 
-          valueBac1={countBac1} 
-          valueBac2={countBac2} 
-          valueTC={countTC}
+          valueBac1Applications={countBac1} 
+          valueBac2Applications={countBac2} 
+          valueTCApplications={countTC}
           valueAllTeams={countAllTeams}
           valueCompleteTeams={countCompleteTeams}
           valueIncompleteTeams={countIncompleteTeams}
