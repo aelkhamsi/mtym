@@ -40,7 +40,7 @@ export default function MathSprintPage() {
               {/* <div className="text-xs text-gray-500 mt-1">Available soon</div> */}
             </Link>
 
-            <Link target="_blank" href='https://drive.google.com/file/d/1GtHKeWKbT0n4b57OvBUjzOS14Ns-_2-1/view?usp=sharing'>
+            <Link target="_blank" href='https://drive.google.com/file/d/1MadGUULcgEsTsikmzLfw1l6TMEmQnP09/view?usp=drive_link'>
               <div className="flex flex-col items-center justify-center text-center h-[8rem] w-[9rem] bg-white border-b-4 border-b-[#629F73] bg-gray-200 border-2 shadow-md flex justify-center rounded-md">
                 <span className="font-bold text-gray-600">Questions types</span>
                 <ExamIcon className="h-[4rem]"/>
