@@ -27,6 +27,7 @@ import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
 import TeamBanner from "./components/team-banner";
 import TeamMembers from "./components/team-members";
+import TeamMentor from "./components/team-mentor";
 
 export default function TeamPage() {
   const userData = useAtomValue(userAtom)
@@ -68,27 +69,18 @@ export default function TeamPage() {
             <TeamBanner team={userData.team} />
             
             <div className="space-y-4 p-4">
+              <Separator />
+
               <TeamMembers
                 userId={userData?.id}
                 team={userData?.team}
               ></TeamMembers>
 
-              <div>
-                <span className="font-bold">Mentor</span>
+              <Separator />
 
-                <Table>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell className="font-medium">
-                        {userData?.team?.mentorFullname
-                          ? userData?.team?.mentorFullname 
-                          : <span className="text-gray-500">(non défini)</span>
-                        }
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </div>
+              <TeamMentor
+                team={userData?.team}
+              />
             </div>
           </div>
         }
