@@ -6,8 +6,13 @@ export const getAllTeams = () => {
 }
 
 export const getTeamById = (teamId: number) => {
-  const url = `teams/${teamId}`;
+  const url = `teams/id/${teamId}`;
   return ApiMethods.get(url);
+}
+
+export const getTeamByQuadrigram = (quadrigram: string) => {
+  const url = `teams/quadrigram/${quadrigram}`;
+  return ApiMethods.get(url)
 }
 
 export const createTeam = (team: any) => {

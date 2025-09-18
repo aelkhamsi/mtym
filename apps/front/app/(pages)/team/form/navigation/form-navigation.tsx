@@ -21,9 +21,17 @@ export const FormNavigation = ({
   setFormType: Dispatch<SetStateAction<string>>,
 }) => {
   const next = async () => {
-    const fields = steps[currentStep].getFields(formType)
-    const output = await form?.trigger(fields, { shouldFocus: true })
+    const fieldKeys = steps[currentStep]?.getValidationFields(formType)
+    const output = await form?.trigger(fieldKeys, { shouldFocus: true })
     if (!output) return
+
+    if (steps[currentStep]?.asyncValidation) {
+      const fieldValues = form?.getValues(fieldKeys)
+      const fields = Object.fromEntries(fieldKeys?.map((key: string, i: number) => [key, fieldValues ? fieldValues[i] : undefined]))
+      
+      const output = await steps[currentStep].asyncValidation(fields, form?.setError)
+      if (!output) return
+    }
 
     if (currentStep < steps.length - 1) {
       setPreviousStep(currentStep)
