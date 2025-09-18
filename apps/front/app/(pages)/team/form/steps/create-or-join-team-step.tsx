@@ -1,5 +1,6 @@
 import { Button } from '@mdm/ui';
 import { motion } from 'framer-motion'
+import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 
 export const CreateOrJoinTeamStep = ({
@@ -44,6 +45,12 @@ export const CreateOrJoinTeamStep = ({
         >
           Rejoindre une équipe existante
         </Button>
+      </div>
+
+      <div className='text-center mt-20 md:mt-28'>
+        Vous cherchez encore une équipe ?<br/>
+        Rejoignez ce groupe WhatsApp pour rencontrer d&apos;autres candidats motivés et former la vôtre.<br/>
+        <Link target="_blank" href="https://chat.whatsapp.com/EfvGnwQ2dphIP4mgBb3kbN" className='text-blue-400 underline'>lien</Link>
       </div>
     </motion.div>
   )
