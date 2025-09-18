@@ -63,6 +63,12 @@ export class TeamService {
       .getOne();
   }
 
+  findOneByQuadrigram(quadrigram: string) {
+    return this.teamRepository.findOne({
+      where: { quadrigram },
+    });
+  }
+
   async addUser(id: number, userId: number) {
     const user = await this.userService.findOneById(userId);
     const team = (await this.findOneById(id)) as Team;

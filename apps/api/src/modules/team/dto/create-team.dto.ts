@@ -10,6 +10,10 @@ export class CreateTeamDto {
   slogan: string;
 
   @IsString()
+  @IsNotEmpty()
+  quadrigram: string;
+
+  @IsString()
   @IsOptional()
   mentorFullname: string;
 }

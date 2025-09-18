@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   NotFoundException,
@@ -67,8 +66,8 @@ export class TeamController {
     };
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
+  @Get('id/:id')
+  async findOneById(@Param('id') id: string) {
     const team = await this.teamService.findOneById(+id);
     if (!team) {
       throw new NotFoundException();
@@ -82,6 +81,13 @@ export class TeamController {
       },
       statusCode: 200,
     };
+  }
+
+  @Get('quadrigram/:quadrigram')
+  async findOneByQuadrigram(@Param('quadrigram') quadrigram: string) {
+    const team = await this.teamService.findOneByQuadrigram(quadrigram);
+    if (team) return team;
+    throw new NotFoundException();
   }
 
   @Put(':id')
