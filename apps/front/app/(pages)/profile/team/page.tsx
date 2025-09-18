@@ -26,6 +26,7 @@ import { ActionButton } from "./components/action-button";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
 import TeamBanner from "./components/team-banner";
+import TeamMembers from "./components/team-members";
 
 export default function TeamPage() {
   const userData = useAtomValue(userAtom)
@@ -63,44 +64,16 @@ export default function TeamPage() {
       </CardHeader>
       <CardContent>
         {userData?.team && 
-          <>
+          <div>
             <TeamBanner team={userData.team} />
             
-            <div className="mt-4 p-4">
-              <div className="mb-4">
-                <span className="font-bold">Membres de l&apos;équipe</span>
+            <div className="space-y-4 p-4">
+              <TeamMembers
+                userId={userData?.id}
+                team={userData?.team}
+              ></TeamMembers>
 
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Prénom</TableHead>
-                      <TableHead>Nom</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead className="text-right"></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {userData?.team?.users.map((user: any, index: number) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">{user?.firstName}</TableCell>
-                        <TableCell>{user?.lastName}</TableCell>
-                        <TableCell>{user?.email}</TableCell>
-                        <TableCell className="flex justify-end">
-                          {user?.id === userData?.team?.leader?.id 
-                            ? <Badge className="bg-green-700">Créateur</Badge>
-                            : isTeamLeader
-                              ? <ActionButton user={user}/>
-                              : ''
-                          }
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-
-                </Table>
-              </div>
-
-              <>
+              <div>
                 <span className="font-bold">Mentor</span>
 
                 <Table>
@@ -115,9 +88,9 @@ export default function TeamPage() {
                     </TableRow>
                   </TableBody>
                 </Table>
-              </>
+              </div>
             </div>
-          </>
+          </div>
         }
       </CardContent>
 

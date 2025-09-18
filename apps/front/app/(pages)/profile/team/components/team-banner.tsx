@@ -39,8 +39,9 @@ const TeamBanner = ({
       <TeamAvatar team={team} />
 
       <div>
-        <p className="text-2xl font-bold">
-          {team?.name} | {team?.quadrigram}
+        <p>
+          <span className="text-2xl font-bold">{team?.name}</span>
+          <span className="text-2xl font-base"> | {team?.quadrigram}</span>
         </p>
         <p className="text-base text-gray-700">{team?.slogan}</p>
       </div>
