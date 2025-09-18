@@ -19,7 +19,7 @@ export const CreateOrJoinTeamStep = ({
       <div className='flex flex-col items-center space-y-8 md:flex-row md:space-y-0 md:justify-center mt-20 md:mt-28'>
         {/* Create a team */}
         <Button
-          className='text-lg md:w-1/4 py-10 px-12'
+          className='text-sm xl:text-base md:w-1/4 py-10 px-12 whitespace-normal break-words'
           onClick={() => setFormType('create')}
         >
           Créer une nouvelle équipe
@@ -40,7 +40,7 @@ export const CreateOrJoinTeamStep = ({
         {/* Join a team */}
         <Button 
           variant='outline' 
-          className='text-lg md:w-1/4 py-10 px-12'
+          className='text-sm xl:text-base md:w-1/4 py-10 px-12 whitespace-normal break-words'
           onClick={() => setFormType('join')}
         >
           Rejoindre une équipe existante
