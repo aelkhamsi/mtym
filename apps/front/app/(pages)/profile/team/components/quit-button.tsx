@@ -55,15 +55,9 @@ const QuitButton = ({
     }
   }
 
-  // console.log('userData', userData)
-
   const onTeamLeaderChange = (value: string) => {
     setNewLeaderId(+value)
   }
-
-  useEffect(() => {
-    console.log('newLeaderId', newLeaderId)
-  }, [newLeaderId])
 
   return (
     <AlertDialog>

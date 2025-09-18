@@ -25,6 +25,7 @@ import QuitButton from "./components/quit-button";
 import { ActionButton } from "./components/action-button";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
+import TeamBanner from "./components/team-banner";
 
 export default function TeamPage() {
   const userData = useAtomValue(userAtom)
@@ -63,10 +64,7 @@ export default function TeamPage() {
       <CardContent>
         {userData?.team && 
           <>
-            <div className="bg-gray-100 rounded-md p-4">
-              <div className="text-2xl font-bold bg-gradient-to-r from-black to-stone-600 inline-block text-transparent bg-clip-text">{userData?.team?.name}</div>
-              <div className="text-base text-gray-700">{userData?.team?.slogan}</div>
-            </div>
+            <TeamBanner team={userData.team} />
             
             <div className="mt-4 p-4">
               <div className="mb-4">
