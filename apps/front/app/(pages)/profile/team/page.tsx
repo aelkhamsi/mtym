@@ -30,88 +30,49 @@ import TeamMembers from "./components/team-members";
 import TeamMentor from "./components/team-mentor";
 
 export default function TeamPage() {
-  const userData = useAtomValue(userAtom)
-  const [content, setContent] = useState<any>(undefined);
-  const [isTeamLeader, setIsTeamLeader] = useState<boolean>(false);
+  const user = useAtomValue(userAtom)
+  const isTeamLeader = user?.team?.leader?.id === user?.id 
   const router = useRouter();
-  
-  useEffect(() => {
-    const team = userData?.team;
-    const isTeamLeader = team?.leader?.id === userData?.id 
-    setIsTeamLeader(isTeamLeader);
 
-    if (!team) {
-      setContent({
-        title: "Vous ne faites pas partie d'une équipe!",
-        subtitle: "Votre candidature n'est pas valide tant que vous n'avez pas rejoint une équipe.",
-      })
-    } else {
-      setContent({
-        title: isTeamLeader ? "Vous avez créé une équipe!" : "Vous avez rejoint une équipe!",
-        subtitle: "Votre candidature sera jointe à celles de vos coéquipiers.",
-      })
-    }
-  }, [userData])
-
-  const applicationCard = (
+  const teamSection = (
     <Card>
       <CardHeader>
-        <CardTitle>
-          {content?.title}
-        </CardTitle>
-        <CardDescription>
-          {content?.subtitle}
-        </CardDescription>
+        <TeamBanner team={user?.team} />
       </CardHeader>
-      <CardContent>
-        {userData?.team && 
-          <div>
-            <TeamBanner team={userData.team} />
-            
-            <div className="space-y-4 p-4">
-              <Separator />
 
-              <TeamMembers
-                userId={userData?.id}
-                team={userData?.team}
-              ></TeamMembers>
+      <CardContent className="space-y-4 px-8">            
+        <Separator />
+        <TeamMembers userId={user?.id} team={user?.team} />
 
-              <Separator />
-
-              <TeamMentor
-                team={userData?.team}
-              />
-            </div>
-          </div>
-        }
+        <Separator />
+        <TeamMentor team={user?.team} />
       </CardContent>
 
+      <CardFooter className="flex space-x-4">
+        {isTeamLeader && <InviteButton />}
+        <QuitButton isTeamLeader={isTeamLeader} />
+      </CardFooter>
+    </Card>
+  )
+
+  const noTeamSection = (
+    <Card>
+      <CardHeader>
+        <CardTitle>Vous ne faites pas partie d&apos;une équipe!</CardTitle>
+        <CardDescription>Votre candidature n&apos;est pas valide tant que vous n&apos;avez pas rejoint une équipe.</CardDescription>
+      </CardHeader>
+
       <CardFooter>
-        {(!userData?.application || userData?.application?.status?.status === 'DRAFT')
-          ? (
-            <>
-              <p>Avant que vous puissiez rejoindre une équipe, il faut que vous soumettiez votre candidature:</p>
-              <Button
-                onClick={() => router.push('/application')}
-              >
-                Créer votre candidature
-              </Button>
-            </>
-          ) : (
-            userData?.team
-              ? (
-                <div className="flex space-x-4">
-                  {isTeamLeader && <InviteButton />}
-                  <QuitButton isTeamLeader={isTeamLeader} />
-                </div>
-              ) : (
-                <Button
-                  onClick={() => router.push('/team')}
-                >
-                  Rejoindre une équipe
-                </Button>
-              )
-          )
+        {(!user?.application || user?.application?.status?.status === 'DRAFT')
+          ? <>
+            <p className="text-sm">Avant que vous puissiez rejoindre une équipe, il faut que vous soumettiez votre candidature</p>
+            <Button onClick={() => router.push('/application')}>
+              Créer votre candidature
+            </Button>
+          </>
+          : <Button onClick={() => router.push('/team')}>
+            Rejoindre une équipe
+          </Button>
         }
       </CardFooter>
     </Card>
@@ -128,9 +89,11 @@ export default function TeamPage() {
 
       <Separator />
 
-      {!userData
+      {!user
         ? <ProfileSkeleton />
-        : applicationCard
+        : user?.team
+          ? teamSection
+          : noTeamSection
       }
     </div>
   )

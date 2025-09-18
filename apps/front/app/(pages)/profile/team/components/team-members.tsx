@@ -13,15 +13,12 @@ const TeamMembers = ({
   userId,
   team
 }:{
-  userId: number
+  userId: number|undefined
   team: any
 }) => {
   const members = team?.users
   const creator = team?.leader
   const isTeamCreator = userId === creator?.id
-
-  console.log('members', members)
-  console.log('creator', creator)
 
   return (
     <div>
