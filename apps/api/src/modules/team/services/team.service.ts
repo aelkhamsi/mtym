@@ -52,17 +52,6 @@ export class TeamService {
       .getOne();
   }
 
-  findOneByName(name: string) {
-    return this.teamRepository
-      .createQueryBuilder('team')
-      .leftJoinAndSelect('team.leader', 'leader')
-      .leftJoinAndSelect('team.users', 'user')
-      .leftJoinAndSelect('user.application', 'application')
-      .leftJoinAndSelect('application.status', 'status')
-      .where('team.name = :name', { name })
-      .getOne();
-  }
-
   findOneByQuadrigram(quadrigram: string) {
     return this.teamRepository.findOne({
       where: { quadrigram },
