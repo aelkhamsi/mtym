@@ -16,6 +16,7 @@ import { generateAccessCode } from "@/app/api/TeamAccessCodeApi";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
 import { sleep } from "@mdm/utils";
+import { XIcon } from "lucide-react";
 
 export const InviteButton = () => {
   const userData = useAtomValue(userAtom)
@@ -58,6 +59,7 @@ export const InviteButton = () => {
 
       <AlertDialogContent>
         <AlertDialogHeader>
+          <AlertDialogCancel className="absolute top-2 right-2"><XIcon className="h-6"/></AlertDialogCancel>
           <AlertDialogTitle>Générer un code d&apos;accès</AlertDialogTitle>
           <AlertDialogDescription className="space-y-6">
             <p>Pour qu&apos;une personne puisse rejoindre l&apos;équipe, elle aura besoin d&apos;un code d&apos;accès utilisable dans le formulaire de candidature d&apos;équipe.</p>

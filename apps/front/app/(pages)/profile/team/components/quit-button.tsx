@@ -22,6 +22,7 @@ import { toast } from "@mdm/ui";
 import { useState } from "react";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
+import { XIcon } from "lucide-react";
 
 const QuitButton = ({
   isTeamLeader
@@ -71,6 +72,7 @@ const QuitButton = ({
 
       <AlertDialogContent>
         <AlertDialogHeader>
+          <AlertDialogCancel className="absolute top-2 right-2"><XIcon className="h-6"/></AlertDialogCancel>
           <AlertDialogTitle>Êtes-vous sûr de vouloir quitter cette équipe?</AlertDialogTitle>
           <AlertDialogDescription>
             Cette action est irréversible. Vous devez postuler à nouveau pour une nouvelle équipe afin que votre candidature soit prise en compte. 

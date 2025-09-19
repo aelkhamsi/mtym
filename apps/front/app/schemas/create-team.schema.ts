@@ -1,7 +1,5 @@
 import { z } from "zod"
 
-const normalizeName = (s: string) => s.normalize("NFKD").replace(/[^A-Za-z]/g, "").toUpperCase();
-
 export const createTeamSchema = z.object({
   name: z.string().min(1, {message: 'Un nom est requis'}),
   slogan: z.string().min(1, {message: 'Un slogan est requis'}),
@@ -10,7 +8,6 @@ export const createTeamSchema = z.object({
   }),
   mentorFullname: z.string().optional(),
 }).superRefine(({ name, quadrigram }, ctx) => {
-  const teamName = normalizeName(name);
   const quad = quadrigram;
 
   if (/^(.)\1{3}$/.test(quad)) {
