@@ -17,6 +17,7 @@ import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useSetAtom } from 'jotai';
 import { userAtom } from '@/app/store/userAtom';
+import { LogOut, LogOutIcon } from "lucide-react";
 
 export function UserNav({
   firstName,
@@ -61,9 +62,19 @@ export function UserNav({
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem
-            onClick={() => router.push('/profile/account')}
+            onClick={() => router.push('/profile/application')}
+            className="hover:cursor-pointer"
           >
-            Profil
+            Candidature
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem
+            onClick={() => router.push('/profile/team')}
+            className="hover:cursor-pointer"
+          >
+            Équipe
           </DropdownMenuItem>
         </DropdownMenuGroup>
         
@@ -71,6 +82,7 @@ export function UserNav({
 
         <DropdownMenuItem
           onClick={handleLogOut}
+          className="bg-gray-100 hover:cursor-pointer"
         >
           Se déconnecter
         </DropdownMenuItem>
