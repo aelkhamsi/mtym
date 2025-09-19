@@ -2,6 +2,7 @@ import { Button } from "@/components/shared/button"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import TeamsMembers from "./teams-members"
+import TeamAvatar from "./teams-avatar"
  
 export type TeamRow = {
   id: string,
@@ -15,6 +16,16 @@ export type TeamRow = {
 }
  
 export const columns: ColumnDef<TeamRow>[] = [
+  {
+    id: "identicon",
+    cell: ({ row }) => {
+      const id = row.original?.id;
+ 
+      return <div className='flex justify-end'>
+        <TeamAvatar id={id} />
+      </div>
+    }
+  },
   {
     accessorKey: "id",
     header: ({ column }) => {
