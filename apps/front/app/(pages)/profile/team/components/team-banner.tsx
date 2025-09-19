@@ -1,6 +1,8 @@
 "use client"
 
+import { PencilIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
+import EditButton from "./edit-button";
 
 const TeamAvatar = ({
   team,
@@ -35,7 +37,9 @@ const TeamBanner = ({
   className?: string
 }) => {
   return (
-    <div className={`flex flex-col gap-y-4 md:flex-row md:gap-y-0 md:gap-x-4 bg-gray-50 rounded-md p-4 border ${className}`}>
+    <div className={`relative flex flex-col gap-y-4 md:flex-row md:gap-y-0 md:gap-x-4 bg-gray-50 rounded-md p-4 border ${className}`}>
+      <EditButton className="absolute top-2 right-2" />
+      
       <TeamAvatar team={team} />
 
       <div>
