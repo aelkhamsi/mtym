@@ -137,7 +137,10 @@ export const columns: ColumnDef<TeamRow>[] = [
       )
     },
     cell: ({ row }) => {
-      return <div className="text-center">
+      const numberOfMembers = parseInt(row.getValue('numberOfMembers'))
+      const isValid = numberOfMembers >= 3 && numberOfMembers <= 5
+
+      return <div className={`text-center ${isValid ? 'text-green-500' : 'text-red-500'}`}>
         {row.getValue('numberOfMembers') as string}
       </div>
     },
