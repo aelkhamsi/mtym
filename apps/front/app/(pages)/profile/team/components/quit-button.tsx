@@ -19,7 +19,7 @@ import {
 import { Button, Separator } from "@mdm/ui";
 import { changeLeader, deleteTeam, removeUser } from "@/app/api/TeamApi";
 import { toast } from "@mdm/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
 
