@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
 import { ProfileSkeleton } from "@mdm/ui";
+import { CLOSE_APPLICATIONS } from "config";
 
 const getBadgeClassname = (status: string) => {
   switch(status) {
@@ -43,28 +44,40 @@ const getBadgeClassname = (status: string) => {
 export default function ApplicationPage() {
   const user = useAtomValue(userAtom)
   const [content, setContent] = useState<any>(undefined);
+  const [isApplicationComplete, setIsApplicationComplete] = useState(false)
+  const [isTeamComplete, setIsTeamComplete] = useState(false)
   const router = useRouter();
   
   useEffect(() => {
     const application = user?.application;
     const applicationStatus = application?.status?.status;
+    const team = user?.team
+    const teamMembers = user?.team?.users?.length
+    setIsApplicationComplete(application && applicationStatus !== 'DRAFT')
+    setIsTeamComplete(team && teamMembers >= 3 && teamMembers <= 5)
 
     if (!application) {
       setContent({
         title: "Vous n'avez pas soumis une candidature",
-        subtitle: "On attend ta candidature avec impatience.",
+        subtitle: CLOSE_APPLICATIONS
+          ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
+          : "On attend ta candidature avec impatience.",
         ctaLabel: "Créer votre candidature",
       })
     } else if (applicationStatus === 'DRAFT') {
       setContent({
         title: "Vous avez sauvegardé un brouillon de candidature. Elle n'est pas encore soumise!",
-        subtitle: "Terminez votre candidature pour qu’elle soit valide",
+        subtitle: CLOSE_APPLICATIONS
+          ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
+          : "Terminez votre candidature pour qu’elle soit valide",
         ctaLabel: "Continuer votre candidature",
       })
     } else {
       setContent({
-        title: "Vous avez déjà soumis une candidature",
-        subtitle: "Vous trouverez l'avancement de votre candidature ci-dessous. On vous notifiera des prochaines étapes par mail.",
+        title: "Vous avez soumis une candidature",
+        subtitle: CLOSE_APPLICATIONS && !isTeamComplete
+          ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
+          : "Vous trouverez l'avancement de votre candidature ci-dessous. On vous notifiera des prochaines étapes par mail.",
         ctaLabel: "Mettre à jour votre candidature",
       })
     }
@@ -91,13 +104,15 @@ export default function ApplicationPage() {
         }
       </CardContent>
       
-      <CardFooter>
-        <Button
-          onClick={() => router.push('/application')}
-        >
-          {content?.ctaLabel}
-        </Button>
-      </CardFooter> 
+      {(!CLOSE_APPLICATIONS || (isApplicationComplete && isTeamComplete)) &&
+        <CardFooter>
+          <Button
+            onClick={() => router.push('/application')}
+          >
+            {content?.ctaLabel}
+          </Button>
+        </CardFooter> 
+      }
     </Card>
   );
 
