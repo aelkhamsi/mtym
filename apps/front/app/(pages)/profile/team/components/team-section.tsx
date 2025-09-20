@@ -10,6 +10,7 @@ import TeamMembers from "./team-members";
 import TeamMentor from "./team-mentor";
 import QuitButton from "./quit-button";
 import { InviteButton } from "./invite-button";
+import { CLOSE_APPLICATIONS } from "config";
 
 const TeamSection = ({
   user,
@@ -33,7 +34,7 @@ const TeamSection = ({
       </CardContent>
 
       <CardFooter className="flex space-x-4">
-        {isTeamLeader && <InviteButton />}
+        {isTeamLeader && !CLOSE_APPLICATIONS && <InviteButton />}
         <QuitButton isTeamLeader={isTeamLeader} />
       </CardFooter>
     </Card>
