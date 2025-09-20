@@ -4,6 +4,7 @@ import CtaButton from '../cta/cta-button'
 import FaqButton from '../cta/faq-button'
 import { BookIcon, CalendarMDMIcon, LocationIcon } from '@mdm/ui'
 import RegulationButton from '../cta/regulation-button'
+import { CLOSE_APPLICATIONS } from 'config'
 
 const HeroSection = () => {
   return (
@@ -45,7 +46,10 @@ const HeroSection = () => {
               className="text-center font-display text-4xl font-bold tracking-[0.05em] text-wrap:balance md:text-5xl md:leading-[3rem]"
             >
               <span className='font-neco'>
-                Les inscriptions pour MTYM 2025 sont ouvertes!
+                {CLOSE_APPLICATIONS
+                  ? 'Les inscriptions pour MTYM 2025 sont fermées!'
+                  : 'Les inscriptions pour MTYM 2025 sont ouvertes!'
+                }
               </span>
             </h1>
           </div>
