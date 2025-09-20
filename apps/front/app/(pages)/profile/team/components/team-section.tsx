@@ -21,7 +21,7 @@ const TeamSection = ({
   return (
     <Card>
       <CardHeader>
-        <TeamBanner team={user?.team} />
+        <TeamBanner team={user?.team} user={user} />
       </CardHeader>
 
       <CardContent className="space-y-4 px-8">            
