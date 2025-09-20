@@ -54,7 +54,8 @@ export default function ApplicationPage() {
     const team = user?.team
     const teamMembers = user?.team?.users?.length
     setIsApplicationComplete(application && applicationStatus !== 'DRAFT')
-    setIsTeamComplete(team && teamMembers >= 3 && teamMembers <= 5)
+    const _isTeamComplete = team && teamMembers >= 3 && teamMembers <= 5
+    setIsTeamComplete(_isTeamComplete)
 
     if (!application) {
       setContent({
@@ -75,7 +76,7 @@ export default function ApplicationPage() {
     } else {
       setContent({
         title: "Vous avez soumis une candidature",
-        subtitle: CLOSE_APPLICATIONS && !isTeamComplete
+        subtitle: CLOSE_APPLICATIONS && !_isTeamComplete
           ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "Vous trouverez l'avancement de votre candidature ci-dessous. On vous notifiera des prochaines étapes par mail.",
         ctaLabel: "Mettre à jour votre candidature",
