@@ -46,4 +46,8 @@ export const columns = [
   { header: 'Regulations', key: 'regulations', width: 10 },
 
   { header: 'Status', key: 'status', width: 15 },
+
+  { header: 'Team ID', key: 'team_id', width: 10 },
+  { header: 'Team Name', key: 'team_name', width: 10 },
+  { header: 'Team Quadrigram', key: 'team_quadrigram', width: 10 },
 ];

@@ -3,6 +3,7 @@ import { educationLevels, regionLabels, educationFields } from '../labels';
 export const rowFactory = (applications: any[], configService) => {
   const awsBucketName = configService.get('AWS_BUCKET_NAME');
   const awsBucketRegion = configService.get('AWS_BUCKET_REGION');
+  console.log('team', applications[0].user?.team);
 
   return applications.map((application: any) => ({
     id: application?.id,
@@ -46,5 +47,9 @@ export const rowFactory = (applications: any[], configService) => {
     },
 
     status: application?.status?.status,
+
+    teamId: application?.user?.team?.id,
+    teamName: application?.user?.team?.name,
+    teamQuadrigram: application?.user?.team?.quadrigram,
   }));
 };

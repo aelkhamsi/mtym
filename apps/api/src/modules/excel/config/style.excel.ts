@@ -59,6 +59,16 @@ export const styleSheet = (sheet) => {
     };
   }
 
+  // team style
+  for (let i = 27; i <= 29; i++) {
+    sheet.getColumn(i).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      bgColor: { argb: 'c6875e' },
+      fgColor: { argb: 'c6875e' },
+    };
+  }
+
   // header style
   sheet.getRow(1).height = 70;
   sheet.getRow(1).font = {

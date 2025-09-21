@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DeepPartial, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Application } from '../entities/application.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateApplicationDto } from '../dto/create-application.dto';
@@ -42,6 +42,7 @@ export class ApplicationService {
       .createQueryBuilder('application')
       .leftJoinAndSelect('application.status', 'status')
       .leftJoinAndSelect('application.user', 'user')
+      .leftJoinAndSelect('user.team', 'team')
       .getMany();
   }
 
