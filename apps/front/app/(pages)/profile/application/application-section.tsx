@@ -1,7 +1,6 @@
 
 "use client"
 
-import { Separator } from "@mdm/ui"
 import { formatDate } from "@mdm/utils";
 import { useEffect, useState } from "react";
 import {
@@ -17,7 +16,7 @@ import { Button } from "@mdm/ui";
 import { useRouter } from "next/navigation";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
-import { ProfileSkeleton } from "@mdm/ui";
+import { CLOSE_APPLICATIONS } from "config";
 
 const getBadgeClassname = (status: string) => {
   switch(status) {
@@ -40,37 +39,50 @@ const getBadgeClassname = (status: string) => {
   }
 }
 
-export default function ApplicationPage() {
+const ApplicationSection = () => {
   const user = useAtomValue(userAtom)
   const [content, setContent] = useState<any>(undefined);
+  const [isApplicationComplete, setIsApplicationComplete] = useState(false)
+  const [isTeamComplete, setIsTeamComplete] = useState(false)
   const router = useRouter();
   
   useEffect(() => {
     const application = user?.application;
     const applicationStatus = application?.status?.status;
+    const team = user?.team
+    const teamMembers = user?.team?.users?.length
+    setIsApplicationComplete(application && applicationStatus !== 'DRAFT')
+    const _isTeamComplete = team && teamMembers >= 3 && teamMembers <= 5
+    setIsTeamComplete(_isTeamComplete)
 
     if (!application) {
       setContent({
         title: "Vous n'avez pas soumis une candidature",
-        subtitle: "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités.",
+        subtitle: CLOSE_APPLICATIONS
+          ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
+          : "On attend ta candidature avec impatience.",
         ctaLabel: "Créer votre candidature",
       })
     } else if (applicationStatus === 'DRAFT') {
       setContent({
-        title: "Vous avez sauvegardé un brouillon de candidature. Elle n'est pas encore soumise.",
-        subtitle: "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités.",
+        title: "Vous avez sauvegardé un brouillon de candidature. Elle n'est pas encore soumise!",
+        subtitle: CLOSE_APPLICATIONS
+          ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
+          : "Terminez votre candidature pour qu’elle soit valide",
         ctaLabel: "Continuer votre candidature",
       })
     } else {
       setContent({
-        title: "Vous avez déjà soumis une candidature",
-        subtitle: "Vous trouverez l'avancement de votre candidature ci-dessous. On vous notifiera des prochaines étapes par mail.",
+        title: "Vous avez soumis une candidature",
+        subtitle: CLOSE_APPLICATIONS && !_isTeamComplete
+          ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
+          : "Vous trouverez l'avancement de votre candidature ci-dessous. On vous notifiera des prochaines étapes par mail.",
         ctaLabel: "Mettre à jour votre candidature",
       })
     }
   }, [user])
 
-  const applicationCard = (
+  return (
     <Card>
       <CardHeader>
         <CardTitle>
@@ -90,8 +102,8 @@ export default function ApplicationPage() {
           </>
         }
       </CardContent>
-
-      {user?.application && user?.application?.status?.status !== 'DRAFT' &&
+      
+      {(!CLOSE_APPLICATIONS || (isApplicationComplete && isTeamComplete)) &&
         <CardFooter>
           <Button
             onClick={() => router.push('/application')}
@@ -102,22 +114,6 @@ export default function ApplicationPage() {
       }
     </Card>
   );
-
-  return (
-    <div className="space-y-6">
-      <div>
-        <div className="text-lg font-medium">Candidature</div>
-        <p className="text-sm text-muted-foreground">
-          C&apos;est ici que vous trouverez le statut de votre candidature.
-        </p>
-      </div>
-
-      <Separator />
-
-      {!user
-        ? <ProfileSkeleton />
-        : applicationCard
-      }
-    </div>
-  )
 }
+
+export default ApplicationSection

@@ -3,7 +3,7 @@ import { ZodSchema, z } from "zod";
 
 const MAX_UPLOAD_SIZE = 1024 * 1024 * 3; // 3MB
 const ACCEPTED_FILE_TYPES = ['image/png','image/jpeg','image/jpg', 'image/png','image/webp', 'application/pdf'];
-const zodFileValidation = z.any()
+export const zodFileValidation = z.any()
   .refine(files => files?.length == 1, 'Ce fichier est obligatoire.')
   .refine(files => files ? ACCEPTED_FILE_TYPES.includes(files[0]?.type) : true, { message: 'Please choose PNG, JPEG or PDF format files only' })
   .refine(files => files ? files[0]?.size <= MAX_UPLOAD_SIZE : true, 'File size must be less than 3MB')

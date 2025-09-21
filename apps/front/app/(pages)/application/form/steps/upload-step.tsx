@@ -13,6 +13,17 @@ import Link from 'next/link';
 import { FileInput } from '../components/file-input';
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk';
 
+export const initFileInput = (field: ControllerRenderProps, id: string) => {
+  if (field?.value && field?.value.length) {
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(field?.value[0]);
+    setTimeout(() => {
+      const fileInputElement = document.querySelector(`#${id}`) as HTMLInputElement;
+      fileInputElement.files = dataTransfer.files;
+    }, 300)
+  }
+}
+
 export const UploadStep = ({
   form,
   delta,
@@ -20,17 +31,6 @@ export const UploadStep = ({
   form: UseFormReturn,
   delta: number,
 }) => {
-  const initFileInput = (field: ControllerRenderProps, id: string) => {
-    if (field?.value && field?.value.length) {
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(field?.value[0]);
-      setTimeout(() => {
-        const fileInputElement = document.querySelector(`#${id}`) as HTMLInputElement;
-        fileInputElement.files = dataTransfer.files;
-      }, 300)
-    }
-  }
-
   return (
     <motion.div
       initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
