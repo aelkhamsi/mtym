@@ -45,6 +45,10 @@ export const rowFactory = (applications: any[], configService) => {
       text: application?.fileRegulationsUrl ? 'link' : ' ',
       hyperlink: `https://${awsBucketName}.s3.${awsBucketRegion}.amazonaws.com/${application?.fileRegulationsUrl}`,
     },
+    fileCnieUrl: {
+      text: application?.fileCnieUrl ? 'link' : ' ',
+      hyperlink: `https://${awsBucketName}.s3.${awsBucketRegion}.amazonaws.com/${application?.fileCnieUrl}`,
+    },
 
     status: application?.status?.status,
 

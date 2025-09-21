@@ -44,6 +44,7 @@ export const columns = [
 
   { header: 'Grades', key: 'grades', width: 10 },
   { header: 'Regulations', key: 'regulations', width: 10 },
+  { header: 'CNIE', key: 'cnie', width: 10 },
 
   { header: 'Status', key: 'status', width: 15 },
 

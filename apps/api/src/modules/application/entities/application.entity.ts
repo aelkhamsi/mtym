@@ -104,6 +104,9 @@ export class Application {
   @Column({ type: 'varchar', nullable: true })
   fileGradesUrl: string;
 
+  @Column({ type: 'varchar', nullable: true })
+  fileCnieUrl: string;
+
   /* createAt & updatedAt */
   @CreateDateColumn({
     type: 'timestamp',

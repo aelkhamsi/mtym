@@ -50,7 +50,7 @@ export const styleSheet = (sheet) => {
   }
 
   // status style
-  for (let i = 24; i <= 26; i++) {
+  for (let i = 24; i <= 27; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -60,7 +60,7 @@ export const styleSheet = (sheet) => {
   }
 
   // team style
-  for (let i = 27; i <= 29; i++) {
+  for (let i = 28; i <= 30; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
