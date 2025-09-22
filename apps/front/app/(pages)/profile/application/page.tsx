@@ -19,7 +19,7 @@ export default function ApplicationPage() {
     const teamMembers = user?.team?.users?.length
 
     setIsApplicationComplete(application && applicationStatus !== 'DRAFT')
-    setIsTeamComplete(user?.team)
+    setIsTeamComplete(user?.team && teamMembers >= 3 && teamMembers <= 5)
   })
 
   return (
@@ -38,7 +38,7 @@ export default function ApplicationPage() {
         : <ApplicationSection />
       }
 
-      {(isApplicationComplete && isTeamComplete) && 
+      {/* {(isApplicationComplete && isTeamComplete) && 
         <>
           <div>
             <div className="text-lg font-medium">Informations complémentaires</div>
@@ -54,7 +54,7 @@ export default function ApplicationPage() {
             : <AdditionalInformationsSection />
           }
         </>
-      }
+      } */}
     </div>
   )
 }
