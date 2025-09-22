@@ -38,8 +38,8 @@ export default function ApplicationPage() {
         : <ApplicationSection />
       }
 
-      {/* {(isApplicationComplete && isTeamComplete) && 
-        <>
+      {/* {(isApplicationComplete && isTeamComplete) &&  */}
+        <div className="hidden">
           <div>
             <div className="text-lg font-medium">Informations complémentaires</div>
             <p className="text-sm text-muted-foreground">
@@ -53,8 +53,8 @@ export default function ApplicationPage() {
             ? <ProfileSkeleton />
             : <AdditionalInformationsSection />
           }
-        </>
-      } */}
+        </div>
+      {/* } */}
     </div>
   )
 }
