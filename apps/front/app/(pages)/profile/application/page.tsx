@@ -38,7 +38,7 @@ export default function ApplicationPage() {
         : <ApplicationSection />
       }
 
-      {/* {(isApplicationComplete && isTeamComplete) && 
+      {(isApplicationComplete && isTeamComplete) && 
         <>
           <div>
             <div className="text-lg font-medium">Informations complémentaires</div>
@@ -54,7 +54,7 @@ export default function ApplicationPage() {
             : <AdditionalInformationsSection />
           }
         </>
-      } */}
+      }
     </div>
   )
 }
