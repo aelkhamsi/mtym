@@ -47,6 +47,8 @@ const AdditionalInformationsSection = () => {
     values: { fileCnieUrl: user?.application?.fileCnieUrl } as any
   })
 
+  console.log('user', user)
+
   const onSubmit = async (formData: z.infer<typeof additionalInformationSchema>) => {
     setIsFormLoading(true)
     const { fileCnie } = formData;
