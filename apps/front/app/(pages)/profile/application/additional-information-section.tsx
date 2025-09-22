@@ -43,8 +43,6 @@ const AdditionalInformationsSection = ({
     mode: "onChange",
   }) as UseFormReturn<any>;
 
-  console.log('user', user)
-
   const onSubmit = async (formData: z.infer<typeof additionalInformationSchema>) => {
     setIsFormLoading(true)
     const { fileCnie } = formData;

@@ -19,8 +19,6 @@ export const FileInput = ({
 
   useEffect(() => {
     const formState = form.watch()
-    console.log('formState', formState)
-    console.log('id', id)
     const fileField = formState?.[id]
     const fileUrl = formState?.[`${id}Url`]
     
