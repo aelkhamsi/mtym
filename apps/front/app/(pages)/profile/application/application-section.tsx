@@ -39,8 +39,11 @@ const getBadgeClassname = (status: string) => {
   }
 }
 
-const ApplicationSection = () => {
-  const user = useAtomValue(userAtom)
+const ApplicationSection = ({
+  user,
+}:{
+  user: any,
+}) => {
   const [content, setContent] = useState<any>(undefined);
   const router = useRouter();
   
@@ -67,7 +70,7 @@ const ApplicationSection = () => {
     } else {
       setContent({
         title: "Vous avez soumis une candidature",
-        subtitle: CLOSE_APPLICATIONS && !user?.team
+        subtitle: CLOSE_APPLICATIONS && (!user?.team || user?.team?.length <= 3 || user?.team?.length >= 5)
           ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "Vous trouverez l'avancement de votre candidature ci-dessous. On vous notifiera des prochaines étapes par mail.",
         ctaLabel: "Mettre à jour votre candidature",

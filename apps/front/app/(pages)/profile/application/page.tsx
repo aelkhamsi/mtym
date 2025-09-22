@@ -35,11 +35,11 @@ export default function ApplicationPage() {
 
       {!user
         ? <ProfileSkeleton />
-        : <ApplicationSection />
+        : <ApplicationSection user={user} />
       }
 
-      {/* {(isApplicationComplete && isTeamComplete) &&  */}
-        <div className="hidden">
+      {(isApplicationComplete && isTeamComplete) && 
+        <>
           <div>
             <div className="text-lg font-medium">Informations complémentaires</div>
             <p className="text-sm text-muted-foreground">
@@ -51,10 +51,10 @@ export default function ApplicationPage() {
 
           {!user
             ? <ProfileSkeleton />
-            : <AdditionalInformationsSection />
+            : <AdditionalInformationsSection user={user} />
           }
-        </div>
-      {/* } */}
+        </>
+      }
     </div>
   )
 }

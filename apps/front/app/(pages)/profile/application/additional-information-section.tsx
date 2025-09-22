@@ -36,8 +36,11 @@ const additionalInformationDefaultValues = {
   fileCnie: undefined,
 }
 
-const AdditionalInformationsSection = () => {
-  const user = useAtomValue(userAtom)
+const AdditionalInformationsSection = ({
+  user,
+}:{
+  user: any,
+}) => {
   const [isFormLoading, setIsFormLoading] = useState(false)
   const additionalInformationSchema = createAdditionalInformationSchema(!!user?.application?.fileCnieUrl)
   const form = useForm({
