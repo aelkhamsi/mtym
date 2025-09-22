@@ -1,3 +1,5 @@
+"use client"
+
 import { z } from "zod"
 import {
   Form,
@@ -8,6 +10,7 @@ import {
   FormMessage,
   FormDescription,
   Button,
+  LoadingDots,
 } from "@mdm/ui"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -20,27 +23,30 @@ import { zodFileValidation } from "@/app/schemas/application.schema"
 import { computeSHA256, generateFileName, getUploadFolderName } from "@/app/lib/utils"
 import { getSignedURL, uploadFile } from "@/app/api/MediaApi"
 import { putApplication } from "@/app/api/ApplicationApi"
+import { useState } from "react"
 
-const additionalInformationSchema = z.object({
-  fileCnie: zodFileValidation,
-})
+const createAdditionalInformationSchema = (hasFileCnieUrl: boolean) =>
+  z.object({
+    fileCnie: hasFileCnieUrl ? z.any().optional() : zodFileValidation,
+  })
 
-type AdditionalInformationFormValues = z.infer<typeof additionalInformationSchema>
-
-const additionalInformationDefaultValues: Partial<z.infer<typeof additionalInformationSchema>> = {
+const additionalInformationDefaultValues = {
   fileCnie: undefined,
 }
 
 const AdditionalInformationsSection = () => {
   const user = useAtomValue(userAtom)
-  const form = useForm<AdditionalInformationFormValues>({
+  const [isFormLoading, setIsFormLoading] = useState(false)
+  const additionalInformationSchema = createAdditionalInformationSchema(!!user?.application?.fileCnieUrl)
+  const form = useForm({
     resolver: zodResolver(additionalInformationSchema),
     defaultValues: additionalInformationDefaultValues,
     mode: "onChange",
-    values: user?.application,
+    values: user?.application
   })
 
   const onSubmit = async (formData: z.infer<typeof additionalInformationSchema>) => {
+    setIsFormLoading(true)
     const { fileCnie } = formData;
     
     let file = undefined
@@ -64,6 +70,10 @@ const AdditionalInformationsSection = () => {
     }
 
     await putApplication(user?.application?.id, fileUrls) as any
+
+    setTimeout(() => {
+      window.location.reload()
+    }, 1000)
   }
 
   return (
@@ -91,7 +101,10 @@ const AdditionalInformationsSection = () => {
         />
 
         <Button type="submit">
-          Envoyer les informations
+          {isFormLoading
+            ? <LoadingDots color="#808080" />
+            : (user?.application?.fileCnieUrl ? 'Mettre à jour les informations' : 'Envoyer les informations')
+          }
         </Button>
       </form>
     </Form>
