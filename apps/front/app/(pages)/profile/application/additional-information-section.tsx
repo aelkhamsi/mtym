@@ -27,7 +27,9 @@ import { useState } from "react"
 
 const createAdditionalInformationSchema = (hasFileCnieUrl: boolean) =>
   z.object({
-    fileCnie: hasFileCnieUrl ? z.any().optional() : zodFileValidation,
+    fileCnie: hasFileCnieUrl
+      ? zodFileValidation.optional()
+      : zodFileValidation,
   })
 
 const additionalInformationDefaultValues = {
@@ -42,7 +44,7 @@ const AdditionalInformationsSection = () => {
     resolver: zodResolver(additionalInformationSchema),
     defaultValues: additionalInformationDefaultValues,
     mode: "onChange",
-    values: user?.application
+    values: { fileCnieUrl: user?.application?.fileCnieUrl } as any
   })
 
   const onSubmit = async (formData: z.infer<typeof additionalInformationSchema>) => {
