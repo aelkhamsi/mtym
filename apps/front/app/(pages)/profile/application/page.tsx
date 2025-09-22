@@ -19,7 +19,7 @@ export default function ApplicationPage() {
     const teamMembers = user?.team?.users?.length
 
     setIsApplicationComplete(application && applicationStatus !== 'DRAFT')
-    setIsTeamComplete(user?.team && teamMembers >= 3 && teamMembers <= 5)
+    setIsTeamComplete(user?.team)
   })
 
   return (
