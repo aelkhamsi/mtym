@@ -12,10 +12,8 @@ import {
   Button,
   LoadingDots,
 } from "@mdm/ui"
-import { useForm } from "react-hook-form"
+import { useForm, UseFormReturn } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useAtomValue } from "jotai"
-import { userAtom } from "@/app/store/userAtom"
 import { RequiredAsterisk } from "@/app/components/forms/required-asterisk"
 import { FileInput } from "../../application/form/components/file-input"
 import { initFileInput } from "../../application/form/steps/upload-step"
@@ -25,16 +23,10 @@ import { getSignedURL, uploadFile } from "@/app/api/MediaApi"
 import { putApplication } from "@/app/api/ApplicationApi"
 import { useState } from "react"
 
-const createAdditionalInformationSchema = (hasFileCnieUrl: boolean) =>
-  z.object({
-    fileCnie: hasFileCnieUrl
-      ? zodFileValidation.optional()
-      : zodFileValidation,
+const additionalInformationSchema = z.object({
+    fileCnie: zodFileValidation,
+    fileCnieUrl: z.any().optional()
   })
-
-const additionalInformationDefaultValues = {
-  fileCnie: undefined,
-}
 
 const AdditionalInformationsSection = ({
   user,
@@ -42,13 +34,14 @@ const AdditionalInformationsSection = ({
   user: any,
 }) => {
   const [isFormLoading, setIsFormLoading] = useState(false)
-  const additionalInformationSchema = createAdditionalInformationSchema(!!user?.application?.fileCnieUrl)
   const form = useForm({
     resolver: zodResolver(additionalInformationSchema),
-    defaultValues: additionalInformationDefaultValues,
+    defaultValues: {
+      fileCnie: undefined,
+      fileCnieUrl: user?.application?.fileCnieUrl,
+    },
     mode: "onChange",
-    values: { fileCnieUrl: user?.application?.fileCnieUrl } as any
-  })
+  }) as UseFormReturn<any>;
 
   console.log('user', user)
 

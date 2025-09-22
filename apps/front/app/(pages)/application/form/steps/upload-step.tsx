@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { FileInput } from '../components/file-input';
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk';
 
-export const initFileInput = (field: ControllerRenderProps, id: string) => {
+export const initFileInput = (field: any, id: string) => {
   if (field?.value && field?.value.length) {
     const dataTransfer = new DataTransfer();
     dataTransfer.items.add(field?.value[0]);
