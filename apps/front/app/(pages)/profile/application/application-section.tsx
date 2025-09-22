@@ -42,24 +42,17 @@ const getBadgeClassname = (status: string) => {
 const ApplicationSection = () => {
   const user = useAtomValue(userAtom)
   const [content, setContent] = useState<any>(undefined);
-  const [isApplicationComplete, setIsApplicationComplete] = useState(false)
-  const [isTeamComplete, setIsTeamComplete] = useState(false)
   const router = useRouter();
   
   useEffect(() => {
     const application = user?.application;
     const applicationStatus = application?.status?.status;
-    const team = user?.team
-    const teamMembers = user?.team?.users?.length
-    setIsApplicationComplete(application && applicationStatus !== 'DRAFT')
-    const _isTeamComplete = team && teamMembers >= 3 && teamMembers <= 5
-    setIsTeamComplete(_isTeamComplete)
 
     if (!application) {
       setContent({
         title: "Vous n'avez pas soumis une candidature",
         subtitle: CLOSE_APPLICATIONS
-          ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
+          ? "Merci pour l'intérêt que vous portez à MTYM! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "On attend ta candidature avec impatience.",
         ctaLabel: "Créer votre candidature",
       })
@@ -67,14 +60,14 @@ const ApplicationSection = () => {
       setContent({
         title: "Vous avez sauvegardé un brouillon de candidature. Elle n'est pas encore soumise!",
         subtitle: CLOSE_APPLICATIONS
-          ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
+          ? "Merci pour l'intérêt que vous portez à MTYM! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "Terminez votre candidature pour qu’elle soit valide",
         ctaLabel: "Continuer votre candidature",
       })
     } else {
       setContent({
         title: "Vous avez soumis une candidature",
-        subtitle: CLOSE_APPLICATIONS && !_isTeamComplete
+        subtitle: CLOSE_APPLICATIONS && !user?.team
           ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "Vous trouverez l'avancement de votre candidature ci-dessous. On vous notifiera des prochaines étapes par mail.",
         ctaLabel: "Mettre à jour votre candidature",
@@ -103,7 +96,7 @@ const ApplicationSection = () => {
         }
       </CardContent>
       
-      {(!CLOSE_APPLICATIONS || (isApplicationComplete && isTeamComplete)) &&
+      {(!CLOSE_APPLICATIONS) &&
         <CardFooter>
           <Button
             onClick={() => router.push('/application')}
