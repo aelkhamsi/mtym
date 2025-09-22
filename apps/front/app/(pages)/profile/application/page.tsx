@@ -39,7 +39,7 @@ export default function ApplicationPage() {
       }
 
       {(isApplicationComplete && isTeamComplete) && 
-        <div className="hidden">
+        <>
           <div>
             <div className="text-lg font-medium">Informations complémentaires</div>
             <p className="text-sm text-muted-foreground">
@@ -53,7 +53,7 @@ export default function ApplicationPage() {
             ? <ProfileSkeleton />
             : <AdditionalInformationsSection user={user} />
           }
-        </div>
+        </>
       }
     </div>
   )
