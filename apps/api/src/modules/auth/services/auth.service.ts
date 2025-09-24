@@ -11,6 +11,7 @@ import { AdminUserService } from 'src/modules/admin-user/services/admin-user.ser
 import { ADMIN_ROLE, USER_ROLE } from 'src/constants';
 import { MailService } from 'src/modules/mail/mail.service';
 import { v4 as uuidv4 } from 'uuid';
+import { User } from 'src/modules/user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -21,25 +22,32 @@ export class AuthService {
     private readonly mailService: MailService,
   ) {}
 
-  async login(email: string, password: string) {
+  async validateUser(email: string, password: string) {
     const user = await this.userService.findOneByEmail(email);
     if (!user || !comparePasswords(password, user.password)) {
-      throw new UnauthorizedException();
+      return undefined;
     }
 
+    return user;
+  }
+
+  async login(user: User) {
     const payload = {
-      id: user?.id,
-      firstName: user?.firstName,
-      lastName: user?.lastName,
-      email: user?.email,
+      sub: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
       role: USER_ROLE,
     };
 
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-      verified: user?.verified,
-      statusCode: 200,
-    };
+    const accessToken = await this.jwtService.sign(payload, {
+      expiresIn: '15m',
+    });
+    const refreshToken = await this.jwtService.sign(payload, {
+      expiresIn: '7d',
+    });
+
+    return { accessToken, refreshToken };
   }
 
   async signup(

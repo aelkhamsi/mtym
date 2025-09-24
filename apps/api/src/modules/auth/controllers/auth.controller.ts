@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Post,
   Res,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
@@ -16,6 +17,8 @@ import { SignupAdminDto } from '../dto/sign-up-admin.dto';
 import { ADMIN_ROLE } from 'src/constants';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator';
+import { SerializedUser } from 'src/modules/user/entities/serialized-user';
+import { instanceToPlain } from 'class-transformer';
 
 @Controller('mtym-api/auth')
 export class AuthController {
@@ -26,15 +29,23 @@ export class AuthController {
   @Post('login')
   async login(@Res() res, @Body() loginDto: LoginDto) {
     const { email, password } = loginDto;
-    const loginResponse = await this.authService.login(email, password);
-    const token = loginResponse?.access_token;
-    res.cookie('access_token', token, {
+
+    const user = await this.authService.validateUser(email, password);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    const { accessToken, refreshToken } = await this.authService.login(user);
+    res.cookie('access_token', accessToken, {
       httpOnly: true,
-      sameSite: 'none',
-      secure: false,
-      maxAge: 3600 * 1000,
+      maxAge: 15 * 60 * 1000,
     });
-    res.send(loginResponse);
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json(instanceToPlain(new SerializedUser(user)));
   }
 
   @Public()
