@@ -25,7 +25,7 @@ export class AuthService {
   async validateUser(email: string, password: string) {
     const user = await this.userService.findOneByEmail(email);
     if (!user || !comparePasswords(password, user.password)) {
-      return undefined;
+      throw new UnauthorizedException();
     }
 
     return user;
@@ -48,6 +48,19 @@ export class AuthService {
     });
 
     return { accessToken, refreshToken };
+  }
+
+  async refreshToken(refreshToken: string) {
+    try {
+      const payload = this.jwtService.verify(refreshToken);
+      const user = await this.userService.findOneById(payload.sub);
+      if (!user) {
+        throw new UnauthorizedException();
+      }
+      return this.login(user);
+    } catch {
+      return null;
+    }
   }
 
   async signup(
