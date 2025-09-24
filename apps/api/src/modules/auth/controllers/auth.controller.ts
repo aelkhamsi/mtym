@@ -40,7 +40,7 @@ export class AuthController {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return { success: true };
+    res.json({ success: true });
   }
 
   @Public()
@@ -61,6 +61,16 @@ export class AuthController {
     });
 
     return { success: true };
+  }
+
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  @Post('logout')
+  async logout(@Res() res) {
+    res.clearCookie('access_token');
+    res.clearCookie('access_token');
+
+    res.json({ success: true });
   }
 
   @Public()
