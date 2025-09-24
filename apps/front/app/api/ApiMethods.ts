@@ -1,43 +1,44 @@
-import { getToken } from "@/app/lib/utils";
 
-const getHeaders = (token?: string) => ({
+const getHeaders = () => ({
   'Content-Type': 'application/json',
-  Authorization: `Bearer ${token ?? getToken()}`,
 })
 
 class ApiMethods {
-  static apiRequest(method: string, url: string, body=null, token?: string) {
+  static apiRequest(method: string, url: string, body={}, params={}) {
     url = process.env.NEXT_PUBLIC_API_ENDPOINT + url;
-    const params = body
-      ? {method, body: JSON.stringify(body), headers: getHeaders(token)}
-      : {method, headers: getHeaders()}
+    const requestParams = {
+      method,
+      headers: getHeaders(),
+      ...params,
+      ...(body && { body: JSON.stringify(body) }),
+    };
 
     return new Promise((resolve, reject) => {
-      fetch(url, params)
+      fetch(url, requestParams)
         .then(res => res.json())
         .then(resolve)
         .catch(reject)
     })
   }
 
-  static get(url: string) {
-    return this.apiRequest('GET', url)
+  static get(url: string, params?: any) {
+    return this.apiRequest('GET', url, undefined, params)
   }
 
-  static post(url: string, data?: any) {
-    return this.apiRequest('POST', url, data)
+  static post(url: string, data?: any, params?: any) {
+    return this.apiRequest('POST', url, data, params)
   }
 
-  static put(url: string, data?: any, token?: string) {
-    return this.apiRequest('PUT', url, data, token)
+  static put(url: string, data?: any, params?: any) {
+    return this.apiRequest('PUT', url, data, params)
   }
 
-  static patch(url: string, data: any) {
-    return this.apiRequest('PATCH', url, data)
+  static patch(url: string, data: any, params?: any) {
+    return this.apiRequest('PATCH', url, data, params)
   }
 
-  static delete(url: string) {
-    return this.apiRequest('DELETE', url)
+  static delete(url: string, params?: any) {
+    return this.apiRequest('DELETE', url, undefined, params)
   }
 }
 

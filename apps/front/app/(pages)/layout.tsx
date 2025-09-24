@@ -3,12 +3,13 @@ import "@mdm/ui/globals.css";
 import cx from "classnames";
 import { pally, poppins } from "../lib/fonts";
 import Footer from "@/app/components/layout/footer/footer";
-import { Suspense } from "react";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import Header from "@/app/components/layout/header";
-import JotaiContextProvider from "./jotaiContextProvider";
-import { DataProvider } from "../providers/data.provider";
 import { Toaster } from "@mdm/ui";
+import { cookies } from "next/headers";
+import { getUserSSR } from "../api/UsersApi";
+import { Provider as JotaiProvider } from "jotai";
+import HydrateState from "./hydrate-state";
 
 export const metadata = {
   title: "MTYM 2025",
@@ -21,24 +22,25 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = cookies();
+  const user = await getUserSSR(cookieStore);
+
   return (
     <html lang="en">
       <body className={`${cx(pally.variable, poppins.variable)} font-poppins`}>
-        <JotaiContextProvider>
-          <DataProvider>
-            <Suspense fallback="...">
-              <Header />
-            </Suspense>
+        <JotaiProvider>
+          <HydrateState user={user} />
 
-            <main className="flex min-h-screen w-full flex-col items-center">
-              {children}
-            </main>
+          <Header />
 
-            <Footer />
-            <Toaster />
-            <VercelAnalytics />
-          </DataProvider>
-        </JotaiContextProvider>
+          <main className="flex min-h-screen w-full flex-col items-center">
+            {children}
+          </main>
+
+          <Footer />
+          <Toaster />
+          <VercelAnalytics />
+        </JotaiProvider>
       </body>
     </html>
   );

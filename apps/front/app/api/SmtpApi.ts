@@ -1,6 +1,6 @@
 
 export const sendEmail = (body: any) => {
-  const url = process.env.NEXT_PUBLIC_SMTP_ENDPOINT + 'send';
+  const url = process.env.NEXT_PUBLIC_SMTP_ENDPOINT + '/send';
   const params = {
     method: 'POST',
     body: JSON.stringify(body),

@@ -38,10 +38,9 @@ export class AuthController {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.json({ success: true });
+    res.json({ statusCode: 200 });
   }
 
-  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('refresh')
   async refresh(@Req() req, @Res() res) {
@@ -58,27 +57,24 @@ export class AuthController {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return { success: true };
+    return { statusCode: 200 };
   }
 
-  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('logout')
   async logout(@Res() res) {
     res.clearCookie('access_token');
     res.clearCookie('access_token');
-
-    res.json({ success: true });
+    res.json({ statusCode: 200 });
   }
 
-  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('signup')
   async signup(@Body() signupDto: SignupDto) {
     const { firstName, lastName, email, password } = signupDto;
     await this.authService.signup(firstName, lastName, email, password);
 
-    return { success: true };
+    return { statusCode: 200 };
   }
 
   @Public()

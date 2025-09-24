@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Avatar,
   AvatarFallback,
@@ -17,7 +19,7 @@ import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useSetAtom } from 'jotai';
 import { userAtom } from '@/app/store/userAtom';
-import { LogOut, LogOutIcon } from "lucide-react";
+import { logout } from "@/app/api/AuthApi";
 
 export function UserNav({
   firstName,
@@ -31,11 +33,10 @@ export function UserNav({
   const router = useRouter();
   const setUser = useSetAtom(userAtom);
 
-  const handleLogOut = useCallback(() => {
-    localStorage.removeItem('access_token');
-    document.cookie = `access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    setUser(undefined)
-
+  const handleLogOut = useCallback(async () => {
+    const result = await logout();
+    console.log('result logout', result)
+    setUser(null)
     router.push('/');
     window.location.reload();
   }, [])

@@ -9,7 +9,13 @@ import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 dotenv.config({ path: ['.env'] });
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
+  const allowedOrigin = process.env.FRONTEND_URL || 'http://localhost:3000';
+
+  app.enableCors({
+    origin: allowedOrigin,
+    credentials: true,
+  });
   app.use(cookieParser());
   app.useGlobalPipes(
     new ValidationPipe({

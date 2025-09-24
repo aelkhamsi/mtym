@@ -2,16 +2,17 @@ import ApiMethods from "./ApiMethods";
 
 
 export const logIn = (email: string, password: string) => {
-  const url = 'auth/login';
+  const url = '/auth/login';
   const body = {
     email,
     password
   }
-  return ApiMethods.post(url, body);
+  const params = { credentials: "include" }
+  return ApiMethods.post(url, body, params);
 }
 
 export const signUp = (firstName: string, lastName: string, email: string, password: string) => {
-  const url = 'auth/signup';
+  const url = '/auth/signup';
   const body = {
     firstName,
     lastName,
@@ -21,8 +22,14 @@ export const signUp = (firstName: string, lastName: string, email: string, passw
   return ApiMethods.post(url, body);
 }
 
+export const logout = () => {
+  const url = '/auth/logout';
+  const params = { credentials: "include" }
+  return ApiMethods.post(url, {}, params);
+}
+
 export const resetPassword = (email: string) => {
-  const url = 'auth/reset-password';
+  const url = '/auth/reset-password';
   const body = {
     email,
   };
@@ -30,7 +37,7 @@ export const resetPassword = (email: string) => {
 }
 
 export const sendEmailVerificationCode = (email: string) => {
-  const url = 'auth/send-email-verification';
+  const url = '/auth/send-email-verification';
   const body = {
     email,
   };
@@ -38,7 +45,7 @@ export const sendEmailVerificationCode = (email: string) => {
 }
 
 export const checkEmailVerificationCode = (email: string, verificationCode: string) => {
-  const url = 'auth/verify-email';
+  const url = '/auth/verify-email';
   const body = {
     email,
     verificationCode,

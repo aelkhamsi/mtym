@@ -32,17 +32,16 @@ export function SignInForm({
     setIsFormLoading(true)
     const { email, password } = formData;
     const response = await logIn(email, password) as any;
-
+    console.log('response', response)
     switch(response?.statusCode) {
       case 200:
-        if (response?.verified) {
-          localStorage.setItem('access_token', response?.access_token);
-          document.cookie = `access_token=${response?.access_token}`;
-          router.push('/')
-          window.location.reload()
-        } else {
-          verifyEmail(email, response?.access_token)
-        }
+        // if (response?.verified) {
+        router.push('/')
+        window.location.reload()
+        // }
+        // else {
+        //   verifyEmail(email, response?.access_token)
+        // }
         break;
       case 400:
       case 401:

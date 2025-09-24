@@ -7,9 +7,5 @@ export type User = {
 
   email: string;
 
-  identifier: string;
-
-  application: any;
-
-  team: any;
+  verified: boolean;
 }

@@ -6,7 +6,7 @@ export const getSignedURL = (
   size: number, 
   checksum: string
 ) => {
-  const url = 'media/signed-url';
+  const url = '/media/signed-url';
   return ApiMethods.post(url, {
     filename, 
     type, 

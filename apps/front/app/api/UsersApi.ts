@@ -1,12 +1,26 @@
 import ApiMethods from "./ApiMethods"
 
-export const getUserData = async () => {
-  const url = 'users/informations';
+export const getUser = async () => {
+  const url = '/users/me';
   return ApiMethods.get(url);
 }
 
-export const updateUser = async (id: number, partialUser: any, token?: string) => {
-  const url = `users/${id}`;
+export async function getUserSSR(cookieStore: any) {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/users/me`, {
+      headers: { cookie: cookieStore.toString() },
+      cache: "no-store",
+    });
+
+    if (!res.ok) return null
+    return await res.json()
+  } catch {
+    return null
+  }
+}
+
+export const updateUser = async (id: number, partialUser: any) => {
+  const url = `/users/${id}`;
   const body = {...partialUser};
-  return ApiMethods.put(url, body, token);
+  return ApiMethods.put(url, body);
 }

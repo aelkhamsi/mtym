@@ -40,8 +40,6 @@ const AuthModal = ({
   }
 
   const login = () => {
-    localStorage.setItem('access_token', accessToken);
-    document.cookie = `access_token=${accessToken}`;
     router.push('/')
     window.location.reload()
   }
