@@ -37,6 +37,7 @@ export class AuthService {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      verified: user.verified,
       role: USER_ROLE,
     };
 

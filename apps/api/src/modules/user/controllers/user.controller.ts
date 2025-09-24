@@ -18,24 +18,27 @@ import { SerializedUser } from '../entities/serialized-user';
 import { Roles } from 'src/decorators/roles.decorator';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { ADMIN_ROLE, USER_ROLE } from 'src/constants';
+import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 
 @Controller('mtym-api/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('informations')
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
   @HttpCode(200)
   async findByToken(@Request() req) {
-    const id = req['user'].id;
-    const user = await this.userService.findOneById(id);
-    if (!user) {
-      throw new NotFoundException();
-    }
+    return req.user;
+    // const id = req['user'].id;
+    // const user = await this.userService.findOneById(id);
+    // if (!user) {
+    //   throw new NotFoundException();
+    // }
 
-    return {
-      user: new SerializedUser(user),
-      statusCode: 200,
-    };
+    // return {
+    //   user: new SerializedUser(user),
+    //   statusCode: 200,
+    // };
   }
 
   @Get(':id')

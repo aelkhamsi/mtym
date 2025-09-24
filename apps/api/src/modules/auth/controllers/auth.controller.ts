@@ -6,7 +6,6 @@ import {
   Post,
   Req,
   Res,
-  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
@@ -23,7 +22,6 @@ import { Roles } from 'src/decorators/roles.decorator';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
   async login(@Res() res, @Body() loginDto: LoginDto) {
