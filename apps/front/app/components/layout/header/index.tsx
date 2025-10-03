@@ -6,7 +6,7 @@ import { useScroll } from "@mdm/hooks";
 import { UserNav } from "./user-nav";
 import { useAuthModal } from "@/app/components/auth/auth-modal";
 import { userAtom } from "@/app/store/userAtom";
-import { Dispatch, SetStateAction, Suspense, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useAtomValue } from "jotai";
 import AuthButton from "./auth-button";
 import { Menu } from './menu'
@@ -33,30 +33,29 @@ export default function Header() {
   return (
     <>
       <AuthModal />
+      
       <div
-        className={`fixed top-0 flex w-full justify-center ${
-          scrolled
+        className={`
+          fixed top-0 flex w-full justify-center z-30 
+          ${scrolled
             ? "border-b border-gray-200 bg-white/50 text-black backdrop-blur-xl"
             : `bg-white/0 ${isHomepage ? 'text-white' : 'text-black'}`
-        } z-30 transition-all`}
+          }
+        `}
       >
         <div className="mx-5 flex h-16 w-full lg:w-3/4 items-center justify-between">
-          <Link href="/" className="flex items-center font-display text-2xl">
+          <Link href="/">
             <Image
               src="/mtym_square.svg"
               alt="MMC logo"
               width={45}
               height={45}
-              className="mr-2"
             ></Image>
           </Link>
 
           <div className="flex items-center">
             <Menu />
-
-            <Suspense fallback="..." >
-              <NavBarActionButtonContent setShowAuthModal={setShowAuthModal} />
-            </Suspense>
+            <NavBarActionButtonContent setShowAuthModal={setShowAuthModal} />
           </div>
         </div>
       </div>
