@@ -29,11 +29,7 @@ export default async function RootLayout({
       <body className={`${cx(pally.variable, poppins.variable)} font-poppins`}>
           <JotaiProvider initialUser={user}>
             <Header />
-
-            <main className="flex min-h-screen w-full flex-col items-center">
-              {children}
-            </main>
-
+            <>{children}</>
             <Footer />
             <Toaster />
             <VercelAnalytics />

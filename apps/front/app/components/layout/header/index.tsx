@@ -11,6 +11,8 @@ import { useAtomValue } from "jotai";
 import AuthButton from "./auth-button";
 import { Menu } from './menu'
 import { usePathname } from "next/navigation";
+import styles from '@/app/components/styles'
+import SectionContainer from "../../section-container";
 
 const NavBarActionButtonContent = ({
   setShowAuthModal
@@ -28,22 +30,22 @@ export default function Header() {
   const { AuthModal, setShowAuthModal } = useAuthModal();
   const pathname = usePathname()
   const isHomepage = pathname === '/'
-  const scrolled = useScroll(isHomepage ? 600 : 50)
+  const scrolled = useScroll(50)
 
   return (
     <>
       <AuthModal />
       
-      <div
+      <SectionContainer
         className={`
-          fixed top-0 flex w-full justify-center z-30 
+          fixed top-0 h-16 z-10 items-center
           ${scrolled
             ? "border-b border-gray-200 bg-white/50 text-black backdrop-blur-xl"
             : `bg-white/0 ${isHomepage ? 'text-white' : 'text-black'}`
           }
         `}
       >
-        <div className="mx-5 flex h-16 w-full lg:w-3/4 items-center justify-between">
+        <div className='flex justify-between'>
           <Link href="/">
             <Image
               src="/mtym_square.svg"
@@ -58,7 +60,7 @@ export default function Header() {
             <NavBarActionButtonContent setShowAuthModal={setShowAuthModal} />
           </div>
         </div>
-      </div>
+      </SectionContainer>
     </>
   );
 }
