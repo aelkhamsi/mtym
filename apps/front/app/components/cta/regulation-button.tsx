@@ -10,7 +10,7 @@ const RegulationButton = () => {
       href="https://drive.google.com/file/d/1tE5qMUjEoeicBQ01XqsF5LyzLqT34rsm/view?usp=drive_link"
       target='_blank'
     >
-      <BookIcon className='h-5 w-5'/>
+      <BookIcon />
       <span className="hidden sm:inline-block">Règlement</span>
     </Link>
   )

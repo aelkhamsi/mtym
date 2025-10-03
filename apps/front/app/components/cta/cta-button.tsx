@@ -9,10 +9,8 @@ import { useState } from 'react';
 import { LoadingDots } from '@mdm/ui';
 
 const CtaButton = ({
-  label,
   href,
 }:{
-  label?: string,
   href?: string,
 }) => {
   const { AuthModal, setShowAuthModal } = useAuthModal();
@@ -37,7 +35,7 @@ const CtaButton = ({
         className="flex items-center justify-center h-11 space-x-2 rounded-full border-2 border-[#f6a806] bg-white px-4 py-2 text-gray-700 shadow-md transition-colors hover:border-gray-800"
         onClick={handleCtaClick}
       >
-        <Scroll className='h-5 w-5'/>
+        <Scroll />
 
         {!isLoading
           ? <span>Participer</span>

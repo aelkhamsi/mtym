@@ -15,7 +15,7 @@ const FaqButton = () => {
       href="/faq"
       onClick={() => setIsLoading(true)}
     >
-      <MessageCircleIcon className='h-5 w-5'/>
+      <MessageCircleIcon />
       {!isLoading
         ? <span className="hidden sm:inline-block">FAQ</span>
         : <LoadingDots color="#808080" />
