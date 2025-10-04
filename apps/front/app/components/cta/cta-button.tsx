@@ -5,8 +5,16 @@ import { useAuthModal } from '../auth/auth-modal';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '@/app/store/userAtom';
 import { useRouter } from "next/navigation"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoadingDots } from '@mdm/ui';
+
+const ScrollIcon = () => {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  
+  if (!mounted) return <span className='inline-block w-6 h-6 bg-gray-200 rounded-sm' />
+  return <Scroll />
+}
 
 const CtaButton = ({
   href,
@@ -35,8 +43,7 @@ const CtaButton = ({
         className="flex items-center justify-center h-11 space-x-2 rounded-full border-2 border-[#f6a806] bg-white px-4 py-2 text-gray-700 shadow-md transition-colors hover:border-gray-800"
         onClick={handleCtaClick}
       >
-        <Scroll />
-
+        <ScrollIcon />
         {!isLoading
           ? <span>Participer</span>
           : <LoadingDots color="#808080" />
