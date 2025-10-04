@@ -4,8 +4,8 @@ const SectionContainer = ({
   children,
   className,
 }:{
-  children: ReactNode,
-  className: string
+  children?: ReactNode,
+  className?: string
 }) => {
   return (
     <div className={`w-full flex justify-center ${className}`}>

@@ -1,13 +1,13 @@
 import CtaSection from "@/app/components/cta/cta-section"
+import SectionContainer from "@/app/components/section-container";
 import { CompassIcon, ExamIcon } from "@mdm/ui";
 import Link from "next/link";
 
-export default function MathSprintPage() {
-
+export default function SelectionPage() {
   return (
-    <div className="w-full flex flex-col items-center max-w-sm md:max-w-screen-xl px-5 xl:px-0 space-y-10 my-28">
-      <h1 className="text-center text-4xl font-bold drop-shadow-sm">
-        <span className='font-neco text-[#244B3A]'>Test de sélection</span>
+    <SectionContainer className='pt-24 pb-20 z-0'>
+      <h1 className="text-center text-4xl text-[#244B3A] font-bold font-neco">
+        Test de sélection
       </h1>
 
       <div
@@ -37,7 +37,6 @@ export default function MathSprintPage() {
                 <span className="font-bold text-gray-600">Syllabus</span>
                 <CompassIcon className="h-[4rem]"/>
               </div>
-              {/* <div className="text-xs text-gray-500 mt-1">Available soon</div> */}
             </Link>
 
             <Link target="_blank" href='https://drive.google.com/file/d/1MadGUULcgEsTsikmzLfw1l6TMEmQnP09/view?usp=drive_link'>
@@ -45,13 +44,14 @@ export default function MathSprintPage() {
                 <span className="font-bold text-gray-600">Questions types</span>
                 <ExamIcon className="h-[4rem]"/>
               </div>
-              {/* <div className="text-xs text-gray-500 mt-1">Available soon</div> */}
             </Link>
           </div>
         </div>
       </div>
 
-      <CtaSection />
-    </div>
+      <div className="flex justify-center">
+        <CtaSection/>
+      </div>
+    </SectionContainer>
   )
 }
