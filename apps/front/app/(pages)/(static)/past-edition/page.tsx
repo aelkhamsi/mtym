@@ -7,6 +7,7 @@ export default function MathSprintPage() {
 
   return (
     <SectionContainer className="pt-24 pb-20 z-0">
+
       <div className="space-y-10">
         <h1 className="text-center text-4xl font-bold drop-shadow-sm">
           <span className='font-neco text-[#244B3A]'>Éditions passées</span>
