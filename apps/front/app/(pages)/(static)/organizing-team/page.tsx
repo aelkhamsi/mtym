@@ -6,6 +6,7 @@ import {
 import Link from 'next/link';
 import { shuffle } from '@mdm/utils';
 import Image from 'next/image';
+import SectionContainer from '@/app/components/section-container';
 
 const Card = ({
   key,
@@ -21,15 +22,15 @@ const Card = ({
   return (
     <Link href={portfolioSrc ?? '#'} target='_blank'>
       <div 
-        className="w-[12rem] border-b-4 border-[#F6A806] flex flex-col justify-between items-center space-y-2 rounded-md py-2"
+        className="w-[10rem] border-b-4 border-[#F6A806] flex flex-col justify-between items-center space-y-2 rounded-md py-2"
         key={key}
       > 
         <div className="h-fit">
           <Image
             src={imageSrc}
             alt={name}
-            width={200}
-            height={200}
+            width={160}
+            height={160}
           />
         </div>
 
@@ -43,7 +44,7 @@ export default function OrganizingTeamPage() {
   const shuffledOrganizingCommitte = shuffle(organizingCommittee)
 
   return (
-    <div className="w-full max-w-md md:max-w-screen-xl px-5 xl:px-0 my-28 space-y-6">
+    <SectionContainer className="pt-24 pb-20 z-0">
       <h1 className="text-center text-4xl font-bold font-neco drop-shadow-sm">
         <span className='text-[#244B3A]'>Organizing Committee</span>
       </h1>
@@ -103,6 +104,6 @@ export default function OrganizingTeamPage() {
           </div>
         </div>
       </div>
-    </div>
+    </SectionContainer>
   )
 }
