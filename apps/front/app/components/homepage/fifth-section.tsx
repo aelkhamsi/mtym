@@ -36,7 +36,7 @@ const FifthSection = () => {
         </button>
       </Link>
 
-      <div className="relative overflow-hidden w-full h-[40rem] bg-[#244B3A] bg-[url(/group_photo.webp)] bg-center bg-cover bg-blend-overlay">
+      <div className="relative overflow-hidden w-full h-[40rem] bg-[#244B3A] bg-[url(/images/homepage/group_photo.webp)] bg-center bg-cover bg-blend-overlay">
         <div className="absolute inset-0 bg-gradient-to-b from-[#244B3A] via-transparent to-[#244B3A]" />
       </div>
     </div>

@@ -32,7 +32,7 @@ export default function MathSprintPage() {
             target="_blank"
           >
             <img
-              src="/problems_mai_2025.webp"
+              src="/images/problems/problems_mai_2025.webp"
               alt="Logo"
               className="w-full" 
             />
@@ -46,7 +46,7 @@ export default function MathSprintPage() {
             target="_blank"
           >
             <img
-              src="/problems_decembre_2025.webp"
+              src="/images/problems/problems_decembre_2025.webp"
               alt="Logo"
               className="w-full" 
             />

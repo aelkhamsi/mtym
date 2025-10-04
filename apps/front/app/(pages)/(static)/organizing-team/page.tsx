@@ -5,6 +5,7 @@ import {
 } from './data';
 import Link from 'next/link';
 import { shuffle } from '@mdm/utils';
+import Image from 'next/image';
 
 const Card = ({
   key,
@@ -24,9 +25,11 @@ const Card = ({
         key={key}
       > 
         <div className="h-fit">
-          <img
+          <Image
             src={imageSrc}
-            style={{ width: 'auto'}}
+            alt={name}
+            width={200}
+            height={200}
           />
         </div>
 

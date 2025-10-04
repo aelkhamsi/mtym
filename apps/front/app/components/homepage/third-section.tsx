@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Card } from "../card"
 
 
@@ -35,27 +36,34 @@ const ThirdSection = () => {
         >
           <div className='w-full'>
             <div className="flex flex-col space-y-8 md:flex-row md:space-y-0 md:space-x-6 text-center px-14">
-              <Card className="h-[20rem]" bgImageUrl="/slideshow/competition2.webp">
+              <Card className="h-[20rem]" bgImageUrl="/images/homepage/slideshow/competition2.webp">
                 Compétition de Math
               </Card>
 
-              <Card className="h-[20rem]" bgImageUrl="/slideshow/conference_amine.webp">
+              <Card className="h-[20rem]" bgImageUrl="/images/homepage/slideshow/conference_amine.webp">
                 Conférences & Panel
               </Card>
 
-              <Card className="h-[20rem]" bgImageUrl="/slideshow/workshop_math.webp">
+              <Card className="h-[20rem]" bgImageUrl="/images/homepage/slideshow/workshop_math.webp">
                 Workshops
               </Card>
 
-              <Card className="h-[20rem]" bgImageUrl="/slideshow/board_games.webp">
+              <Card className="h-[20rem]" bgImageUrl="/images/homepage/slideshow/board_games.webp">
                 Jeux & Divertissements
               </Card>
             </div>
           </div>
         </div>
 
-        <div className="relative overflow-hidden w-full h-[35rem] bg-[#122019] bg-[url(/opening_ceremony.webp)] bg-center bg-cover bg-blend-overlay">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#122019] via-transparent to-[#122019]" />
+        <div className="relative overflow-hidden w-full h-[35rem] bg-[#122019] bg-center bg-cover">
+          <Image
+            src='/images/homepage/opening_ceremony.webp'
+            alt=""
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#122019] via-[#122019BF] to-[#122019]" />
         </div>
       </div>
 

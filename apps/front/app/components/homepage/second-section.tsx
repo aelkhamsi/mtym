@@ -3,28 +3,28 @@ import { ImageStack } from '../image-stack'
 
 const images = [
   {
-    name: 'Summer camp photo',
-    src: '/slideshow/competition.webp' 
+    name: 'Slideshow photo 1',
+    src: '/images/homepage/slideshow/competition.webp' 
   },
   {
-    name: 'Summer camp photo',
-    src: '/slideshow/amphi2.webp' 
+    name: 'Slideshow photo 2',
+    src: '/images/homepage/slideshow/amphi.webp' 
   },
   {
-    name: 'Summer camp photo',
-    src: '/slideshow/workshop_ai.webp' 
+    name: 'Slideshow photo 3',
+    src: '/images/homepage/slideshow/workshop_ai.webp' 
   },
   {
-    name: 'Summer camp photo',
-    src: '/slideshow/board_games.webp' 
+    name: 'Slideshow photo 4',
+    src: '/images/homepage/slideshow/board_games.webp' 
   },
   {
-    name: 'Summer camp photo',
-    src: '/slideshow/closing_ceremony.webp'
+    name: 'Slideshow photo 5',
+    src: '/images/homepage/slideshow/closing_ceremony.webp'
   },
   {
-    name: 'Summer camp photo',
-    src: '/slideshow/president_aui.webp'
+    name: 'Slideshow photo 6',
+    src: '/images/homepage/slideshow/president_aui.webp'
   },
 ]
 

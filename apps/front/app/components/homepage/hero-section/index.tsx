@@ -22,10 +22,10 @@ const HeroSection = () => {
         style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
       >
         <Image
-          src="/mtym.svg"
+          src="/images/logos/mtym.svg"
           alt="MTYM logo"
-          width='350'
-          height='0'
+          width={350}
+          height={0}
           priority
         />
 

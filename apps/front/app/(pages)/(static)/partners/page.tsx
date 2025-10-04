@@ -4,7 +4,7 @@ const organizers = [
   {
     key: 'math-and-maroc',
     label: 'Math&Maroc',
-    imageHref: '/mm.png',
+    imageHref: '/images/logos/mm.png',
     imageHeight: '60px',
   },
 ]
@@ -13,7 +13,7 @@ const partners = [
   {
     key: 'adria',
     label: 'Adria ',
-    imageHref: '/adria_official_partner.png',
+    imageHref: '/images/logos/adria_official_partner.png',
     imageHeight: '90px',
   }
 ]
@@ -22,7 +22,7 @@ const hosts = [
   {
     key: 'aui',
     label: 'AUI',
-    imageHref: '/aui.png',
+    imageHref: '/images/logos/aui.png',
     imageHeight: '120px',
   }
 ]
@@ -31,25 +31,25 @@ const sponsors = [
   {
     key: 'evalmee',
     label: 'EVALMEE',
-    imageHref: '/evalmee.png',
+    imageHref: '/images/logos/evalmee.png',
     imageHeight: '45px',
   },
   {
     key: 'ram',
     label: 'RAM',
-    imageHref: '/ram.svg',
+    imageHref: '/images/logos/ram.svg',
     imageHeight: '110px',
   },
   {
     key: 'afretec_network',
     label: 'Afretek Network',
-    imageHref: '/afretec_network.jpeg',
+    imageHref: '/images/logos/afretec_network.jpeg',
     imageHeight: '160px',
   },
   {
     key: 'sidi_ali',
     label: 'Sidi Ali',
-    imageHref: '/sidi_ali.png',
+    imageHref: '/images/logos/sidi_ali.png',
     imageHeight: '140px',
   },
 ]

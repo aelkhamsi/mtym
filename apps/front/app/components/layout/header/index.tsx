@@ -48,10 +48,10 @@ export default function Header() {
         <div className='flex justify-between'>
           <Link href="/">
             <Image
-              src="/mtym_square.svg"
+              src="/images/logos/mtym_square.svg"
               alt="MMC logo"
-              width={45}
-              height={45}
+              width={40}
+              height={40}
             ></Image>
           </Link>
 

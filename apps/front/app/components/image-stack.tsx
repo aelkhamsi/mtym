@@ -72,10 +72,10 @@ export const ImageStack = ({
             <Image
               src={image.src}
               alt={image.name}
-              width={700}
-              height={300}
+              fill
               draggable={false}
-              className="h-full w-full rounded-3xl object-cover object-center"
+              sizes="(max-width: 768px) 100vw, 300px"
+              className="h-full w-full object-cover rounded-3xl object-cover object-center"
             />
           </motion.div>
         ))}

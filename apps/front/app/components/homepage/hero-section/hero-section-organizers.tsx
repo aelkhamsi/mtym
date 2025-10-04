@@ -4,11 +4,15 @@ import Link from 'next/link'
 const OrganizerLogo = ({
   src,
   alt,
-  brightness=100
+  brightness=100,
+  width,
+  height,
 }:{
   src: string,
   alt: string,
   brightness?: number
+  width: number,
+  height: number,
 }) => {
   return (
     <Link 
@@ -18,10 +22,9 @@ const OrganizerLogo = ({
       <Image
         src={src}
         alt={alt}
-        width={0}
-        height={0}
-        sizes="100vw"
-        className={`h-10 w-auto filter grayscale brightness-${brightness} contrast-125 invert hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:invert-0`}
+        width={width}
+        height={height}
+        className={`filter grayscale brightness-${brightness} contrast-125 invert hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:invert-0`}
       />
     </Link>
   )
@@ -37,7 +40,7 @@ const HeroSectionOrganizers = () => {
           Organized by
         </p>
 
-        <OrganizerLogo src="/mm.png" alt="Math&Maroc Logo" />
+        <OrganizerLogo src="/images/logos/mm.png" alt="Math&Maroc Logo" width={100} height={0}/>
       </div>
       
       <div className="flex space-x-8 items-center">
@@ -45,8 +48,8 @@ const HeroSectionOrganizers = () => {
           Trusted by
         </p>
         
-        <OrganizerLogo src="/adria_official_partner.png" alt="Adria Logo" brightness={50} />
-        <OrganizerLogo src="/aui.png" alt="AUI Logo" brightness={70}/>
+        <OrganizerLogo src="/images/logos/adria_official_partner.png" alt="Adria Logo" brightness={50} width={100} height={0} />
+        <OrganizerLogo src="/images/logos/aui.png" alt="AUI Logo" brightness={70} width={80} height={0}/>
       </div>
     </div>
   )
