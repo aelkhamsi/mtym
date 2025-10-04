@@ -11,7 +11,6 @@ import { useAtomValue } from "jotai";
 import AuthButton from "./auth-button";
 import { Menu } from './menu'
 import { usePathname } from "next/navigation";
-import styles from '@/app/components/styles'
 import SectionContainer from "../../section-container";
 
 const NavBarActionButtonContent = ({
