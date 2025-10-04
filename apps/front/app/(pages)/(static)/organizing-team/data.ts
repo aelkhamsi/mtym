@@ -10,8 +10,6 @@ export const organizingCommittee = [
   { name: "Lina Bellahmidi", portfolioSrc: "https://www.linkedin.com/in/lina-bellahmidi-0b1251248/", imageSrc: "/images/organizing-team/lina_bellahmidi.webp" },
   { name: "Ali Noufli", portfolioSrc: "", imageSrc: "/images/organizing-team/ali_noufli.webp" },
   { name: "Amine Hbar", portfolioSrc: "https://www.linkedin.com/in/amine-hbar-0748a2246/", imageSrc: "/images/organizing-team/amine_hbar.webp" },
-  { name: "Ayman Amasrour", portfolioSrc: "https://www.linkedin.com/in/ayman-amasrour-1a280228a/", imageSrc: "/images/organizing-team/ayman_amasrour.webp" },
-  { name: "Mohamed Reda El Messaoudi", portfolioSrc: "https://www.linkedin.com/in/mohamed-reda-el-messaoudi-bb21b2332/", imageSrc: "/images/organizing-team/mohamed_reda_el_messaoudi.webp" },
   { name: "FatimaZahra Moudakir", portfolioSrc: "https://www.linkedin.com/in/fatima-zahra-moudakir-615527246/", imageSrc: "/images/organizing-team/fatima_zahra_moudakir.webp" },
   { name: "Achraf El Khamsi", portfolioSrc: "https://www.linkedin.com/in/achrafelkhamsi/", imageSrc: "/images/organizing-team/achraf_el_khamsi.webp" },
   { name: "Omar Fathallah", portfolioSrc: "https://www.linkedin.com/in/omar-fathallah-/", imageSrc: "/images/organizing-team/omar_fathallah.webp" },
