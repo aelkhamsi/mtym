@@ -12,7 +12,7 @@ const ParticipationStepsSection = () => {
       <div
         className="flex flex-col space-y-10 md:flex-row md:space-y-0 w-full lg:w-3/4 my-4"
       >
-        <div className='w-full text-center'>
+        <div className='w-full flex flex-col items-center'>
           <span className="inline-block border bg-[#244B3A] text-white px-4 py-2 rounded-full text-2xl">
             1
           </span>
@@ -28,7 +28,7 @@ const ParticipationStepsSection = () => {
           <CtaButton label="Candidature" />
         </div>
 
-        <div className='w-full text-center'>
+        <div className='w-full flex flex-col items-center'>
           <span className="inline-block border bg-[#244B3A] text-white px-4 py-2 rounded-full text-2xl">
             2
           </span>
@@ -74,27 +74,6 @@ const TutorialSection = () => {
       className="flex justify-center p-4"
     >
       <iframe width="718" height="450" src="https://www.youtube.com/embed/4FmoWRmPn64?si=33vWIDqmvNKTE7lu" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-    </div>
-  )
-}
-
-const SyllabusSection = () => {
-  return (
-    <div className="space-y-8">
-      <h1 className='text-3xl text-center font-bold font-neco'>
-        How to prepare for the competition ?
-      </h1>
-
-      <div
-        className="flex flex-col items-center text-center w-full space-y-4"
-      >
-        <div>To help you prepare thoroughly for the selection test, there is all you need to know about the mathematical topics covered in the competition.</div>
-        <Link href='/syllabus'>
-          <div className="bg-[#252162] w-fit py-4 px-8 text-white rounded-xl hover:pointer-cursor hover:bg-[#393292]">
-            Competition Syllabus
-          </div>
-        </Link>
-      </div>
     </div>
   )
 }

@@ -18,8 +18,10 @@ const ScrollIcon = () => {
 
 const CtaButton = ({
   href,
+  label,
 }:{
   href?: string,
+  label?: string,
 }) => {
   const { AuthModal, setShowAuthModal } = useAuthModal();
   const user = useAtomValue(userAtom)
@@ -45,7 +47,7 @@ const CtaButton = ({
       >
         <ScrollIcon />
         {!isLoading
-          ? <span>Participer</span>
+          ? <span>{label ?? 'Participer'}</span>
           : <LoadingDots color="#808080" />
         }
       </button>

@@ -37,7 +37,7 @@ export default function Header() {
       
       <SectionContainer
         className={`
-          fixed top-0 h-16 z-10 items-center
+          fixed top-0 h-14 z-10 items-center
           ${scrolled
             ? "border-b border-gray-200 bg-white/50 text-black backdrop-blur-xl"
             : `bg-white/0 ${isHomepage ? 'text-white' : 'text-black'}`
