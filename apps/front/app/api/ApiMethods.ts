@@ -6,9 +6,10 @@ const getHeaders = () => ({
 class ApiMethods {
   static apiRequest(method: string, url: string, body={}, params={}) {
     url = process.env.NEXT_PUBLIC_API_ENDPOINT + url;
-    const requestParams = {
+    const requestParams : RequestInit = {
       method,
       headers: getHeaders(),
+      credentials: 'include',
       ...params,
       ...(body && { body: JSON.stringify(body) }),
     };

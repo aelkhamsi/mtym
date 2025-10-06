@@ -20,21 +20,15 @@ export class AdminUserService {
   }
 
   findAll() {
-    return this.adminUserRepository.createQueryBuilder('user').getMany();
+    return this.adminUserRepository.find();
   }
 
   findOneById(id: number) {
-    return this.adminUserRepository
-      .createQueryBuilder('user')
-      .where('user.id = :id', { id })
-      .getOne();
+    return this.adminUserRepository.findOneBy({ id });
   }
 
   findOneByUsername(username: string) {
-    return this.adminUserRepository
-      .createQueryBuilder('user')
-      .where('user.username = :username', { username })
-      .getOne();
+    return this.adminUserRepository.findOneBy({ username });
   }
 
   update(id: number, updateAdminUserDto: UpdateAdminUserDto) {

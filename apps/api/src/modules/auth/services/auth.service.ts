@@ -8,10 +8,11 @@ import { UserService } from 'src/modules/user/services/user.service';
 import { hashPassword, comparePasswords } from 'src/utils/bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AdminUserService } from 'src/modules/admin-user/services/admin-user.service';
-import { ADMIN_ROLE, USER_ROLE } from 'src/constants';
 import { MailService } from 'src/modules/mail/mail.service';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from 'src/modules/user/entities/user.entity';
+import { AdminUser } from 'src/modules/admin-user/entities/admin-user.entity';
+import { Role } from 'src/guards/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -31,6 +32,15 @@ export class AuthService {
     return user;
   }
 
+  async validateAdmin(username: string, password: string) {
+    const admin = await this.adminUserService.findOneByUsername(username);
+    if (!admin || !comparePasswords(password, admin.password)) {
+      throw new UnauthorizedException();
+    }
+
+    return admin;
+  }
+
   async login(user: User) {
     const payload = {
       sub: user.id,
@@ -38,7 +48,24 @@ export class AuthService {
       lastName: user.lastName,
       email: user.email,
       verified: user.verified,
-      role: USER_ROLE,
+      role: Role.USER,
+    };
+
+    const accessToken = await this.jwtService.sign(payload, {
+      expiresIn: '15m',
+    });
+    const refreshToken = await this.jwtService.sign(payload, {
+      expiresIn: '7d',
+    });
+
+    return { accessToken, refreshToken };
+  }
+
+  async loginAdmin(adminUser: AdminUser) {
+    const payload = {
+      sub: adminUser.id,
+      username: adminUser.username,
+      role: Role.ADMIN,
     };
 
     const accessToken = await this.jwtService.sign(payload, {
@@ -54,7 +81,7 @@ export class AuthService {
   async refreshToken(refreshToken: string) {
     try {
       const payload = this.jwtService.verify(refreshToken);
-      const user = await this.userService.findOneById(payload.sub);
+      const user = await this.userService.findOneById(payload?.sub);
       if (!user) {
         throw new UnauthorizedException();
       }
@@ -84,24 +111,6 @@ export class AuthService {
     });
   }
 
-  async loginAdmin(username: string, password: string) {
-    const user = await this.adminUserService.findOneByUsername(username);
-    if (!user || !comparePasswords(password, user.password)) {
-      throw new UnauthorizedException();
-    }
-
-    const payload = {
-      id: user?.id,
-      username: user?.username,
-      role: ADMIN_ROLE,
-    };
-
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-      statusCode: 200,
-    };
-  }
-
   async signupAdmin(username: string, password: string) {
     const user = await this.adminUserService.findOneByUsername(username);
     if (user) {
@@ -126,7 +135,8 @@ export class AuthService {
       firstName: user?.firstName,
       lastName: user?.lastName,
       email: user?.email,
-      role: USER_ROLE,
+      verfied: user?.verified,
+      role: Role.USER,
     };
     const token = await this.jwtService.signAsync(payload);
     await this.mailService.sendResetPasswordEmail(user, token);

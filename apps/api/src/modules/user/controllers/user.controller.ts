@@ -17,18 +17,18 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { SerializedUser } from '../entities/serialized-user';
 import { Roles } from 'src/decorators/roles.decorator';
 import { RolesGuard } from 'src/guards/roles.guard';
-import { ADMIN_ROLE, USER_ROLE } from 'src/constants';
 import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { Role } from 'src/guards/role.enum';
 
 @Controller('mtym-api/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('me')
   @UseGuards(JwtAuthGuard)
+  @Get('me')
   @HttpCode(200)
   async findByToken(@Request() req) {
-    const id = req.user.id;
+    const id = req?.user?.id;
     const user = await this.userService.findOneById(id);
     if (!user) {
       throw new NotFoundException();
@@ -41,10 +41,10 @@ export class UserController {
     };
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   @Get(':id')
   @HttpCode(200)
-  @UseGuards(RolesGuard)
-  @Roles(ADMIN_ROLE)
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const user = await this.userService.findOneById(id);
     if (!user) {
@@ -54,10 +54,10 @@ export class UserController {
     return new SerializedUser(user);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   @Get()
   @HttpCode(200)
-  @UseGuards(RolesGuard)
-  @Roles(ADMIN_ROLE)
   async findAll() {
     const users = await this.userService.findAll();
 
@@ -67,6 +67,8 @@ export class UserController {
     };
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.USER)
   @Put(':id')
   @HttpCode(200)
   update(
@@ -74,7 +76,8 @@ export class UserController {
     @Body() updateUserDto: UpdateUserDto,
     @Request() req,
   ) {
-    if (req['user'].role === USER_ROLE && id !== req['user'].id) {
+    console.log('req.user', req.user)
+    if (req['user'].role === Role.USER && id !== req['user'].id) {
       throw new ForbiddenException();
     }
 
@@ -84,10 +87,10 @@ export class UserController {
     };
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   @Delete(':id')
   @HttpCode(200)
-  @UseGuards(RolesGuard)
-  @Roles(ADMIN_ROLE)
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.userService.remove(id);
   }

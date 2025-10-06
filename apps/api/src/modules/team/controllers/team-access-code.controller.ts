@@ -7,15 +7,21 @@ import {
   Param,
   ParseIntPipe,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { TeamAccessCodeService } from '../services/team-access-code.service';
 import { CheckTeamAccessCodeDto } from '../dto/check-team-access-code.dto';
-import { LessThan } from 'typeorm';
+import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { Role } from 'src/guards/role.enum';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @Controller('mtym-api/teams-access-code')
 export class TeamAccessCodeController {
   constructor(private readonly teamAccessCodeService: TeamAccessCodeService) {}
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.USER)
   @Get(':teamId')
   async create(@Param('teamId', ParseIntPipe) teamId: number) {
     const result = await this.teamAccessCodeService?.create(+teamId);
@@ -27,6 +33,8 @@ export class TeamAccessCodeController {
     };
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.USER)
   @Post(':teamId')
   async check(
     @Body() checkTeamAccessCodeDto: CheckTeamAccessCodeDto,
@@ -47,6 +55,8 @@ export class TeamAccessCodeController {
     };
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   @Delete(':id')
   async deleteById(@Param('id', ParseIntPipe) id: number) {
     return this.teamAccessCodeService.deleteById(+id);

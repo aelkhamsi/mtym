@@ -11,12 +11,12 @@ import {
 import { AuthService } from '../services/auth.service';
 import { LoginDto } from '../dto/login.dto';
 import { SignupDto } from '../dto/sign-up.dto';
-import { Public } from 'src/decorators/public.decorator';
 import { LoginAdminDto } from '../dto/login-admin.dto';
 import { SignupAdminDto } from '../dto/sign-up-admin.dto';
-import { ADMIN_ROLE } from 'src/constants';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { Role } from 'src/guards/role.enum';
 
 @Controller('mtym-api/auth')
 export class AuthController {
@@ -29,6 +29,27 @@ export class AuthController {
     const user = await this.authService.validateUser(email, password);
 
     const { accessToken, refreshToken } = await this.authService.login(user);
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      maxAge: 15 * 60 * 1000,
+    });
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json({ statusCode: 200 });
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('login/admin')
+  async loginAdmin(@Res() res, @Body() loginAdminDto: LoginAdminDto) {
+    const { username, password } = loginAdminDto;
+    const admin = await this.authService.validateAdmin(username, password);
+
+    const { accessToken, refreshToken } = await this.authService.loginAdmin(
+      admin,
+    );
     res.cookie('access_token', accessToken, {
       httpOnly: true,
       maxAge: 15 * 60 * 1000,
@@ -77,29 +98,17 @@ export class AuthController {
     return { statusCode: 200 };
   }
 
-  @Public()
-  @HttpCode(HttpStatus.OK)
-  @Post('login/admin')
-  loginAdmin(@Body() loginAdminDto: LoginAdminDto) {
-    const { username, password } = loginAdminDto;
-    return this.authService.loginAdmin(username, password);
-  }
-
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   @HttpCode(HttpStatus.OK)
   @Post('signup/admin')
-  @UseGuards(RolesGuard)
-  @Roles(ADMIN_ROLE)
   async signupAdmin(@Body() signupAdminDto: SignupAdminDto) {
     const { username, password } = signupAdminDto;
     await this.authService.signupAdmin(username, password);
 
-    return {
-      message: 'New account created',
-      statusCode: 200,
-    };
+    return { statusCode: 200 };
   }
 
-  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('reset-password')
   async resetPassword(@Body() body: { email: string }) {
@@ -111,7 +120,6 @@ export class AuthController {
     };
   }
 
-  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('send-email-verification')
   async sendEmailVerification(@Body() body: { email: string }) {
@@ -123,7 +131,6 @@ export class AuthController {
     };
   }
 
-  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('verify-email')
   async verifyEmail(@Body() body: { email: string; verificationCode: string }) {
