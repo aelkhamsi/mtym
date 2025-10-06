@@ -28,17 +28,17 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @HttpCode(200)
   async findByToken(@Request() req) {
-    return req.user;
-    // const id = req['user'].id;
-    // const user = await this.userService.findOneById(id);
-    // if (!user) {
-    //   throw new NotFoundException();
-    // }
+    const id = req.user.id;
+    const user = await this.userService.findOneById(id);
+    if (!user) {
+      throw new NotFoundException();
+    }
 
-    // return {
-    //   user: new SerializedUser(user),
-    //   statusCode: 200,
-    // };
+    return {
+      ...req.user,
+      application: user?.application,
+      team: user?.team,
+    };
   }
 
   @Get(':id')

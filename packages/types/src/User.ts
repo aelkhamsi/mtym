@@ -8,4 +8,8 @@ export type User = {
   email: string;
 
   verified: boolean;
+
+  application: any;
+
+  team: any;
 }

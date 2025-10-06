@@ -19,11 +19,26 @@ export class UserService {
   }
 
   findAll() {
-    return this.userRepository.find();
+    return this.userRepository.find({
+      relations: {
+        application: {
+          status: true,
+        },
+        team: true,
+      },
+    });
   }
 
   findOneById(id: number) {
-    return this.userRepository.findOneBy({ id });
+    return this.userRepository.findOne({
+      where: { id },
+      relations: {
+        application: {
+          status: true,
+        },
+        team: true,
+      },
+    });
   }
 
   findOneByEmail(email: string) {

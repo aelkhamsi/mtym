@@ -1,5 +1,8 @@
 import { Separator } from "@mdm/ui"
 import { SidebarNav } from "./sidebar-nav"
+import SectionContainer from "@/app/components/section-container"
+import { userAtom } from "@/app/store/userAtom"
+import { useAtomValue } from "jotai"
 
 interface ProfileLayoutProps {
   children: React.ReactNode
@@ -7,7 +10,7 @@ interface ProfileLayoutProps {
 
 export default function ProfileLayout({ children }: ProfileLayoutProps) {
   return (
-    <div className="pt-24 w-full lg:w-3/4 px-5 lg:px-0 mb-10">
+    <SectionContainer className="pt-24 pb-20 z-0">
       <div className="space-y-6 py-10">
         <div className="space-y-0.5">
           <h2 className="text-2xl font-bold tracking-tight">Profil</h2>
@@ -23,6 +26,6 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
           <div className="flex-1 lg:max-w-3xl">{children}</div>
         </div>
       </div>
-    </div>
+    </SectionContainer>
   )
 }

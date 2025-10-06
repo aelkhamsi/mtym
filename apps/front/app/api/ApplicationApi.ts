@@ -18,8 +18,13 @@ export const getAllApplications = () => {
 }
 
 export const getApplicationById = (id: number) => {
-  const url = '/applications';
+  const url = `/applications/${id}`;
   return ApiMethods.get(url);
+}
+
+export const getApplicationByUserId = (userId: number) => {
+  const url = `/applications/user/${userId}`
+  return ApiMethods.get(url)
 }
 
 export const putApplication = (id: number, partialApplication: any) => {

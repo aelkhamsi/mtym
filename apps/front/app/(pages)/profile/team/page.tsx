@@ -9,6 +9,7 @@ import NoTeamSection from "./components/no-team-section";
 
 export default function TeamPage() {
   const user = useAtomValue(userAtom)
+  console.log('user', user)
 
   return (
     <div className="space-y-6">
@@ -23,7 +24,7 @@ export default function TeamPage() {
 
       {!user
         ? <ProfileSkeleton />
-        : user?.team
+        : user
           ? <TeamSection user={user} />
           : <NoTeamSection user={user} />
       }
