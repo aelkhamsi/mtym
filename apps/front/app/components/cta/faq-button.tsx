@@ -17,7 +17,7 @@ const FaqButton = () => {
     >
       <MessageCircleIcon className='h-5 w-5'/>
       {!isLoading
-        ? <span className="hidden sm:inline-block">FAQ</span>
+        ? <span>FAQ</span>
         : <LoadingDots color="#808080" />
       }
     </Link>

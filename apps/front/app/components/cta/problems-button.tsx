@@ -11,7 +11,7 @@ const ProblemsButton = () => {
       target='_blank'
     >
       <BookIcon className='h-5 w-5'/>
-      <span className="hidden sm:inline-block">Problèmes 2025</span>
+      <span>Problèmes 2025</span>
     </Link>
   )
 }

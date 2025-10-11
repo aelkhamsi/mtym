@@ -11,7 +11,7 @@ const RegulationButton = () => {
       target='_blank'
     >
       <BookIcon className='h-5 w-5'/>
-      <span className="hidden sm:inline-block">Règlement</span>
+      <span>Règlement</span>
     </Link>
   )
 }

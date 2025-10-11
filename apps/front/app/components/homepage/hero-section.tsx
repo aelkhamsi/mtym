@@ -82,7 +82,7 @@ const HeroSection = () => {
 
           {/* CTA buttons */}
           <div
-            className="mx-auto flex items-center justify-center space-x-5"
+            className="flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-y-0 sm:space-x-4"
           >
             <ProblemsButton />
             {/* <CtaButton /> */}
