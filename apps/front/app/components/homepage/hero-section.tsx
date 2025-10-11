@@ -5,6 +5,7 @@ import FaqButton from '../cta/faq-button'
 import { BookIcon, CalendarMDMIcon, LocationIcon } from '@mdm/ui'
 import RegulationButton from '../cta/regulation-button'
 import { CLOSE_APPLICATIONS } from 'config'
+import ProblemsButton from '../cta/problems-button'
 
 const HeroSection = () => {
   return (
@@ -47,7 +48,7 @@ const HeroSection = () => {
             >
               <span className='font-neco'>
                 {CLOSE_APPLICATIONS
-                  ? 'Les inscriptions pour MTYM 2025 sont fermées!'
+                  ? 'Les problèmes MTYM 2025 sont disponibles!'
                   : 'Les inscriptions pour MTYM 2025 sont ouvertes!'
                 }
               </span>
@@ -83,9 +84,11 @@ const HeroSection = () => {
           <div
             className="mx-auto flex items-center justify-center space-x-5"
           >
-            <CtaButton />
-            <FaqButton />
+            <ProblemsButton />
+            {/* <CtaButton /> */}
             <RegulationButton />
+            <FaqButton />
+            
           </div>
 
           {/* Organizer & sponsors */}
