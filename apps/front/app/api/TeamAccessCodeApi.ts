@@ -8,7 +8,7 @@ export const generateAccessCode = (teamId: number) => {
 export const checkAccessCode = (accessCode: string, teamId: number) => {
   const url = `/teams-access-code/${teamId}`;
   const body = { accessCode };
-  return ApiMethods.post(url, body);
+  return ApiMethods.post(url, {body});
 }
 
 export const deleteAccessCode = (id: number) => {

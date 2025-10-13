@@ -7,12 +7,13 @@ export const getSignedURL = (
   checksum: string
 ) => {
   const url = '/media/signed-url';
-  return ApiMethods.post(url, {
+  const body = {
     filename, 
     type, 
     size, 
     checksum,
-  });
+  }
+  return ApiMethods.post(url, {body});
 }
 
 export const uploadFile = async (url: string, file: File) => {

@@ -7,8 +7,7 @@ export const logIn = (email: string, password: string) => {
     email,
     password
   }
-  const params = { credentials: "include" }
-  return ApiMethods.post(url, body, params);
+  return ApiMethods.post(url, {body});
 }
 
 export const signUp = (firstName: string, lastName: string, email: string, password: string) => {
@@ -19,13 +18,12 @@ export const signUp = (firstName: string, lastName: string, email: string, passw
     email,
     password
   };
-  return ApiMethods.post(url, body);
+  return ApiMethods.post(url, {body});
 }
 
 export const logout = () => {
   const url = '/auth/logout';
-  const params = { credentials: "include" }
-  return ApiMethods.post(url, {}, params);
+  return ApiMethods.post(url);
 }
 
 export const resetPassword = (email: string) => {
@@ -33,7 +31,7 @@ export const resetPassword = (email: string) => {
   const body = {
     email,
   };
-  return ApiMethods.post(url, body);
+  return ApiMethods.post(url, {body});
 }
 
 export const sendEmailVerificationCode = (email: string) => {
@@ -41,7 +39,7 @@ export const sendEmailVerificationCode = (email: string) => {
   const body = {
     email,
   };
-  return ApiMethods.post(url, body);
+  return ApiMethods.post(url, {body});
 }
 
 export const checkEmailVerificationCode = (email: string, verificationCode: string) => {
@@ -50,5 +48,5 @@ export const checkEmailVerificationCode = (email: string, verificationCode: stri
     email,
     verificationCode,
   };
-  return ApiMethods.post(url, body);
+  return ApiMethods.post(url, {body});
 }

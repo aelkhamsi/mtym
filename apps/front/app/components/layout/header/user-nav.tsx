@@ -35,7 +35,6 @@ export function UserNav({
 
   const handleLogOut = useCallback(async () => {
     const result = await logout();
-    console.log('result logout', result)
     setUser(null)
     router.push('/');
     window.location.reload();
@@ -47,7 +46,7 @@ export function UserNav({
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-9 w-9 border-solid border-2 border-sky-300">
             <AvatarImage src="/avatars/01.png" alt="@shadcn" />
-            <AvatarFallback className="text-base text-black">{firstName[0]}</AvatarFallback>
+            <AvatarFallback className="text-base text-black">{firstName?.[0]}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>

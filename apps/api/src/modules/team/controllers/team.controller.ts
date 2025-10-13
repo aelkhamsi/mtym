@@ -46,12 +46,9 @@ export class TeamController {
     const team = await this.teamService.create(createTeamDto, userId);
 
     return {
-      team: {
-        ...team,
-        leader: team?.leader ? new SerializedUser(team?.leader) : team?.leader,
-        users: team?.users?.map((user) => new SerializedUser(user)),
-      },
-      statusCode: 200,
+      ...team,
+      leader: team?.leader ? new SerializedUser(team?.leader) : team?.leader,
+      users: team?.users?.map((user) => new SerializedUser(user)),
     };
   }
 
@@ -61,18 +58,15 @@ export class TeamController {
   async findAll() {
     const teams = await this.teamService.findAll();
 
-    return {
-      teams: teams.map((team) => {
-        return {
-          ...team,
-          leader: team?.leader
-            ? new SerializedUser(team?.leader)
-            : team?.leader,
-          users: team?.users?.map((user) => new SerializedUser(user)),
-        };
-      }),
-      statusCode: 200,
-    };
+    return teams.map((team) => {
+      return {
+        ...team,
+        leader: team?.leader
+          ? new SerializedUser(team?.leader)
+          : team?.leader,
+        users: team?.users?.map((user) => new SerializedUser(user)),
+      };
+    });
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -85,12 +79,9 @@ export class TeamController {
     }
 
     return {
-      team: {
-        ...team,
-        leader: team?.leader ? new SerializedUser(team?.leader) : team?.leader,
-        users: team?.users?.map((user) => new SerializedUser(user)),
-      },
-      statusCode: 200,
+      ...team,
+      leader: team?.leader ? new SerializedUser(team?.leader) : team?.leader,
+      users: team?.users?.map((user) => new SerializedUser(user)),
     };
   }
 

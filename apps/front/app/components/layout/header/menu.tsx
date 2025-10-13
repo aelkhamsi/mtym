@@ -15,8 +15,11 @@ const menuItems = [
 export const Menu = () => {
   const [showMenu, setShowMenu] = useState(false);
 
-  const getListItem = (label: string, href: string) => (
-    <li className="hover:underline hover:cursor-pointer">
+  const getListItem = (label: string, href: string, index: number) => (
+    <li 
+      className="hover:underline hover:cursor-pointer"
+      key={index}
+    >
       <Link href={href} onClick={() => {setShowMenu(false)}}>
         {label}
       </Link>
@@ -26,8 +29,8 @@ export const Menu = () => {
   const template = (
     <nav>
       <ul className="flex flex-col space-y-6 mt-4 text-base lg:flex-row lg:text-sm lg:space-y-0 lg:space-x-6 lg:mt-0 lg:mr-6 lg:items-center">
-        {menuItems.map(menuItem => 
-          getListItem(menuItem.label, menuItem.href)
+        {menuItems.map((menuItem, index) => 
+          getListItem(menuItem.label, menuItem.href, index)
         )}
       </ul>
     </nav>

@@ -11,6 +11,7 @@ import {
   Put,
   UseGuards,
   ForbiddenException,
+  Req,
 } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { UpdateUserDto } from '../dto/update-user.dto';
@@ -28,24 +29,17 @@ export class UserController {
   @Get('me')
   @HttpCode(200)
   async findByToken(@Request() req) {
-    const id = req?.user?.id;
-    const user = await this.userService.findOneById(id);
-    if (!user) {
-      throw new NotFoundException();
-    }
-
-    return {
-      ...req.user,
-      application: user?.application,
-      team: user?.team,
-    };
+    return req.user;
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   @HttpCode(200)
-  async findOne(@Param('id', ParseIntPipe) id: number) {
+  async findOne(@Req() req, @Param('id', ParseIntPipe) id: number) {
+    if (req.user.role === Role.USER && req.user.id !== id) {
+      throw new ForbiddenException()
+    }
+
     const user = await this.userService.findOneById(id);
     if (!user) {
       throw new NotFoundException();
@@ -76,7 +70,6 @@ export class UserController {
     @Body() updateUserDto: UpdateUserDto,
     @Request() req,
   ) {
-    console.log('req.user', req.user)
     if (req['user'].role === Role.USER && id !== req['user'].id) {
       throw new ForbiddenException();
     }

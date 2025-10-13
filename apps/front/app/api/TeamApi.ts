@@ -5,9 +5,9 @@ export const getAllTeams = () => {
   return ApiMethods.get(url);
 }
 
-export const getTeamById = (teamId: number) => {
+export const getTeamById = (teamId: number, cookie?: string) => {
   const url = `/teams/id/${teamId}`;
-  return ApiMethods.get(url);
+  return ApiMethods.get(url, {cookie});
 }
 
 export const getTeamByQuadrigram = (quadrigram: string) => {
@@ -18,13 +18,13 @@ export const getTeamByQuadrigram = (quadrigram: string) => {
 export const createTeam = (team: any) => {
   const url = '/teams';
   const body = {...team};
-  return ApiMethods.post(url, body);
+  return ApiMethods.post(url, {body});
 }
 
 export const updateTeam = (teamId: number, partialTeam: any) => {
   const url = `/teams/${teamId}`;
   const body = {...partialTeam};
-  return ApiMethods.put(url, body);
+  return ApiMethods.put(url, {body});
 }
 
 export const addUser = (teamId: number) => {
@@ -35,7 +35,7 @@ export const addUser = (teamId: number) => {
 export const removeUser = (teamId: number, userId?: number) => {
   const url = `/teams/unjoin/${teamId}`;
   const body = userId ? { userId } : {};
-  return ApiMethods.put(url, body);
+  return ApiMethods.put(url, {body});
 }
 
 export const changeLeader = (teamId: number, newLeaderId: number) => {
@@ -43,7 +43,7 @@ export const changeLeader = (teamId: number, newLeaderId: number) => {
   const body = {
     newLeaderId
   }
-  return ApiMethods.put(url, body);
+  return ApiMethods.put(url, {body});
 }
 
 export const deleteTeam = (teamId: number) => {

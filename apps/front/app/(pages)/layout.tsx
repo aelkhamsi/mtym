@@ -7,7 +7,7 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import Header from "@/app/components/layout/header";
 import { Toaster } from "@mdm/ui";
 import { cookies } from "next/headers";
-import { getUserSSR } from "../api/UsersApi";
+import { getUser } from "@/app/api/UsersApi";
 import JotaiProvider from "./jotai-provider";
 
 export const metadata = {
@@ -21,18 +21,18 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = cookies();
-  const user = await getUserSSR(cookieStore);
+  const cookieStore = cookies().toString();
+  const user = await getUser(cookieStore) as any
 
   return (
     <html lang="en">
       <body className={`${cx(pally.variable, poppins.variable)} font-poppins`}>
-          <JotaiProvider initialUser={user}>
-            <Header />
-            <>{children}</>
-            <Footer />
-            <Toaster />
-            <VercelAnalytics />
+        <JotaiProvider initialUser={user}>
+          <Header />
+          <>{children}</>
+          <Footer />
+          <Toaster />
+          <VercelAnalytics />
         </JotaiProvider>
       </body>
     </html>

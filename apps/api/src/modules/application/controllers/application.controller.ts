@@ -12,6 +12,7 @@ import {
   UseGuards,
   Request,
   ForbiddenException,
+  Req,
 } from '@nestjs/common';
 import { ApplicationService } from '../services/application.service';
 import { SerializedApplication } from '../entities/serialized-application.entity';
@@ -65,14 +66,17 @@ export class ApplicationController {
     };
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   @HttpCode(200)
-  async findOneById(@Param('id', ParseIntPipe) id: number) {
+  async findOneById(@Req() req, @Param('id', ParseIntPipe) id: number) {
     const application = await this.applicationService.findOneById(id);
     if (!application) {
       throw new NotFoundException();
+    }
+
+    if (req.user.role == Role.USER && application.id !== req.user.applicationId) {
+      throw new ForbiddenException()
     }
 
     return new SerializedApplication(application);

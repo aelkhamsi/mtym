@@ -48,6 +48,8 @@ export class AuthService {
       lastName: user.lastName,
       email: user.email,
       verified: user.verified,
+      applicationId: user?.application?.id,
+      teamId: user?.team?.id,
       role: Role.USER,
     };
 

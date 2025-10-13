@@ -8,11 +8,14 @@ import {
 } from "@mdm/ui";
 import { useRouter } from "next/navigation";
 import { CLOSE_APPLICATIONS } from "config";
+import { User } from "@mdm/types";
 
 const NoTeamSection = ({
   user,
+  application,
 }:{
-  user: any
+  user: User|null,
+  application: any,
 }) => {
   const router = useRouter()
 
@@ -30,7 +33,7 @@ const NoTeamSection = ({
 
       {!CLOSE_APPLICATIONS && 
         <CardFooter>
-          {(!user?.application || user?.application?.status?.status === 'DRAFT')
+          {(!application || application?.status?.status === 'DRAFT')
             ? <>
               <p className="text-sm">Avant que vous puissiez rejoindre une équipe, il faut que vous soumettiez votre candidature</p>
               <Button onClick={() => router.push('/application')}>

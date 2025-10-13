@@ -3,23 +3,33 @@
 import type { ReactNode } from 'react'
 import { useHydrateAtoms } from 'jotai/utils'
 import { Provider } from 'jotai'
-import { userAtom } from '../store/userAtom';
-import { User } from '@mdm/types';
+import { User } from '@mdm/types'
+import { userAtom } from '@/app/store/userAtom'
+import { applicationAtom } from '@/app/store/applicationAtom'
+import { teamAtom } from '@/app/store/teamAtom'
 
 type ProviderProps = {
-  initialUser: User|null,
+  initialUser?: User,
+  initialApplication?: any,
+  initialTeam?: any,
   children: ReactNode,
 };
 
-function HydrateAtoms({ initialUser, children } : ProviderProps) {
-  useHydrateAtoms([[userAtom, initialUser]])
+function HydrateAtoms({ initialUser, initialApplication, initialTeam, children } : ProviderProps) {
+  if (initialUser) useHydrateAtoms([[userAtom, initialUser]])
+  if (initialApplication) useHydrateAtoms([[applicationAtom, initialApplication]])
+  if (initialTeam) useHydrateAtoms([[teamAtom, initialTeam]])
   return children;
 }
 
-export default function JotaiProvider({ initialUser, children }: ProviderProps) {
+export default function JotaiProvider({ initialUser, initialApplication, initialTeam, children }: ProviderProps) {
   return (
     <Provider>
-      <HydrateAtoms initialUser={initialUser}>
+      <HydrateAtoms 
+        initialUser={initialUser}
+        initialApplication={initialApplication}
+        initialTeam={initialTeam}
+      >
         {children}
       </HydrateAtoms>
     </Provider>

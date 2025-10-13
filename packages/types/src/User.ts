@@ -9,7 +9,7 @@ export type User = {
 
   verified: boolean;
 
-  application: any;
+  applicationId: number;
 
-  team: any;
+  teamId: number;
 }

@@ -14,9 +14,8 @@ import {
 import { Badge } from "@mdm/ui";
 import { Button } from "@mdm/ui";
 import { useRouter } from "next/navigation";
-import { useAtomValue } from "jotai";
-import { userAtom } from "@/app/store/userAtom";
 import { CLOSE_APPLICATIONS } from "config";
+import { Team } from "@mdm/types";
 
 const getBadgeClassname = (status: string) => {
   switch(status) {
@@ -40,16 +39,18 @@ const getBadgeClassname = (status: string) => {
 }
 
 const ApplicationSection = ({
-  user,
+  application,
+  team,
 }:{
-  user: any,
+  application?: any,
+  team?: Team,
 }) => {
   const [content, setContent] = useState<any>(undefined);
   const router = useRouter();
   
   useEffect(() => {
-    const application = user?.application;
     const applicationStatus = application?.status?.status;
+    const teamMembers = team?.users?.length ?? 0
 
     if (!application) {
       setContent({
@@ -70,13 +71,13 @@ const ApplicationSection = ({
     } else {
       setContent({
         title: "Vous avez soumis une candidature",
-        subtitle: CLOSE_APPLICATIONS && (!user?.team || user?.team?.length <= 3 || user?.team?.length >= 5)
+        subtitle: CLOSE_APPLICATIONS && (!team || teamMembers <= 3 || teamMembers >= 5)
           ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "Vous trouverez l'avancement de votre candidature ci-dessous. On vous notifiera des prochaines étapes par mail.",
         ctaLabel: "Mettre à jour votre candidature",
       })
     }
-  }, [user])
+  }, [application, team])
 
   return (
     <Card>
@@ -90,11 +91,11 @@ const ApplicationSection = ({
       </CardHeader>
 
       <CardContent>
-        {user?.application && 
+        {application && 
           <>
-            <div className="text-sm"><span className="font-bold">Date de soumission</span>: {formatDate(user?.application?.createdAt)}</div>
-            <div className="text-sm"><span className="font-bold">Date de sauvegarde</span>: {formatDate(user?.application?.updatedAt)}</div>
-            <div className="text-sm"><span className="font-bold">Status</span>: <Badge className={`px-4 ${getBadgeClassname(user?.application?.status?.status)}`}>{user?.application?.status?.status}</Badge></div>
+            <div className="text-sm"><span className="font-bold">Date de soumission</span>: {formatDate(application?.createdAt)}</div>
+            <div className="text-sm"><span className="font-bold">Date de sauvegarde</span>: {formatDate(application?.updatedAt)}</div>
+            <div className="text-sm"><span className="font-bold">Status</span>: <Badge className={`px-4 ${getBadgeClassname(application?.status?.status)}`}>{application?.status?.status}</Badge></div>
           </>
         }
       </CardContent>

@@ -7,20 +7,24 @@ import { ProfileSkeleton } from "@mdm/ui";
 import ApplicationSection from "./application-section";
 import AdditionalInformationsSection from "./additional-information-section";
 import { useEffect, useState } from "react";
+import { applicationAtom } from "@/app/store/applicationAtom";
+import { teamAtom } from "@/app/store/teamAtom";
+import { Team } from "@mdm/types";
 
 export default function ApplicationPage() {
   const user = useAtomValue(userAtom)
-  const [isApplicationComplete, setIsApplicationComplete] = useState(false)
-  const [isTeamComplete, setIsTeamComplete] = useState(false)
+  const application = useAtomValue(applicationAtom)
+  const team = useAtomValue(teamAtom) as Team|undefined
+  const [isApplicationComplete, setIsApplicationComplete] = useState<boolean>(false)
+  const [isTeamComplete, setIsTeamComplete] = useState<boolean>(false)
 
   useEffect(() => {
-    const application = user?.application;
     const applicationStatus = application?.status?.status;
-    const teamMembers = user?.team?.users?.length
+    const teamMembers = team?.users?.length ?? 0
 
-    setIsApplicationComplete(application && applicationStatus !== 'DRAFT')
-    setIsTeamComplete(user?.team && teamMembers >= 3 && teamMembers <= 5)
-  })
+    setIsApplicationComplete(!!application && applicationStatus !== 'DRAFT')
+    setIsTeamComplete(!!team && teamMembers >= 3 && teamMembers <= 5)
+  }, [application, team])
 
   return (
     <div className="space-y-6">
@@ -35,7 +39,7 @@ export default function ApplicationPage() {
 
       {!user
         ? <ProfileSkeleton />
-        : <ApplicationSection user={user} />
+        : <ApplicationSection application={application} team={team} />
       }
 
       {(isApplicationComplete && isTeamComplete) && 
