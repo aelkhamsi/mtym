@@ -2,7 +2,7 @@ import { cookies } from 'next/headers'
 import { Separator } from "@mdm/ui"
 import { SidebarNav } from "./sidebar-nav"
 import SectionContainer from "@/app/components/section-container"
-import { getUser } from "@/app/api/UsersApi"
+import { getSessionCookie } from "@/app/api/UsersApi"
 import { getApplicationById } from '@/app/api/ApplicationApi'
 import { getTeamById } from '@/app/api/TeamApi'
 import ProfileHydrator from './profile-hydrator'
@@ -14,9 +14,9 @@ interface ProfileLayoutProps {
 
 export default async function ProfileLayout({ children }: ProfileLayoutProps) {
   const cookieStore = cookies().toString()
-  const authUser = await getUser(cookieStore) as User
-  const application = await getApplicationById(authUser?.applicationId, cookieStore) as any
-  const team = await getTeamById(authUser?.teamId, cookieStore) as Team
+  const session = await getSessionCookie(cookieStore) as any
+  const application = await getApplicationById(session?.applicationId, cookieStore) as any
+  const team = await getTeamById(session?.teamId, cookieStore) as Team
 
   return (
     <ProfileHydrator application={application} team={team}>

@@ -26,10 +26,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { createTeamSchema, createTeamDefaultValues } from "@/app/schemas/create-team.schema"
 import { z } from "zod"
 import { useAtomValue } from "jotai"
-import { userAtom } from "@/app/store/userAtom"
 import { getTeamByQuadrigram, updateTeam } from "@/app/api/TeamApi"
-import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { teamAtom } from "@/app/store/teamAtom"
+import { Team } from "@mdm/types"
 
 type AccountFormValues = z.infer<typeof createTeamSchema>
 
@@ -39,12 +39,12 @@ const EditButton = ({
   className?: string
 }) => {
   const [isFormLoading, setIsFormLoading] = useState(false)
-  const user = useAtomValue(userAtom)
+  const team = useAtomValue(teamAtom) as Team
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(createTeamSchema),
     defaultValues: createTeamDefaultValues,
     mode: "onChange",
-    values: user?.team,
+    values: team,
   })
 
   const onSubmit = async () => {
@@ -53,8 +53,8 @@ const EditButton = ({
 
     const result = await getTeamByQuadrigram(quadrigram) as any
 
-    if (result?.statusCode === 404 || result?.id === user?.team?.id) {
-      await updateTeam(user?.team?.id, {name, slogan, quadrigram, mentorFullname})
+    if (result?.statusCode === 404 || result?.id === team?.id) {
+      await updateTeam(team?.id, {name, slogan, quadrigram, mentorFullname})
       window.location.reload()
       return
     }

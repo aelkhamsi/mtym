@@ -39,7 +39,7 @@ export function AccountForm() {
     resolver: zodResolver(profileFormSchema),
     defaultValues,
     mode: "onChange",
-    values: user,
+    values: user as User,
   })
 
   const onSubmit = async (formData: AccountFormValues) => {

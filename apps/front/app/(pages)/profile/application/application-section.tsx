@@ -15,7 +15,9 @@ import { Badge } from "@mdm/ui";
 import { Button } from "@mdm/ui";
 import { useRouter } from "next/navigation";
 import { CLOSE_APPLICATIONS } from "config";
-import { Team } from "@mdm/types";
+import { teamAtom } from "@/app/store/teamAtom";
+import { applicationAtom } from "@/app/store/applicationAtom";
+import { useAtomValue } from "jotai";
 
 const getBadgeClassname = (status: string) => {
   switch(status) {
@@ -38,13 +40,9 @@ const getBadgeClassname = (status: string) => {
   }
 }
 
-const ApplicationSection = ({
-  application,
-  team,
-}:{
-  application?: any,
-  team?: Team,
-}) => {
+const ApplicationSection = () => {
+  const application = useAtomValue(applicationAtom)
+  const team = useAtomValue(teamAtom)
   const [content, setContent] = useState<any>(undefined);
   const router = useRouter();
   

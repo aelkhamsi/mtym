@@ -7,8 +7,9 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import Header from "@/app/components/layout/header";
 import { Toaster } from "@mdm/ui";
 import { cookies } from "next/headers";
-import { getUser } from "@/app/api/UsersApi";
+import { getSessionCookie, getUserById } from "@/app/api/UsersApi";
 import RootProvider from "./root-provider";
+import { User } from "@mdm/types";
 
 export const metadata = {
   title: "MTYM 2025",
@@ -22,7 +23,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const cookieStore = cookies().toString();
-  const user = await getUser(cookieStore) as any
+  const session = await getSessionCookie(cookieStore) as any
+  const user = await getUserById(session?.id, cookieStore) as User
 
   return (
     <html lang="en">

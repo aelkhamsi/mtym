@@ -39,7 +39,7 @@ export default function ApplicationPage() {
 
       {!user
         ? <ProfileSkeleton />
-        : <ApplicationSection application={application} team={team} />
+        : <ApplicationSection />
       }
 
       {(isApplicationComplete && isTeamComplete) && 
@@ -55,7 +55,7 @@ export default function ApplicationPage() {
 
           {!user
             ? <ProfileSkeleton />
-            : <AdditionalInformationsSection user={user} />
+            : <AdditionalInformationsSection />
           }
         </>
       }

@@ -1,15 +1,15 @@
+import { teamAtom } from "@/app/store/teamAtom"
 import {
   Table,
   TableBody,
   TableCell,
   TableRow,
 } from "@mdm/ui"
+import { useAtomValue } from "jotai"
 
-const TeamMentor = ({
-  team,
-}:{
-  team: any,
-}) => {
+const TeamMentor = () => {
+  const team = useAtomValue(teamAtom)
+
   return (
     <div>
       <span className="font-bold">Mentor</span>

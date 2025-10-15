@@ -1,6 +1,6 @@
 import ApiMethods from "./ApiMethods"
 
-export const getUser = async (cookie?: string) => {
+export const getSessionCookie = async (cookie?: string) => {
   const url = '/users/me';
   return ApiMethods.get(url, {
     cookie, 

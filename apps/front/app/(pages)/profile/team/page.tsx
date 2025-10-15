@@ -9,8 +9,6 @@ import { teamAtom } from "@/app/store/teamAtom";
 import { applicationAtom } from "@/app/store/applicationAtom";
 
 export default function TeamPage() {
-  const user = useAtomValue(userAtom)
-  const application = useAtomValue(applicationAtom)
   const team = useAtomValue(teamAtom)
 
   return (
@@ -25,8 +23,8 @@ export default function TeamPage() {
       <Separator />
 
       {team
-        ? <TeamSection user={user} team={team} />
-        : <NoTeamSection user={user} application={application} />
+        ? <TeamSection  />
+        : <NoTeamSection />
       }
     </div>
   )

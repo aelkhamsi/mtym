@@ -12,14 +12,13 @@ import QuitButton from "./quit-button";
 import { InviteButton } from "./invite-button";
 import { CLOSE_APPLICATIONS } from "config";
 import { Team, User } from "@mdm/types";
+import { userAtom } from "@/app/store/userAtom";
+import { useAtomValue } from "jotai";
+import { teamAtom } from "@/app/store/teamAtom";
 
-const TeamSection = ({
-  user,
-  team,
-}:{
-  user: User|null,
-  team: Team,
-}) => {
+const TeamSection = () => {
+  const user = useAtomValue(userAtom)
+  const team = useAtomValue(teamAtom)
   const isTeamLeader = team?.leader?.id === user?.id 
 
   return (
@@ -30,10 +29,10 @@ const TeamSection = ({
 
       <CardContent className="space-y-4 px-8">            
         <Separator />
-        <TeamMembers userId={user?.id} team={team} />
+        <TeamMembers />
 
         <Separator />
-        <TeamMentor team={team} />
+        <TeamMentor />
       </CardContent>
 
       <CardFooter className="flex space-x-4">

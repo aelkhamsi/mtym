@@ -8,15 +8,11 @@ import {
 } from "@mdm/ui";
 import { useRouter } from "next/navigation";
 import { CLOSE_APPLICATIONS } from "config";
-import { User } from "@mdm/types";
+import { applicationAtom } from "@/app/store/applicationAtom";
+import { useAtomValue } from "jotai";
 
-const NoTeamSection = ({
-  user,
-  application,
-}:{
-  user: User|null,
-  application: any,
-}) => {
+const NoTeamSection = () => {
+  const application = useAtomValue(applicationAtom)
   const router = useRouter()
 
   return (
