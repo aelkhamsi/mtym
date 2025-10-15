@@ -91,6 +91,17 @@ export class AuthService {
     }
   }
 
+  async refreshTokenAdmin(refreshToken: string) {
+    try {
+      const payload = await this.jwtService.verify(refreshToken);
+      const adminUser = await this.adminUserService.findOneById(payload?.sub);
+      if (!adminUser) throw new Error() 
+      return this.loginAdmin(adminUser);
+    } catch {
+      throw new UnauthorizedException();;
+    }
+  }
+
   async signup(
     firstName: string,
     lastName: string,

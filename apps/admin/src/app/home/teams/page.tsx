@@ -1,13 +1,13 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import { TeamRow, columns } from "./components/columns";
 import { TeamsTable } from "./components/teams-table";
-import { teamsState } from "@/store/teamsState";
+import { useAtomValue } from "jotai";
+import { teamsAtom } from "@/store/teamsAtom";
 
 export default function TeamsPage() {
-  const teams = useRecoilValue(teamsState);
+  const teams = useAtomValue(teamsAtom);
   const [tableData, setTableData] = useState<TeamRow[]>([])
 
   useEffect(() => {

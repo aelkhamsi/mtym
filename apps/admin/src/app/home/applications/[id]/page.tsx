@@ -3,9 +3,7 @@
 import { Label } from '@/components/shared/label'
 import Separator from '@/components/shared/separator';
 import { formatDate } from '@/lib/utils'
-import { applicationsState } from '@/store/applicationsState';
 import React, { ReactNode, useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil';
 import {
   Tabs,
   TabsContent,
@@ -16,6 +14,8 @@ import { useRouter } from 'next/navigation';
 import { ExpandingArrow } from '@/components/shared/icons';
 import ApplicationStatus from '../components/application-status';
 import FilesTable from './files-table';
+import { useAtomValue } from 'jotai';
+import { applicationsAtom } from '@/store/applicationsAtom';
 
 const regionLabels = {
   'tanger-tetouan-al-houceima': "Tanger-Tétouan-Al Hoceïma",
@@ -87,7 +87,7 @@ const Field = ({
 }
 
 export default function ApplicationDetailsPage({ params }: { params: { id: string } }) {
-  const [applications, _] = useRecoilState(applicationsState);
+  const applications = useAtomValue(applicationsAtom)
   const [application, setApplication] = useState<any>(undefined);
   const id = parseInt(params.id);
   const router = useRouter();

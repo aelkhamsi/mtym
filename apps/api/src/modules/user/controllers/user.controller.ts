@@ -54,11 +54,7 @@ export class UserController {
   @HttpCode(200)
   async findAll() {
     const users = await this.userService.findAll();
-
-    return {
-      users: users.map((user) => new SerializedUser(user)),
-      statusCode: 200,
-    };
+    return users.map((user) => new SerializedUser(user))
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

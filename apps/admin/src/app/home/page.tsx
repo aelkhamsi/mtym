@@ -3,9 +3,9 @@
 import { HoverEffect } from "@/components/shared/card-hover-effect";
 import Image from "next/image";
 import Stats from "./stats";
-import { useRecoilValue } from "recoil";
-import { applicationsState } from "@/store/applicationsState";
-import { teamsState } from "@/store/teamsState";
+import { useAtomValue } from "jotai";
+import { applicationsAtom } from "@/store/applicationsAtom";
+import { teamsAtom } from "@/store/teamsAtom";
 
 const links = [
   {
@@ -73,8 +73,8 @@ const countTeams = (teams: any[]) => {
 }
 
 export default function Home() {
-  const applications = useRecoilValue(applicationsState);
-  const teams = useRecoilValue(teamsState)
+  const applications = useAtomValue(applicationsAtom);
+  const teams = useAtomValue(teamsAtom) as any[]
   const [countAllApplications, countPendingApplications, countTC, countBac1, countBac2] = countApplications(applications)
   const [countAllTeams, countCompleteTeams, countIncompleteTeams] = countTeams(teams)
 

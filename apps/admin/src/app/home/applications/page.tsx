@@ -1,14 +1,14 @@
 "use client"
 
 import { ApplicationsTable } from "@/app/home/applications/components/applications-table";
-import { applicationsState } from "@/store/applicationsState";
-import { useRecoilValue } from "recoil";
 import { columns } from "./components/columns";
 import { ApplicationRow } from "./components/columns";
 import { useEffect, useState } from "react";
+import { useAtomValue } from "jotai";
+import { applicationsAtom } from "@/store/applicationsAtom";
 
 export default function ApplicationsPage() {
-  const applications = useRecoilValue(applicationsState);
+  const applications = useAtomValue(applicationsAtom);
   const [tableData, setTableData] = useState<ApplicationRow[]>([])
 
   useEffect(() => {

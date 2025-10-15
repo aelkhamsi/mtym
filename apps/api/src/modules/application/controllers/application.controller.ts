@@ -55,15 +55,12 @@ export class ApplicationController {
   async findAll() {
     const applications = await this.applicationService.findAll();
 
-    return {
-      applications: applications
-        .map((application) => ({
-          ...application,
-          user: new SerializedUser(application?.user),
-        }))
-        .map((application) => new SerializedApplication(application)),
-      statusCode: 200,
-    };
+    return applications
+      .map((application) => ({
+        ...application,
+        user: new SerializedUser(application?.user),
+      }))
+      .map((application) => new SerializedApplication(application))
   }
 
   @UseGuards(JwtAuthGuard)

@@ -1,35 +1,30 @@
 "use client"
 
-import { Inter } from 'next/font/google';
 import "../globals.css";
 import { NavItem } from '@/components/layout/nav-item';
 import { UsersIcon } from '@/components/shared/icons';
 import { SettingsIcon } from '@/components/shared/icons';
 import Logo from '@/components/layout/logo';
-import { useRecoilValue } from 'recoil';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { adminState } from '@/store/adminState';
 import { objIsEmpty } from '@/lib/utils';
 import PageSkeleton from './page-skeleton';
 import { AdminNav } from '@/components/layout/admin-nav';
-
-const inter = Inter({ subsets: ["latin"] });
+import { useAtomValue } from 'jotai';
+import { adminUserAtom } from '@/store/adminUserAtom';
 
 export default function HomeLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const adminData = useRecoilValue(adminState);
+  const adminUser = useAtomValue(adminUserAtom);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const router = useRouter();
 
   useEffect(() => {
-    if (adminData && !objIsEmpty(adminData)) {
+    if (adminUser && !objIsEmpty(adminUser)) {
       setIsLoading(false);
     }
-  }, [adminData])
+  }, [adminUser])
 
   return (
     <div className="grid min-h-screen w-full lg:grid-cols-[200px_1fr]">

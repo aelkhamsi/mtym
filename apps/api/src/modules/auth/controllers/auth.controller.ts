@@ -78,6 +78,21 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @Post('refresh/admin')
+  async refreshAdmin(@Req() req, @Res() res) {
+    const reqRefreshToken = req.cookies['refresh_token'];
+    const { accessToken } = await this.authService.refreshTokenAdmin(
+      reqRefreshToken,
+    );
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000,
+    });
+
+    res.json({ statusCode: 200 });
+  }
+
+  @HttpCode(HttpStatus.OK)
   @Post('logout')
   async logout(@Res() res) {
     res.clearCookie('access_token');

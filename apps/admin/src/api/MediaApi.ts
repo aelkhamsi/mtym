@@ -6,13 +6,14 @@ export const getSignedURL = (
   size: number, 
   checksum: string
 ) => {
-  const url = 'media/signed-url';
-  return ApiMethods.post(url, {
+  const url = '/media/signed-url';
+  const body = {
     filename, 
     type, 
     size, 
     checksum,
-  });
+  }
+  return ApiMethods.post(url, {body});
 }
 
 export const uploadFile = async (url: string, file: File) => {
@@ -27,5 +28,6 @@ export const uploadFile = async (url: string, file: File) => {
       .then(res => ({ url: res.url, statusCode: res.status }))
       .then(resolve)
       .catch(reject);
-  })
+  }) 
+  
 }

@@ -1,16 +1,25 @@
-import ApiMethods from "./ApiMethods";
+import ApiMethods from "./ApiMethods"
 
-export const getAllUsers = () => {
-  const url = 'users';
-  return ApiMethods.get(url);
+export const getSessionCookie = async (cookie?: string) => {
+  const url = '/users/me';
+  return ApiMethods.get(url, {
+    cookie, 
+    params: cookie ? {cache: "no-store"} : {}
+  });
 }
 
-export const getUserById = (id: number) => {
-  const url = `users/${id}`;
-  return ApiMethods.get(url);
+export const getAllUsers = async (cookie?: string) => {
+  const url = '/users'
+  return ApiMethods.get(url, {cookie});
 }
 
-export const deleteUserById = (id: number) => {
-  const url = `users/${id}`;
-  return ApiMethods.delete(url);
+export const getUserById = async (id: number, cookie?: string) => {
+  const url = `/users/${id}`;
+  return ApiMethods.get(url, {cookie});
+}
+
+export const updateUser = async (id: number, partialUser: any, cookie?: string) => {
+  const url = `/users/${id}`;
+  const body = {...partialUser};
+  return ApiMethods.put(url, {body, cookie});
 }

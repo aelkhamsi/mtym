@@ -32,21 +32,21 @@ export default function LoginPage() {
   const router = useRouter()
 
   const onSubmit = async (formData: any) => {
-    const { username, password } = formData;
     setIsFormLoading(true)
+    const { username, password } = formData;
     const response = await logIn(username, password) as any;
-
     switch(response?.statusCode) {
       case 200:
-        localStorage.setItem('access_token', response?.access_token);
+        router.push('/home')
         setTimeout(() => {
           window.location.reload()
-        }, 500);
-        router.push('/')
+        }, 500)
+        
         break;
       case 400:
       case 401:
-        setErrorMessage('The username or password are incorrect')
+      case 404:
+        setErrorMessage('The email or password are incorrect')
         setIsFormLoading(false)
         break
       default:

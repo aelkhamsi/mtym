@@ -1,6 +1,4 @@
-import { applicationsState } from '@/store/applicationsState'
 import React, { ReactNode } from 'react'
-import { useRecoilState } from 'recoil'
 import {
   Select,
   SelectContent,
@@ -10,6 +8,8 @@ import {
 } from "@/components/shared/select";
 import { putApplicationStatus } from '@/api/ApplicationApi';
 import { toast } from '@/components/hooks/use-toast';
+import { useAtom } from 'jotai';
+import { applicationsAtom } from '@/store/applicationsAtom';
 
 export type FileStatus =
   | 'DRAFT'
@@ -60,7 +60,7 @@ const FileStatus = ({
   slug: 'fileCnie' | 'fileMembersCnie' | 'fileGrades' | 'fileParentalAuthorization',
   application: any,
 }) => {
-  const [applications, setApplications] = useRecoilState(applicationsState);
+  const [applications, setApplications] = useAtom(applicationsAtom);
   const currentFileStatus = application?.status[`${slug}Status`];
   const handleStatusChange = async (value: FileStatus) => {
     const response = await putApplicationStatus(application?.id, {
