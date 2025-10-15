@@ -22,7 +22,7 @@ function HydrateAtoms({ initialUser, initialApplication, initialTeam, children }
   return children;
 }
 
-export default function JotaiProvider({ initialUser, initialApplication, initialTeam, children }: ProviderProps) {
+export default function RootProvider({ initialUser, initialApplication, initialTeam, children }: ProviderProps) {
   return (
     <Provider>
       <HydrateAtoms 

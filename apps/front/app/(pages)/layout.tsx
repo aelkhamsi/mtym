@@ -8,7 +8,7 @@ import Header from "@/app/components/layout/header";
 import { Toaster } from "@mdm/ui";
 import { cookies } from "next/headers";
 import { getUser } from "@/app/api/UsersApi";
-import JotaiProvider from "./jotai-provider";
+import RootProvider from "./root-provider";
 
 export const metadata = {
   title: "MTYM 2025",
@@ -27,13 +27,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${cx(pally.variable, poppins.variable)} font-poppins`}>
-        <JotaiProvider initialUser={user}>
+        <RootProvider initialUser={user}>
           <Header />
           <>{children}</>
           <Footer />
           <Toaster />
           <VercelAnalytics />
-        </JotaiProvider>
+        </RootProvider>
       </body>
     </html>
   );

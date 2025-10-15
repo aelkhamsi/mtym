@@ -21,6 +21,14 @@ export const signUp = (firstName: string, lastName: string, email: string, passw
   return ApiMethods.post(url, {body});
 }
 
+export const refreshToken = (cookie?: string) => {
+  const url = '/auth/refresh';
+  return ApiMethods.post(url, {
+    cookie, 
+    params: cookie ? {cache: "no-store"} : {}
+  })
+}
+
 export const logout = () => {
   const url = '/auth/logout';
   return ApiMethods.post(url);

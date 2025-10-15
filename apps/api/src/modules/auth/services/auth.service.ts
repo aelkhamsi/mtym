@@ -54,7 +54,7 @@ export class AuthService {
     };
 
     const accessToken = await this.jwtService.sign(payload, {
-      expiresIn: '15m',
+      expiresIn: '1h',
     });
     const refreshToken = await this.jwtService.sign(payload, {
       expiresIn: '7d',
@@ -71,7 +71,7 @@ export class AuthService {
     };
 
     const accessToken = await this.jwtService.sign(payload, {
-      expiresIn: '15m',
+      expiresIn: '1h',
     });
     const refreshToken = await this.jwtService.sign(payload, {
       expiresIn: '7d',
@@ -82,14 +82,12 @@ export class AuthService {
 
   async refreshToken(refreshToken: string) {
     try {
-      const payload = this.jwtService.verify(refreshToken);
+      const payload = await this.jwtService.verify(refreshToken);
       const user = await this.userService.findOneById(payload?.sub);
-      if (!user) {
-        throw new UnauthorizedException();
-      }
+      if (!user) throw new Error() 
       return this.login(user);
     } catch {
-      return null;
+      throw new UnauthorizedException();;
     }
   }
 

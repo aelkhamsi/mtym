@@ -31,7 +31,7 @@ export class AuthController {
     const { accessToken, refreshToken } = await this.authService.login(user);
     res.cookie('access_token', accessToken, {
       httpOnly: true,
-      maxAge: 15 * 60 * 1000,
+      maxAge: 60 * 60 * 1000,
     });
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
@@ -52,7 +52,7 @@ export class AuthController {
     );
     res.cookie('access_token', accessToken, {
       httpOnly: true,
-      maxAge: 15 * 60 * 1000,
+      maxAge: 60 * 60 * 1000,
     });
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
@@ -66,26 +66,22 @@ export class AuthController {
   @Post('refresh')
   async refresh(@Req() req, @Res() res) {
     const reqRefreshToken = req.cookies['refresh_token'];
-    const { accessToken, refreshToken } = await this.authService.refreshToken(
+    const { accessToken } = await this.authService.refreshToken(
       reqRefreshToken,
     );
     res.cookie('access_token', accessToken, {
       httpOnly: true,
-      maxAge: 15 * 60 * 1000,
-    });
-    res.cookie('refresh_token', refreshToken, {
-      httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 60 * 60 * 1000,
     });
 
-    return { statusCode: 200 };
+    res.json({ statusCode: 200 });
   }
 
   @HttpCode(HttpStatus.OK)
   @Post('logout')
   async logout(@Res() res) {
     res.clearCookie('access_token');
-    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
     res.json({ statusCode: 200 });
   }
 
