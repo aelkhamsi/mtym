@@ -1,3 +1,5 @@
+import { Team } from "./Team";
+
 export type User = {
   id: number;
 
@@ -9,7 +11,7 @@ export type User = {
 
   verified: boolean;
 
-  applicationId: number;
+  application: any;
 
-  teamId: number;
+  team: Team;
 }
