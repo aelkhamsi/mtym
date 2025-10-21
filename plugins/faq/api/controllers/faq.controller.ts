@@ -29,6 +29,5 @@ export class FaqController {
 
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: string) {
-    return this.faqService.remove(+id);
   }
 }
