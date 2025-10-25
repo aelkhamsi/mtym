@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
@@ -19,38 +19,46 @@ import { AdminUserModule } from './modules/admin-user/admin-user.module';
 import { MailModule } from './modules/mail/mail.module';
 import { ExcelModule } from './modules/excel/excel.module';
 import { TeamModule } from './modules/team/team.module';
+import { Plugin } from './modules/plugin/entities/plugin.entity';
+import { PluginModule } from './modules/plugin/plugin.module';
 
-@Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      cache: true,
-      load: [AppConfig, DatabaseConfig, JwtConfig, S3Config, SmtpConfig],
-    }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        ...configService.get('database'),
-      }),
-      inject: [ConfigService],
-    }),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        ...configService.get('jwt'),
-      }),
-      inject: [ConfigService],
-    }),
-    UserModule,
-    AdminUserModule,
-    ApplicationModule,
-    MediaModule,
-    AuthModule,
-    MailModule,
-    ExcelModule,
-    TeamModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
-})
-export class AppModule {}
+@Module({})
+export class AppModule {
+  static register(plugins: Plugin[]): DynamicModule {
+    return {
+      module: AppModule,
+      imports: [
+        ConfigModule.forRoot({
+          isGlobal: true,
+          cache: true,
+          load: [AppConfig, DatabaseConfig, JwtConfig, S3Config, SmtpConfig],
+        }),
+        TypeOrmModule.forRootAsync({
+          imports: [ConfigModule],
+          useFactory: (configService: ConfigService) => ({
+            ...configService.get('database'),
+          }),
+          inject: [ConfigService],
+        }),
+        JwtModule.registerAsync({
+          imports: [ConfigModule],
+          useFactory: (configService: ConfigService) => ({
+            ...configService.get('jwt'),
+          }),
+          inject: [ConfigService],
+        }),
+        UserModule,
+        AdminUserModule,
+        ApplicationModule,
+        MediaModule,
+        AuthModule,
+        MailModule,
+        ExcelModule,
+        TeamModule,
+        PluginModule.register(plugins)
+      ],
+      controllers: [AppController],
+      providers: [AppService],
+    }
+  }
+}

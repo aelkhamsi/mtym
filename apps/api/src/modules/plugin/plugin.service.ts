@@ -21,15 +21,15 @@ export class PluginService {
     return this.pluginRepository.find()
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.pluginRepository.findOneBy({ id })
   }
 
-  update(id: number, updatePluginDto: UpdatePluginDto) {
+  update(id: string, updatePluginDto: UpdatePluginDto) {
     return this.pluginRepository.update({ id }, updatePluginDto)
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.pluginRepository.delete({ id })
   }
 }

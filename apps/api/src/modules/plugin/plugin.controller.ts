@@ -3,7 +3,7 @@ import { PluginService } from './plugin.service';
 import { CreatePluginDto } from './dto/create-plugin.dto';
 import { UpdatePluginDto } from './dto/update-plugin.dto';
 
-@Controller('plugin')
+@Controller('plugins')
 export class PluginController {
   constructor(private readonly pluginService: PluginService) {}
 
@@ -19,16 +19,16 @@ export class PluginController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.pluginService.findOne(+id);
+    return this.pluginService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePluginDto: UpdatePluginDto) {
-    return this.pluginService.update(+id, updatePluginDto);
+    return this.pluginService.update(id, updatePluginDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.pluginService.remove(+id);
+    return this.pluginService.remove(id);
   }
 }
