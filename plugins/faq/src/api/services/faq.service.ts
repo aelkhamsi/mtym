@@ -1,8 +1,8 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { CreateFaqDto } from 'api/dto/create-faq.dto';
-import { UpdateFaqDto } from 'api/dto/update-faq.dto';
-import { FaqEntity } from 'api/entities/faq.entity';
+import { CreateFaqDto } from '../dto/create-faq.dto';
+import { UpdateFaqDto } from '../dto/update-faq.dto';
+import { FaqEntity } from '../entities/faq.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

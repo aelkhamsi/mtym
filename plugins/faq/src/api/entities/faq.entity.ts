@@ -1,4 +1,4 @@
-import { Faq } from 'faq.schema'
+import { Faq } from '../../faq.schema'
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({name: 'faq'})

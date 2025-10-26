@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { FaqService } from 'api/services/faq.service';
-import { FaqController } from 'api/controllers/faq.controller';
+import { FaqService } from './services/faq.service';
+import { FaqController } from './controllers/faq.controller';
 
 @Module({
   controllers: [FaqController],

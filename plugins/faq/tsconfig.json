@@ -1,8 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "emitDecoratorMetadata": true,
+    "target": "ES2020",
+    "module": "CommonJS",
+    "declaration": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
     "experimentalDecorators": true,
-    "baseUrl": "./"
-  }
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": "./",
+    "strict": true,
+    "strictPropertyInitialization": false,
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

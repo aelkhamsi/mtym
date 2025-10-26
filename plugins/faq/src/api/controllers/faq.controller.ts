@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
-import { FaqService } from 'api/services/faq.service';
-import { CreateFaqDto } from 'api/dto/create-faq.dto';
-import { UpdateFaqDto } from 'api/dto/update-faq.dto';
+import { FaqService } from '../services/faq.service';
+import { CreateFaqDto } from '../dto/create-faq.dto';
+import { UpdateFaqDto } from '../dto/update-faq.dto';
 
 @Controller('faq')
 export class FaqController {

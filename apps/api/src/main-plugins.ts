@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm"
 import { Plugin } from "./modules/plugin/entities/plugin.entity"
-import { registerPlugins } from "@mdm/registry"
+import { getPluginManifests, getPluginNestModules } from "@mdm/registry"
 
 export async function getDataSource(): Promise<DataSource> {
   const dataSource = new DataSource({
@@ -19,8 +19,15 @@ export async function getDataSource(): Promise<DataSource> {
 export async function fetchPlugins() {
   const dataSource = await getDataSource()
   const pluginRepository = dataSource.getRepository(Plugin)
-  const plugins = pluginRepository?.find() 
-  await registerPlugins()
+  const plugins = await pluginRepository?.find() 
+  console.log('plugins DB', plugins)
+
+  const pluginManifests = getPluginManifests()
+  console.log('pluginManifests', pluginManifests)
+
+  const pluginNestModules = getPluginNestModules()
+  console.log('pluginNestModules', pluginNestModules)
+
   return plugins
 }
 
