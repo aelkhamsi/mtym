@@ -4,26 +4,9 @@ import 'reflect-metadata';
 import * as dotenv from 'dotenv';
 import * as cookieParser from 'cookie-parser';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
-import { DataSource } from 'typeorm';
-import { Plugin } from './modules/plugin/entities/plugin.entity';
+import { fetchPlugins } from './main-plugins';
 
 dotenv.config({ path: ['.env'] });
-
-async function fetchPlugins() {
-  const dataSource = new DataSource({
-    type: 'mysql',
-    host: process.env.MYSQL_HOST,
-    port: parseInt(process.env.MYSQL_PORT),
-    username: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    entities: [Plugin],
-  })
-  await dataSource.initialize()
-  const pluginRepository = dataSource.getRepository(Plugin)
-  const plugins = pluginRepository?.find() 
-  return plugins
-}
 
 async function bootstrap() {
   const plugins = await fetchPlugins()

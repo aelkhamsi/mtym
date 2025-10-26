@@ -1,6 +1,4 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
@@ -57,8 +55,6 @@ export class AppModule {
         TeamModule,
         PluginModule.register(plugins)
       ],
-      controllers: [AppController],
-      providers: [AppService],
     }
   }
 }

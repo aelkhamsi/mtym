@@ -8,7 +8,9 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "dev": "docker compose -f docker-compose.yaml up",
+    "dev:db": "docker compose -f docker-compose.yaml up -d",
+    "dev:api": "nest start --watch",
+    "dev": "pnpm run dev:db && pnpm run dev:api",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -29,6 +31,7 @@
     "command": "node dist/src/main-cli.js"
   },
   "dependencies": {
+    "@mdm/registry": "workspace:*",
     "@aws-sdk/client-s3": "^3.563.0",
     "@aws-sdk/s3-request-presigner": "^3.563.0",
     "@nestjs-modules/mailer": "^2.0.2",

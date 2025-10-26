@@ -1,7 +1,6 @@
 version: '3.1'
 
 services:
-  # MySQL database service
   mtym_db:
     image: mysql
     container_name: mtym_db
@@ -14,7 +13,6 @@ services:
     ports:
       - "3306:3306"
 
-  # phpMyAdmin service
   mtym_phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: mtym_phpmyadmin
@@ -27,19 +25,3 @@ services:
     restart: always
     ports:
       - 8080:80
-
-  # Node.js API service
-  mtym_api:
-    image: node
-    container_name: mtym_api
-    restart: always
-    depends_on:
-      - mtym_db
-    ports:
-      - "5000:5000"
-    volumes:
-      - ".:/home/node/app"
-    environment:
-      - MYSQL_HOST=mtym_db
-    working_dir: /home/node/app
-    command: npm run start:dev
