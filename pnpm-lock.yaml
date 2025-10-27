@@ -150,7 +150,7 @@ importers:
       '@aws-sdk/s3-request-presigner':
         specifier: ^3.563.0
         version: 3.700.0
-      '@mdm/registry':
+      '@headstart/registry':
         specifier: workspace:*
         version: link:../../packages/registry
       '@nestjs-modules/mailer':
@@ -416,9 +416,6 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
-      '@mdm/config':
-        specifier: workspace:*
-        version: link:../../packages/config
       '@tailwindcss/forms':
         specifier: ^0.5.6
         version: 0.5.9(tailwindcss@3.4.14(ts-node@10.9.2(@types/node@18.11.18)(typescript@5.2.2)))
@@ -503,6 +500,13 @@ importers:
       path:
         specifier: ^0.12.7
         version: 0.12.7
+    devDependencies:
+      '@types/node':
+        specifier: ^24.9.1
+        version: 24.9.1
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
 
   packages/types: {}
 
@@ -605,9 +609,6 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^1.6.1
         version: 1.9.0(react@18.3.1)
-      '@mdm/config':
-        specifier: workspace:*
-        version: link:../config
       '@mdm/utils':
         specifier: workspace:*
         version: link:../utils
@@ -707,21 +708,22 @@ importers:
       '@nestjs/typeorm':
         specifier: ^10.0.0
         version: 10.0.2(@nestjs/common@10.4.9(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.9(@nestjs/common@10.4.9(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.9)(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typeorm@0.3.20(mysql2@3.11.4)(ts-node@10.9.2(@types/node@24.9.1)(typescript@5.9.3)))
-      '@types/node':
-        specifier: ^24.9.1
-        version: 24.9.1
       class-validator:
         specifier: ^0.14.0
         version: 0.14.1
       typeorm:
         specifier: ^0.3.20
         version: 0.3.20(mysql2@3.11.4)(ts-node@10.9.2(@types/node@24.9.1)(typescript@5.9.3))
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
       zod:
         specifier: ^4.1.12
         version: 4.1.12
+    devDependencies:
+      '@types/node':
+        specifier: ^24.9.1
+        version: 24.9.1
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
 
 packages:
 
