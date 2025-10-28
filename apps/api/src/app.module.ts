@@ -1,4 +1,4 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import { DynamicModule, Module, Type } from '@nestjs/common';
 import { UserModule } from './modules/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
@@ -17,12 +17,11 @@ import { AdminUserModule } from './modules/admin-user/admin-user.module';
 import { MailModule } from './modules/mail/mail.module';
 import { ExcelModule } from './modules/excel/excel.module';
 import { TeamModule } from './modules/team/team.module';
-import { Plugin } from './modules/plugin/entities/plugin.entity';
 import { PluginModule } from './modules/plugin/plugin.module';
 
 @Module({})
 export class AppModule {
-  static register(plugins: Plugin[]): DynamicModule {
+  static register(pluginModules: DynamicModule[]): DynamicModule {
     return {
       module: AppModule,
       imports: [
@@ -53,7 +52,7 @@ export class AppModule {
         MailModule,
         ExcelModule,
         TeamModule,
-        PluginModule.register(plugins)
+        PluginModule.register(pluginModules)
       ],
     }
   }

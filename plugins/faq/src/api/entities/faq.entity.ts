@@ -1,8 +1,8 @@
-import { Faq } from '../../faq.schema'
+import { FaqSchema } from '../../faq.schema'
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({name: 'faq'})
-export class FaqEntity implements Faq {
+export class FaqEntity implements FaqSchema {
   @PrimaryGeneratedColumn()
   id: number;
 

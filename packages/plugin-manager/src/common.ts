@@ -2,7 +2,7 @@ import { join } from 'path'
 import { readdirSync, statSync } from 'fs'
 
 function getPluginRoot() {
-  // possibility to use glob to scan for plugins folder
+  // possibility to use glob to search for plugins folder
   return join(__dirname, "../../../plugins")
 }
 
@@ -17,7 +17,7 @@ function getPluginDirs() {
 
 export async function getPluginManifests() {
   const pluginDirs = getPluginDirs()
-  const manifestPaths = pluginDirs.map((dir: string) => join(dir, 'dist/index.js'))
+  const manifestPaths = pluginDirs.map((dir: string) => join(dir, 'dist/manifest.js'))
   const manifests = []
 
   for (const path of manifestPaths) {

@@ -7,4 +7,4 @@ export const faqSchema = z.object({
   createdAt: z.date().default(new Date()),
 })
 
-export type Faq = z.infer<typeof faqSchema>;
+export type FaqSchema = z.infer<typeof faqSchema>;

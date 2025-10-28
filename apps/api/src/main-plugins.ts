@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm"
 import { Plugin } from "./modules/plugin/entities/plugin.entity"
-import { getPluginManifests, getPluginNestModules } from "@headstart/registry"
+import { getPluginManifests, getPluginNestModules } from "@headstart/plugin-manager"
 
 export async function getDataSource(): Promise<DataSource> {
   const dataSource = new DataSource({
@@ -19,15 +19,20 @@ export async function getDataSource(): Promise<DataSource> {
 export async function fetchPlugins() {
   const dataSource = await getDataSource()
   const pluginRepository = dataSource.getRepository(Plugin)
-  const plugins = await pluginRepository?.find() 
-  console.log('plugins DB', plugins)
+  const plugins = await pluginRepository?.find()
+  const pluginManifests = (await getPluginManifests())
+    .map(manifest => manifest.default)
 
-  const pluginManifests = await getPluginManifests()
-  console.log('pluginManifests', pluginManifests)
+  for (const manifest of pluginManifests) {
+    if (!plugins.find(plugin => plugin.id == manifest.id)) {
+      const plugin = pluginRepository.create(manifest)
+      pluginRepository.save(plugin)
+    }
+  }
 
-  const pluginNestModules = await getPluginNestModules()
-  console.log('pluginNestModules', pluginNestModules)
-
-  return plugins
+  return pluginManifests.map(manifest => ({
+    ...manifest,
+    isEnabled: plugins.find(plugin => plugin.id == manifest.id)?.isEnabled ?? false,
+  }))
 }
 

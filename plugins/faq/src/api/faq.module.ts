@@ -1,9 +1,15 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
 import { FaqService } from './services/faq.service';
 import { FaqController } from './controllers/faq.controller';
 
-@Module({
-  controllers: [FaqController],
-  providers: [FaqService],
-})
-export class FaqModule {}
+@Module({})
+export class FaqModule {
+  static register(): DynamicModule {
+    return {
+      module: FaqModule,
+      controllers: [FaqController],
+      providers: [FaqService],
+      exports: [FaqService],
+    }
+  }
+}

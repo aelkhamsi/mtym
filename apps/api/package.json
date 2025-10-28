@@ -24,7 +24,7 @@
     "command": "node dist/src/main-cli.js"
   },
   "dependencies": {
-    "@headstart/registry": "workspace:*",
+    "@headstart/plugin-manager": "workspace:*",
     "@aws-sdk/client-s3": "^3.563.0",
     "@aws-sdk/s3-request-presigner": "^3.563.0",
     "@nestjs-modules/mailer": "^2.0.2",

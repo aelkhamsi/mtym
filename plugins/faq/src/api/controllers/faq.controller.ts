@@ -3,7 +3,7 @@ import { FaqService } from '../services/faq.service';
 import { CreateFaqDto } from '../dto/create-faq.dto';
 import { UpdateFaqDto } from '../dto/update-faq.dto';
 
-@Controller('faq')
+@Controller('mtym-api/faq')
 export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 
