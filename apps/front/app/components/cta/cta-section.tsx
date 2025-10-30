@@ -1,7 +1,7 @@
 import CtaButton from './cta-button'
 import FaqButton from './faq-button'
 import RegulationButton from './regulation-button'
-import '../pattern.css'
+import './pattern.css'
 import ProblemsButton from './problems-button'
 
 const CtaSection = ({
