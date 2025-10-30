@@ -25,7 +25,6 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   async login(@Res() res, @Body() loginDto: LoginDto) {
-    console.log('NODE_ENV', process.env.NODE_ENV)
     const { email, password } = loginDto;
     const user = await this.authService.validateUser(email, password);
 
