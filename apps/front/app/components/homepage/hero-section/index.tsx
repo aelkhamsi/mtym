@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import CtaButton from '../../cta/cta-button'
 import FaqButton from '../../cta/faq-button'
 import RegulationButton from '../../cta/regulation-button'
 import SectionContainer from '@/app/components/section-container'
@@ -8,11 +7,11 @@ import HeroSectionTitle from './hero-section-title'
 import HeroSectionInformations from './hero-section-informations'
 import HeroSectionOrganizers from './hero-section-organizers'
 import { Separator } from '@mdm/ui'
+import ProblemsButton from '../../cta/problems-button'
 
 const HeroSection = () => {
   // const backgroundColorClassname = "bg-[url('/grain.png'),linear-gradient(to_bottom,#244B3A,#244B3A,#122019)] bg-center bg-repeat [background-blend-mode:multiply]"
   const backgroundColorClassname = "bg-[linear-gradient(to_bottom,#244B3A,#244B3A,#122019)]"
-
 
   return (
     <SectionContainer className={`pt-24 pb-4 z-0 ${backgroundColorClassname}`}>
@@ -36,9 +35,9 @@ const HeroSection = () => {
         <div
           className="flex justify-center space-x-4"
         >
-          <CtaButton />
-          <FaqButton />
+          <ProblemsButton />
           <RegulationButton />
+          <FaqButton />
         </div>
       </div>
 

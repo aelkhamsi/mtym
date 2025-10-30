@@ -35,7 +35,7 @@ export default function Footer() {
             <div className="flex space-x-4 items-center">
               <Link className="h-9 flex items-center" href="/">
                 <Image
-                  src="/mm_light.png"
+                  src="/images/logos/mm_light.png"
                   alt="Math&Maroc Logo"
                   width={0}
                   height={0}
