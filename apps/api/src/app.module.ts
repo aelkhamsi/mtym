@@ -21,7 +21,8 @@ import { PluginModule } from './modules/plugin/plugin.module';
 
 @Module({})
 export class AppModule {
-  static register(pluginModules: DynamicModule[]): DynamicModule {
+  static register(pluginModules) {
+    console.log('pluginModules', pluginModules)
     return {
       module: AppModule,
       imports: [
@@ -34,6 +35,7 @@ export class AppModule {
           imports: [ConfigModule],
           useFactory: (configService: ConfigService) => ({
             ...configService.get('database'),
+            autoLoadEntities: true,
           }),
           inject: [ConfigService],
         }),

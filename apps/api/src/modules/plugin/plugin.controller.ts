@@ -26,6 +26,7 @@ export class PluginController {
   update(@Param('id') id: string, @Body() updatePluginDto: UpdatePluginDto) {
     return this.pluginService.update(id, updatePluginDto);
   }
+  
 
   @Delete(':id')
   remove(@Param('id') id: string) {

@@ -13,7 +13,7 @@ export class PluginModule {
       module: PluginModule,
       imports: [
         TypeOrmModule.forFeature([Plugin]),
-        ...pluginModules,
+        ...pluginModules
       ],
       exports: [
         ...pluginModules,
