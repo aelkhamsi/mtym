@@ -114,8 +114,16 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('logout')
   async logout(@Res() res) {
-    res.clearCookie('access_token');
-    res.clearCookie('refresh_token');
+    res.clearCookie('access_token', {
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+    });
+    res.clearCookie('refresh_token', {
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+    });
     res.json({ statusCode: 200 });
   }
 
