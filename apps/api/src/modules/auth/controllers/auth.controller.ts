@@ -25,16 +25,21 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   async login(@Res() res, @Body() loginDto: LoginDto) {
+    console.log('NODE_ENV', process.env.NODE_ENV)
     const { email, password } = loginDto;
     const user = await this.authService.validateUser(email, password);
 
     const { accessToken, refreshToken } = await this.authService.login(user);
     res.cookie('access_token', accessToken, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
       maxAge: 60 * 60 * 1000,
     });
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -52,10 +57,14 @@ export class AuthController {
     );
     res.cookie('access_token', accessToken, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
       maxAge: 60 * 60 * 1000,
     });
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -86,6 +95,8 @@ export class AuthController {
     );
     res.cookie('access_token', accessToken, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
       maxAge: 60 * 60 * 1000,
     });
 
