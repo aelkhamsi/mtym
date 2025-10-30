@@ -3,12 +3,13 @@ import "@mdm/ui/globals.css";
 import cx from "classnames";
 import { pally, poppins } from "../lib/fonts";
 import Footer from "@/app/components/layout/footer/footer";
-import { Suspense } from "react";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import Header from "@/app/components/layout/header";
-import JotaiContextProvider from "./jotaiContextProvider";
-import { DataProvider } from "../providers/data.provider";
 import { Toaster } from "@mdm/ui";
+import { cookies } from "next/headers";
+import { getSessionCookie, getUserById } from "@/app/api/UsersApi";
+import RootProvider from "./root-provider";
+import { User } from "@mdm/types";
 
 export const metadata = {
   title: "MTYM 2025",
@@ -21,24 +22,20 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = cookies().toString();
+  const session = await getSessionCookie(cookieStore) as any
+  const user = await getUserById(session?.id, cookieStore) as User
+
   return (
     <html lang="en">
       <body className={`${cx(pally.variable, poppins.variable)} font-poppins`}>
-        <JotaiContextProvider>
-          <DataProvider>
-            <Suspense fallback="...">
-              <Header />
-            </Suspense>
-
-            <main className="flex min-h-screen w-full flex-col items-center">
-              {children}
-            </main>
-
-            <Footer />
-            <Toaster />
-            <VercelAnalytics />
-          </DataProvider>
-        </JotaiContextProvider>
+        <RootProvider initialUser={user}>
+          <Header />
+          <>{children}</>
+          <Footer />
+          <Toaster />
+          <VercelAnalytics />
+        </RootProvider>
       </body>
     </html>
   );

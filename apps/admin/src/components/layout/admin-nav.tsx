@@ -15,24 +15,23 @@ import {
 } from "@/components/shared/dropdown-menu";
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { adminState } from "@/store/adminState";
-import { applicationsState } from "@/store/applicationsState";
-import { usersState } from "@/store/usersState";
+import { useAtom } from "jotai";
+import { adminUserAtom } from "@/store/adminUserAtom";
+import { logout } from "@/api/AuthApi";
 
 export function AdminNav() {
   const router = useRouter();
-  const admin = useRecoilValue(adminState);
-  const setAdmin = useSetRecoilState(adminState);
-  const setUsers = useSetRecoilState(usersState);
-  const setApplications = useSetRecoilState(applicationsState);
+  const [adminUser, setAdminUser] = useAtom(adminUserAtom)
+  const [applications, setApplications] = useAtom(adminUserAtom)
+  const [teams, setTeams] = useAtom(adminUserAtom)
+  const [users, setUsers] = useAtom(adminUserAtom)
 
-  const handleLogOut = useCallback(() => {
-    localStorage.removeItem('access_token');
-    setAdmin(undefined);
-    setUsers(undefined);
-    setApplications(undefined);
-
+  const handleLogOut = useCallback(async () => {
+    await logout();
+    setAdminUser(null)
+    setApplications(null)
+    setTeams(null)
+    setUsers(null)
     router.push('/login');
     window.location.reload();
   }, [])
@@ -43,14 +42,14 @@ export function AdminNav() {
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10 border-solid border-2 border-sky-300">
             <AvatarImage src="/avatars/01.png" alt="@shadcn" />
-            <AvatarFallback className="text-base">{admin?.username[0].toUpperCase()}</AvatarFallback>
+            <AvatarFallback className="text-base">{adminUser?.username[0].toUpperCase()}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{admin?.username}</p>
+            <p className="text-sm font-medium leading-none">{adminUser?.username}</p>
           </div>
         </DropdownMenuLabel>
         

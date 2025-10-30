@@ -8,12 +8,11 @@ import {
 } from "@mdm/ui";
 import { useRouter } from "next/navigation";
 import { CLOSE_APPLICATIONS } from "config";
+import { applicationAtom } from "@/app/store/applicationAtom";
+import { useAtomValue } from "jotai";
 
-const NoTeamSection = ({
-  user,
-}:{
-  user: any
-}) => {
+const NoTeamSection = () => {
+  const application = useAtomValue(applicationAtom)
   const router = useRouter()
 
   return (
@@ -30,7 +29,7 @@ const NoTeamSection = ({
 
       {!CLOSE_APPLICATIONS && 
         <CardFooter>
-          {(!user?.application || user?.application?.status?.status === 'DRAFT')
+          {(!application || application?.status?.status === 'DRAFT')
             ? <>
               <p className="text-sm">Avant que vous puissiez rejoindre une équipe, il faut que vous soumettiez votre candidature</p>
               <Button onClick={() => router.push('/application')}>

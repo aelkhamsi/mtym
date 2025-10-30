@@ -1,5 +1,3 @@
-import { applicationsState } from '@/store/applicationsState'
-import { useRecoilState } from 'recoil'
 import {
   Select,
   SelectContent,
@@ -9,6 +7,8 @@ import {
 } from "@/components/shared/select";
 import { putApplicationStatus } from '@/api/ApplicationApi';
 import { toast } from '@/components/hooks/use-toast';
+import { useAtom } from 'jotai';
+import { applicationsAtom } from '@/store/applicationsAtom';
 
 export type Status =
   | 'DRAFT'
@@ -87,7 +87,7 @@ const ApplicationStatus = ({
   applicationId: number,
   status: string,
 }) => {
-  const [applications, setApplications] = useRecoilState(applicationsState);
+  const [applications, setApplications] = useAtom(applicationsAtom);
   const handleStatusChange = async (value: Status) => {
     const response = await putApplicationStatus(applicationId, {
       status: value,

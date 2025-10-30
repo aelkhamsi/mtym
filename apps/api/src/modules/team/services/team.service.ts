@@ -107,7 +107,6 @@ export class TeamService {
     const deleteTeamAccessCodes = await this.teamAccessCodeService.deleteByTeam(
       id,
     );
-    console.log('deleteTeamAccessCodes', deleteTeamAccessCodes);
     return this.teamRepository.delete({ id });
   }
 }

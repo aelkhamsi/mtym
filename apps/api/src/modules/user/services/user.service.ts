@@ -19,34 +19,36 @@ export class UserService {
   }
 
   findAll() {
-    return this.userRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.team', 'team')
-      .leftJoinAndSelect('user.application', 'application')
-      .leftJoinAndSelect('application.status', 'status')
-      .getMany();
+    return this.userRepository.find({
+      relations: {
+        application: {
+          status: true,
+        },
+        team: true,
+      },
+    });
   }
 
   findOneById(id: number) {
-    return this.userRepository
-      .createQueryBuilder('user')
-      .where('user.id = :id', { id })
-      .leftJoinAndSelect('user.team', 'team')
-      .leftJoinAndSelect('team.users', 'users')
-      .leftJoinAndSelect('team.leader', 'leader')
-      .leftJoinAndSelect('user.application', 'application')
-      .leftJoinAndSelect('application.status', 'status')
-      .getOne();
+    return this.userRepository.findOne({
+      where: { id },
+      relations: {
+        application: {
+          status: true,
+        },
+        team: true,
+      },
+    });
   }
 
   findOneByEmail(email: string) {
-    return this.userRepository
-      .createQueryBuilder('user')
-      .where('user.email = :email', { email })
-      .leftJoinAndSelect('user.team', 'team')
-      .leftJoinAndSelect('user.application', 'application')
-      .leftJoinAndSelect('application.status', 'status')
-      .getOne();
+    return this.userRepository.findOne({
+      where: { email },
+      relations: {
+        application: true,
+        team: true
+      }
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

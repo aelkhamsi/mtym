@@ -4,75 +4,122 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import { LoginDto } from '../dto/login.dto';
 import { SignupDto } from '../dto/sign-up.dto';
-import { Public } from 'src/decorators/public.decorator';
 import { LoginAdminDto } from '../dto/login-admin.dto';
 import { SignupAdminDto } from '../dto/sign-up-admin.dto';
-import { ADMIN_ROLE } from 'src/constants';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { Role } from 'src/guards/role.enum';
 
 @Controller('mtym-api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
   async login(@Res() res, @Body() loginDto: LoginDto) {
     const { email, password } = loginDto;
-    const loginResponse = await this.authService.login(email, password);
-    const token = loginResponse?.access_token;
-    res.cookie('access_token', token, {
+    const user = await this.authService.validateUser(email, password);
+
+    const { accessToken, refreshToken } = await this.authService.login(user);
+    res.cookie('access_token', accessToken, {
       httpOnly: true,
-      sameSite: 'none',
-      secure: false,
-      maxAge: 3600 * 1000,
+      maxAge: 60 * 60 * 1000,
     });
-    res.send(loginResponse);
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json({ statusCode: 200 });
   }
 
-  @Public()
+  @HttpCode(HttpStatus.OK)
+  @Post('login/admin')
+  async loginAdmin(@Res() res, @Body() loginAdminDto: LoginAdminDto) {
+    const { username, password } = loginAdminDto;
+    const admin = await this.authService.validateAdmin(username, password);
+
+    const { accessToken, refreshToken } = await this.authService.loginAdmin(
+      admin,
+    );
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000,
+    });
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json({ statusCode: 200 });
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('refresh')
+  async refresh(@Req() req, @Res() res) {
+    const reqRefreshToken = req.cookies['refresh_token'];
+    const { accessToken } = await this.authService.refreshToken(
+      reqRefreshToken,
+    );
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000,
+    });
+
+    res.json({ statusCode: 200 });
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('refresh/admin')
+  async refreshAdmin(@Req() req, @Res() res) {
+    const reqRefreshToken = req.cookies['refresh_token'];
+    const { accessToken } = await this.authService.refreshTokenAdmin(
+      reqRefreshToken,
+    );
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000,
+    });
+
+    res.json({ statusCode: 200 });
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('logout')
+  async logout(@Res() res) {
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+    res.json({ statusCode: 200 });
+  }
+
   @HttpCode(HttpStatus.OK)
   @Post('signup')
   async signup(@Body() signupDto: SignupDto) {
     const { firstName, lastName, email, password } = signupDto;
     await this.authService.signup(firstName, lastName, email, password);
 
-    return {
-      message: 'New account created',
-      statusCode: 200,
-    };
+    return { statusCode: 200 };
   }
 
-  @Public()
-  @HttpCode(HttpStatus.OK)
-  @Post('login/admin')
-  loginAdmin(@Body() loginAdminDto: LoginAdminDto) {
-    const { username, password } = loginAdminDto;
-    return this.authService.loginAdmin(username, password);
-  }
-
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   @HttpCode(HttpStatus.OK)
   @Post('signup/admin')
-  @UseGuards(RolesGuard)
-  @Roles(ADMIN_ROLE)
   async signupAdmin(@Body() signupAdminDto: SignupAdminDto) {
     const { username, password } = signupAdminDto;
     await this.authService.signupAdmin(username, password);
 
-    return {
-      message: 'New account created',
-      statusCode: 200,
-    };
+    return { statusCode: 200 };
   }
 
-  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('reset-password')
   async resetPassword(@Body() body: { email: string }) {
@@ -84,7 +131,6 @@ export class AuthController {
     };
   }
 
-  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('send-email-verification')
   async sendEmailVerification(@Body() body: { email: string }) {
@@ -96,7 +142,6 @@ export class AuthController {
     };
   }
 
-  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('verify-email')
   async verifyEmail(@Body() body: { email: string; verificationCode: string }) {

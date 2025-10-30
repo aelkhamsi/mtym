@@ -7,7 +7,13 @@ export class SerializedUser extends User {
   }
 
   @Exclude()
+  identifier: string;
+
+  @Exclude()
   password: string;
+
+  @Exclude()
+  verificationCode: string;
 
   @Exclude()
   createdAt: Date;

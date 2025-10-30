@@ -1,14 +1,15 @@
-
 "use client"
 
-import { ProfileSkeleton, Separator } from "@mdm/ui"
+import { Separator } from "@mdm/ui"
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
 import TeamSection from "./components/team-section";
 import NoTeamSection from "./components/no-team-section";
+import { teamAtom } from "@/app/store/teamAtom";
+import { applicationAtom } from "@/app/store/applicationAtom";
 
 export default function TeamPage() {
-  const user = useAtomValue(userAtom)
+  const team = useAtomValue(teamAtom)
 
   return (
     <div className="space-y-6">
@@ -21,11 +22,9 @@ export default function TeamPage() {
 
       <Separator />
 
-      {!user
-        ? <ProfileSkeleton />
-        : user?.team
-          ? <TeamSection user={user} />
-          : <NoTeamSection user={user} />
+      {team
+        ? <TeamSection  />
+        : <NoTeamSection />
       }
     </div>
   )

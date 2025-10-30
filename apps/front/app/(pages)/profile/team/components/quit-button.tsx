@@ -1,3 +1,5 @@
+"use client"
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,29 +23,30 @@ import { changeLeader, deleteTeam, removeUser } from "@/app/api/TeamApi";
 import { toast } from "@mdm/ui";
 import { useState } from "react";
 import { useAtomValue } from "jotai";
-import { userAtom } from "@/app/store/userAtom";
 import { XIcon } from "lucide-react";
+import { teamAtom } from "@/app/store/teamAtom";
+import { Team } from "@mdm/types";
 
 const QuitButton = ({
   isTeamLeader
 }:{
   isTeamLeader: boolean
 }) => {
-  const userData = useAtomValue(userAtom)
+  const team = useAtomValue(teamAtom) as Team
   const [newLeaderId, setNewLeaderId] = useState<number>()
 
   const onQuitTeam = async () => {
     try {
       if (isTeamLeader) {
         if (newLeaderId) {
-          await changeLeader(userData?.team?.id, newLeaderId);
-          await removeUser(userData?.team?.id);
+          await changeLeader(team?.id, newLeaderId);
+          await removeUser(team?.id);
         } else {
-          await removeUser(userData?.team?.id);
-          await deleteTeam(userData?.team?.id);
+          await removeUser(team?.id);
+          await deleteTeam(team?.id);
         }
       } else {
-        await removeUser(userData?.team?.id);
+        await removeUser(team?.id);
       }
 
       window.location.reload();
@@ -79,7 +82,7 @@ const QuitButton = ({
           </AlertDialogDescription>
         </AlertDialogHeader>        
 
-        {isTeamLeader && userData?.team?.users.length > 1 &&
+        {isTeamLeader && team?.users?.length &&
           <div>
             <Separator className="bg-black"/>
 
@@ -91,8 +94,8 @@ const QuitButton = ({
               </SelectTrigger>
 
               <SelectContent>
-                {userData?.team?.users
-                .filter((member: any) => member?.id !== userData?.team?.leader?.id)
+                {(team?.users ?? [])
+                .filter((member: any) => member?.id !== team?.leader?.id)
                 .map((member: any, index: number) => 
                   <SelectItem value={member?.id} key={index}>
                     <div>{member?.firstName} {member?.lastName}</div>
@@ -108,7 +111,7 @@ const QuitButton = ({
           <AlertDialogCancel>Fermer</AlertDialogCancel>
           <AlertDialogAction
             onClick={onQuitTeam}
-            disabled={isTeamLeader && userData?.team?.users.length > 1 && !newLeaderId}
+            disabled={isTeamLeader && team?.users?.length !== 0 && !newLeaderId}
           >
             Quitter
           </AlertDialogAction>

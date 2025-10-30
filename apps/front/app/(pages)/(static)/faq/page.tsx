@@ -1,11 +1,14 @@
 import { generalQuestions } from "./questions"
 import { FaqAccordion } from "./faq-accordion"
+import SectionContainer from "@/app/components/section-container"
+import CtaSection from "@/app/components/cta/cta-section"
 
 
 export default function ConferencesPage() {
-
   return (
-      <div className="w-full max-w-md md:max-w-screen-lg px-5 xl:px-0 space-y-6 my-24">
+    <SectionContainer className="pt-24 pb-20 z-0">
+
+      <div className="space-y-8">
         <h1 className="text-center text-3xl font-bold font-neco drop-shadow-sm text-[#244B3A]">
           FAQ
         </h1>
@@ -31,6 +34,11 @@ export default function ConferencesPage() {
         >
           <FaqAccordion items={generalQuestions} />
         </div>
+
+        <div className="flex justify-center">
+          <CtaSection />
+        </div>
       </div>
+    </SectionContainer>
   )
 }

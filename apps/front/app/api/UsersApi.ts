@@ -1,12 +1,20 @@
 import ApiMethods from "./ApiMethods"
 
-export const getUserData = async () => {
-  const url = 'users/informations';
-  return ApiMethods.get(url);
+export const getSessionCookie = async (cookie?: string) => {
+  const url = '/users/me';
+  return ApiMethods.get(url, {
+    cookie, 
+    params: cookie ? {cache: "no-store"} : {}
+  });
 }
 
-export const updateUser = async (id: number, partialUser: any, token?: string) => {
-  const url = `users/${id}`;
+export const getUserById = async (id: number, cookie?: string) => {
+  const url = `/users/${id}`;
+  return ApiMethods.get(url, {cookie});
+}
+
+export const updateUser = async (id: number, partialUser: any, cookie?: string) => {
+  const url = `/users/${id}`;
   const body = {...partialUser};
-  return ApiMethods.put(url, body, token);
+  return ApiMethods.put(url, {body, cookie});
 }

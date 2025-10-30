@@ -2,6 +2,15 @@
 
 import Link from 'next/link';
 import { BookIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+const _BookIcon = () => {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  
+  if (!mounted) return <span className='inline-block w-6 h-6 bg-gray-200 rounded-sm' />
+  return <BookIcon />
+}
 
 const RegulationButton = () => {
   return (
@@ -10,8 +19,8 @@ const RegulationButton = () => {
       href="https://drive.google.com/file/d/1tE5qMUjEoeicBQ01XqsF5LyzLqT34rsm/view?usp=drive_link"
       target='_blank'
     >
-      <BookIcon className='h-5 w-5'/>
-      <span>Règlement</span>
+      <_BookIcon />
+      <span className="hidden sm:inline-block">Règlement</span>
     </Link>
   )
 }

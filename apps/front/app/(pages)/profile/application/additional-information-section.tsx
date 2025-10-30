@@ -22,23 +22,24 @@ import { computeSHA256, generateFileName, getUploadFolderName } from "@/app/lib/
 import { getSignedURL, uploadFile } from "@/app/api/MediaApi"
 import { putApplication } from "@/app/api/ApplicationApi"
 import { useState } from "react"
+import { useAtomValue } from "jotai"
+import { userAtom } from "@/app/store/userAtom"
+import { applicationAtom } from "@/app/store/applicationAtom"
 
 const additionalInformationSchema = z.object({
     fileCnie: zodFileValidation,
     fileCnieUrl: z.any().optional()
   })
 
-const AdditionalInformationsSection = ({
-  user,
-}:{
-  user: any,
-}) => {
+const AdditionalInformationsSection = () => {
+  const user = useAtomValue(userAtom)
+  const application = useAtomValue(applicationAtom)
   const [isFormLoading, setIsFormLoading] = useState(false)
   const form = useForm({
     resolver: zodResolver(additionalInformationSchema),
     defaultValues: {
       fileCnie: undefined,
-      fileCnieUrl: user?.application?.fileCnieUrl,
+      fileCnieUrl: application?.fileCnieUrl,
     },
     mode: "onChange",
   }) as UseFormReturn<any>;
@@ -64,10 +65,10 @@ const AdditionalInformationsSection = ({
     }
 
     const fileUrls = {
-      fileCnieUrl: file ? `upload_mtym/${uploadFolderName}/${file.name}` : (user?.application?.fileCnieUrl ?? null),
+      fileCnieUrl: file ? `upload_mtym/${uploadFolderName}/${file.name}` : (application?.fileCnieUrl ?? null),
     }
 
-    await putApplication(user?.application?.id, fileUrls) as any
+    await putApplication(application?.id, fileUrls) as any
 
     setTimeout(() => {
       window.location.reload()
@@ -101,7 +102,7 @@ const AdditionalInformationsSection = ({
         <Button type="submit">
           {isFormLoading
             ? <LoadingDots color="#808080" />
-            : (user?.application?.fileCnieUrl ? 'Mettre à jour les informations' : 'Envoyer les informations')
+            : (application?.fileCnieUrl ? 'Mettre à jour les informations' : 'Envoyer les informations')
           }
         </Button>
       </form>

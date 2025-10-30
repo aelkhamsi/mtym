@@ -6,11 +6,12 @@ import { useScroll } from "@mdm/hooks";
 import { UserNav } from "./user-nav";
 import { useAuthModal } from "@/app/components/auth/auth-modal";
 import { userAtom } from "@/app/store/userAtom";
-import { Dispatch, SetStateAction, Suspense, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useAtomValue } from "jotai";
 import AuthButton from "./auth-button";
 import { Menu } from './menu'
 import { usePathname } from "next/navigation";
+import SectionContainer from "../../section-container";
 
 const NavBarActionButtonContent = ({
   setShowAuthModal
@@ -28,38 +29,37 @@ export default function Header() {
   const { AuthModal, setShowAuthModal } = useAuthModal();
   const pathname = usePathname()
   const isHomepage = pathname === '/'
-  const scrolled = useScroll(isHomepage ? 600 : 50)
+  const scrolled = useScroll(50)
 
   return (
     <>
       <AuthModal />
-      <div
-        className={`fixed top-0 flex w-full justify-center ${
-          scrolled
+      
+      <SectionContainer
+        className={`
+          fixed top-0 h-14 z-10 items-center
+          ${scrolled
             ? "border-b border-gray-200 bg-white/50 text-black backdrop-blur-xl"
             : `bg-white/0 ${isHomepage ? 'text-white' : 'text-black'}`
-        } z-30 transition-all`}
+          }
+        `}
       >
-        <div className="mx-5 flex h-16 w-full lg:w-3/4 items-center justify-between">
-          <Link href="/" className="flex items-center font-display text-2xl">
+        <div className='flex justify-between'>
+          <Link href="/">
             <Image
-              src="/mtym_square.svg"
+              src="/images/logos/mtym_square.svg"
               alt="MMC logo"
-              width={45}
-              height={45}
-              className="mr-2"
+              width={40}
+              height={40}
             ></Image>
           </Link>
 
           <div className="flex items-center">
             <Menu />
-
-            <Suspense fallback="..." >
-              <NavBarActionButtonContent setShowAuthModal={setShowAuthModal} />
-            </Suspense>
+            <NavBarActionButtonContent setShowAuthModal={setShowAuthModal} />
           </div>
         </div>
-      </div>
+      </SectionContainer>
     </>
   );
 }

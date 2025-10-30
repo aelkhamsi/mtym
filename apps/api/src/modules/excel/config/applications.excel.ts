@@ -1,9 +1,8 @@
 import { educationLevels, regionLabels, educationFields } from '../labels';
 
 export const rowFactory = (applications: any[], configService) => {
-  const awsBucketName = configService.get('AWS_BUCKET_NAME');
-  const awsBucketRegion = configService.get('AWS_BUCKET_REGION');
-  console.log('team', applications[0].user?.team);
+  const awsBucketName = configService.get('s3.bucketName');
+  const awsBucketRegion = configService.get('s3.bucketRegion');
 
   return applications.map((application: any) => ({
     id: application?.id,

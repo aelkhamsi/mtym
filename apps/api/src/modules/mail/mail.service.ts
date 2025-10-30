@@ -8,11 +8,11 @@ export class MailService {
 
   async sendResetPasswordEmail(user: User, token: string) {
     const link =
-      this.configService.get('NODE_ENV') === 'production'
+      this.configService.get('app.nodenv') === 'production'
         ? `https://mtym.mathmaroc.org/reset-password?token=${token}`
         : `http://localhost:3000/reset-password?token=${token}`;
 
-    const url = this.configService.get('SMTP_ENDPOINT') + 'send';
+    const url = this.configService.get('smtp.endpoint') + 'send';
     const payload = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -28,7 +28,7 @@ export class MailService {
   }
 
   async sendEmailVerificationEmail(user: User, verificationCode: string) {
-    const url = this.configService.get('SMTP_ENDPOINT') + 'send';
+    const url = this.configService.get('smtp.endpoint') + 'send';
     const payload = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

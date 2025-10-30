@@ -22,17 +22,16 @@ import {
 import { removeUser } from "@/app/api/TeamApi";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
+import { teamAtom } from "@/app/store/teamAtom";
+import { Team, User } from "@mdm/types";
 
-export function ActionButton({
-  user
-}:{
-  user: any
-}) {
-  const userData = useAtomValue(userAtom)
+export function ActionButton() {
+  const user = useAtomValue(userAtom) as User
+  const team = useAtomValue(teamAtom) as Team
 
   const onRemoveUser = async () => {
     try {
-      const result = await removeUser(userData?.team?.id, user?.id);      
+      await removeUser(team?.id, user?.id);      
       window.location.reload()
     } catch(e) {
       toast({

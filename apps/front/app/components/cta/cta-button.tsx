@@ -5,15 +5,23 @@ import { useAuthModal } from '../auth/auth-modal';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '@/app/store/userAtom';
 import { useRouter } from "next/navigation"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoadingDots } from '@mdm/ui';
 
+const ScrollIcon = () => {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  
+  if (!mounted) return <span className='inline-block w-6 h-6 bg-gray-200 rounded-sm' />
+  return <Scroll />
+}
+
 const CtaButton = ({
-  label,
   href,
+  label,
 }:{
-  label?: string,
   href?: string,
+  label?: string,
 }) => {
   const { AuthModal, setShowAuthModal } = useAuthModal();
   const user = useAtomValue(userAtom)
@@ -34,18 +42,14 @@ const CtaButton = ({
       <AuthModal />
       
       <button 
-        className="relative inline-flex h-11 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+        className="flex items-center justify-center h-11 space-x-2 rounded-full border-2 border-[#f6a806] bg-white px-4 py-2 text-gray-700 shadow-md transition-colors hover:border-gray-800"
         onClick={handleCtaClick}
       >
-        <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#F6A806_0%,#FF4925_50%,#F6A806_100%)]" />
-        <span className="inline-flex h-full w-full gap-x-2 cursor-pointer items-center justify-center rounded-full bg-white px-6 py-1 text-black backdrop-blur-3xl">
-          <Scroll className='h-5 w-5'/>
-
-          {!isLoading
-            ? label ?? 'Participer'
-            : <LoadingDots color="#808080" />
-          }
-        </span>
+        <ScrollIcon />
+        {!isLoading
+          ? <span>{label ?? 'Participer'}</span>
+          : <LoadingDots color="#808080" />
+        }
       </button>
     </>
   )

@@ -1,3 +1,5 @@
+"use client"
+
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -14,19 +16,19 @@ import { Button } from "@mdm/ui";
 import { useState } from "react";
 import { generateAccessCode } from "@/app/api/TeamAccessCodeApi";
 import { useAtomValue } from "jotai";
-import { userAtom } from "@/app/store/userAtom";
 import { sleep } from "@mdm/utils";
 import { XIcon } from "lucide-react";
+import { teamAtom } from "@/app/store/teamAtom";
 
 export const InviteButton = () => {
-  const userData = useAtomValue(userAtom)
+  const team = useAtomValue(teamAtom)
   const [accessCode, setAccessCode] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onGenerateAccessCode = async () => {
     setIsLoading(true)
     await sleep(2000)
-    const teamId = userData?.team?.id;
+    const teamId = team?.id as number;
 
     try {
       const result = await generateAccessCode(teamId) as any;

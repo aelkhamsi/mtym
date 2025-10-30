@@ -1,10 +1,11 @@
+import SectionContainer from "@/app/components/section-container"
 import PartnerCard from "./partner-card"
 
 const organizers = [
   {
     key: 'math-and-maroc',
     label: 'Math&Maroc',
-    imageHref: '/mm.png',
+    imageHref: '/images/logos/mm.png',
     imageHeight: '60px',
   },
 ]
@@ -13,7 +14,7 @@ const partners = [
   {
     key: 'adria',
     label: 'Adria ',
-    imageHref: '/adria_official_partner.png',
+    imageHref: '/images/logos/adria_official_partner.png',
     imageHeight: '90px',
   }
 ]
@@ -22,7 +23,7 @@ const hosts = [
   {
     key: 'aui',
     label: 'AUI',
-    imageHref: '/aui.png',
+    imageHref: '/images/logos/aui.png',
     imageHeight: '120px',
   }
 ]
@@ -31,59 +32,58 @@ const sponsors = [
   {
     key: 'evalmee',
     label: 'EVALMEE',
-    imageHref: '/evalmee.png',
+    imageHref: '/images/logos/evalmee.png',
     imageHeight: '45px',
   },
   {
     key: 'ram',
     label: 'RAM',
-    imageHref: '/ram.svg',
+    imageHref: '/images/logos/ram.svg',
     imageHeight: '110px',
   },
   {
     key: 'afretec_network',
     label: 'Afretek Network',
-    imageHref: '/afretec_network.jpeg',
+    imageHref: '/images/logos/afretec_network.jpeg',
     imageHeight: '160px',
   },
   {
     key: 'sidi_ali',
     label: 'Sidi Ali',
-    imageHref: '/sidi_ali.png',
+    imageHref: '/images/logos/sidi_ali.png',
     imageHeight: '140px',
   },
 ]
 
 export default function PartnersPage() {
   return (
-    <div className="w-full max-w-sm md:max-w-7xl px-5 xl:px-0 my-28 mb-20">
+    <SectionContainer className="pt-24 pb-20 z-0">
       <div className="space-y-6">
+        
+        {/* ORGANISATEUR */}
         <div>
-          {/* ORGANISATEUR */}
-          <div>
-            <h1 
-              className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
-              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-            >
-              <span className='font-neco text-[#244B3A]'>Organisateur</span>
-            </h1>
+          <h1 
+            className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
+            style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+          >
+            <span className='font-neco text-[#244B3A]'>Organisateur</span>
+          </h1>
 
-            <div
-              className="flex justify-around flex-wrap gap-6 p-8 rounded-lg animate-fade-up opacity-0"
-              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+          <div
+            className="flex justify-around flex-wrap gap-6 p-8 rounded-lg animate-fade-up opacity-0"
+            style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+          >
+            <PartnerCard
+              key={organizers[0].key}
+              imageSrc={organizers[0].imageHref}
+              imageHeight={organizers[0].imageHeight}
             >
-              <PartnerCard
-                key={organizers[0].key}
-                imageSrc={organizers[0].imageHref}
-                imageHeight={organizers[0].imageHeight}
-              >
-                <div className="text-sm space-y-2">
-                  <div><span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span> est une association à but non lucratif créée en 2016 par de jeunes Marocains souhaitant redonner à la collectivité.</div>
-                  <div><span className="font-bold">Notre mission</span> est de promouvoir les mathématiques et les sciences au Maroc, et ainsi guider les jeunes vers l&apos;excellence.</div>
-                  <div><span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span> organise <span className="font-bold">MTYM</span> depuis sa première édition en mai 2024.</div>
-                </div>
-              </PartnerCard>
-            </div>
+              <div className="text-sm space-y-2">
+                <div><span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span> est une association à but non lucratif créée en 2016 par de jeunes Marocains souhaitant redonner à la collectivité.</div>
+                <div><span className="font-bold">Notre mission</span> est de promouvoir les mathématiques et les sciences au Maroc, et ainsi guider les jeunes vers l&apos;excellence.</div>
+                <div><span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span> organise <span className="font-bold">MTYM</span> depuis sa première édition en mai 2024.</div>
+              </div>
+            </PartnerCard>
           </div>
         </div>
 
@@ -141,57 +141,55 @@ export default function PartnersPage() {
           </div>
         </div>
 
+        {/* SPONSORS */}
         <div>
-          {/* SPONSORS */}
-          <div>
-            <h1 
-              className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
-              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+          <h1 
+            className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
+            style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+          >
+            <span className='font-neco text-[#244B3A]'>Sponsors</span>
+          </h1>
+
+          <div
+            className="flex justify-around flex-wrap gap-6 p-8 rounded-lg animate-fade-up opacity-0"
+            style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+          >
+            <PartnerCard
+              key={sponsors[0].key}
+              imageSrc={sponsors[0].imageHref}
+              imageHeight={sponsors[0].imageHeight}
             >
-              <span className='font-neco text-[#244B3A]'>Sponsors</span>
-            </h1>
+              <div className="text-sm"><span className='mb-8 bg-gradient-to-br from-[#7cb9ff] to-[#3691FB] text-transparent bg-clip-text font-semibold'>Evalmee</span> est une plateforme d&apos;évaluation en ligne offrant des outils précis et personnalisés pour dévoiler et perfectionner les compétences. Découvrez une approche dynamique pour révéler le potentiel caché et atteindre l&apos;excellence professionnelle.</div>
+            </PartnerCard>
 
-            <div
-              className="flex justify-around flex-wrap gap-6 p-8 rounded-lg animate-fade-up opacity-0"
-              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+            <PartnerCard
+              key={sponsors[1].key}
+              imageSrc={sponsors[1].imageHref}
+              imageHeight={sponsors[1].imageHeight}
             >
-              <PartnerCard
-                key={sponsors[0].key}
-                imageSrc={sponsors[0].imageHref}
-                imageHeight={sponsors[0].imageHeight}
-              >
-                <div className="text-sm"><span className='mb-8 bg-gradient-to-br from-[#7cb9ff] to-[#3691FB] text-transparent bg-clip-text font-semibold'>Evalmee</span> est une plateforme d&apos;évaluation en ligne offrant des outils précis et personnalisés pour dévoiler et perfectionner les compétences. Découvrez une approche dynamique pour révéler le potentiel caché et atteindre l&apos;excellence professionnelle.</div>
-              </PartnerCard>
+              <div className="text-sm">
+                <div>La <span className='mb-8 bg-gradient-to-br from-[#f9597c] to-[#c3022d] text-transparent bg-clip-text font-semibold'>Royal Air Maroc</span>, compagnie aérienne nationale du Maroc, est une référence en matière d&apos;excellence et de service. Alliant modernité et tradition, elle relie le Maroc au monde tout en offrant une expérience de voyage unique et authentique.</div>
+              </div>
+            </PartnerCard>
 
-              <PartnerCard
-                key={sponsors[1].key}
-                imageSrc={sponsors[1].imageHref}
-                imageHeight={sponsors[1].imageHeight}
-              >
-                <div className="text-sm">
-                  <div>La <span className='mb-8 bg-gradient-to-br from-[#f9597c] to-[#c3022d] text-transparent bg-clip-text font-semibold'>Royal Air Maroc</span>, compagnie aérienne nationale du Maroc, est une référence en matière d&apos;excellence et de service. Alliant modernité et tradition, elle relie le Maroc au monde tout en offrant une expérience de voyage unique et authentique.</div>
-                </div>
-              </PartnerCard>
+            <PartnerCard
+              key={sponsors[2].key}
+              imageSrc={sponsors[2].imageHref}
+              imageHeight={sponsors[2].imageHeight}
+            >
+              <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Afretec</span> est un réseau panafricain d&apos;universités technologiques, mené par Carnegie Mellon University Africa, pour accélérer la transformation numérique du continent. Il favorise l&apos;enseignement, la recherche et l&apos;entrepreneuriat inclusifs en ingénierie et technologie.</div>
+            </PartnerCard>
 
-              <PartnerCard
-                key={sponsors[2].key}
-                imageSrc={sponsors[2].imageHref}
-                imageHeight={sponsors[2].imageHeight}
-              >
-                <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Afretec</span> est un réseau panafricain d&apos;universités technologiques, mené par Carnegie Mellon University Africa, pour accélérer la transformation numérique du continent. Il favorise l&apos;enseignement, la recherche et l&apos;entrepreneuriat inclusifs en ingénierie et technologie.</div>
-              </PartnerCard>
-
-              <PartnerCard
-                key={sponsors[3].key}
-                imageSrc={sponsors[3].imageHref}
-                imageHeight={sponsors[3].imageHeight}
-              >
-                <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Sidi Ali</span> est une entreprise engagée à offrir une eau minérale naturelle d'une pureté exceptionnelle, puisée au cœur des montagnes marocaines. <br/>Elle s&apos;impose comme un leader emblématique alliant qualité, tradition et innovation.</div>
-              </PartnerCard>
-            </div>
+            <PartnerCard
+              key={sponsors[3].key}
+              imageSrc={sponsors[3].imageHref}
+              imageHeight={sponsors[3].imageHeight}
+            >
+              <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Sidi Ali</span> est une entreprise engagée à offrir une eau minérale naturelle d'une pureté exceptionnelle, puisée au cœur des montagnes marocaines. <br/>Elle s&apos;impose comme un leader emblématique alliant qualité, tradition et innovation.</div>
+            </PartnerCard>
           </div>
         </div>
       </div>
-    </div>
+    </SectionContainer>
   )
 }

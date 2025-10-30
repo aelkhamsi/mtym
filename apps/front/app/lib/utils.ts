@@ -2,10 +2,6 @@ import {default as c } from "crypto"
 
 // TOKEN
 
-export const getToken = () => {
-  return localStorage.getItem('access_token');
-}
-
 export function getUserDataFromToken(token: string | undefined) {
   try {
     return token

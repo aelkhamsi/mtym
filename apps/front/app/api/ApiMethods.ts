@@ -1,43 +1,58 @@
-import { getToken } from "@/app/lib/utils";
 
-const getHeaders = (token?: string) => ({
+const getHeaders = () => ({
   'Content-Type': 'application/json',
-  Authorization: `Bearer ${token ?? getToken()}`,
 })
 
+type ApiRequestOptions = {
+  body?: any;
+  params?: RequestInit,
+  cookie?: string,
+}
+
 class ApiMethods {
-  static apiRequest(method: string, url: string, body=null, token?: string) {
+  static apiRequest(method: string, url: string, {body, params, cookie}: ApiRequestOptions = {}) {
     url = process.env.NEXT_PUBLIC_API_ENDPOINT + url;
-    const params = body
-      ? {method, body: JSON.stringify(body), headers: getHeaders(token)}
-      : {method, headers: getHeaders()}
+
+    const requestParams : RequestInit = {
+      method,
+      headers: {
+        ...getHeaders(),
+        ...(cookie ? { cookie } : {})
+      },
+      credentials: 'include',
+      ...(body ? { body: JSON.stringify(body) } : {}),
+      ...(params ? params : {}),
+    };
 
     return new Promise((resolve, reject) => {
-      fetch(url, params)
-        .then(res => res.json())
+      fetch(url, requestParams)
+        .then(res => {
+          if (!res.ok) return null
+          return res.json()
+        })
         .then(resolve)
         .catch(reject)
     })
   }
 
-  static get(url: string) {
-    return this.apiRequest('GET', url)
+  static get(url: string, {params, cookie}: ApiRequestOptions = {}) {
+    return this.apiRequest('GET', url, {params, cookie})
   }
 
-  static post(url: string, data?: any) {
-    return this.apiRequest('POST', url, data)
+  static post(url: string, {body, params, cookie}: ApiRequestOptions = {}) {
+    return this.apiRequest('POST', url, {body, params, cookie})
   }
 
-  static put(url: string, data?: any, token?: string) {
-    return this.apiRequest('PUT', url, data, token)
+  static put(url: string, {body, params, cookie}: ApiRequestOptions = {}) {
+    return this.apiRequest('PUT', url, {body, params, cookie})
   }
 
-  static patch(url: string, data: any) {
-    return this.apiRequest('PATCH', url, data)
+  static patch(url: string, {body, params, cookie}: ApiRequestOptions = {}) {
+    return this.apiRequest('PATCH', url, {body, params, cookie})
   }
 
-  static delete(url: string) {
-    return this.apiRequest('DELETE', url)
+  static delete(url: string, {params, cookie}: ApiRequestOptions = {}) {
+    return this.apiRequest('DELETE', url, {params, cookie})
   }
 }
 

@@ -1,13 +1,13 @@
 "use client"
 
-import { usersState } from "@/store/usersState";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import { UserRow, columns } from "./components/columns";
 import { UsersTable } from "./components/users-table";
+import { useAtomValue } from "jotai";
+import { usersAtom } from "@/store/usersAtom";
 
 export default function UsersPage() {
-  const users = useRecoilValue(usersState);
+  const users = useAtomValue(usersAtom);
   const [tableData, setTableData] = useState<UserRow[]>([])
 
   useEffect(() => {

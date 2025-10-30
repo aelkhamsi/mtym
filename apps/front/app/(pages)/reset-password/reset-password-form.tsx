@@ -40,7 +40,7 @@ export default function ResetPasswordForm() {
   const onSubmit = async (formData: any) => {
     setIsFormLoading(true)
     const { password } = formData
-    const response = await updateUser(user?.id, { password }, token) as any
+    const response = await updateUser(user?.id, { password }) as any
 
     switch(response?.statusCode) {
       case 200:

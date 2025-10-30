@@ -8,17 +8,16 @@ import {
   TableRow,
 } from "@mdm/ui"
 import { ActionButton } from "./action-button"
+import { useAtomValue } from "jotai"
+import { teamAtom } from "@/app/store/teamAtom"
+import { userAtom } from "@/app/store/userAtom"
 
-const TeamMembers = ({
-  userId,
-  team
-}:{
-  userId: number|undefined
-  team: any
-}) => {
+const TeamMembers = () => {
+  const team = useAtomValue(teamAtom)
+  const user = useAtomValue(userAtom)
   const members = team?.users
   const creator = team?.leader
-  const isTeamCreator = userId === creator?.id
+  const isTeamCreator = user?.id === creator?.id
 
   return (
     <div>
@@ -43,7 +42,7 @@ const TeamMembers = ({
                 {user?.id === creator?.id
                   ? <Badge className="bg-green-700">Créateur</Badge>
                   : isTeamCreator
-                    ? <ActionButton user={user}/>
+                    ? <ActionButton />
                     : ''
                 }
               </TableCell>

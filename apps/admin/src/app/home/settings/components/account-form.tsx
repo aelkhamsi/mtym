@@ -15,10 +15,10 @@ import {
 import { Input } from "@/components/shared/input"
 import { toast } from "@/components/hooks/use-toast"
 import ProfileSkeleton from "@/components/shared/profile-skeleton"
-import { useRecoilValue } from "recoil"
 import { useAuthGuard } from "@/components/hooks/use-auth-guard"
-import { adminState } from "@/store/adminState"
-import { updateAdmin } from "@/api/AdminApi"
+import { useAtomValue } from "jotai"
+import { adminUserAtom } from "@/store/adminUserAtom"
+import { updateAdmin } from "@/api/AdminUsersApi"
 
 const accountFormSchema = z.object({
   username: z.string().min(1, {message: 'This field is required'}),
@@ -38,16 +38,16 @@ const defaultValues: Partial<AccountFormValues> = {
 }
 
 export function AccountForm() {
-  const adminData = useRecoilValue(adminState);
+  const adminUser = useAtomValue(adminUserAtom);
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues,
     mode: "onChange",
-    values: adminData,
+    values: adminUser,
   })
 
   const onSubmit = async (formData: AccountFormValues) => {
-    const adminId = adminData?.id;
+    const adminId = adminUser?.id;
     const updateAdminDto = {
       username: formData?.username,
       password: formData?.password,
@@ -72,7 +72,7 @@ export function AccountForm() {
 
   useAuthGuard();
 
-  if (!adminData) return <ProfileSkeleton />;
+  if (!adminUser) return <ProfileSkeleton />;
 
   return (
     <Form {...form}>

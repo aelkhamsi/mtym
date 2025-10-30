@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import CtaButton from '../cta/cta-button'
 import FaqButton from '../cta/faq-button'
 import { BookIcon, CalendarMDMIcon, LocationIcon } from '@mdm/ui'
 import RegulationButton from '../cta/regulation-button'
