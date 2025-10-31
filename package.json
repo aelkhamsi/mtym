@@ -6,8 +6,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "turbo run dev --parallel",
-    "format": "turbo run format --parallel",
-    "build": "turbo run build --parallel"
+    "build": "turbo run build --parallel",
+    "start:db": "pnpm run --filter api start:db",
+    "format": "turbo run format --parallel"
   },
   "keywords": [],
   "author": "",

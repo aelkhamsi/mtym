@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+# PNPM
+/.pnpm-store
+
 # Env variables
 .env
 .env.local
