@@ -7,8 +7,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({})
 export class PluginModule {
   static register(pluginModules: DynamicModule[]): DynamicModule {
-    console.log('enabledPluginModules', pluginModules)
-
     return {
       module: PluginModule,
       imports: [

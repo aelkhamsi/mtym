@@ -22,7 +22,6 @@ import { PluginModule } from './modules/plugin/plugin.module';
 @Module({})
 export class AppModule {
   static register(pluginModules) {
-    console.log('pluginModules', pluginModules)
     return {
       module: AppModule,
       imports: [

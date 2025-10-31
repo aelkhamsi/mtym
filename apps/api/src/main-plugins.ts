@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm"
 import { Plugin } from "./modules/plugin/entities/plugin.entity"
-import { getPluginManifests, getPluginNestModules } from "@headstart/plugin-manager"
+import { getPluginManifests } from "@headstart/plugin-manager"
 
 export async function getDataSource(): Promise<DataSource> {
   const dataSource = new DataSource({

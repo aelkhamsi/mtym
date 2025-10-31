@@ -4,15 +4,15 @@ import 'reflect-metadata';
 import * as dotenv from 'dotenv';
 import * as cookieParser from 'cookie-parser';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
-import { fetchPlugins } from './main-plugins';
 
 dotenv.config({ path: ['.env'] });
 
 async function bootstrap() {
-  const plugins = await fetchPlugins() ?? []
-  const enabledPluginModules = plugins
-    .filter(plugin => plugin?.isEnabled)
-    .map(plugin => plugin?.api.module) 
+  // const plugins = await fetchPlugins() ?? []
+  // const enabledPluginModules = plugins
+  //   .filter(plugin => plugin?.isEnabled)
+  //   .map(plugin => plugin?.api.module) 
+  const enabledPluginModules = []
 
   const app = await NestFactory.create(AppModule.register(enabledPluginModules));
   const allowedOrigin = [process.env.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001'];
