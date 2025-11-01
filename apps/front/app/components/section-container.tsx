@@ -1,11 +1,11 @@
 import { ReactNode } from "react"
 
 const SectionContainer = ({
-  children,
   className,
+  children,
 }:{
-  children?: ReactNode,
   className?: string
+  children?: ReactNode,
 }) => {
   return (
     <div className={`w-full flex justify-center ${className}`}>
