@@ -76,6 +76,15 @@ export function UserNav({
           >
             Équipe
           </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem
+            onClick={() => router.push('/profile/participant-details')}
+            className="hover:cursor-pointer"
+          >
+            Participation
+          </DropdownMenuItem>
         </DropdownMenuGroup>
         
         <DropdownMenuSeparator />

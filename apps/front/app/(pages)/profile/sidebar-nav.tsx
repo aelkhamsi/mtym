@@ -20,6 +20,10 @@ const sidebarNavItems = [
     title: "Équipe",
     href: "/profile/team",
   },
+  {
+    title: "Participation",
+    href: "/profile/participant-details",
+  },
 ]
 
 export function SidebarNav({className, ...props}:{className?: string}) {

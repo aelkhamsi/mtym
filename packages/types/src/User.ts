@@ -14,4 +14,6 @@ export type User = {
   application: any;
 
   team: Team;
+
+  participantDetails: any;
 }

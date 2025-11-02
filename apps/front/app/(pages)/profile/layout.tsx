@@ -3,10 +3,8 @@ import { Separator } from "@mdm/ui"
 import { SidebarNav } from "./sidebar-nav"
 import SectionContainer from "@/app/components/section-container"
 import { getSessionCookie, getUserById } from "@/app/api/UsersApi"
-import { getApplicationById } from '@/app/api/ApplicationApi'
-import { getTeamById } from '@/app/api/TeamApi'
 import ProfileHydrator from './profile-hydrator'
-import { Team, User } from '@mdm/types'
+import { User } from '@mdm/types'
 
 interface ProfileLayoutProps {
   children: React.ReactNode
@@ -18,7 +16,7 @@ export default async function ProfileLayout({ children }: ProfileLayoutProps) {
   const user = await getUserById(session?.id, cookieStore) as User
 
   return (
-    <ProfileHydrator application={user?.application} team={user?.team}>
+    <ProfileHydrator application={user?.application} team={user?.team} participantDetails={user?.participantDetails} >
       <SectionContainer className="pt-24 pb-20 z-0">
         <div className="space-y-6 py-10">
           <div className="space-y-0.5">

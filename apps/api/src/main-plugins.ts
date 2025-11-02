@@ -1,6 +1,5 @@
 import { DataSource } from "typeorm"
 import { Plugin } from "./modules/plugin/entities/plugin.entity"
-import { getPluginManifests } from "@headstart/plugin-manager"
 
 export async function getDataSource(): Promise<DataSource> {
   const dataSource = new DataSource({
@@ -20,8 +19,9 @@ export async function fetchPlugins() {
   const dataSource = await getDataSource()
   const pluginRepository = dataSource.getRepository(Plugin)
   const plugins = await pluginRepository?.find()
-  const pluginManifests = (await getPluginManifests())
-    .map(manifest => manifest.default)
+  // const pluginManifests = (await getPluginManifests())
+  //   .map(manifest => manifest.default)
+  const pluginManifests = []
 
   for (const manifest of pluginManifests) {
     if (!plugins.find(plugin => plugin.id == manifest.id)) {
