@@ -9,9 +9,9 @@ const FormHeader = ({
   return ( 
     <div className="flex justify-between">
       <div className="space-y-0.5">
-        <h2 className="text-xl font-bold tracking-tight">Candidature</h2>
+        <h2 className="text-xl font-bold tracking-tight">Formulaire Participant</h2>
         <div className="text-muted-foreground text-sm">
-          Suivez les étapes ci-dessous pour compléter votre candidature.
+          Suivez les étapes ci-dessous pour compléter le formulaire participant.
         </div>
       </div>
 

@@ -7,51 +7,35 @@ type Step = {
 export const steps: Step[] = [
   {
     id: 'Step 1',
-    name: 'Informations personnelles',
-    getValidationFields: (_) => (['firstName', 'lastName', 'dateOfBirth', 'city', 'region', 'phoneNumber'])
+    name: 'Informations Médicales',
+    getValidationFields: () => ([])
   },
   {
     id: 'Step 2',
-    name: 'Éducation',
-    getValidationFields: (_) => (['educationLevel', 'educationField', 'highschool', 'averageGrade', 'mathAverageGrade', 'ranking', 'mathRanking', 'numberOfStudentsInClass'])
+    name: 'Logistiques',
+    getValidationFields: () => ([])
   },
   {
     id: 'Step 3',
-    name: 'Motivations',
-    getValidationFields: (formState) => {
-      const hasPreviousMTYMParticipations = formState?.hasPreviousMTYMParticipations === 'yes'
-      const hasPreviousExperiences = formState?.hasPreviousExperiences === 'yes'
-
-      return [
-        'hasPreviousMTYMParticipations', 
-        ...(hasPreviousMTYMParticipations ? ['previousMTYMParticipations'] : []),
-        'hasPreviousExperiences',
-        ...(hasPreviousExperiences ? ['previousExperiences'] : []),
-        'motivations',
-        'comments'
-      ]
-    }
+    name: 'Activités',
+    getValidationFields: () => ([])
   },
   {
     id: 'Step 4',
     name: 'Uploads',
-    getValidationFields: (formState) => {
-      const isFileUploaded = (key: string) => !!formState?.[`${key}Url`]
-      return [
-        !isFileUploaded('fileRegulations') ? 'fileRegulations' : '',
-        !isFileUploaded('fileGrades') ? 'fileGrades' : '',
-      ]
-    }
+    getValidationFields: () => ([])
   },
   { id: 'Step 5', 
     name: 'Validation',
-    getValidationFields: (_) => ['termsAgreement']
+    getValidationFields: () => ([])
   }
 ];
 
-export { PersonalInformationStep } from './personal-information-step'
-export { EducationStep } from './education-step'
-export { MotivationStep } from "./motivation-step"
-export { UploadStep } from './upload-step'
-export { ValidationStep } from './validation-step'
+
+export { MedicalInformationStep } from "./medical-information.step"
+export { LogisticsStep } from "./logistics.step"
+export { ActivitiesStep } from "./activities.step"
+export { UploadStep } from './upload.step'
+export { ValidationStep } from './validation.step'
+
 

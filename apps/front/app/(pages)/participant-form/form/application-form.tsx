@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { FormSteps } from "./header/form-steps"
 import { FormNavigation } from "./navigation/form-navigation"
-import { PersonalInformationStep, EducationStep, MotivationStep, UploadStep, ValidationStep } from "./steps"
+import { MedicalInformationStep, LogisticsStep, ActivitiesStep, UploadStep, ValidationStep } from "./steps"
 import { useForm } from "react-hook-form"
 import { applicationSchema, applicationDefaultValues } from "@/app/schemas/application.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -15,7 +15,7 @@ import { LoadingDots } from "@mdm/ui"
 import { User } from "@mdm/types"
 import FormHeader from "./header/form-header"
 import FormErrorDialog from "./error/form-error-dialog"
-import { useApplicationHandlers } from "@/app/(pages)/application/hooks/use-application-handlers"
+import { useApplicationHandlers } from "@/app/(pages)/participant-form/hooks/use-application-handlers"
 
 export const ApplicationForm = ({
   user
@@ -69,15 +69,15 @@ export const ApplicationForm = ({
         <form onSubmit={form.handleSubmit(() => {}, onError)}>
           {/* Personal informations */}
           {currentStep === 0 && (
-            <PersonalInformationStep form={form} delta={delta} />
+            <MedicalInformationStep form={form} delta={delta} />
           )}
 
           {currentStep === 1 && (
-            <EducationStep form={form} delta={delta} />
+            <LogisticsStep form={form} delta={delta} />
           )}
 
           {currentStep === 2 && (
-            <MotivationStep form={form} delta={delta} />
+            <ActivitiesStep form={form} delta={delta} />
           )}
 
           {currentStep === 3 && (
