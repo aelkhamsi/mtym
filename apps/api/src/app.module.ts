@@ -18,6 +18,7 @@ import { MailModule } from './modules/mail/mail.module';
 import { ExcelModule } from './modules/excel/excel.module';
 import { TeamModule } from './modules/team/team.module';
 import { PluginModule } from './modules/plugin/plugin.module';
+import { ParticipantDetailsModule } from './modules/participant-details/participant-details.module';
 
 @Module({})
 export class AppModule {
@@ -48,6 +49,7 @@ export class AppModule {
         UserModule,
         AdminUserModule,
         ApplicationModule,
+        ParticipantDetailsModule,
         MediaModule,
         AuthModule,
         MailModule,

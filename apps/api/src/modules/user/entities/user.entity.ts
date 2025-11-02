@@ -1,4 +1,5 @@
 import { Application } from 'src/modules/application/entities/application.entity';
+import { ParticipantDetails } from 'src/modules/participant-details/entities/participant-details.entity';
 import { Team } from 'src/modules/team/entities/team.entity';
 import {
   Column,
@@ -65,6 +66,10 @@ export class User {
   @OneToOne(() => Application, (application) => application.user)
   @JoinColumn()
   application: Application;
+
+  @OneToOne(() => ParticipantDetails, (participantDetails) => participantDetails.user)
+  @JoinColumn()
+  participantDetails: ParticipantDetails;
 
   @ManyToOne(() => Team, (team) => team.users)
   @JoinColumn()
