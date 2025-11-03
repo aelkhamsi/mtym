@@ -1,11 +1,21 @@
-export const sanitizeApplication = (application: any) => {
+const arrayFields = ['foodAllergy', 'nonFoodAllergy']
+
+export const parseFormData = (participantDetails: any) => {
   const newObject = {} as any;
-  Object.keys(application).forEach((key) => {
-    newObject[key] = (key === 'dateOfBirth')
-      ? new Date(application[key])
-      : key === 'activityChoices' || key === 'standMembers'
-        ? JSON.parse(application[key])
-        : application[key]===null ? "" : application[key]
+  Object.keys(participantDetails).forEach((key) => {
+    newObject[key] = arrayFields.includes(key)
+      ? JSON.parse(participantDetails[key])
+      : participantDetails[key]===null ? "" : participantDetails[key]
+  });
+  return newObject;
+}
+
+export const stringifyFormData = (participantDetails: any) => {
+  const newObject = {} as any;
+  Object.keys(participantDetails).forEach((key) => {
+    newObject[key] = arrayFields.includes(key)
+      ? JSON.stringify(participantDetails[key])
+      : participantDetails[key]
   });
   return newObject;
 }
@@ -19,13 +29,3 @@ export const excludeFileFields = ({
   termsAgreement,
   ...keep
 }: any) => keep
-
-export const serializeApplication = (application: any) => {
-  const newObject = {} as any;
-  Object.keys(application).forEach((key) => {
-    newObject[key] = (key === 'activityChoices' || key === 'standMembers')
-      ? JSON.stringify(application[key])
-      : application[key]
-  });
-  return newObject;
-}

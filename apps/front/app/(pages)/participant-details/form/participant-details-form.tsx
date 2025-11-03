@@ -5,9 +5,8 @@ import { FormSteps } from "./header/form-steps"
 import { FormNavigation } from "./navigation/form-navigation"
 import { MedicalInformationStep, LogisticsStep, ActivitiesStep, UploadStep, ValidationStep } from "./steps"
 import { useForm } from "react-hook-form"
-import { applicationSchema, applicationDefaultValues } from "@/app/schemas/application.schema"
+import { participantDetailsSchema, participantDetailsDefautValues } from "@/app/schemas/participant-details.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { sanitizeApplication } from "@/app/lib/utils"
 import { z } from "zod"
 import { Form } from "@mdm/ui"
 import { Button, Separator } from "@mdm/ui"
@@ -16,8 +15,9 @@ import { User } from "@mdm/types"
 import FormHeader from "./header/form-header"
 import FormErrorDialog from "./error/form-error-dialog"
 import { useApplicationHandlers } from "@/app/(pages)/participant-details/hooks/use-application-handlers"
+import { parseFormData } from "../serialization"
 
-export const ApplicationForm = ({
+export const ParticipantDetailsForm = ({
   user
 }:{
   user: User|undefined
@@ -25,14 +25,12 @@ export const ApplicationForm = ({
   const [previousStep, setPreviousStep] = useState(0)
   const [currentStep, setCurrentStep] = useState(0)
   const delta = currentStep - previousStep
-  const application = {
-    ...(user?.application ? sanitizeApplication(user?.application) : applicationDefaultValues),
-    firstName: user?.firstName, 
-    lastName: user?.lastName
+  const participantDetails = {
+    ...(user?.participantDetails ? parseFormData(user?.participantDetails) : participantDetailsDefautValues)
   }
-  const form = useForm<z.infer<typeof applicationSchema>>({
-    resolver: zodResolver(applicationSchema),
-    defaultValues: application,
+  const form = useForm<z.infer<typeof participantDetailsSchema>>({
+    resolver: zodResolver(participantDetailsSchema),
+    defaultValues: participantDetails,
     mode: "onChange",
   })
   const {

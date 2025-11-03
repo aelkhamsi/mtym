@@ -29,7 +29,7 @@ import { cn } from '@mdm/utils'
 import { Button } from "@mdm/ui"
 import { format } from "@mdm/ui"
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
-import SelectOrInput from '@/app/components/forms/select-or-Input'
+import SelectOrInput from '@/app/components/forms/select-or-input'
 
 const regions = [
   {label: "Tanger-Tétouan-Al Hoceïma", value:"tanger-tetouan-al-houceima"},

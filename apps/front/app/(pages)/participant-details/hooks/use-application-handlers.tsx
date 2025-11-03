@@ -5,10 +5,11 @@ import { User } from '@mdm/types';
 import { useState } from 'react';
 import { toast } from "@mdm/ui";
 import { postApplication, updateApplicationStatus } from '@/app/api/ApplicationApi';
-import { excludeFileFields, serializeApplication } from '../serialization';
+import { excludeFileFields, stringifyFormData } from '../serialization';
 import { useFileUpload } from './use-file-upload';
 import { UseFormReturn } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { postParticipantDetails } from '@/app/api/ParticipantDetailsApi';
 
 export const useApplicationHandlers = (
   user: User|undefined
@@ -29,7 +30,7 @@ export const useApplicationHandlers = (
     try {
       // Post application
       const applicationResponse = await postApplication(
-        excludeFileFields(serializeApplication(formData))
+        excludeFileFields(stringifyFormData(formData))
       ) as any
 
       if (applicationResponse?.statusCode !== 200) {
@@ -70,30 +71,31 @@ export const useApplicationHandlers = (
   }
 
   const onSave = async (form: UseFormReturn) => {
-    const application = form.watch()
+    const participantDetails = form.watch()
+    console.log('participantDetails', excludeFileFields(stringifyFormData(participantDetails)))
 
     try {
-      const applicationResponse = await postApplication(
-        excludeFileFields(serializeApplication(application))
+      const participantDetailsResponse = await postParticipantDetails(
+        excludeFileFields(stringifyFormData(participantDetails))
       ) as any;
 
-      if (applicationResponse?.statusCode !== 200) {
-        throw new Error(applicationResponse?.message ?? 'Post of application failed')
+      if (participantDetailsResponse?.statusCode !== 200) {
+        throw new Error(participantDetailsResponse?.message ?? 'Post of application failed')
       }
 
       toast({
-        title: 'Application saved successfully',
-        description: 'You can access your current application in your profile page',
+        title: 'Participant Details saved successfully',
+        description: 'You can access your current details in your profile page',
       });
       
-      router.push('/profile/application')
+      router.push('/profile/participant-details')
       setTimeout(() => {
         window.location.reload();
       }, 1000)
     } catch(err: any) {
       setError(err);
       setShowErrorDialog(true);
-    }    
+    }
   }
 
   const onError = async (errors: any) => {}
