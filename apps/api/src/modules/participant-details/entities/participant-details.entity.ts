@@ -21,15 +21,31 @@ export class ParticipantDetails {
 
   /* FORM FIELDS */
   
-  // Medical
-  @Column({ type: 'varchar', default: '' })
+  // Allergies
+  @Column({ type: 'varchar', default: '[]' })
   foodAllergy: string;
 
-  @Column({ type: 'varchar', default: '' })
+  @Column({ type: 'varchar', default: '[]' })
   nonFoodAllergy: string;
   
   @Column({ type: 'text', nullable: true })
   allergyPrecaution: string
+
+  // Illness & Disability
+  @Column({ type: 'varchar', default: '[]' })
+  illnessOrDisability: string;
+
+  @Column({ type: 'varchar', default: '' })
+  isOnMedication: string;
+
+  @Column({ type: 'text', nullable: true })
+  medication: string;
+
+  @Column({ type: 'varchar', default: '' })
+  needAssistance: string;
+
+  @Column({ type: 'text', nullable: true })
+  specialAccommodations: string;
 
   /* createAt & updatedAt */
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })

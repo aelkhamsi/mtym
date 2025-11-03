@@ -72,7 +72,7 @@ export const CheckboxAndInput = ({
 
   return (
     <div className="flex flex-col">
-      <FormLabel className="mb-4">
+      <FormLabel className="mb-2 leading-2">
         {label} {required && <RequiredAsterisk />}
       </FormLabel>
 
@@ -80,7 +80,7 @@ export const CheckboxAndInput = ({
         const id = `${name}-${index}`
         const checked = selectedOptions.includes(option.value)
         return (
-          <div key={id} className="flex items-center my-1 gap-x-2 h-4">
+          <div key={id} className="flex items-center my-2 gap-x-2 h-4">
             <Checkbox
               id={id}
               checked={checked}
@@ -96,7 +96,7 @@ export const CheckboxAndInput = ({
       {selectedCustomOptions.map((option: string, index: number) => {
         const checked = selectedOptions.includes(option)
         return (
-          <div key={index} className="flex items-center gap-x-2 h-6">
+          <div key={index} className="flex items-center gap-x-2 h-9">
             <Checkbox
               checked={checked}
               onCheckedChange={(checked) =>
@@ -125,7 +125,7 @@ export const CheckboxAndInput = ({
         type="button"
         variant="outline"
         size="sm"
-        className="mt-2 w-fit"
+        className="mt-2 w-fit font-light"
         onClick={onAddCustomOption}
       >
         + Ajouter une option

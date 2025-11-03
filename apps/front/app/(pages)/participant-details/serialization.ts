@@ -1,4 +1,4 @@
-const arrayFields = ['foodAllergy', 'nonFoodAllergy']
+const arrayFields = ['foodAllergy', 'nonFoodAllergy', 'illnessOrDisability']
 
 export const parseFormData = (participantDetails: any) => {
   const newObject = {} as any;

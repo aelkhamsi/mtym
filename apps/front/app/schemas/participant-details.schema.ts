@@ -12,6 +12,12 @@ export const participantDetailsSchema: ZodSchema = z.object({
   foodAllergy: z.array(z.string()),
   nonFoodAllergy: z.array(z.string()),
   allergyPrecaution: z.string().optional(),
+  
+  illnessOrDisability: z.array(z.string()),
+  specialAccommodations: z.enum(["yes", "no"], { message: "Choisissez une option" }),
+  isOnMedication: z.enum(["yes", "no"], { message: "Choisissez une option" }),
+  medication: z.string().min(1).refine(async text => text.split(' ').length <= 100, { message: "Text can't be more than 100 words", }),
+  needAssistance: z.enum(["yes", "no"], { message: "Choisissez une option" }),
 
   /* Uploads */
   filePhoto: zodFileValidation,
@@ -26,6 +32,12 @@ export const participantDetailsDefautValues = {
   foodAllergy: '',
   nonFoodAllergy: '',
   allergyPrecaution: '',
+  
+  illnessOrDisability: '',
+  specialAccommodations: '',
+  isOnMedication: '',
+  medication: '',
+  needAssistance: '',
 
   /* Uploads */
   fileRegulations: undefined,
