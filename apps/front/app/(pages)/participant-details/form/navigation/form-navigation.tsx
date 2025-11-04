@@ -18,8 +18,11 @@ export const FormNavigation = ({
 }) => {
   const next = async () => {
     const formState = form.watch()
+    console.log('formState', formState)
     const fields = steps[currentStep]?.getValidationFields(formState)
+    console.log('fields', fields)
     const output = await form.trigger(fields, { shouldFocus: true })
+    console.log('output', output)
     if (!output) return
 
     if (currentStep < steps.length - 1) {

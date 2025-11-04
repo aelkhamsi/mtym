@@ -9,14 +9,14 @@ export const zodFileValidation = z.any()
 
 export const participantDetailsSchema: ZodSchema = z.object({
   /* Medical Informations */
-  foodAllergy: z.array(z.string()),
-  nonFoodAllergy: z.array(z.string()),
+  foodAllergy: z.array(z.string()).nonempty({ message: 'Choissisez une option' }),
+  nonFoodAllergy: z.array(z.string()).nonempty({ message: 'Choissisez une option' }),
   allergyPrecaution: z.string().optional(),
   
-  illnessOrDisability: z.array(z.string()),
+  illnessOrDisability: z.array(z.string()).nonempty({ message: 'Choissisez une option' }),
   specialAccommodations: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   isOnMedication: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  medication: z.string().min(1).refine(async text => text.split(' ').length <= 100, { message: "Text can't be more than 100 words", }),
+  medication: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
   needAssistance: z.enum(["yes", "no"], { message: "Choisissez une option" }),
 
   /* Uploads */

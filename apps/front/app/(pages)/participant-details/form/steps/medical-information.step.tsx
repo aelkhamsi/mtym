@@ -41,7 +41,7 @@ export const MedicalInformationStep = ({
   form: UseFormReturn,
   delta: number
 }) => {
-  const [isOnMedication, setIsOnMedication] = useState(false)
+  const [isOnMedication, setIsOnMedication] = useState(form.getValues('isOnMedication') === 'yes' ?? false)
   
   return (
     <motion.div

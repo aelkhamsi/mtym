@@ -80,7 +80,7 @@ export const CheckboxAndInput = ({
         const id = `${name}-${index}`
         const checked = selectedOptions.includes(option.value)
         return (
-          <div key={id} className="flex items-center my-2 gap-x-2 h-4">
+          <div key={id} className="flex items-center my-2 gap-x-4">
             <Checkbox
               id={id}
               checked={checked}
@@ -104,7 +104,7 @@ export const CheckboxAndInput = ({
               }
             />
             <Input
-              className="h-2 px-0 m-0 font-light"
+              className="h-0 px-2 py-4 m-0 font-light"
               value={option}
               onChange={(e) => onInput(index, e.target.value)}
               placeholder="Rentrez une valeure"

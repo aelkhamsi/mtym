@@ -8,20 +8,23 @@ export const steps: Step[] = [
   {
     id: 'Step 1',
     name: 'Informations Médicales',
-    getValidationFields: () => ['foodAllergy', 'nonFoodAllergy']
-  },
-  {
-    id: 'Step 2',
-    name: 'Logistiques',
     getValidationFields: (formState) => {
       const isOnMedication = formState?.isOnMedication === 'yes'
 
       return [
+        'foodAllergy',
+        'nonFoodAllergy',
         'illnessOrDisability',
+        'specialAccommodations',
         'isOnMedication',
         ...(isOnMedication ? ['medication', 'needAssistance'] : []),
       ]
     }
+  },
+  {
+    id: 'Step 2',
+    name: 'Logistiques',
+    getValidationFields: () => ([])
   },
   {
     id: 'Step 3',
