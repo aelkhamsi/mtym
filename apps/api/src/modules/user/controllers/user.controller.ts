@@ -20,6 +20,7 @@ import { Roles } from 'src/decorators/roles.decorator';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { Role } from 'src/guards/role.enum';
+import { User } from '../entities/user.entity';
 
 @Controller('mtym-api/users')
 export class UserController {
@@ -49,7 +50,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.USER)
   @Get()
   @HttpCode(200)
   async findAll() {

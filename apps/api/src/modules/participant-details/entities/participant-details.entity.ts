@@ -20,6 +20,9 @@ export class ParticipantDetails {
   status: ParticipantDetailsStatus;
 
   /* FORM FIELDS */
+
+  @Column({ type: 'varchar', default: '' })
+  gender: string;
   
   // Allergies
   @Column({ type: 'varchar', default: '[]' })
@@ -46,6 +49,16 @@ export class ParticipantDetails {
 
   @Column({ type: 'text', nullable: true })
   specialAccommodations: string;
+
+  // Roommates
+  @Column({ type: 'varchar', default: '' })
+  haveRoommatePreference: string;
+
+  @Column({ type: 'varchar', default: '' })
+  firstRoommateId: string;
+
+  @Column({ type: 'varchar', default: '' })
+  secondRoommateId: string;
 
   /* createAt & updatedAt */
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })

@@ -24,7 +24,14 @@ export const steps: Step[] = [
   {
     id: 'Step 2',
     name: 'Logistiques',
-    getValidationFields: () => ([])
+    getValidationFields: (formState) => {
+      const haveRoommatePreference = formState?.haveRoommatePreference === 'yes'
+
+      return [
+        'haveRoommatePreference',
+        ...(haveRoommatePreference ? ['firstRoommateId'] : []),
+      ]
+    }
   },
   {
     id: 'Step 3',

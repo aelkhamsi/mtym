@@ -8,6 +8,11 @@ export const getSessionCookie = async (cookie?: string) => {
   });
 }
 
+export const getAllUsers = async (cookie?: string) => {
+  const url = `/users`;
+  return ApiMethods.get(url, {cookie});
+}
+
 export const getUserById = async (id: number, cookie?: string) => {
   const url = `/users/${id}`;
   return ApiMethods.get(url, {cookie});

@@ -19,6 +19,10 @@ export const participantDetailsSchema: ZodSchema = z.object({
   medication: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
   needAssistance: z.enum(["yes", "no"], { message: "Choisissez une option" }),
 
+  haveRoommatePreference: z.enum(["yes", "no"], { message: "Choisissez une option" }),
+  firstRoommateId: z.string().min(1, {message: 'Un choix est requis'}),
+  secondRoommateId: z.string().optional(),
+
   /* Uploads */
   filePhoto: zodFileValidation,
   fileParentalAuthorization: zodFileValidation,
@@ -38,6 +42,10 @@ export const participantDetailsDefautValues = {
   isOnMedication: '',
   medication: '',
   needAssistance: '',
+
+  haveRoommatePreference: '',
+  firstRoommateId: '',
+  secondRoommateId: '',
 
   /* Uploads */
   fileRegulations: undefined,
