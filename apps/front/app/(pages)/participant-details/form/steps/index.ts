@@ -42,7 +42,14 @@ export const steps: Step[] = [
   {
     id: 'Step 3',
     name: 'Activités',
-    getValidationFields: () => ([])
+    getValidationFields: (formState) => {
+      const haveTalent = formState?.haveTalent === 'yes'
+
+      return [
+        'haveTalent',
+        ...(haveTalent ? ['talentDescription'] : []),
+      ]
+    }
   },
   {
     id: 'Step 4',

@@ -28,6 +28,9 @@ export const participantDetailsSchema: ZodSchema = z.object({
   needArrivalShuttle: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   arrivalCity: z.string().nonempty("Choisissez une option"),
 
+  haveTalent: z.enum(["yes", "no"], { message: "Choisissez une option" }),
+  talentDescription: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
+
   /* Uploads */
   filePhoto: zodFileValidation,
   fileParentalAuthorization: zodFileValidation,
@@ -56,6 +59,9 @@ export const participantDetailsDefautValues = {
   departureCity: '',
   needArrivalShuttle: '', 
   arrivalCity: '',
+
+  haveTalent: '',
+  talentDescription: '',
 
   /* Uploads */
   fileRegulations: undefined,

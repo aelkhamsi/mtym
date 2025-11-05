@@ -73,6 +73,13 @@ export class ParticipantDetails {
   @Column({ type: 'varchar', default: '' })
   arrivalCity: string;
 
+  // Talent show
+  @Column({ type: 'varchar', default: '' })
+  haveTalent: string;
+
+  @Column({ type: 'text', nullable: true })
+  talentDescription: string;
+
   /* createAt & updatedAt */
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
   createdAt: Date;

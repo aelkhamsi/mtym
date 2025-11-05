@@ -54,7 +54,7 @@ export const MedicalInformationStep = ({
       </h2>
       <Separator className='mt-2 mb-6 bg-[#0284C7]'/>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 justify-between my-4'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 justify-between my-6'>
         {/* Food Allergy */}
         <CheckboxAndInput
           name="foodAllergy"
@@ -101,7 +101,7 @@ export const MedicalInformationStep = ({
       </h2>
       <Separator className='mt-2 mb-6 bg-[#0284C7]'/>
       
-      <div className='mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 justify-between'>
+      <div className='mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 justify-between'>
         {/* Illness or Disability */}
         <CheckboxAndInput
           name="illnessOrDisability"
