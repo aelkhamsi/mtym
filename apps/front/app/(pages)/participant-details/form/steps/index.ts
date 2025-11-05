@@ -26,10 +26,16 @@ export const steps: Step[] = [
     name: 'Logistiques',
     getValidationFields: (formState) => {
       const haveRoommatePreference = formState?.haveRoommatePreference === 'yes'
+      const needDepartureShuttle = formState?.needDepartureShuttle === 'yes'
+      const needArrivalShuttle = formState?.needArrivalShuttle === 'yes'
 
       return [
         'haveRoommatePreference',
         ...(haveRoommatePreference ? ['firstRoommateId'] : []),
+        'needDepartureShuttle',
+        ...(needDepartureShuttle ? ['departureCity'] : []),
+        'needArrivalShuttle',
+        ...(needArrivalShuttle ? ['arrivalCity'] : []),
       ]
     }
   },

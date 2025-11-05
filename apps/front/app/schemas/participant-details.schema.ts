@@ -20,8 +20,13 @@ export const participantDetailsSchema: ZodSchema = z.object({
   needAssistance: z.enum(["yes", "no"], { message: "Choisissez une option" }),
 
   haveRoommatePreference: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  firstRoommateId: z.string().min(1, {message: 'Un choix est requis'}),
+  firstRoommateId: z.string().min(1, {message: 'Choisissez une option'}),
   secondRoommateId: z.string().optional(),
+
+  needDepartureShuttle: z.enum(["yes", "no"], { message: "Choisissez une option" }),
+  departureCity: z.string().nonempty("Choisissez une option"),
+  needArrivalShuttle: z.enum(["yes", "no"], { message: "Choisissez une option" }),
+  arrivalCity: z.string().nonempty("Choisissez une option"),
 
   /* Uploads */
   filePhoto: zodFileValidation,
@@ -46,6 +51,11 @@ export const participantDetailsDefautValues = {
   haveRoommatePreference: '',
   firstRoommateId: '',
   secondRoommateId: '',
+
+  needDepartureShuttle: '',
+  departureCity: '',
+  needArrivalShuttle: '', 
+  arrivalCity: '',
 
   /* Uploads */
   fileRegulations: undefined,

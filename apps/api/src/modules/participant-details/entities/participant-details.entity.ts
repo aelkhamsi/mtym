@@ -60,6 +60,19 @@ export class ParticipantDetails {
   @Column({ type: 'varchar', default: '' })
   secondRoommateId: string;
 
+  // Transport
+  @Column({ type: 'varchar', default: '' })
+  needDepartureShuttle: string;
+
+  @Column({ type: 'varchar', default: '' })
+  departureCity: string;
+
+  @Column({ type: 'varchar', default: '' })
+  needArrivalShuttle: string;
+
+  @Column({ type: 'varchar', default: '' })
+  arrivalCity: string;
+
   /* createAt & updatedAt */
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
   createdAt: Date;
