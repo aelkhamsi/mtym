@@ -58,6 +58,12 @@ export class User {
   verified: boolean;
 
   @Column({
+    type: 'boolean',
+    default: false,
+  })
+  qualified: boolean;
+
+  @Column({
     type: 'varchar',
     default: '',
   })
