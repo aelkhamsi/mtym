@@ -53,7 +53,7 @@ export default function ParticipantDetailsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle> Félicitations. Vous faites partie de MTYM 2025 </CardTitle>
+          <CardTitle> Informations pratiques pour votre participation </CardTitle>
           <CardDescription> Pour compléter votre candidature, nous avons besoin d&apos;informations complémentaires. </CardDescription>
         </CardHeader>
 
