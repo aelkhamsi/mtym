@@ -16,7 +16,7 @@ export class ParticipantDetails {
   @JoinColumn()
   user: User;
 
-  @Column({ default: ParticipantDetailsStatus.NOT_STARTED })
+  @Column({ default: ParticipantDetailsStatus.DRAFTED })
   status: ParticipantDetailsStatus;
 
   /* FORM FIELDS */

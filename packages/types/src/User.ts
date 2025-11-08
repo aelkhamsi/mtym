@@ -11,6 +11,8 @@ export type User = {
 
   verified: boolean;
 
+  qualified: boolean;
+
   application: any;
 
   team: Team;

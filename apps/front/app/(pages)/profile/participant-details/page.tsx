@@ -33,20 +33,12 @@ const getBadgeClassname = (status: string) => {
 export default function ParticipantDetailsPage() {
   const router = useRouter()
   const user = useAtomValue(userAtom)
-  const application = useAtomValue(applicationAtom)
-  const team = useAtomValue(teamAtom) as Team|undefined
   const participantDetails = useAtomValue(participantDetailsAtom)
 
-  const [isApplicationComplete, setIsApplicationComplete] = useState<boolean>(false)
-  const [isTeamComplete, setIsTeamComplete] = useState<boolean>(false)
-
-  useEffect(() => {
-    const applicationStatus = application?.status?.status;
-    const teamMembers = team?.users?.length ?? 0
-
-    setIsApplicationComplete(!!application && applicationStatus !== 'DRAFT')
-    setIsTeamComplete(!!team && teamMembers >= 3 && teamMembers <= 5)
-  }, [application, team])
+  if (!user?.qualified) {
+    router.push('/profile/account')
+    return
+  }
 
   return (
     <div className="space-y-6">
@@ -70,7 +62,7 @@ export default function ParticipantDetailsPage() {
             <>
               <div className="text-sm"><span className="font-bold">Date de soumission</span>: {formatDate(participantDetails?.createdAt)}</div>
               <div className="text-sm"><span className="font-bold">Date de sauvegarde</span>: {formatDate(participantDetails?.updatedAt)}</div>
-              <div className="text-sm"><span className="font-bold">Status</span>: <Badge className={`px-4 ${getBadgeClassname(participantDetails?.status)}`}>{application?.status?.status}</Badge></div>
+              <div className="text-sm"><span className="font-bold">Status</span>: <Badge className={`px-4 ${getBadgeClassname(participantDetails?.status)}`}>{participantDetails?.status}</Badge></div>
             </>
           }
         </CardContent>

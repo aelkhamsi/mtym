@@ -20,15 +20,12 @@ import { useRouter } from "next/navigation";
 import { useSetAtom } from 'jotai';
 import { userAtom } from '@/app/store/userAtom';
 import { logout } from "@/app/api/AuthApi";
+import { User } from "@mdm/types";
 
 export function UserNav({
-  firstName,
-  lastName,
-  email
+  user,
 }:{
-  firstName: string,
-  lastName: string,
-  email: string,
+  user: User,
 }) {
   const router = useRouter();
   const setUser = useSetAtom(userAtom);
@@ -46,16 +43,16 @@ export function UserNav({
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-9 w-9 border-solid border-2 border-sky-300">
             <AvatarImage src="/avatars/01.png" alt="@shadcn" />
-            <AvatarFallback className="text-base text-black">{firstName?.[0]}</AvatarFallback>
+            <AvatarFallback className="text-base text-black">{user?.firstName?.[0]}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{firstName} {lastName}</p>
+            <p className="text-sm font-medium leading-none">{user?.firstName} {user?.lastName}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              {email}
+              {user?.email}
             </p>
           </div>
         </DropdownMenuLabel>
@@ -79,12 +76,14 @@ export function UserNav({
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem
-            onClick={() => router.push('/profile/participant-details')}
-            className="hover:cursor-pointer"
-          >
-            Participation
-          </DropdownMenuItem>
+          {user?.qualified && 
+            <DropdownMenuItem
+              onClick={() => router.push('/profile/participant-details')}
+              className="hover:cursor-pointer"
+            >
+              Participation
+            </DropdownMenuItem>
+          }
         </DropdownMenuGroup>
         
         <DropdownMenuSeparator />

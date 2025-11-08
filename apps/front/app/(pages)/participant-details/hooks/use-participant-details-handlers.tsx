@@ -6,7 +6,7 @@ import { excludeFileFields, stringifyFormData } from '../serialization';
 import { useFileUpload } from './use-file-upload';
 import { UseFormReturn } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { postParticipantDetails } from '@/app/api/ParticipantDetailsApi';
+import { postParticipantDetails, putParticipantDetails } from '@/app/api/ParticipantDetailsApi';
 
 export const useParticipantDetailsHandlers = (
   user: User|undefined
@@ -43,6 +43,8 @@ export const useParticipantDetailsHandlers = (
         title: 'Participant details created with success',
         description: 'You can access your current informations in your profile page',
       });
+
+      await putParticipantDetails(participantDetailsResponse?.id, {status: 'COMPLETED'})
 
       router.push('/profile/participant-details')
       setTimeout(() => {

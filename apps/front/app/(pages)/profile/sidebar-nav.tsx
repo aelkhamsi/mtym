@@ -7,7 +7,7 @@ import { buttonVariants } from "@mdm/ui"
 import { userAtom } from "@/app/store/userAtom"
 import { useAtomValue } from "jotai"
 
-const sidebarNavItems = [
+const getSidebarNavItems = (qualified: boolean|undefined) => ([
   {
     title: "Compte",
     href: "/profile/account",
@@ -20,17 +20,16 @@ const sidebarNavItems = [
     title: "Équipe",
     href: "/profile/team",
   },
-  {
-    title: "Participation",
-    href: "/profile/participant-details",
-  },
-]
+  ...(qualified 
+    ? [{title: "Participation", href: "/profile/participant-details"}]
+    : []
+  )
+])
 
 export function SidebarNav({className, ...props}:{className?: string}) {
   const pathname = usePathname()
   const user = useAtomValue(userAtom)
   const hasValidApplication = user?.application && user?.application?.status?.status === 'PENDING'
-  const hasTeam = user?.team
 
   return (
     <nav
@@ -40,23 +39,25 @@ export function SidebarNav({className, ...props}:{className?: string}) {
       )}
       {...props}
     >
-      {sidebarNavItems.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          className={cn(
-            buttonVariants({ variant: "ghost" }),
-            pathname === item.href
-              ? "bg-muted hover:bg-muted"
-              : "hover:bg-transparent hover:underline",
-            "justify-between"
-          )}
-        >
-          {item.title}
-          {item.href === '/profile/application' && (hasValidApplication ? <span>✅</span> : <span>⚠️</span>)}
-          {item.href === '/profile/team' && (hasTeam ? <span>✅</span> : <span>⚠️</span>)}
-        </Link>
-      ))}
+      {getSidebarNavItems(user?.qualified)
+        .map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              buttonVariants({ variant: "ghost" }),
+              pathname === item.href
+                ? "bg-muted hover:bg-muted"
+                : "hover:bg-transparent hover:underline",
+              "justify-between"
+            )}
+          >
+            {item.title}
+            {item.href === '/profile/application' && (hasValidApplication ? <span>✅</span> : <span>⚠️</span>)}
+            {item.href === '/profile/participant-details' && (user?.participantDetails?.status === 'COMPLETED' ? <span>✅</span> : <span>⚠️</span>)}
+          </Link>
+        ))
+      }
     </nav>
   )
 }

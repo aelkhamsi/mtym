@@ -21,7 +21,7 @@ const NavBarActionButtonContent = ({
   const user = useAtomValue(userAtom)
 
   return user
-    ? <UserNav firstName={user?.firstName} lastName={user?.lastName} email={user?.email} />
+    ? <UserNav user={user} />
     : <AuthButton setShowAuthModal={setShowAuthModal}/>
 }
 

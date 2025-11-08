@@ -15,7 +15,7 @@ async function bootstrap() {
   const enabledPluginModules = []
 
   const app = await NestFactory.create(AppModule.register(enabledPluginModules));
-  const allowedOrigin = [process.env.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001'];
+  const allowedOrigin = [process.env.FRONTEND_URL, process.env.ADMIN_URL];
 
   app.enableCors({ origin: allowedOrigin, credentials: true });
   app.use(cookieParser());
