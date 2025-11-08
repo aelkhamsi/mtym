@@ -9,7 +9,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     S3Module.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        ...configService.get('s3'),
+        config: {
+          region: configService.get('s3.region'),
+          credentials: configService.get('s3.credentials')
+        }
       }),
       inject: [ConfigService],
     }),

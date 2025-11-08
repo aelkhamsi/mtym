@@ -38,7 +38,7 @@ export class MediaService {
     }
 
     const putObjectCommand = new PutObjectCommand({
-      Bucket: this.configService.get('s3.bucketName'),
+      Bucket: this.configService.get('s3.name'),
       Key: filename,
       ContentType: type,
       ContentLength: size,

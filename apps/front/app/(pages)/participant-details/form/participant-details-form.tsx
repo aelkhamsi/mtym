@@ -14,7 +14,7 @@ import { LoadingDots } from "@mdm/ui"
 import { User } from "@mdm/types"
 import FormHeader from "./header/form-header"
 import FormErrorDialog from "./error/form-error-dialog"
-import { useApplicationHandlers } from "@/app/(pages)/participant-details/hooks/use-application-handlers"
+import { useParticipantDetailsHandlers } from "@/app/(pages)/participant-details/hooks/use-participant-details-handlers"
 import { parseFormData } from "../serialization"
 
 export const ParticipantDetailsForm = ({
@@ -41,7 +41,7 @@ export const ParticipantDetailsForm = ({
     isFormLoading,
     showErrorDialog,
     error,
-  } = useApplicationHandlers(user)
+  } = useParticipantDetailsHandlers(user)
   const onClickSave = () => {
     onSave(form)
   }
@@ -89,7 +89,7 @@ export const ParticipantDetailsForm = ({
           {/* Submit Button */}
           {currentStep === 4 && (
             <div className='mt-20 text-center'> 
-              <Button type="submit" onClick={() => onSubmit(form.watch())}>
+              <Button type="submit" onClick={() => onSubmit(form)}>
                 {isFormLoading ? (
                   <LoadingDots color="#808080" />
                 ) : (

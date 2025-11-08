@@ -35,7 +35,7 @@ export class ParticipantDetailsService {
     return this.participantDetailsRepository
       .createQueryBuilder('participant-details')
       .where('participant-details.id = :id', { id })
-      .leftJoinAndSelect('application.user', 'user')
+      .leftJoinAndSelect('participant-details.user', 'user')
       .getOne();
   }
 

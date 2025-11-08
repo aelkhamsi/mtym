@@ -42,7 +42,7 @@ export const ActivitiesStep = ({
           name="haveTalent"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>As-tu besoin d&apos;une navette pour l&apos;aller ? <RequiredAsterisk /></FormLabel>
+              <FormLabel>Souhaites-tu présenter un talent sur scène lors du Talent Show ? <RequiredAsterisk /></FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={(value) => {

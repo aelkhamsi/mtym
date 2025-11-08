@@ -37,7 +37,7 @@ export const RoommateChoiceField = ({
   name: string,
   label: string,
   required: boolean,
-  users: User[],
+  users: any[],
 }) => {
   const usersOptions = users
     ?.filter(user => true)

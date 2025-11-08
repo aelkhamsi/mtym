@@ -12,6 +12,7 @@ export const steps: Step[] = [
       const isOnMedication = formState?.isOnMedication === 'yes'
 
       return [
+        'gender',
         'foodAllergy',
         'nonFoodAllergy',
         'illnessOrDisability',
@@ -54,11 +55,19 @@ export const steps: Step[] = [
   {
     id: 'Step 4',
     name: 'Uploads',
-    getValidationFields: () => ([])
+    getValidationFields: (formState) => {
+      const isFileUploaded = (key: string) => !!formState?.[`${key}Url`]
+
+      return [
+        !isFileUploaded('filePhoto') ? 'filePhoto' : '',
+        !isFileUploaded('fileParentalAuthorization') ? 'fileParentalAuthorization' : '',
+      ]
+    }
   },
-  { id: 'Step 5', 
+  { 
+    id: 'Step 5', 
     name: 'Validation',
-    getValidationFields: () => ([])
+    getValidationFields: () => (['termsAgreement'])
   }
 ];
 

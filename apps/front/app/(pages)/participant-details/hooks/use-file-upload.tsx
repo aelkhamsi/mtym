@@ -1,19 +1,19 @@
 import { z } from 'zod'
-import { applicationSchema } from "@/app/schemas/application.schema"
 import { computeSHA256, generateFileName, getUploadFolderName } from '@/app/lib/utils';
 import { User } from '@mdm/types';
 import { getSignedURL, uploadFile } from '@/app/api/MediaApi';
-import { postApplication, putApplication } from '@/app/api/ApplicationApi';
-import { excludeFileFields, serializeApplication } from '../serialization';
+import { excludeFileFields, stringifyFormData } from '../serialization';
+import { postParticipantDetails, putParticipantDetails } from '@/app/api/ParticipantDetailsApi';
+import { participantDetailsSchema } from '@/app/schemas/participant-details.schema';
 
 export const useFileUpload = () => {
   const getFiles = (
-    formData: z.infer<typeof applicationSchema>
+    formData: z.infer<typeof participantDetailsSchema>
   ) => {
-    const { fileRegulations, fileGrades } = formData;
-    const uploadFileNames = ['regulations', 'grades']
+    const { filePhoto, fileParentalAuthorization } = formData;
+    const uploadFileNames = ['photo', 'parentalAuthorization']
       .map(name => `${name}_${generateFileName()}`)
-    const files = [fileRegulations, fileGrades]
+    const files = [filePhoto, fileParentalAuthorization]
       .map((files, index) => {
         if (files && files.length) {
           return new File(
@@ -44,22 +44,22 @@ export const useFileUpload = () => {
     }
   }
 
-  const updateApplicationFiles = async (
-    formData: z.infer<typeof applicationSchema>, 
+  const updateParticipantDetailsFiles = async (
+    formData: z.infer<typeof participantDetailsSchema>, 
     files: (File|undefined)[], 
     user: User|undefined
   ) => {
     const uploadFolderName = getUploadFolderName(user?.firstName, user?.lastName);
     const fileUrls = {
-      fileRegulationsUrl: files[0] ? `upload_mtym/${uploadFolderName}/${files[0].name}` : (formData?.fileRegulationsUrl ?? null),
-      fileGradesUrl: files[1] ? `upload_mtym/${uploadFolderName}/${files[1].name}` : (formData?.fileGradesUrl ?? null),
+      filePhotoUrl: files[0] ? `upload_mtym/${uploadFolderName}/${files[0].name}` : (formData?.filePhotoUrl ?? null),
+      fileParentalAuthorizationUrl: files[1] ? `upload_mtym/${uploadFolderName}/${files[1].name}` : (formData?.fileParentalAuthorizationUrl ?? null),
     }
 
-    const result = await putApplication(formData?.id, fileUrls) as any
+    const result = await putParticipantDetails(formData?.id, fileUrls) as any
 
     if (result?.statusCode !== 200) {
-      await postApplication({
-        ...excludeFileFields(serializeApplication(formData)),
+      await postParticipantDetails({
+        ...excludeFileFields(stringifyFormData(formData)),
         ...fileUrls,
       }) as any
     }
@@ -68,6 +68,6 @@ export const useFileUpload = () => {
   return {
     getFiles,
     uploadFiles,
-    updateApplicationFiles,
+    updateParticipantDetailsFiles,
   }
 }

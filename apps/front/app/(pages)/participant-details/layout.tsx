@@ -1,6 +1,6 @@
 import SectionContainer from '@/app/components/section-container'
 
-export default async function ApplicationLayout({
+export default async function ParticipantDetailsLayout({
   children,
 }: {
   children: React.ReactNode;

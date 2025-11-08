@@ -9,6 +9,7 @@ export const zodFileValidation = z.any()
 
 export const participantDetailsSchema: ZodSchema = z.object({
   /* Medical Informations */
+  gender: z.enum(["female", "male"], { message: "Choisissez une option" }),
   foodAllergy: z.array(z.string()).nonempty({ message: 'Choissisez une option' }),
   nonFoodAllergy: z.array(z.string()).nonempty({ message: 'Choissisez une option' }),
   allergyPrecaution: z.string().optional(),
@@ -41,6 +42,7 @@ export const participantDetailsSchema: ZodSchema = z.object({
 
 export const participantDetailsDefautValues = {
   /* Medical Informations */
+  gender: '',
   foodAllergy: '',
   nonFoodAllergy: '',
   allergyPrecaution: '',
@@ -64,8 +66,8 @@ export const participantDetailsDefautValues = {
   talentDescription: '',
 
   /* Uploads */
-  fileRegulations: undefined,
-  fileGrades: undefined,
+  filePhoto: undefined,
+  fileParentalAuthorization: undefined,
 
   /* Terms of agreement */
   termsAgreement: false,

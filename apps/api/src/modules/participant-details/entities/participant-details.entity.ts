@@ -80,6 +80,14 @@ export class ParticipantDetails {
   @Column({ type: 'text', nullable: true })
   talentDescription: string;
 
+  /* Uploads */
+
+  @Column({ type: 'varchar', nullable: true })
+  filePhotoUrl: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  fileParentalAuthorizationUrl: string;
+
   /* createAt & updatedAt */
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
   createdAt: Date;

@@ -24,7 +24,6 @@ export class ParticipantDetailsController {
     @Req() req,
   ) {
     const userId = req['user'].id;
-    console.log('userId', userId)
     const user = await this.userService.findOneById(userId);
     if (!user) {
       throw new ForbiddenException('User does not exist');

@@ -81,7 +81,7 @@ export const LogisticsStep = ({
   useEffect(() => {
     getAllUsers()
       .then(users => {
-        setUsers(users)
+        setUsers(users as any)
       })
   }, [])
 

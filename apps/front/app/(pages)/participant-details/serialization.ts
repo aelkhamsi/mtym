@@ -22,10 +22,8 @@ export const stringifyFormData = (participantDetails: any) => {
 
 export const excludeFileFields = ({
   status,
-  fileCnie,
-  fileSchoolCertificate,
-  fileGrades,
-  fileRegulations,
+  filePhoto,
+  fileParentalAuthorization,
   termsAgreement,
   ...keep
 }: any) => keep

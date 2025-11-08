@@ -49,6 +49,37 @@ export const MedicalInformationStep = ({
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 justify-between my-6'>
+
+        <FormField
+          control={form.control}
+          name="gender"
+          render={({ field }) => (
+            <FormItem className="space-y-3">
+              <FormLabel>Genre <RequiredAsterisk /></FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={(value) => field.onChange(value)}
+                  defaultValue={field.value}
+                  className="flex flex-col space-y-1"
+                >
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <RadioGroupItem value="female" />
+                    <FormLabel className="font-normal"> Féminin </FormLabel>
+                  </FormItem>
+
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <RadioGroupItem value="male" />
+                    <FormLabel className="font-normal"> Masculin </FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
       <h2 className='text-base font-semibold leading-7 text-[#0284C7]'>
         Allergies et intolérances
       </h2>

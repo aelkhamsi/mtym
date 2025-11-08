@@ -1,17 +1,14 @@
 
-import { z } from 'zod';
-import { applicationSchema } from '@/app/schemas/application.schema';
 import { User } from '@mdm/types';
 import { useState } from 'react';
 import { toast } from "@mdm/ui";
-import { postApplication, updateApplicationStatus } from '@/app/api/ApplicationApi';
 import { excludeFileFields, stringifyFormData } from '../serialization';
 import { useFileUpload } from './use-file-upload';
 import { UseFormReturn } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { postParticipantDetails } from '@/app/api/ParticipantDetailsApi';
 
-export const useApplicationHandlers = (
+export const useParticipantDetailsHandlers = (
   user: User|undefined
 ) => {
   const router = useRouter()
@@ -21,40 +18,33 @@ export const useApplicationHandlers = (
   const {
     getFiles,
     uploadFiles,
-    updateApplicationFiles,
+    updateParticipantDetailsFiles,
   } = useFileUpload()
 
-  const onSubmit = async (formData: z.infer<typeof applicationSchema>) => {
+  const onSubmit = async (form: UseFormReturn) => {
+    const formData = form.watch()
     setIsFormLoading(true);
 
     try {
-      // Post application
-      const applicationResponse = await postApplication(
+      const participantDetailsResponse = await postParticipantDetails(
         excludeFileFields(stringifyFormData(formData))
-      ) as any
+      ) as any;
 
-      if (applicationResponse?.statusCode !== 200) {
-        throw new Error(applicationResponse?.message ?? 'Post of application failed')
+      if (participantDetailsResponse?.statusCode !== 200) {
+        throw new Error(participantDetailsResponse?.message ?? 'Post of participant details failed')
       }
 
       // Upload files
       const files = getFiles(formData)
       await uploadFiles(files, user)
-      await updateApplicationFiles(formData, files, user)
-      
-      // Update application status
-      const applicationId = applicationResponse?.id;
-      await updateApplicationStatus(applicationId, { status: user?.application?.status?.status === 'NOTIFIED'
-        ? 'UPDATED'
-        : 'PENDING'
-      }) as any;
+      await updateParticipantDetailsFiles(formData, files, user)
 
       toast({
-        title: 'Application created with success',
-        description: 'You can access your current application in your profile page',
+        title: 'Participant details created with success',
+        description: 'You can access your current informations in your profile page',
       });
 
-      router.push('/profile/application')
+      router.push('/profile/participant-details')
       setTimeout(() => {
         window.location.reload();
       }, 1000)
@@ -72,7 +62,6 @@ export const useApplicationHandlers = (
 
   const onSave = async (form: UseFormReturn) => {
     const participantDetails = form.watch()
-    console.log('participantDetails', excludeFileFields(stringifyFormData(participantDetails)))
 
     try {
       const participantDetailsResponse = await postParticipantDetails(
@@ -80,7 +69,7 @@ export const useApplicationHandlers = (
       ) as any;
 
       if (participantDetailsResponse?.statusCode !== 200) {
-        throw new Error(participantDetailsResponse?.message ?? 'Post of application failed')
+        throw new Error(participantDetailsResponse?.message ?? 'Post of participant details failed')
       }
 
       toast({
