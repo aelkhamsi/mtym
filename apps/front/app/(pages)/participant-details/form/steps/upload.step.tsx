@@ -11,6 +11,7 @@ import {
 import { initFileInput } from '@/app/(pages)/application/form/steps/upload-step'
 import { FileInput } from '../components/file-input'
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
+import Link from 'next/link'
 
 export const UploadStep = ({
   form,
@@ -64,7 +65,7 @@ export const UploadStep = ({
 
             return (
               <FormItem>
-                <FormLabel>Autorisation parentale <RequiredAsterisk /></FormLabel>
+                <FormLabel>Autorisation parentale <Link className='text-blue-500' target='_blank' href='https://drive.google.com/file/d/1rKCIRwKzB55FU3F6KKin5X9TWKo75ZZT/view?usp=drive_link'>(fichier)</Link> <RequiredAsterisk /></FormLabel>
                 <FormControl>
                   <FileInput form={form} id="fileParentalAuthorization" />
                 </FormControl>

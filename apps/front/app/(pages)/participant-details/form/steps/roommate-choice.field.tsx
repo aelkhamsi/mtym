@@ -40,7 +40,7 @@ export const RoommateChoiceField = ({
   users: any[],
 }) => {
   const usersOptions = users
-    ?.filter(user => true)
+    ?.filter(user => user?.qualified)
     ?.map(user => ({
       label: `${user?.firstName} ${user?.lastName}`,
       value: user?.id.toString()

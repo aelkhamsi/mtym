@@ -13,7 +13,7 @@ import {
 import { RadioGroup, RadioGroupItem, Separator } from '@mdm/ui'
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
 import { getAllUsers } from '@/app/api/UsersApi'
-import { RoommateChoiceField } from './roommate-choixe.field'
+import { RoommateChoiceField } from './roommate-choice.field'
 import SelectOrInput from '@/app/components/forms/select-or-input'
 
 const cities = [
