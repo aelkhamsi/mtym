@@ -6,11 +6,11 @@ import { User } from 'src/modules/user/entities/user.entity';
 export class MailService {
   constructor(private readonly configService: ConfigService) {}
 
-  async sendResetPasswordEmail(user: User, token: string) {
+  async sendResetPasswordEmail(user: User, accessToken: string) {
     const link =
       this.configService.get('app.nodenv') === 'production'
-        ? `https://mtym.mathmaroc.org/reset-password?token=${token}`
-        : `http://localhost:3000/reset-password?token=${token}`;
+        ? `https://mtym.mathmaroc.org/reset-password?token=${accessToken}`
+        : `http://localhost:3000/reset-password?token=${accessToken}`;
 
     const url = this.configService.get('smtp.endpoint') + 'send';
     const payload = {

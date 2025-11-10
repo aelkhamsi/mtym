@@ -11,6 +11,9 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react";
 import { updateUser } from "@/app/api/UsersApi";
 import { getUserDataFromToken } from "@/app/lib/utils";
+import { useAtomValue } from "jotai";
+import { userAtom } from "@/app/store/userAtom";
+import { User } from "@mdm/types";
 
 const resetPasswordSchema = z.object({
   password: z.string().min(6, {message: 'The password must have at least 6 characters'}),
@@ -26,12 +29,12 @@ const defaultValues = {
 }
 
 export default function ResetPasswordForm() {
+  const user = useAtomValue(userAtom) as User
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
   const router = useRouter()
   const searchParams = useSearchParams()
-  const token = searchParams.get('token') ?? undefined;
-  const user = getUserDataFromToken(token)
+  const accessToken = searchParams.get('token') ?? undefined;
   const form = useForm<z.infer<typeof resetPasswordSchema>>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: defaultValues,
@@ -40,7 +43,7 @@ export default function ResetPasswordForm() {
   const onSubmit = async (formData: any) => {
     setIsFormLoading(true)
     const { password } = formData
-    const response = await updateUser(user?.id, { password }) as any
+    const response = await updateUser(user?.id, { password }, accessToken) as any
 
     switch(response?.statusCode) {
       case 200:

@@ -140,17 +140,8 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException();
     }
-
-    const payload = {
-      id: user?.id,
-      firstName: user?.firstName,
-      lastName: user?.lastName,
-      email: user?.email,
-      verfied: user?.verified,
-      role: Role.USER,
-    };
-    const token = await this.jwtService.signAsync(payload);
-    await this.mailService.sendResetPasswordEmail(user, token);
+    const { accessToken } = await this.login(user)
+    await this.mailService.sendResetPasswordEmail(user, accessToken);
   }
 
   async sendEmailVerificationCode(email: string) {
