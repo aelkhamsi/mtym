@@ -61,8 +61,8 @@ export default function ResetPasswordForm() {
   }
 
   return (
-    <div className="w-full max-w-sm md:max-w-5xl px-5 xl:px-0 mt-20">
-      <div className="space-y-6">
+    <div className="w-full flex flex-col items-center px-5 xl:px-0 my-40">
+      <div className="max-w-sm md:max-w-5xl space-y-6">
         <h1
           className="animate-fade-up bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm [text-wrap:balance] md:text-5xl md:leading-[4rem]"
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
