@@ -21,5 +21,5 @@ export const getUserById = async (id: number, cookie?: string) => {
 export const updateUser = async (id: number, partialUser: any, cookie?: string) => {
   const url = `/users/${id}`;
   const body = {...partialUser};
-  return ApiMethods.put(url, {body, cookie});
+  return ApiMethods.put(url, {body, cookie, params: cookie ? {cache: "no-store"} : {}});
 }

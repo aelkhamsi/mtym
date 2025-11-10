@@ -29,12 +29,12 @@ const defaultValues = {
 }
 
 export default function ResetPasswordForm() {
-  const user = useAtomValue(userAtom) as User
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
   const router = useRouter()
   const searchParams = useSearchParams()
   const accessToken = searchParams.get('token') ?? undefined;
+  const user = getUserDataFromToken(accessToken)
   const form = useForm<z.infer<typeof resetPasswordSchema>>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: defaultValues,
