@@ -60,7 +60,6 @@ export const getUserDataFromToken = (token: string | undefined) => {
 }
 
 export const checkToken = (token: string) => {
-  const { exp, role } = getUserDataFromToken(token);
-  const isExpired = parseInt(exp) <= (new Date().getTime() + 1) / 1000;
-  return role === 'admin' && !isExpired;
+  const { role } = getUserDataFromToken(token);
+  return role === 'admin'
 }
