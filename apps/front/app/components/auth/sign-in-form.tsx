@@ -49,7 +49,7 @@ export function SignInForm({
         setIsFormLoading(false)
         break
       default:
-        setErrorMessage('Server error. Please try later.')
+        setErrorMessage('The email or password are incorrect')
         setIsFormLoading(false)
     }
   }

@@ -31,7 +31,7 @@ export function UserNav({
   const setUser = useSetAtom(userAtom);
 
   const handleLogOut = useCallback(async () => {
-    const result = await logout();
+    await logout();
     setUser(null)
     router.push('/');
     window.location.reload();
