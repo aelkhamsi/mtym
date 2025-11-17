@@ -34,7 +34,7 @@ export const putApplication = (id: number, partialApplication: any) => {
 }
 
 export const putApplicationStatus = (id: number, partialApplicationStatus: any) => {
-  const url = `applications/status/${id}`;
+  const url = `/applications/status/${id}`;
   const body = {...partialApplicationStatus};
   return ApiMethods.put(url, body);
 }

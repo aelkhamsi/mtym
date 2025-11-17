@@ -34,7 +34,7 @@ export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get('access_token')?.value
   const refreshToken = req.cookies.get('refresh_token')?.value  
   const isValidToken = (token?: string) => token && validateToken(token)
-  const redirectToHome = () => {
+  const redirectToLogin = () => {
     const res = NextResponse.redirect(new URL('/login', req.url))
     res.cookies.delete('access_token')
     res.cookies.delete('refresh_token')
@@ -43,7 +43,7 @@ export async function middleware(req: NextRequest) {
 
   if (!isValidToken(accessToken)) {
     if (!isValidToken(refreshToken)) {
-      if (isProtected) return redirectToHome()
+      if (isProtected) return redirectToLogin()
       return NextResponse.next()
     }
 
@@ -58,7 +58,7 @@ export async function middleware(req: NextRequest) {
     })
     
     if (!refreshRes?.ok) {
-      if (isProtected) return redirectToHome()
+      if (isProtected) return redirectToLogin()
       return NextResponse.next()
     }
     

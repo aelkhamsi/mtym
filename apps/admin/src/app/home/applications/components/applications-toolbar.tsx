@@ -20,7 +20,7 @@ export function ApplicationsToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0
   const onExportData = async () => {
     axios({
-      url: process.env.NEXT_PUBLIC_API_ENDPOINT + `excel/applications`,
+      url: process.env.NEXT_PUBLIC_API_ENDPOINT + `/excel/applications`,
       method: 'GET',
       headers: {
         Authorization: `Bearer ${getToken()}`,

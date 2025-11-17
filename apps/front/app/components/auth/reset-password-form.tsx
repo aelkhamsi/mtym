@@ -43,7 +43,7 @@ export function ResetPasswordForm({ className, ...props }: ResetPasswordFormProp
         setIsFormLoading(false)
         break
       default:
-        setErrorMessage('Server error. Please try later.')
+        setErrorMessage('An account with this email does not exist')
         setIsFormLoading(false)
     }
   }

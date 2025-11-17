@@ -40,7 +40,7 @@ export default function LoginPage() {
         router.push('/home')
         setTimeout(() => {
           window.location.reload()
-        }, 500)
+        }, 1000)
         
         break;
       case 400:
