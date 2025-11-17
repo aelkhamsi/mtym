@@ -17,10 +17,12 @@ type ProviderProps = {
 };
 
 function HydrateAtoms({ adminUser, applications, teams, users, children } : ProviderProps) {
-  if (adminUser) useHydrateAtoms([[adminUserAtom, adminUser]])
-  if (applications) useHydrateAtoms([[applicationsAtom, applications]])
-  if (teams) useHydrateAtoms([[teamsAtom, teams]])
-  if (users) useHydrateAtoms([[usersAtom, users]])
+  useHydrateAtoms([
+    [adminUserAtom, adminUser],
+    [applicationsAtom, applications],
+    [teamsAtom, teams],
+    [usersAtom, users],
+  ])
   return children;
 }
 
