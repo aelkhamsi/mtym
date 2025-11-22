@@ -3,6 +3,10 @@ import { IsOptional, IsString } from 'class-validator';
 export class CreateParticipantDetailsDto {
   @IsString()
   @IsOptional()
+  gender: string;
+  
+  @IsString()
+  @IsOptional()
   foodAllergy: string;
 
   @IsString()
@@ -35,6 +39,14 @@ export class CreateParticipantDetailsDto {
 
   @IsString()
   @IsOptional()
+  hasBeenHospitalized: string;
+
+  @IsString()
+  @IsOptional()
+  hospitalizationReasons: string;
+
+  @IsString()
+  @IsOptional()
   haveRoommatePreference: string;
 
   @IsString()
@@ -44,4 +56,29 @@ export class CreateParticipantDetailsDto {
   @IsString()
   @IsOptional()
   secondRoommateId: string;
+
+  @IsString()
+  @IsOptional()
+  needDepartureShuttle: string;
+
+  @IsString()
+  @IsOptional()
+  departureCity: string;
+
+  @IsString()
+  @IsOptional()
+  needArrivalShuttle: string;
+
+  @IsString()
+  @IsOptional()
+  arrivalCity: string;
+
+  // Talent show
+  @IsString()
+  @IsOptional()
+  haveTalent: string;
+
+  @IsString()
+  @IsOptional()
+  talentDescription: string;
 }

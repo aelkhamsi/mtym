@@ -50,6 +50,12 @@ export class ParticipantDetails {
   @Column({ type: 'text', nullable: true })
   specialAccommodations: string;
 
+  @Column({ type: 'varchar', default: '' })
+  hasBeenHospitalized: string;
+
+  @Column({ type: 'text', nullable: true })
+  hospitalizationReasons: string;
+
   // Roommates
   @Column({ type: 'varchar', default: '' })
   haveRoommatePreference: string;
