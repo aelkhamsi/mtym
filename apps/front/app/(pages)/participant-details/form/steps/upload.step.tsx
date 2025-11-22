@@ -1,4 +1,4 @@
-import { Separator } from '@mdm/ui'
+import { FormDescription, Separator } from '@mdm/ui'
 import { motion } from 'framer-motion'
 import { UseFormReturn } from 'react-hook-form'
 import {
@@ -47,6 +47,7 @@ export const UploadStep = ({
             return (
               <FormItem>
                 <FormLabel>Photo d&apos;identité <RequiredAsterisk /></FormLabel>
+                <FormDescription>La photo d&apos;identité sera utilisé pour créer un trombinoscope et pour vérifier l&apos;identité à l&apos;entrée.</FormDescription>
                 <FormControl>
                   <FileInput form={form} id="filePhoto" />
                 </FormControl>
@@ -65,7 +66,11 @@ export const UploadStep = ({
 
             return (
               <FormItem>
-                <FormLabel>Autorisation parentale <Link className='text-blue-500' target='_blank' href='https://drive.google.com/file/d/1rKCIRwKzB55FU3F6KKin5X9TWKo75ZZT/view?usp=drive_link'>(fichier)</Link> <RequiredAsterisk /></FormLabel>
+                <FormLabel>Autorisation parentale <Link className='text-blue-500' target='_blank' href='https://drive.google.com/file/d/1rKCIRwKzB55FU3F6KKin5X9TWKo75ZZT/view?usp=drive_link'>(cliquez sur ce lien)</Link> <RequiredAsterisk /></FormLabel>
+                <FormDescription>
+                  Il faut télécharger l&apos;autorisation, la remplir puis la faire <span className='font-semibold'>légaliser obligatoirement</span>.<br/>
+                  Vous ne serez pas autorisé à entrer à l&apos;université AUI si vous ne légalisez pas l&apos;autorisation parentale.
+                </FormDescription>
                 <FormControl>
                   <FileInput form={form} id="fileParentalAuthorization" />
                 </FormControl>
