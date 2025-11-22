@@ -34,6 +34,7 @@ export const participantDetailsSchema: ZodSchema = z.object({
 
   haveTalent: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   talentDescription: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
+  workshops: z.array(z.string()).length(4, { message: 'Vous devez classer tout les workshops' }),
 
   /* Uploads */
   filePhoto: zodFileValidation,
@@ -70,6 +71,7 @@ export const participantDetailsDefautValues = {
 
   haveTalent: '',
   talentDescription: '',
+  workshops: '',
 
   /* Uploads */
   filePhoto: undefined,

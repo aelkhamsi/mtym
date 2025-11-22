@@ -82,12 +82,15 @@ export class ParticipantDetails {
   @Column({ type: 'varchar', default: '' })
   cityOfResidence: string;
 
-  // Talent show
+  // Activities & Workshops
   @Column({ type: 'varchar', default: '' })
   haveTalent: string;
 
   @Column({ type: 'text', nullable: true })
   talentDescription: string;
+
+  @Column({ type: 'varchar', default: '[]' })
+  workshops: string;
 
   /* Uploads */
 

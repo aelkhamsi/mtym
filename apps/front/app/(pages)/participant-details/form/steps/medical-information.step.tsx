@@ -79,7 +79,7 @@ export const MedicalInformationStep = ({
             </FormItem>
           )}
         />
-      </div>s
+      </div>
 
       <h2 className='text-base font-semibold leading-7 text-[#0284C7]'>
         Allergies et intolérances

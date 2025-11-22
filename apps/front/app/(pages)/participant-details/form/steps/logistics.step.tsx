@@ -154,12 +154,12 @@ export const LogisticsStep = ({
       </p>
 
       <p className='text-gray-600 font-light text-sm mb-2'>
-        <span className='underline'>Trajet navette départ</span>: gare de <span className='font-medium'>Meknès</span> ➡️ Université Al Akhawayn <br/>
-        Deux navettes sont prévues le jeudi <span className='font-normal'> 25 décembre</span> : l&apos;une à <span className='font-medium'>10h</span> et l&apos;autre vers <span className='font-medium'>13h</span>.
+        <span className='underline'>Trajet navette départ</span>: <span className='font-normal bg-gray-100 px-2 rounded-sm'> Gare de Meknès</span> ➡️ <span className='font-normal bg-gray-100 px-2 rounded-sm'>Université Al Akhawayn</span> <br/>
+        Deux navettes sont prévues le jeudi <span className='font-normal'> 25 décembre</span> : l&apos;une à <span className='font-normal'>10h</span> et l&apos;autre vers <span className='font-normal'>13h</span>.
       </p>
 
       <p className='text-gray-600 font-light text-sm mb-2'>
-        <span className='underline'>Trajet navette retour</span>: Université Al Akhawayn  ➡️ gare de <span className='font-medium'>Meknès</span> <br/>
+        <span className='underline'>Trajet navette retour</span>: <span className='font-normal bg-gray-100 px-2 rounded-sm'>Université Al Akhawayn</span>  ➡️ <span className='font-normal bg-gray-100 px-2 rounded-sm'>Gare de Meknès</span> <br/>
         Les navettes sont prévues le dimanche <span className='font-normal'> 28 décembre</span>. Les horaires seront communiqués ultérieurement.
       </p>
       

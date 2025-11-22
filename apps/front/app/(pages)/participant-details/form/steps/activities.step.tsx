@@ -11,7 +11,15 @@ import {
 import { RadioGroup, RadioGroupItem, Separator } from '@mdm/ui'
 import { useState } from 'react'
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
-import SelectOrInput from '@/app/components/forms/select-or-input'
+import RankedSelect from '@/app/components/forms/ranked-select'
+import Link from 'next/link'
+
+const workshopOptions = [
+  {title: 'Can you beat maths ?', animators: "Ismail Bouhaj", value: 'math-bouhaj'},
+  {title: 'How do AI think ? A gentle introduction to LLMs', animators: "Oustada dial AUI", value: 'ai-hourrane'},
+  {title: 'Math in Action: when computers bring ideas to life', animators: "Safaa Khadim, Achraf El Khamsi", value: 'cs-khadim-khamsi'},
+  {title: 'What game theory tells us about life?', animators: "Zemzoumi", value: 'math-zemzoumi'},
+]
 
 export const ActivitiesStep = ({
   form,
@@ -33,7 +41,7 @@ export const ActivitiesStep = ({
       <h2 className='text-base font-semibold leading-7 text-[#0284C7]'>
         Activités
       </h2>
-      <Separator className='my-6 bg-[#0284C7]'/>
+      <Separator className='my-2 bg-[#0284C7]'/>
 
       <div className='grid grid-cols-1 md:grid-cols-2 gap-4 justify-between my-6'>
         {/* needDepartureShuttle */}
@@ -93,6 +101,22 @@ export const ActivitiesStep = ({
           />
         }
       </div>
+
+      <h2 className='text-base font-semibold leading-7 text-[#0284C7]'>
+        Workshops
+      </h2>
+      <Separator className='my-2 bg-[#0284C7]'/>
+      
+      <p className='text-gray-600 font-light text-sm mb-6'>
+        Vous aurez l&apos;opportunité de participer à l&apos;un des quatre workshops présentés dans ce document: <Link href={'https://drive.google.com/file/d/1Nvst0BhTTieRrlvVAoqS4WRKXayO9l8d/view?usp=sharing'} target='_blank'> <span className='text-blue-600'>(cliquer sur ce lien)</span></Link><br/>
+        Nous vous demandons de <span className='font-semibold'>classer tout les workshops selon votre préférence</span>.
+      </p>
+
+      <RankedSelect
+        form={form}
+        name='workshops'
+        options={workshopOptions}
+      />
     </motion.div>
   )
 }

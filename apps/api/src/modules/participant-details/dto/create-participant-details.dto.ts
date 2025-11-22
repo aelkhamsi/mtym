@@ -85,4 +85,8 @@ export class CreateParticipantDetailsDto {
   @IsString()
   @IsOptional()
   talentDescription: string;
+
+  @IsString()
+  @IsOptional()
+  workshops: string;
 }

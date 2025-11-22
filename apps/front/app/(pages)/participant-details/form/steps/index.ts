@@ -51,6 +51,7 @@ export const steps: Step[] = [
       return [
         'haveTalent',
         ...(haveTalent ? ['talentDescription'] : []),
+        'workshops',
       ]
     }
   },
