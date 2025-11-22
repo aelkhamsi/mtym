@@ -23,8 +23,8 @@ const RankedSelect = ({
   const [remainingOptions, setRemainingOptions] = useState<WorkshopOption[]>([])
 
   useEffect(() => {
-    const chosenValues = form.getValues(name) as string[]
-    const chosen = chosenValues.map(value => options.find(option => option.value === value)) as WorkshopOption[]
+    const chosenValues = form.getValues(name) ?? []
+    const chosen = chosenValues?.map((value: string) => options.find(option => option.value === value)) as WorkshopOption[]
     options.filter(option => chosenValues.includes(option.value))
     const remaining = options.filter(option => !chosenValues.includes(option.value))
     setChosenOptions(chosen)
@@ -36,7 +36,7 @@ const RankedSelect = ({
     const chosen = [...chosenOptions, option]
     setRemainingOptions(remaining)
     setChosenOptions(chosen)
-    form.setValue(name, chosen.map(opt => opt.value))
+    form.setValue(name, chosen?.map(opt => opt.value))
   }
 
   const onUnchooseOption = (option: WorkshopOption) => {
@@ -44,13 +44,13 @@ const RankedSelect = ({
     const chosen = chosenOptions.filter(opt => opt.value !== option.value)
     setChosenOptions(chosen)
     setRemainingOptions(remaining)
-    form.setValue(name, chosen.map(opt => opt.value))
+    form.setValue(name, chosen?.map(opt => opt.value))
   }
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
       <div>
-        {remainingOptions.map((option) => 
+        {remainingOptions?.map((option) => 
           <div className='bg-gray-100 rounded-md text-sm mb-2 p-2 hover:cursor-pointer' onClick={() => onChooseOption(option)}>
             {option.title}<br/>
             <span className='text-gray-500 font-light text-xs'>{option.animators}</span>
@@ -59,7 +59,7 @@ const RankedSelect = ({
       </div>
 
       <div>
-        {chosenOptions.length > 0 && chosenOptions.map((option, index) => 
+        {chosenOptions.length > 0 && chosenOptions?.map((option, index) => 
           <div className='flex justify-between bg-gray-100 rounded-md text-sm mb-2 p-2 hover:cursor-pointer' onClick={() => onUnchooseOption(option)}>
             <div className='flex items-center p-2 text-lg'>{index+1}</div>
             
