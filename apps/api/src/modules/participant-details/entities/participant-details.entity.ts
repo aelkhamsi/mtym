@@ -79,6 +79,9 @@ export class ParticipantDetails {
   @Column({ type: 'varchar', default: '' })
   arrivalCity: string;
 
+  @Column({ type: 'varchar', default: '' })
+  cityOfResidence: string;
+
   // Talent show
   @Column({ type: 'varchar', default: '' })
   haveTalent: string;

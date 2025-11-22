@@ -73,6 +73,10 @@ export class CreateParticipantDetailsDto {
   @IsOptional()
   arrivalCity: string;
 
+  @IsString()
+  @IsOptional()
+  cityOfResidence: string;
+
   // Talent show
   @IsString()
   @IsOptional()

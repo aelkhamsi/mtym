@@ -37,9 +37,8 @@ export const steps: Step[] = [
         'haveRoommatePreference',
         ...(haveRoommatePreference ? ['firstRoommateId'] : []),
         'needDepartureShuttle',
-        ...(needDepartureShuttle ? ['departureCity'] : []),
         'needArrivalShuttle',
-        ...(needArrivalShuttle ? ['arrivalCity'] : []),
+        ...(needDepartureShuttle || needArrivalShuttle ? ['cityOfResidence'] : []),
       ]
     }
   },
