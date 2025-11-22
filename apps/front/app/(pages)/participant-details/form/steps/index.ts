@@ -10,6 +10,7 @@ export const steps: Step[] = [
     name: 'Informations Médicales',
     getValidationFields: (formState) => {
       const isOnMedication = formState?.isOnMedication === 'yes'
+      const hasBeenHospitalized = formState?.hasBeenHospitalized === 'yes'
 
       return [
         'gender',
@@ -19,6 +20,8 @@ export const steps: Step[] = [
         'specialAccommodations',
         'isOnMedication',
         ...(isOnMedication ? ['medication', 'needAssistance'] : []),
+        'hasBeenHospitalized',
+        ...(hasBeenHospitalized ? ['hospitalizationReasons'] : []),
       ]
     }
   },

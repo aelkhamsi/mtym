@@ -19,6 +19,8 @@ export const participantDetailsSchema: ZodSchema = z.object({
   isOnMedication: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   medication: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
   needAssistance: z.enum(["yes", "no"], { message: "Choisissez une option" }),
+  hasBeenHospitalized: z.enum(["yes", "no"], { message: "Choisissez une option" }),
+  hospitalizationReasons: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
 
   haveRoommatePreference: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   firstRoommateId: z.string().min(1, {message: 'Choisissez une option'}),
@@ -52,6 +54,8 @@ export const participantDetailsDefautValues = {
   isOnMedication: '',
   medication: '',
   needAssistance: '',
+  hasBeenHospitalized: '',
+  hospitalizationReasons: '',
 
   haveRoommatePreference: '',
   firstRoommateId: '',
