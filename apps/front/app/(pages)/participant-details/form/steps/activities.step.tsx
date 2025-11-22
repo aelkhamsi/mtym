@@ -108,7 +108,7 @@ export const ActivitiesStep = ({
       <Separator className='my-2 bg-[#0284C7]'/>
       
       <p className='text-gray-600 font-light text-sm mb-6'>
-        Vous aurez l&apos;opportunité de participer à l&apos;un des quatre workshops présentés dans ce document: <Link href={'https://drive.google.com/file/d/1Nvst0BhTTieRrlvVAoqS4WRKXayO9l8d/view?usp=sharing'} target='_blank'> <span className='text-blue-600'>(cliquer sur ce lien)</span></Link><br/>
+        Vous aurez l&apos;opportunité de participer à l&apos;un des quatre workshops présentés dans ce document: <Link href={'https://drive.google.com/file/d/1Nvst0BhTTieRrlvVAoqS4WRKXayO9l8d/view?usp=sharing'} target='_blank'> <span className='text-blue-500 font-medium'>(cliquer sur ce lien)</span></Link><br/>
         Nous vous demandons de <span className='font-semibold'>classer tout les workshops selon votre préférence</span>.
       </p>
 
