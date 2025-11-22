@@ -42,6 +42,7 @@ export const MedicalInformationStep = ({
   delta: number
 }) => {
   const [isOnMedication, setIsOnMedication] = useState(form.getValues('isOnMedication') === 'yes' ?? false)
+  const [hasBeenHospitalized, setHasBeenHospitalized] = useState(form.getValues('hasBeenHospitalized') === 'yes' ?? false)
   
   return (
     <motion.div
@@ -254,6 +255,62 @@ export const MedicalInformationStep = ({
                       <FormLabel className="font-normal"> Non </FormLabel>
                     </FormItem>
                   </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        }
+
+        {/* Has Been Hospitalized */}
+        <FormField
+          control={form.control}
+          name="hasBeenHospitalized"
+          render={({ field }) => (
+            <FormItem className="space-y-3">
+              <FormLabel>Avez-vous déjà été hospitalisé ? <RequiredAsterisk /></FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={(value) => {
+                    setHasBeenHospitalized(value === 'yes')
+                    if (value === 'no') {
+                      form.setValue('hospitalizationReasons', '')
+                      form.clearErrors('hospitalizationReasons')
+                    }
+                    field.onChange(value)
+                  }}
+                  defaultValue={field.value}
+                  className="flex flex-col space-y-1"
+                >
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <RadioGroupItem value="yes" />
+                    <FormLabel className="font-normal"> Oui </FormLabel>
+                  </FormItem>
+
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <RadioGroupItem value="no" />
+                    <FormLabel className="font-normal"> Non </FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {hasBeenHospitalized &&
+          <FormField
+            control={form.control}
+            name="hospitalizationReasons"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Quelles étaient les raisons de votre hospitalisation ?<RequiredAsterisk /></FormLabel>
+                <FormControl>
+                <Textarea
+                  placeholder="Maximum 100 mots"
+                  className="resize-none"
+                  {...field}
+                />
                 </FormControl>
                 <FormMessage />
               </FormItem>

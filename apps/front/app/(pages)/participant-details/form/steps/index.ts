@@ -10,6 +10,7 @@ export const steps: Step[] = [
     name: 'Informations Médicales',
     getValidationFields: (formState) => {
       const isOnMedication = formState?.isOnMedication === 'yes'
+      const hasBeenHospitalized = formState?.hasBeenHospitalized === 'yes'
 
       return [
         'gender',
@@ -19,6 +20,8 @@ export const steps: Step[] = [
         'specialAccommodations',
         'isOnMedication',
         ...(isOnMedication ? ['medication', 'needAssistance'] : []),
+        'hasBeenHospitalized',
+        ...(hasBeenHospitalized ? ['hospitalizationReasons'] : []),
       ]
     }
   },
@@ -34,9 +37,8 @@ export const steps: Step[] = [
         'haveRoommatePreference',
         ...(haveRoommatePreference ? ['firstRoommateId'] : []),
         'needDepartureShuttle',
-        ...(needDepartureShuttle ? ['departureCity'] : []),
         'needArrivalShuttle',
-        ...(needArrivalShuttle ? ['arrivalCity'] : []),
+        ...(needDepartureShuttle || needArrivalShuttle ? ['cityOfResidence'] : []),
       ]
     }
   },
@@ -49,6 +51,7 @@ export const steps: Step[] = [
       return [
         'haveTalent',
         ...(haveTalent ? ['talentDescription'] : []),
+        'workshops',
       ]
     }
   },

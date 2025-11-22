@@ -19,6 +19,8 @@ export const participantDetailsSchema: ZodSchema = z.object({
   isOnMedication: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   medication: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
   needAssistance: z.enum(["yes", "no"], { message: "Choisissez une option" }),
+  hasBeenHospitalized: z.enum(["yes", "no"], { message: "Choisissez une option" }),
+  hospitalizationReasons: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
 
   haveRoommatePreference: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   firstRoommateId: z.string().min(1, {message: 'Choisissez une option'}),
@@ -28,9 +30,11 @@ export const participantDetailsSchema: ZodSchema = z.object({
   departureCity: z.string().nonempty("Choisissez une option"),
   needArrivalShuttle: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   arrivalCity: z.string().nonempty("Choisissez une option"),
+  cityOfResidence: z.string().nonempty("Choisissez une option"),
 
   haveTalent: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   talentDescription: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
+  workshops: z.array(z.string()).length(4, { message: 'Vous devez classer tout les workshops' }),
 
   /* Uploads */
   filePhoto: zodFileValidation,
@@ -52,6 +56,8 @@ export const participantDetailsDefautValues = {
   isOnMedication: '',
   medication: '',
   needAssistance: '',
+  hasBeenHospitalized: '',
+  hospitalizationReasons: '',
 
   haveRoommatePreference: '',
   firstRoommateId: '',
@@ -61,9 +67,11 @@ export const participantDetailsDefautValues = {
   departureCity: '',
   needArrivalShuttle: '', 
   arrivalCity: '',
+  cityOfResidence: '',
 
   haveTalent: '',
   talentDescription: '',
+  workshops: '',
 
   /* Uploads */
   filePhoto: undefined,

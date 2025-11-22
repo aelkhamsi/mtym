@@ -149,6 +149,25 @@ export const LogisticsStep = ({
       </h2>
       <Separator className='mt-2 mb-6 bg-[#0284C7]'/>
 
+      <p className='text-gray-600 font-light text-sm mb-2'>
+        Nous organiserons des navettes pour faciliter votre venue à l&apos;université Al Akhawayn. 
+      </p>
+
+      <p className='text-gray-600 font-light text-sm mb-2'>
+        <span className='underline'>Trajet navette départ</span>: <span className='font-normal bg-gray-100 px-2 rounded-sm'> Gare de Meknès</span> ➡️ <span className='font-normal bg-gray-100 px-2 rounded-sm'>Université Al Akhawayn</span> <br/>
+        Deux navettes sont prévues le jeudi <span className='font-normal'> 25 décembre</span> : l&apos;une à <span className='font-normal'>10h</span> et l&apos;autre vers <span className='font-normal'>13h</span>.
+      </p>
+
+      <p className='text-gray-600 font-light text-sm mb-2'>
+        <span className='underline'>Trajet navette retour</span>: <span className='font-normal bg-gray-100 px-2 rounded-sm'>Université Al Akhawayn</span>  ➡️ <span className='font-normal bg-gray-100 px-2 rounded-sm'>Gare de Meknès</span> <br/>
+        Les navettes sont prévues le dimanche <span className='font-normal'> 28 décembre</span>. Les horaires seront communiqués ultérieurement.
+      </p>
+      
+      <p className='text-gray-600 font-light text-sm mb-2'>
+        Les places étant limitées, une place dans la navette n&apos;est pas garantie. <br/>
+        Si vous n&apos;avez pas réellement besoin d&apos;une navette et que vous pouvez venir directement à l&apos;université, mettez “Non” aux questions suivantes.
+      </p>
+
       <div className='grid grid-cols-1 md:grid-cols-2 gap-4 justify-between my-6'>
         {/* needDepartureShuttle */}
         <FormField
@@ -161,9 +180,9 @@ export const LogisticsStep = ({
                 <RadioGroup
                   onValueChange={(value) => {
                     setNeedDepartureShuttle(value === 'yes')
-                    if (value === 'no') {
-                      form.setValue('departureCity', '')
-                      form.clearErrors('departureCity')
+                    if (value === 'no' && !needArrivalShuttle) {
+                      form.setValue('cityOfResidence', '')
+                      form.clearErrors('cityOfResidence')
                     }
                     field.onChange(value)
                   }}
@@ -186,19 +205,6 @@ export const LogisticsStep = ({
           )}
         />
 
-        {/* Departure City */}
-        {needDepartureShuttle && 
-          <SelectOrInput
-            name="departureCity"
-            form={form}
-            label="Ville de départ"
-            options={cities}
-            required={true}
-          ></SelectOrInput>
-        }
-      </div>
-
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 justify-between my-6'>
         {/* needArrivalShuttle */}
         <FormField
           control={form.control}
@@ -210,9 +216,9 @@ export const LogisticsStep = ({
                 <RadioGroup
                   onValueChange={(value) => {
                     setNeedArrivalShuttle(value === 'yes')
-                    if (value === 'no') {
-                      form.setValue('arrivalCity', '')
-                      form.clearErrors('arrivalCity')
+                    if (value === 'no' && !needDepartureShuttle) {
+                      form.setValue('cityOfResidence', '')
+                      form.clearErrors('cityOfResidence')
                     }
                     field.onChange(value)
                   }}
@@ -235,18 +241,17 @@ export const LogisticsStep = ({
           )}
         />
 
-        {/* Arrival City */}
-        {needArrivalShuttle && 
+        {/* City of Residence */}
+        {(needDepartureShuttle || needArrivalShuttle) && 
           <SelectOrInput
-            name="arrivalCity"
+            name="cityOfResidence"
             form={form}
-            label="Ville d'arrivée"
+            label="Ville de résidence"
             options={cities}
             required={true}
           ></SelectOrInput>
         }
       </div>
-
     </motion.div>
   )
 }

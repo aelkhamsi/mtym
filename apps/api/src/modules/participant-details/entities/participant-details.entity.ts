@@ -50,6 +50,12 @@ export class ParticipantDetails {
   @Column({ type: 'text', nullable: true })
   specialAccommodations: string;
 
+  @Column({ type: 'varchar', default: '' })
+  hasBeenHospitalized: string;
+
+  @Column({ type: 'text', nullable: true })
+  hospitalizationReasons: string;
+
   // Roommates
   @Column({ type: 'varchar', default: '' })
   haveRoommatePreference: string;
@@ -73,12 +79,18 @@ export class ParticipantDetails {
   @Column({ type: 'varchar', default: '' })
   arrivalCity: string;
 
-  // Talent show
+  @Column({ type: 'varchar', default: '' })
+  cityOfResidence: string;
+
+  // Activities & Workshops
   @Column({ type: 'varchar', default: '' })
   haveTalent: string;
 
   @Column({ type: 'text', nullable: true })
   talentDescription: string;
+
+  @Column({ type: 'varchar', default: '[]' })
+  workshops: string;
 
   /* Uploads */
 
