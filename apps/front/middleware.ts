@@ -67,6 +67,9 @@ export async function middleware(req: NextRequest) {
     response.cookies.set('access_token', cookies.access_token, {
       httpOnly: true,
       maxAge: 60 * 60,
+      domain: process.env.NEXT_PUBLIC_ENV === 'production' ? '.mathmaroc.org' : undefined,
+      secure: process.env.NEXT_PUBLIC_ENV === 'production',
+      sameSite: process.env.NEXT_PUBLIC_ENV === 'production' ? 'none' : 'lax',
     })
     return response
   }
