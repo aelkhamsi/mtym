@@ -23,7 +23,7 @@ const RankedSelect = ({
   const [remainingOptions, setRemainingOptions] = useState<WorkshopOption[]>([])
 
   useEffect(() => {
-    const chosenValues = form.getValues(name) ?? []
+    const chosenValues = Array.isArray(form.getValues(name)) ? form.getValues(name) : []
     const chosen = chosenValues?.map((value: string) => options.find(option => option.value === value)) as WorkshopOption[]
     options.filter(option => chosenValues.includes(option.value))
     const remaining = options.filter(option => !chosenValues.includes(option.value))
