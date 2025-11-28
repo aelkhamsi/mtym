@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server"
-import { cookies } from 'next/headers';
 
 const validateToken = (token: string): boolean => {
   const payload = JSON.parse(atob(token.split('.')[1]));

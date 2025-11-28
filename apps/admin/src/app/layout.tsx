@@ -9,6 +9,7 @@ import { getAdminUserById } from '@/api/AdminUsersApi';
 import RootProvider from './root-provider';
 import { getAllApplications } from '@/api/ApplicationApi';
 import { getAllTeams } from '@/api/TeamApi';
+import { getAllParticipantDetails } from '@/api/ParticipantDetailsApi';
 
 export const metadata: Metadata = {
   title: "MTYM 2025 Admin",
@@ -23,6 +24,7 @@ export default async function RootLayout({
   const session = await getSessionCookie(cookieStore) as any
   const adminUser = await getAdminUserById(session?.id, cookieStore) as any
   const applications = await getAllApplications(cookieStore) as any[]
+  const participantDetails = await getAllParticipantDetails(cookieStore) as any[]
   const teams = await getAllTeams(cookieStore) as any[]
   const users = await getAllUsers(cookieStore) as any[]
 
@@ -32,6 +34,7 @@ export default async function RootLayout({
         <RootProvider
           adminUser={adminUser}
           applications={applications}
+          participantDetails={participantDetails}
           teams={teams}
           users={users}
         >
