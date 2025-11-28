@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-
-const PROTECTED_ROUTES = ['/home']
+import { cookies } from 'next/headers';
 
 const validateToken = (token: string): boolean => {
   const payload = JSON.parse(atob(token.split('.')[1]));
@@ -22,6 +21,22 @@ const extractCookies = (res: Response): Record<string, string> => {
   return cookies
 }
 
+const handleAuthenticatedUser = (req: NextRequest, pathname: string) => {
+  if (pathname.startsWith('/home')) return NextResponse.next()
+  return NextResponse.redirect(new URL('/home', req.url))
+}
+
+const handleUnauthenticatedUser = (req: NextRequest, pathname: string) => {
+  if (pathname.startsWith('/login')) {
+    return NextResponse.next()
+  }
+
+  const res = NextResponse.redirect(new URL('/login', req.url))
+  res.cookies.delete('access_token')
+  res.cookies.delete('refresh_token')
+  return res
+}
+
 export async function middleware(req: NextRequest) {
   const maintenanceMode = false
   if (maintenanceMode) {
@@ -30,23 +45,16 @@ export async function middleware(req: NextRequest) {
   }
 
   const pathname = req.nextUrl.pathname
-  const isProtected = PROTECTED_ROUTES.some(route => pathname.startsWith(route))
   const accessToken = req.cookies.get('access_token')?.value
   const refreshToken = req.cookies.get('refresh_token')?.value  
   const isValidToken = (token?: string) => token && validateToken(token)
-  const redirectToLogin = () => {
-    const res = NextResponse.redirect(new URL('/login', req.url))
-    res.cookies.delete('access_token')
-    res.cookies.delete('refresh_token')
-    return res
+
+  if (isValidToken(accessToken)) {
+    return handleAuthenticatedUser(req, pathname)
   }
 
-  if (!isValidToken(accessToken)) {
-    if (!isValidToken(refreshToken)) {
-      if (isProtected) return redirectToLogin()
-      return NextResponse.next()
-    }
-
+  if (isValidToken(refreshToken)) {
+    console.log('refresh access token')
     const refreshUrl = process.env.NEXT_PUBLIC_API_ENDPOINT + '/auth/refresh/admin';
     const refreshRes = await fetch(refreshUrl, {
       method: 'POST',
@@ -56,26 +64,26 @@ export async function middleware(req: NextRequest) {
       },
       cache: "no-store"
     })
-    
+
     if (!refreshRes?.ok) {
-      if (isProtected) return redirectToLogin()
-      return NextResponse.next()
+      return handleUnauthenticatedUser(req, pathname)
     }
-    
+
     const cookies = extractCookies(refreshRes)
-    const response = NextResponse.next()
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set('cookie', `access_token=${cookies.access_token}`);
+    const response = NextResponse.next({request: { headers: requestHeaders }})
     response.cookies.set('access_token', cookies.access_token, {
       httpOnly: true,
       maxAge: 60 * 60,
+      domain: process.env.NEXT_PUBLIC_ENV === 'production' ? '.mathmaroc.org' : undefined,
+      secure: process.env.NEXT_PUBLIC_ENV === 'production',
+      sameSite: process.env.NEXT_PUBLIC_ENV === 'production' ? 'none' : 'lax',
     })
     return response
   }
 
-  if (pathname.startsWith('/login')) {
-    return NextResponse.redirect(new URL('/home', req.url))
-  }
-
-  return NextResponse.next()
+  return handleUnauthenticatedUser(req, pathname)
 }
 
 export const config = {
