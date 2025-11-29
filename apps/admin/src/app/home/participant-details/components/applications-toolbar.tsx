@@ -7,6 +7,7 @@ import { ApplicationsViewOptions } from "./applications-view-options"
 import { FileTextIcon } from "@radix-ui/react-icons"
 import axios from 'axios-typescript';
 import { getToken } from "@/lib/utils"
+import { cookies } from "next/headers"
 
 export interface ApplicationsToolbarProps<TData> {
   table: Table<TData>
@@ -17,20 +18,22 @@ export function ApplicationsToolbar<TData>({
 }: ApplicationsToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const onExportData = async () => {
-    axios({
-      url: process.env.NEXT_PUBLIC_API_ENDPOINT + `/excel/applications`,
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-      responseType: 'blob', // important
-    }).then((response: any) => {
-      const url = window.URL.createObjectURL(new Blob([response.data]));
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/excel/applications`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    )
+    .then(res => res.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
       const link = document?.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'applications.xlsx'); //or any other extension
+      link.setAttribute('download', 'applications.xlsx');
       document.body.appendChild(link);
       link.click();
+      link.remove();
       window.URL.revokeObjectURL(url);
     });
   }
