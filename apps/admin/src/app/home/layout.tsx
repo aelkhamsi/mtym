@@ -18,9 +18,7 @@ export default function HomeLayout({
   children: React.ReactNode;
 }>) {
   const adminUser = useAtomValue(adminUserAtom);
-  const participantDetails = useAtomValue(participantDetailsAtom)
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  console.log('participantDetails', participantDetails)
 
   useEffect(() => {
     if (adminUser) {

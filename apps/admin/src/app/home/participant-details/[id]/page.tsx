@@ -16,6 +16,7 @@ import ApplicationStatus from '../components/application-status';
 import FilesTable from './files-table';
 import { useAtomValue } from 'jotai';
 import { applicationsAtom } from '@/store/applicationsAtom';
+import { participantDetailsAtom } from '@/store/participantDetailsAtom';
 
 const regionLabels = {
   'tanger-tetouan-al-houceima': "Tanger-Tétouan-Al Hoceïma",
@@ -88,14 +89,18 @@ const Field = ({
 
 export default function ApplicationDetailsPage({ params }: { params: { id: string } }) {
   const applications = useAtomValue(applicationsAtom)
+  const participantsDetails = useAtomValue(participantDetailsAtom)
   const [application, setApplication] = useState<any>(undefined);
+  const [participantDetails, setParticipantDetails] = useState<any>(undefined);
   const id = parseInt(params.id);
   const router = useRouter();
 
   useEffect(() => {
     if (applications) {
-      const searchResult = applications.find((application: any) => application?.id === id)
-      setApplication(searchResult)
+      const searchApplication = applications.find((application: any) => application?.id === id)
+      setApplication(searchApplication)
+      const searchParticipantsDetail = participantsDetails.find((details: any) => details?.id === id)
+      setParticipantDetails(searchParticipantsDetail)
     }
   }, [applications])
 
@@ -103,7 +108,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
     <>
       {application
         ? (
-          <Tabs defaultValue="personal-informations" className='space-y-8'>
+          <Tabs defaultValue="medical-information" className='space-y-8'>
             <div 
               className='font-semibold flex cursor-pointer'
               onClick={() => router.push('/home/applications')}
@@ -115,35 +120,42 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
               className='font-semibold text-2xl flex justify-between'
             >
               <div>
-                Application of <span className='bg-gradient-to-br from-sky-800 to-[#272162] inline-block text-transparent bg-clip-text'>{application?.firstName} {application?.lastName}</span>
+                Participant Details of <span className='bg-gradient-to-br from-sky-800 to-[#272162] inline-block text-transparent bg-clip-text'>{participantDetails?.user?.firstName} {participantDetails?.user?.lastName}</span>
               </div>
 
-              <ApplicationStatus applicationId={application?.id} status={application?.status?.status} />
+              <ApplicationStatus status={participantDetails?.status} />
             </div>
 
             <TabsList className="flex justify-start space-x-8 h-[4rem] bg-slate-200 text-black">
-              <TabsTrigger value="personal-informations" className='text-base h-full'>Personal Informations</TabsTrigger>
-              <TabsTrigger value="education" className='text-base h-full'>Education</TabsTrigger>
-              <TabsTrigger value="competition" className='text-base h-full'>Motivation</TabsTrigger>
+              <TabsTrigger value="medical-information" className='text-base h-full'>Medical Information</TabsTrigger>
+              <TabsTrigger value="logistics" className='text-base h-full'>Logistics</TabsTrigger>
+              <TabsTrigger value="activities-workshops" className='text-base h-full'>Activities & Workshops</TabsTrigger>
               <TabsTrigger value="uploads" className='text-base h-full'>Uploads</TabsTrigger>
             </TabsList>
             <Separator className="my-6" />
 
             {/* PERSONAL INFORMARIONS */}
-            <TabsContent value="personal-informations">
+            <TabsContent value="medical-information">
               <div className='space-y-6'>
-                <Field label='First name'>{renderText(application?.firstName)}</Field>
-                <Field label='Last name'>{renderText(application?.lastName)}</Field>
-                <Field label='Date of birth'>{renderText(formatDate(application?.dateOfBirth))}</Field>
-                <Field label='CNIE number'>{renderText(application?.identityCardNumber)}</Field>
-                <Field label='City of residence'>{renderText(application?.city)}</Field>
-                <Field label='Region of residence'>{renderText(regionLabels[application?.region])}</Field>
-                <Field label='Phone number'>{renderText(application?.phoneNumber)}</Field>
+                <Field label='Genre'>{renderText(participantDetails?.gender)}</Field>
+                <Separator className="my-6" />
+                <Field label='Allergies Alimentaires'>{renderText(participantDetails?.foodAllergy)}</Field>
+                <Field label='Allergies non Alimentaires'>{renderText(participantDetails?.nonFoodAllergy)}</Field>
+                <Field label='En cas de réaction allergique, des précautions sont-elles nécessaires (procédure, médicament spécifiques...) ?'>{renderText(participantDetails?.allergyPrecaution)}</Field>
+                <Separator className="my-6" />
+                <Field label='Souffrez-vous d’une maladie chronique ou d’un handicap ?'>{renderText(participantDetails?.illnessOrDisability)}</Field>
+                <Field label="Avez-vous besoin d'un aménagement ou d'une attention particulière pendant le tournoi ?">{renderText(participantDetails?.specialAccommodations)}</Field>
+                <Field label="Suivez-vous actuellement un traitement médical ?">{renderText(participantDetails?.isOnMedication)}</Field>
+
+                <Field label="Veuillez préciser les médicaments que vous prenez, et à quel moment de la journée">{renderText(participantDetails?.medication)}</Field>
+                <Field label="Avez-vous besoin d'une assistance pour la prise de médicament ?">{renderText(participantDetails?.needAssistance)}</Field>
+                <Field label="Avez-vous déjà été hospitalisé ?">{renderText(participantDetails?.hasBeenHospitalized)}</Field>
+                <Field label="Quelles étaient les raisons de votre hospitalisation ?">{renderText(participantDetails?.hospitalizationReasons)}</Field>
               </div>
             </TabsContent>
             
             {/* EDUCATION */}
-            <TabsContent value="education">
+            <TabsContent value="logistics">
               <div className='space-y-6'>
                 <Field label='Education Level'>{renderText(educationLevelsLabels[application?.educationLevel])}</Field>
                 <Field label='University Type'>{renderText(educationFieldsLabels[application?.educationField])}</Field>
@@ -158,7 +170,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
             </TabsContent>
               
             {/* COMPETTION */}
-            <TabsContent value="competition">
+            <TabsContent value="activities-workshops">
               <div className='space-y-6'>
                 <Field label='Avez-vous déjà participé à des compétitions auparavant ? (Olympiades, concours, etc.)?'>{renderText(booleanLabels[application?.hasPreviousExperiences])}</Field>
                 <Field label='Veuillez préciser lesquels et le résultat obtenu.'>{renderText(application?.previousExperiences)}</Field>
@@ -178,7 +190,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
             {/* UPLOADS */}
             <TabsContent value="uploads">
               <div className='md:flex space-y-4 md:space-x-4 md:space-y-0 mt-8'>
-                <FilesTable application={application} />
+                <FilesTable participantDetails={participantDetails} />
               </div>
             </TabsContent>
           </Tabs>

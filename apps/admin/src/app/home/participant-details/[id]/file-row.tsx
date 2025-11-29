@@ -2,7 +2,6 @@ import {
   TableRow,
   TableCell
 } from "@/components/shared/table";
-import { FileStatus } from "./file-status";
 import Link from "next/link";
 import { FileIcon } from "@/components/shared/icons";
 
@@ -31,18 +30,15 @@ const FileRow = ({
   key,
   fileName,
   fileUrl,
-  fileStatus,
 }:{
   key: string,
   fileName: string
   fileUrl: string,
-  fileStatus: FileStatus,
 }) => {
   return (
     <TableRow key={key}>
       <TableCell>{fileName}</TableCell>
       <TableCell><FileCard href={fileUrl} /></TableCell>
-      <TableCell>{fileStatus}</TableCell>
     </TableRow>
   )
 }

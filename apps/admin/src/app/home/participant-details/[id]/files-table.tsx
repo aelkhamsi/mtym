@@ -31,9 +31,9 @@ const FileCard = ({
 }
 
 const FilesTable = ({
-  application
+  participantDetails
 }:{
-  application: any
+  participantDetails: any
 }) => {
   return (
     <Table>
@@ -41,39 +41,23 @@ const FilesTable = ({
         <TableRow>
           <TableHead>File</TableHead>
           <TableHead>Link</TableHead>
-          <TableHead>Status</TableHead>
         </TableRow>
       </TableHeader>
 
       <TableBody>
-        {application?.fileCnieUrl && 
+        {participantDetails?.filePhotoUrl && 
           <TableRow key='cnie'>
-            <TableCell>CNIE</TableCell>
-            <TableCell><FileCard href={application?.fileCnieUrl} /></TableCell>
+            <TableCell>Photo</TableCell>
+            <TableCell><FileCard href={participantDetails?.filePhotoUrl} /></TableCell>
           </TableRow>
         }
 
-        {application?.fileSchoolCertificateUrl && 
+        {participantDetails?.fileParentalAuthorizationUrl && 
           <TableRow key='school-certificate'>
-            <TableCell>School Certificate</TableCell>
-            <TableCell><FileCard href={application?.fileSchoolCertificateUrl} /></TableCell>
+            <TableCell>Parental Authorization</TableCell>
+            <TableCell><FileCard href={participantDetails?.fileParentalAuthorizationUrl} /></TableCell>
           </TableRow>
         }
-
-        {application?.fileGradesUrl && 
-          <TableRow key='grades'>
-            <TableCell>Grades</TableCell>
-            <TableCell><FileCard href={application?.fileGradesUrl} /></TableCell>
-          </TableRow>
-        }
-
-        {application?.fileRegulationsUrl && 
-          <TableRow key='regulations'>
-            <TableCell>Regulations</TableCell>
-            <TableCell><FileCard href={application?.fileRegulationsUrl} /></TableCell>
-          </TableRow>
-        }
-        
       </TableBody>
     </Table>
   )
