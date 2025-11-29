@@ -39,7 +39,7 @@ export default function HomeLayout({
               <UsersIcon className="h-4 w-4" />
               Applications
             </NavItem>
-            <NavItem href="/home/participant-details" className="h-12">
+            <NavItem href="/home/participant-details?page=1" className="h-12">
               <UsersIcon className="h-4 w-4" />
               Participant Details
             </NavItem>

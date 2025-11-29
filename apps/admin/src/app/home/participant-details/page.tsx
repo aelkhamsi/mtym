@@ -1,6 +1,6 @@
 "use client"
 
-import { ApplicationsTable } from "@/app/home/applications/components/applications-table";
+import { ApplicationsTable } from "@/app/home/participant-details/components/applications-table";
 import { columns } from "./components/columns";
 import { ApplicationRow } from "./components/columns";
 import { useEffect, useState } from "react";

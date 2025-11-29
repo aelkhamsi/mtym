@@ -14,6 +14,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/shared/select"
+import { useSearchParams } from "next/navigation";
+import { useRouter } from 'next/navigation'
+import { useEffect } from "react";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
@@ -22,6 +25,28 @@ interface DataTablePaginationProps<TData> {
 export function ApplicationsPagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const page = searchParams.get('page')
+  const pageCount = table.getPageCount()
+  
+  const updateQueryParams = (newPage: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", `${newPage}`);
+    router.push(`?${params.toString()}`, { scroll: false });
+  }
+
+  useEffect(() => {
+    if (!pageCount) return;
+
+    if (page && +page <= pageCount) {
+      table.setPageIndex(+page-1)
+    }
+
+    table.setPageIndex(pageCount-1)
+    updateQueryParams(pageCount)    
+  }, [pageCount])
+
   const pageSizes = [
     {label: '10', value: 10},
     {label: '20', value: 20},
@@ -31,10 +56,6 @@ export function ApplicationsPagination<TData>({
 
   return (
     <div className="flex items-center justify-between px-2 py-4">
-      <div className="flex-1 text-sm text-muted-foreground">
-        {/* {table.getFilteredSelectedRowModel().rows.length} of{" "}
-        {table.getFilteredRowModel().rows.length} row(s) selected. */}
-      </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Rows per page</p>
@@ -42,6 +63,7 @@ export function ApplicationsPagination<TData>({
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={(value) => {
               table.setPageSize(Number(value))
+              updateQueryParams(table.getState().pagination.pageIndex + 1)
             }}
           >
             <SelectTrigger className="h-8 w-[70px]">
