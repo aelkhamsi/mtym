@@ -37,14 +37,17 @@ export function ApplicationsPagination<TData>({
   }
 
   useEffect(() => {
-    if (!pageCount) return;
+    if (!pageCount || !page) return;
 
-    if (page && +page <= pageCount) {
+    if (+page < 1) {
+      table.setPageIndex(0)
+      updateQueryParams(1)
+    } else if (+page <= pageCount) {
       table.setPageIndex(+page-1)
+    } else {
+      table.setPageIndex(pageCount-1)
+      updateQueryParams(pageCount)
     }
-
-    table.setPageIndex(pageCount-1)
-    updateQueryParams(pageCount)    
   }, [pageCount])
 
   const pageSizes = [
@@ -86,7 +89,10 @@ export function ApplicationsPagination<TData>({
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
-            onClick={() => table.setPageIndex(0)}
+            onClick={() => {
+              table.setPageIndex(0)
+              updateQueryParams(1)
+            }}
             disabled={!table.getCanPreviousPage()}
           >
             <span className="sr-only">Go to first page</span>
@@ -95,7 +101,10 @@ export function ApplicationsPagination<TData>({
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
-            onClick={() => table.previousPage()}
+            onClick={() => {
+              table.previousPage()
+              updateQueryParams(table.getState().pagination.pageIndex)
+            }}
             disabled={!table.getCanPreviousPage()}
           >
             <span className="sr-only">Go to previous page</span>
@@ -104,7 +113,10 @@ export function ApplicationsPagination<TData>({
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
-            onClick={() => table.nextPage()}
+            onClick={() => {
+              table.nextPage()
+              updateQueryParams(table.getState().pagination.pageIndex + 2)
+            }}
             disabled={!table.getCanNextPage()}
           >
             <span className="sr-only">Go to next page</span>
@@ -113,7 +125,10 @@ export function ApplicationsPagination<TData>({
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            onClick={() => {
+              table.setPageIndex(table.getPageCount()-1)
+              updateQueryParams(table.getPageCount())
+            }}
             disabled={!table.getCanNextPage()}
           >
             <span className="sr-only">Go to last page</span>
