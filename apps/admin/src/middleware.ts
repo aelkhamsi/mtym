@@ -53,7 +53,6 @@ export async function middleware(req: NextRequest) {
   }
 
   if (isValidToken(refreshToken)) {
-    console.log('refresh access token')
     const refreshUrl = process.env.NEXT_PUBLIC_API_ENDPOINT + '/auth/refresh/admin';
     const refreshRes = await fetch(refreshUrl, {
       method: 'POST',

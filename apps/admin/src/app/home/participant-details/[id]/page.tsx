@@ -61,7 +61,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
           <Tabs defaultValue="medical-information" className='space-y-8'>
             <div 
               className='font-semibold flex cursor-pointer'
-              onClick={() => router.push('/home/applications')}
+              onClick={() => router.back()}
             >
               <ExpandingArrow className='rotate-180 mr-2'/> {"  "} Back
             </div>
