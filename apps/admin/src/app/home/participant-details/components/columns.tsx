@@ -5,7 +5,6 @@ import ApplicationStatus, { Status } from './application-status'
 import { Button } from '@/components/shared/button'
 import { useRouter } from 'next/navigation'
 import { ArrowUpDown } from 'lucide-react'
-import ApplicationEducationLevel from './application-education-level'
 
 export type ApplicationRow = {
   id: string
@@ -90,9 +89,6 @@ export const columns: ColumnDef<ApplicationRow>[] = [
       
       return <ApplicationStatus status={status} />
     },
-    // filterFn: (row, id, value) => {
-    //   return value.includes(row.getValue(id))
-    // },
   },
   {
     id: "actionButton",

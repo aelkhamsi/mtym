@@ -4,8 +4,6 @@ import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
 import { Button } from "@/components/shared/button"
 import { ApplicationsViewOptions } from "./applications-view-options"
-import { statusOptions } from "./application-status"
-import { ApplicationsFacetedFilter } from "./applications-faceted-filter"
 import { FileTextIcon } from "@radix-ui/react-icons"
 import axios from 'axios-typescript';
 import { getToken } from "@/lib/utils"
@@ -40,13 +38,6 @@ export function ApplicationsToolbar<TData>({
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        {table.getColumn("status") && (
-          <ApplicationsFacetedFilter
-            column={table.getColumn("status")}
-            title="Status"
-            options={statusOptions}
-          />
-        )}
         {isFiltered && (
           <Button
             variant="ghost"
