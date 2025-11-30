@@ -19,7 +19,7 @@ export function ApplicationsToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0
   const onExportData = async () => {
     fetch(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/excel/applications`,
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/excel/participant-details`,
       {
         method: "GET",
         credentials: "include",
@@ -30,7 +30,7 @@ export function ApplicationsToolbar<TData>({
       const url = window.URL.createObjectURL(blob);
       const link = document?.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'applications.xlsx');
+      link.setAttribute('download', 'participant-details.xlsx');
       document.body.appendChild(link);
       link.click();
       link.remove();

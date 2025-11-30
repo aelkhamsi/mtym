@@ -1,4 +1,4 @@
-export const styleSheet = (sheet) => {
+export const styleApplicationsSheet = (sheet) => {
   // id style
   for (let i = 1; i <= 1; i++) {
     sheet.getColumn(i).fill = {
@@ -94,3 +94,101 @@ export const styleSheet = (sheet) => {
     right: { style: 'thin', color: { argb: 'FFFFFF' } },
   };
 };
+
+export const styleParticipantDetailsSheet = (sheet) => {
+  // id style
+  for (let i = 1; i <= 2; i++) {
+    sheet.getColumn(i).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      bgColor: { argb: 'ffe380' },
+      fgColor: { argb: 'ffe380' },
+    };
+  }
+
+  // personal informations style
+  for (let i = 3; i <= 5; i++) {
+    sheet.getColumn(i).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      bgColor: { argb: 'FFFDDB' },
+      fgColor: { argb: 'FFFDDB' },
+    };
+  }
+
+  // education style
+  for (let i = 6; i <= 15; i++) {
+    sheet.getColumn(i).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      bgColor: { argb: 'E4FFDE' },
+      fgColor: { argb: 'E4FFDE' },
+    };
+  }
+
+  // motivations style
+  for (let i = 16; i <= 18; i++) {
+    sheet.getColumn(i).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      bgColor: { argb: '8ecaff' },
+      fgColor: { argb: '8ecaff' },
+    };
+  }
+
+  // files style
+  for (let i = 19; i <= 21; i++) {
+    sheet.getColumn(i).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      bgColor: { argb: 'DAEAF6' },
+      fgColor: { argb: 'DAEAF6' },
+    };
+  }
+
+  // status style
+  for (let i = 22; i <= 24; i++) {
+    sheet.getColumn(i).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      bgColor: { argb: 'ffe380' },
+      fgColor: { argb: 'ffe380' },
+    };
+  }
+
+  // team style
+  for (let i = 25; i <= 26; i++) {
+    sheet.getColumn(i).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      bgColor: { argb: 'c6875e' },
+      fgColor: { argb: 'c6875e' },
+    };
+  }
+
+  // header style
+  sheet.getRow(1).height = 70;
+  sheet.getRow(1).font = {
+    size: 11.5,
+    bold: true,
+    color: { argb: 'FFFFFF' },
+  };
+  sheet.getRow(1).fill = {
+    type: 'pattern',
+    pattern: 'solid',
+    bgColor: { argb: '272163' },
+    fgColor: { argb: '272163' },
+  };
+  sheet.getRow(1).alignment = {
+    vertical: 'middle',
+    horizontal: 'center',
+    wrapText: true,
+  };
+  sheet.getRow(1).border = {
+    top: { style: 'thin', color: { argb: 'FFFFFF' } },
+    left: { style: 'thin', color: { argb: 'FFFFFF' } },
+    bottom: { style: 'thin', color: { argb: 'FFFFFF' } },
+    right: { style: 'thin', color: { argb: 'FFFFFF' } },
+  };
+};
+
