@@ -28,7 +28,6 @@ export class ParticipantDetailsService {
     return this.participantDetailsRepository
       .createQueryBuilder('participant-details')
       .leftJoinAndSelect('participant-details.user', 'user')
-      .leftJoinAndSelect('user.application', 'application')
       .getMany();
   }
 
