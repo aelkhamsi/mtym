@@ -1,4 +1,4 @@
-export const columns = [
+export const applicationsColumns = [
   { header: 'Id', key: 'id', width: 5 },
   { header: 'First Name', key: 'first-name', width: 15 },
   { header: 'Last Name', key: 'last-name', width: 15 },
@@ -52,3 +52,40 @@ export const columns = [
   { header: 'Team Name', key: 'team_name', width: 10 },
   { header: 'Team Quadrigram', key: 'team_quadrigram', width: 10 },
 ];
+
+export const participantDetailsColumns = [
+  { header: 'Id', key: 'id', width: 5 },
+  { header: 'User Id', key: 'user-id', width: 5 },
+  { header: 'First Name', key: 'first-name', width: 15 },
+  { header: 'Last Name', key: 'last-name', width: 15 },
+  { header: 'Gender', key: 'gender', width: 15 },
+
+  { header: 'Food Allergy', key: 'food-allergy', width: 20 },
+  { header: 'Non-Food Allergy', key: 'non-food-allergy', width: 20 },
+  { header: 'Allergy Precaution', key: 'allergy-precaution', width: 25 },
+  { header: 'Illness or Disability', key: 'illness-or-disability', width: 25 },
+  { header: 'Is On Medication', key: 'is-on-medication', width: 15 },
+  { header: 'Medication', key: 'medication', width: 25 },
+  { header: 'Need Assistance', key: 'need-assistance', width: 15 },
+  { header: 'Special Accommodations', key: 'special-accommodations', width: 25 },
+  { header: 'Has Been Hospitalized', key: 'has-been-hospitalized', width: 20 },
+  { header: 'Hospitalization Reasons', key: 'hospitalization-reasons', width: 30 },
+
+  { header: 'Have Roommate Preference', key: 'have-roommate-preference', width: 10 },
+  { header: 'First Roommate', key: 'first-roommate-id', width: 20 },
+  { header: 'Second Roommate', key: 'second-roommate-id', width: 20 },
+
+  { header: 'Need Departure Shuttle', key: 'need-departure-shuttle', width: 10 },
+  { header: 'Need Arrival Shuttle', key: 'need-arrival-shuttle', width: 10 },
+  { header: 'City of Residence', key: 'city-of-residence', width: 10 },
+
+  { header: 'Have Talent', key: 'have-talent', width: 10 },
+  { header: 'Talent Description', key: 'talent-description', width: 20 },
+  { header: 'Workshops', key: 'workshops', width: 45 },
+
+  { header: 'Photo', key: 'regulations', width: 10 },
+  { header: 'Parental Authorization', key: 'cnie', width: 10 },
+
+  { header: 'Status', key: 'status', width: 15 },
+];
+

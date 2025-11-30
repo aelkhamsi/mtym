@@ -20,7 +20,8 @@ async function main() {
   try {
     const result = await dataSource.query(`
       UPDATE \`participant-details\`
-      SET status = 'DRAFTED';
+      SET status = 'COMPLETE'
+      WHERE status = 'COMPLETED';
     `);
     console.log('✅ Query executed successfully:', result);
   } catch (err) {

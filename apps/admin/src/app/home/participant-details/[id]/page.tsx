@@ -15,6 +15,8 @@ import ApplicationStatus from '../components/application-status';
 import FilesTable from './files-table';
 import { useAtomValue } from 'jotai';
 import { participantDetailsAtom } from '@/store/participantDetailsAtom';
+import { cityLabels, foodAllergyLabels, illnessOrDisabilityLabels, nonFoodAllergyLabels, workshopLabels } from './select-options';
+import { usersAtom } from '@/store/usersAtom';
 
 const booleanLabels = {
   "yes": "Oui",
@@ -26,6 +28,16 @@ const renderText = (value: any) => {
   return value
     ? value
     : <span className='text-gray-400'>(empty)</span>
+}
+
+const renderList = (valuesList: string, labels: Record<string, string>, className?: string) => {
+  return (
+    <ul className={`list-disc pl-4 ${className}`}> 
+      {JSON.parse(valuesList ?? '[]')?.map((value: string) => 
+        <li> {labels[value] ?? value} </li>
+      )}
+    </ul>
+  )
 }
 
 const Field = ({
@@ -42,15 +54,23 @@ const Field = ({
 }
 
 export default function ApplicationDetailsPage({ params }: { params: { id: string } }) {
+  const users = useAtomValue(usersAtom)
   const participantsDetails = useAtomValue(participantDetailsAtom)
   const [participantDetails, setParticipantDetails] = useState<any>(undefined);
+  const [firstRoommate, setFirstRoommate] = useState<any>(undefined);
+  const [secondRoommate, setSecondRoommate] = useState<any>(undefined);
   const id = parseInt(params.id);
   const router = useRouter();
+  const getUserById = (id: number) => {
+    return users.find((user: any) => user.id === id)
+  }
 
   useEffect(() => {
     if (participantsDetails) {
       const searchParticipantDetails = participantsDetails.find((details: any) => details?.id === id)
       setParticipantDetails(searchParticipantDetails)
+      setFirstRoommate(getUserById(+searchParticipantDetails?.firstRoommateId))
+      setSecondRoommate(getUserById(+searchParticipantDetails?.secondRoommateId))
     }
   }, [participantsDetails])
 
@@ -89,11 +109,11 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
               <div className='space-y-6'>
                 <Field label='Genre'>{renderText(participantDetails?.gender)}</Field>
                 <Separator />
-                <Field label='Allergies Alimentaires'>{renderText(participantDetails?.foodAllergy)}</Field>
-                <Field label='Allergies non Alimentaires'>{renderText(participantDetails?.nonFoodAllergy)}</Field>
+                <Field label='Allergies Alimentaires'>{renderList(participantDetails?.foodAllergy, foodAllergyLabels)}</Field>
+                <Field label='Allergies non Alimentaires'>{renderList(participantDetails?.nonFoodAllergy, nonFoodAllergyLabels)}</Field>
                 <Field label='En cas de réaction allergique, des précautions sont-elles nécessaires (procédure, médicament spécifiques...) ?'>{renderText(participantDetails?.allergyPrecaution)}</Field>
                 <Separator />
-                <Field label='Souffrez-vous d’une maladie chronique ou d’un handicap ?'>{renderText(participantDetails?.illnessOrDisability)}</Field>
+                <Field label='Souffrez-vous d’une maladie chronique ou d’un handicap ?'>{renderList(participantDetails?.illnessOrDisability, illnessOrDisabilityLabels)}</Field>
                 <Field label="Avez-vous besoin d'un aménagement ou d'une attention particulière pendant le tournoi ?">{renderText(participantDetails?.specialAccommodations)}</Field>
                 <Field label="Suivez-vous actuellement un traitement médical ?">{renderText(participantDetails?.isOnMedication)}</Field>
 
@@ -104,26 +124,26 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
               </div>
             </TabsContent>
             
-            {/* EDUCATION */}
+            {/* Logistics */}
             <TabsContent value="logistics">
               <div className='space-y-6'>
                 <Field label='Souhaites-tu partager ta chambre avec quelqu’un en particulier ?'>{renderText(participantDetails?.haveRoommatePreference)}</Field>
-                <Field label='1er co-chambre'>{renderText(participantDetails?.firstRoommateId)}</Field>
-                <Field label='2iem co-chambre'>{renderText(participantDetails?.secondRoommateId)}</Field>
+                <Field label='1er co-chambre'>{firstRoommate ? `${firstRoommate?.firstName} ${firstRoommate?.lastName}` : <span className='text-gray-400'>(empty)</span>}</Field>
+                <Field label='2iem co-chambre'>{secondRoommate ? `${secondRoommate?.firstName} ${secondRoommate?.lastName}` : <span className='text-gray-400'>(empty)</span>}</Field>
                 <Separator />
                 <Field label="As-tu besoin d'une navette pour l'aller ?">{renderText(participantDetails?.needDepartureShuttle)}</Field>
                 <Field label="As-tu besoin d'une navette pour le retour ?">{renderText(participantDetails?.needArrivalShuttle)}</Field>
-                <Field label='Ville de résidence'>{renderText(participantDetails?.cityOfResidence)}</Field>
+                <Field label='Ville de résidence'>{cityLabels[participantDetails?.cityOfResidence]}</Field>
               </div>
             </TabsContent>
               
-            {/* COMPETTION */}
+            {/* Activities & Workshops */}
             <TabsContent value="activities-workshops">
               <div className='space-y-6'>
                 <Field label='Souhaites-tu présenter un talent sur scène lors du Talent Show ?'>{renderText(participantDetails?.haveTalent)}</Field>
                 <Field label='Décrivez-nous votre talent, et si vous avez besoin de matériel (musique, micro, etc)'>{renderText(participantDetails?.talentDescription)}</Field>
                 <Separator />
-                <Field label='Workshops'>{renderText(participantDetails?.workshops)}</Field>
+                <Field label='Workshops'>{renderList(participantDetails?.workshops, workshopLabels, 'list-decimal')}</Field>
               </div>
             </TabsContent>
             

@@ -4,7 +4,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGenerate
 enum ParticipantDetailsStatus {
   NOT_STARTED = 'NOT_STARTED',
   DRAFTED = 'DRAFTED',
-  COMPLETED = 'COMPLETED',
+  COMPLETE = 'COMPLETE',
 }
 
 @Entity({ name: 'participant-details' })

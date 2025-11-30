@@ -1,15 +1,20 @@
+import * as tmp from 'tmp';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Workbook } from 'exceljs';
-import { ApplicationService } from 'src/modules/application/services/application.service';
-import * as tmp from 'tmp';
 import { ConfigService } from '@nestjs/config';
-import { rowFactory as applicationRowFactory } from '../config/applications.excel';
-import { styleSheet as styleApplicationsSheet } from '../config/style.excel';
-import { columns as applicationColumns } from '../config/columns.excel';
+import { ApplicationService } from 'src/modules/application/services/application.service';
+import { ParticipantDetailsService } from 'src/modules/participant-details/participant-details.service';
+import { UserService } from 'src/modules/user/services/user.service';
+import { applicationsColumns, participantDetailsColumns } from '../config/columns.excel';
+import { applicationsRowFactory, participantDetailsRowFactory } from '../config/rows.excel';
+import { styleApplicationsSheet, styleParticipantDetailsSheet } from '../config/style.excel';
+
 @Injectable()
 export class ExcelService {
   constructor(
     private readonly applicationService: ApplicationService,
+    private readonly participantDetailsService: ParticipantDetailsService,
+    private readonly usersService: UserService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -18,12 +23,12 @@ export class ExcelService {
     const sheet = workbook.addWorksheet('applications');
 
     // colums
-    sheet.columns = applicationColumns;
+    sheet.columns = applicationsColumns;
 
     // rows
     const rows = [];
     const result = await this.applicationService.findAll();
-    const applications = applicationRowFactory(result, this.configService);
+    const applications = applicationsRowFactory(result, this.configService);
     applications.forEach((application: any) => {
       rows.push(Object.values(application));
     });
@@ -37,6 +42,52 @@ export class ExcelService {
         {
           discardDescriptor: true,
           prefix: 'applications',
+          postfix: '.xlsx',
+          mode: parseInt('0600', 8),
+        },
+        async (err, file) => {
+          if (err) throw new BadRequestException(err);
+
+          workbook.xlsx
+            .writeFile(file)
+            .then((_) => {
+              resolve(file);
+            })
+            .catch((err) => {
+              throw new BadRequestException(err);
+            });
+        },
+      );
+    });
+
+    return file;
+  }
+
+  async downloadParticipantDetails() {
+    const workbook = new Workbook();
+    const sheet = workbook.addWorksheet('participant-details');
+
+    // colums
+    sheet.columns = participantDetailsColumns;
+
+    // rows
+    const rows = [];
+    const result = await this.participantDetailsService.findAll();
+    const users = (await this.usersService.findAll()).map(user => ({id: user?.id, firstName: user?.firstName, lastName: user?.lastName}));
+    const participantDetails = participantDetailsRowFactory(result, users, this.configService);
+    participantDetails.forEach((details: any) => {
+      rows.push(Object.values(details));
+    });
+    sheet.addRows(rows);
+
+    // style
+    styleParticipantDetailsSheet(sheet);    
+
+    const file = await new Promise((resolve) => {
+      tmp.file(
+        {
+          discardDescriptor: true,
+          prefix: 'participant-details',
           postfix: '.xlsx',
           mode: parseInt('0600', 8),
         },

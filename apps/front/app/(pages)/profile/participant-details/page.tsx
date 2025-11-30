@@ -24,7 +24,7 @@ const getBadgeClassname = (status: string) => {
   switch(status) {
     case 'DRAFTED':
       return 'bg-gray-300 text-black';
-    case 'COMPLETED':
+    case 'COMPLETE':
       return 'bg-[#006644] text-white';
   }
 }

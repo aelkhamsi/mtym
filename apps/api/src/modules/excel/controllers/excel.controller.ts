@@ -29,4 +29,17 @@ export class ExcelController {
 
     res.download(`${file}`);
   }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @Get('participant-details')
+  @Header('Content-Type', 'text/xlsx')
+  async downloadParticipantDetails(@Res() res: Response) {
+    const file = await this.excelService.downloadParticipantDetails();
+    if (!file) {
+      return new BadRequestException();
+    }
+
+    res.download(`${file}`);
+  }
 }
