@@ -54,7 +54,7 @@ export function SidebarNav({className, ...props}:{className?: string}) {
           >
             {item.title}
             {item.href === '/profile/application' && (hasValidApplication ? <span>✅</span> : <span>⚠️</span>)}
-            {item.href === '/profile/participant-details' && (user?.participantDetails?.status === 'COMPLETED' ? <span>✅</span> : <span>⚠️</span>)}
+            {item.href === '/profile/participant-details' && (user?.participantDetails?.status === 'COMPLETE' ? <span>✅</span> : <span>⚠️</span>)}
           </Link>
         ))
       }

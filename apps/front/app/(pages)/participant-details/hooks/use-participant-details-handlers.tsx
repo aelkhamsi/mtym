@@ -44,7 +44,7 @@ export const useParticipantDetailsHandlers = (
         description: 'You can access your current informations in your profile page',
       });
 
-      await putParticipantDetails(participantDetailsResponse?.id, {status: 'COMPLETED'})
+      await putParticipantDetails(participantDetailsResponse?.id, {status: 'COMPLETE'})
 
       router.push('/profile/participant-details')
       setTimeout(() => {

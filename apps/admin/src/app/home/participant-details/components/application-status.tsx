@@ -1,6 +1,6 @@
 export type Status =
   | 'DRAFTED'
-  | 'COMPLETED';
+  | 'COMPLETE';
 
 export const getStatusClassname = (status: Status, size: 'sm' | 'md') => {
   const baseClassname = size === 'md' 
@@ -13,7 +13,7 @@ export const getStatusClassname = (status: Status, size: 'sm' | 'md') => {
     case 'DRAFTED':
       colorClassname = 'bg-gray-300 text-black text-center';
       break;
-    case 'COMPLETED':
+    case 'COMPLETE':
       colorClassname = 'bg-[#006644] text-white text-center';
       break;
   }
