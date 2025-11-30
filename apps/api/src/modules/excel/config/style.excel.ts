@@ -161,8 +161,18 @@ export const styleParticipantDetailsSheet = (sheet) => {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
-      bgColor: { argb: 'c6875e' },
-      fgColor: { argb: 'c6875e' },
+      bgColor: { argb: 'fcccac' },
+      fgColor: { argb: 'fcccac' },
+    };
+  }
+
+  // team style
+  for (let i = 27; i <= 27; i++) {
+    sheet.getColumn(i).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      bgColor: { argb: 'd7f2a0' },
+      fgColor: { argb: 'd7f2a0' },
     };
   }
 
