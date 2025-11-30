@@ -28,8 +28,6 @@ export default async function RootLayout({
   const teams = await getAllTeams(cookieStore) as any[]
   const users = await getAllUsers(cookieStore) as any[]
 
-  console.log('participantDetails', participantDetails)
-
   return (
     <html lang="en">
       <body className={cx(sfPro.variable, inter.variable)}>

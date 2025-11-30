@@ -107,7 +107,7 @@ export const styleParticipantDetailsSheet = (sheet) => {
   }
 
   // personal informations style
-  for (let i = 3; i <= 5; i++) {
+  for (let i = 3; i <= 7; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -117,7 +117,7 @@ export const styleParticipantDetailsSheet = (sheet) => {
   }
 
   // education style
-  for (let i = 6; i <= 15; i++) {
+  for (let i = 8; i <= 17; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -127,7 +127,7 @@ export const styleParticipantDetailsSheet = (sheet) => {
   }
 
   // motivations style
-  for (let i = 16; i <= 18; i++) {
+  for (let i = 18; i <= 20; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -137,7 +137,7 @@ export const styleParticipantDetailsSheet = (sheet) => {
   }
 
   // files style
-  for (let i = 19; i <= 21; i++) {
+  for (let i = 21; i <= 23; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -147,7 +147,7 @@ export const styleParticipantDetailsSheet = (sheet) => {
   }
 
   // status style
-  for (let i = 22; i <= 24; i++) {
+  for (let i = 23; i <= 26; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -157,7 +157,7 @@ export const styleParticipantDetailsSheet = (sheet) => {
   }
 
   // team style
-  for (let i = 25; i <= 26; i++) {
+  for (let i = 27; i <= 29; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -167,7 +167,7 @@ export const styleParticipantDetailsSheet = (sheet) => {
   }
 
   // team style
-  for (let i = 27; i <= 27; i++) {
+  for (let i = 30; i <= 30; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',

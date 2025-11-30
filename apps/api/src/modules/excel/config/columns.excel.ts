@@ -59,6 +59,8 @@ export const participantDetailsColumns = [
   { header: 'First Name', key: 'first-name', width: 15 },
   { header: 'Last Name', key: 'last-name', width: 15 },
   { header: 'Gender', key: 'gender', width: 15 },
+  { header: 'Guardian Full Name', key: 'gender', width: 15 },
+  { header: 'Guradian Phone Number', key: 'gender', width: 15 },
 
   { header: 'Food Allergy', key: 'food-allergy', width: 20 },
   { header: 'Non-Food Allergy', key: 'non-food-allergy', width: 20 },

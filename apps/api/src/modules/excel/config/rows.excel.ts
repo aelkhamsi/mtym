@@ -72,6 +72,8 @@ export const participantDetailsRowFactory = (participantDetails: any[], users: a
       lastName: details?.user?.lastName,
 
       gender: details?.gender,
+      guardianFullName: details?.guardianFullName,
+      guardianPhoneNumber: details?.guardianPhoneNumber,
 
       foodAllergy: details?.foodAllergy,
       nonFoodAllergy: details?.nonFoodAllergy,
