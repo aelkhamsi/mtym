@@ -33,8 +33,8 @@ const renderText = (value: any) => {
 const renderList = (valuesList: string, labels: Record<string, string>, className?: string) => {
   return (
     <ul className={`list-disc pl-4 ${className}`}> 
-      {JSON.parse(valuesList ?? '[]')?.map((value: string) => 
-        <li> {labels[value] ?? value} </li>
+      {JSON.parse(valuesList ?? '[]')?.map((value: string, index: number) => 
+        <li key={index}> {labels[value] ?? value} </li>
       )}
     </ul>
   )
