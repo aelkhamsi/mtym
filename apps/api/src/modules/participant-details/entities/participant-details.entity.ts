@@ -23,6 +23,12 @@ export class ParticipantDetails {
 
   @Column({ type: 'varchar', default: '' })
   gender: string;
+
+  @Column({ type: 'varchar', default: '' })
+  guardianFullName: string;
+
+  @Column({ type: 'varchar', default: '' })
+  guardianPhoneNumber: string;
   
   // Allergies
   @Column({ type: 'varchar', default: '[]' })

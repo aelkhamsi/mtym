@@ -4,6 +4,14 @@ export class CreateParticipantDetailsDto {
   @IsString()
   @IsOptional()
   gender: string;
+
+  @IsString()
+  @IsOptional()
+  guardianFullName: string;
+
+  @IsString()
+  @IsOptional()
+  guardianPhoneNumber: string;
   
   @IsString()
   @IsOptional()

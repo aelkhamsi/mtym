@@ -73,6 +73,7 @@ export class ExcelService {
     // rows
     const rows = [];
     const result = await this.participantDetailsService.findAll();
+    console.log('participant details', result.map(details => details.user.application))
     const users = (await this.usersService.findAll()).map(user => ({id: user?.id, firstName: user?.firstName, lastName: user?.lastName}));
     const participantDetails = participantDetailsRowFactory(result, users, this.configService);
     participantDetails.forEach((details: any) => {

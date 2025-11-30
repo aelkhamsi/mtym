@@ -1,4 +1,4 @@
-import { RadioGroup, RadioGroupItem, Separator, Textarea } from '@mdm/ui'
+import { Input, RadioGroup, RadioGroupItem, Separator, Textarea, PhoneInput } from '@mdm/ui'
 import { motion } from 'framer-motion'
 import { UseFormReturn } from 'react-hook-form'
 import {
@@ -74,6 +74,43 @@ export const MedicalInformationStep = ({
                     <FormLabel className="font-normal"> Masculin </FormLabel>
                   </FormItem>
                 </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
+      <h2 className='text-base font-semibold leading-7 text-[#0284C7]'>
+        Informations personnelles du tuteur
+      </h2>
+      <Separator className='mt-2 mb-6 bg-[#0284C7]'/>
+
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 justify-between my-6'>
+        {/* Guardian Full Name */}
+        <FormField
+          control={form.control}
+          name="guardianFullName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nom et Prénom du tuteur<RequiredAsterisk /></FormLabel>
+              <FormControl>
+                <Input placeholder="Entrez un nom complet" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+    
+        {/* Guardian Phone Number */}
+        <FormField
+          control={form.control}
+          name="guardianPhoneNumber"
+          render={({ field }) => (
+            <FormItem className="flex flex-col mt-2 items-start">
+              <FormLabel className="text-left">Téléphone du tuteur <RequiredAsterisk /></FormLabel>
+              <FormControl className="w-full">
+                <PhoneInput onValueChange={field.onChange} defaultValue={field.value} defaultCountry='MA' />
               </FormControl>
               <FormMessage />
             </FormItem>

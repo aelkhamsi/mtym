@@ -1,3 +1,4 @@
+import { isValidPhoneNumber } from "react-phone-number-input";
 import { ZodSchema, z } from "zod";
 
 const MAX_UPLOAD_SIZE = 1024 * 1024 * 3; // 3MB
@@ -10,6 +11,8 @@ export const zodFileValidation = z.any()
 export const participantDetailsSchema: ZodSchema = z.object({
   /* Medical Informations */
   gender: z.enum(["female", "male"], { message: "Choisissez une option" }),
+  guardianFullName: z.string().min(1, { message: 'Entrez une valeur' }).max(50),
+  guardianPhoneNumber: z.string().refine(isValidPhoneNumber, { message: "Numéro de téléphone invalide" }),
   foodAllergy: z.array(z.string()).nonempty({ message: 'Choissisez une option' }),
   nonFoodAllergy: z.array(z.string()).nonempty({ message: 'Choissisez une option' }),
   allergyPrecaution: z.string().optional(),
@@ -47,6 +50,8 @@ export const participantDetailsSchema: ZodSchema = z.object({
 export const participantDetailsDefautValues = {
   /* Medical Informations */
   gender: '',
+  guardianFullName: '',
+  guardianPhoneNumber: '',
   foodAllergy: '',
   nonFoodAllergy: '',
   allergyPrecaution: '',

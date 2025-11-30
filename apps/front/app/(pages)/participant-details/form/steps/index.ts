@@ -14,6 +14,8 @@ export const steps: Step[] = [
 
       return [
         'gender',
+        'guardianFullName',
+        'guardianPhoneNumber',
         'foodAllergy',
         'nonFoodAllergy',
         'illnessOrDisability',
