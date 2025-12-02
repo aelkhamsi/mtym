@@ -109,6 +109,9 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
               <div className='space-y-6'>
                 <Field label='Genre'>{renderText(participantDetails?.gender)}</Field>
                 <Separator />
+                <Field label='Nom et Prénom du tuteur'>{renderText(participantDetails?.guardianFullName)}</Field>
+                <Field label='Téléphone du tuteur'>{renderText(participantDetails?.guardianPhoneNumber)}</Field>
+                <Separator />
                 <Field label='Allergies Alimentaires'>{renderList(participantDetails?.foodAllergy, foodAllergyLabels)}</Field>
                 <Field label='Allergies non Alimentaires'>{renderList(participantDetails?.nonFoodAllergy, nonFoodAllergyLabels)}</Field>
                 <Field label='En cas de réaction allergique, des précautions sont-elles nécessaires (procédure, médicament spécifiques...) ?'>{renderText(participantDetails?.allergyPrecaution)}</Field>
