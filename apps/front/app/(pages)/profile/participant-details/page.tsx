@@ -3,12 +3,7 @@
 import { Badge, Button, Separator } from "@mdm/ui"
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
-import { useEffect, useState } from "react";
-import { applicationAtom } from "@/app/store/applicationAtom";
-import { teamAtom } from "@/app/store/teamAtom";
-import { Team } from "@mdm/types";
 import { participantDetailsAtom } from "@/app/store/participantDetailsAtom";
-import Link from 'next/link';
 import {
   Card,
   CardContent,
