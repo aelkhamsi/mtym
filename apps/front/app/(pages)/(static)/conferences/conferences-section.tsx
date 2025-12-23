@@ -10,18 +10,16 @@ const ConferenceCard = ({
   children: ReactNode
 }) => {
   return (
-    <div className="flex flex-col w-full px-4 space-y-4 md:flex-row xl:w-1/2">
-      <div className='flex justify-center'>
-        <img
-          src={pictureUrl}
-          width={300}
-        />
-      </div>
-      
+    <div className="flex flex-col w-full px-4 space-y-4 md:flex-row xl:w-1/2">      
       <div className='flex flex-col ml-4 md:ml-10'>
         <div className='text-2xl font-semibold'>{fullName}</div>
         {children}        
       </div>
+
+      <img
+        src={pictureUrl}
+        width={300}
+      />
     </div>
   )
 }
@@ -36,10 +34,10 @@ const ConferencesSection = ({
       className="rounded-lg animate-fade-up opacity-0"
       style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
     >
-      <div className={`flex flex-row flex-wrap gap-y-4 py-4 w-full ${className}`}>
+      <div className={`w-full flex flex-col items-center ${className}`}>
         <ConferenceCard
           fullName='Omar MOUCHTAKI'
-          pictureUrl='/conferences/omar_mouchtaki.jpeg'
+          pictureUrl='images/conferences/omar_mouchtaki.jpeg'
         >
           <ul className="list-disc font-light">
             <li>Assistant Professor, NYU Stern – Operations, Technology & Statistics</li>
@@ -52,7 +50,7 @@ const ConferencesSection = ({
 
         <ConferenceCard
           fullName='Mohammed ABOUZAID'
-          pictureUrl='/conferences/mohammed_abouzaid.jpg'
+          pictureUrl='images/conferences/mohammed_abouzaid.jpg'
         >
           <ul className="list-disc font-light">
             <li>Professor of Mathematics – Stanford University</li>
@@ -65,7 +63,7 @@ const ConferencesSection = ({
 
         <ConferenceCard
           fullName='Nader MASMOUDI'
-          pictureUrl='/conferences/nader_masmoudi.jpg'
+          pictureUrl='images/conferences/nader_masmoudi.jpg'
         >
           <ul className="list-disc font-light">
             <li>Professor of Mathematics – NYU Courant Institute & NYU Abu Dhabi</li>
