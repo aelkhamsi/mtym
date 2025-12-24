@@ -36,6 +36,12 @@ const sponsors = [
     imageHeight: '45px',
   },
   {
+    key: 'cdg',
+    label: 'CDG',
+    imageHref: '/images/logos/CDG.svg',
+    imageHeight: '110px',
+  },
+  {
     key: 'ram',
     label: 'RAM',
     imageHref: '/images/logos/ram.svg',
@@ -168,7 +174,9 @@ export default function PartnersPage() {
               imageHeight={sponsors[1].imageHeight}
             >
               <div className="text-sm">
-                <div>La <span className='mb-8 bg-gradient-to-br from-[#f9597c] to-[#c3022d] text-transparent bg-clip-text font-semibold'>Royal Air Maroc</span>, compagnie aérienne nationale du Maroc, est une référence en matière d&apos;excellence et de service. Alliant modernité et tradition, elle relie le Maroc au monde tout en offrant une expérience de voyage unique et authentique.</div>
+                <div>La <span className='mb-8 bg-gradient-to-br from-[#303e48] to-[#303e48] text-transparent bg-clip-text font-semibold'>Caisse de Dépôt et de Gestion du Maroc (CDG)</span>,  incarne un pilier stratégique du développement national, œuvrant avec vision au service de l&apos;intérêt général.<br/>
+                Par son engagement durable et sa capacité à structurer des projets d&apos;envergure, la CDG contribue activement à bâtir le Maroc de demain.
+                </div>
               </div>
             </PartnerCard>
 
@@ -177,13 +185,23 @@ export default function PartnersPage() {
               imageSrc={sponsors[2].imageHref}
               imageHeight={sponsors[2].imageHeight}
             >
-              <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Afretec</span> est un réseau panafricain d&apos;universités technologiques, mené par Carnegie Mellon University Africa, pour accélérer la transformation numérique du continent. Il favorise l&apos;enseignement, la recherche et l&apos;entrepreneuriat inclusifs en ingénierie et technologie.</div>
+              <div className="text-sm">
+                <div>La <span className='mb-8 bg-gradient-to-br from-[#f9597c] to-[#c3022d] text-transparent bg-clip-text font-semibold'>Royal Air Maroc</span>, compagnie aérienne nationale du Maroc, est une référence en matière d&apos;excellence et de service. Alliant modernité et tradition, elle relie le Maroc au monde tout en offrant une expérience de voyage unique et authentique.</div>
+              </div>
             </PartnerCard>
 
             <PartnerCard
               key={sponsors[3].key}
               imageSrc={sponsors[3].imageHref}
               imageHeight={sponsors[3].imageHeight}
+            >
+              <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Afretec</span> est un réseau panafricain d&apos;universités technologiques, mené par Carnegie Mellon University Africa, pour accélérer la transformation numérique du continent. Il favorise l&apos;enseignement, la recherche et l&apos;entrepreneuriat inclusifs en ingénierie et technologie.</div>
+            </PartnerCard>
+
+            <PartnerCard
+              key={sponsors[4].key}
+              imageSrc={sponsors[4].imageHref}
+              imageHeight={sponsors[4].imageHeight}
             >
               <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Sidi Ali</span> est une entreprise engagée à offrir une eau minérale naturelle d'une pureté exceptionnelle, puisée au cœur des montagnes marocaines. <br/>Elle s&apos;impose comme un leader emblématique alliant qualité, tradition et innovation.</div>
             </PartnerCard>
