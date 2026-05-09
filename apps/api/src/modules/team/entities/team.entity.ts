@@ -1,11 +1,13 @@
 import { User } from 'src/modules/user/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({ name: 'teams' })
@@ -36,4 +38,11 @@ export class Team {
   @OneToMany(() => User, (user) => user.team)
   @JoinColumn()
   users: User[];
+
+  /* createAt & updatedAt */
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
