@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { computeSHA256, generateFileName, getUploadFolderName } from '@/app/lib/utils';
+import { computeSHA256, generateFileName, getUploadFolderName } from '@/app/utils/file.utils'
 import { User } from '@mdm/types';
 import { getSignedURL, uploadFile } from '@/app/api/MediaApi';
 import { excludeFileFields, stringifyFormData } from '../serialization';

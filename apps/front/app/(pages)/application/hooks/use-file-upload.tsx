@@ -1,10 +1,10 @@
 import { z } from 'zod'
 import { applicationSchema } from "@/app/schemas/application.schema"
-import { computeSHA256, generateFileName, getUploadFolderName } from '@/app/lib/utils';
+import { computeSHA256, generateFileName, getUploadFolderName } from '@/app/utils/file.utils';
 import { User } from '@mdm/types';
 import { getSignedURL, uploadFile } from '@/app/api/MediaApi';
 import { postApplication, putApplication } from '@/app/api/ApplicationApi';
-import { formatApplication } from '@/app/utils/applications.utils';
+import { formatApplication } from '@/app/utils/application.utils';
 
 export const useFileUpload = () => {
   const getFiles = (

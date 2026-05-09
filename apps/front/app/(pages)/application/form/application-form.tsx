@@ -15,7 +15,7 @@ import { User } from "@mdm/types"
 import FormHeader from "./header/form-header"
 import FormErrorDialog from "./error/form-error-dialog"
 import { useApplicationHandlers } from "@/app/(pages)/application/hooks/use-application-handlers"
-import { parseApplication } from "@/app/utils/applications.utils"
+import { parseApplication } from "@/app/utils/application.utils"
 
 export const ApplicationForm = ({
   user

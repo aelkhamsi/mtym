@@ -8,7 +8,7 @@ import { postApplication, updateApplicationStatus } from '@/app/api/ApplicationA
 import { useFileUpload } from './use-file-upload';
 import { UseFormReturn } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { formatApplication } from '@/app/utils/applications.utils';
+import { formatApplication } from '@/app/utils/application.utils';
 
 export const useApplicationHandlers = (
   user: User|undefined

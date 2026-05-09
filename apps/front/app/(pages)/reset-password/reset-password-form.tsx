@@ -10,10 +10,7 @@ import { toast } from "@mdm/ui"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react";
 import { updateUser } from "@/app/api/UsersApi";
-import { getUserDataFromToken } from "@/app/lib/utils";
-import { useAtomValue } from "jotai";
-import { userAtom } from "@/app/store/userAtom";
-import { User } from "@mdm/types";
+import { getUserDataFromToken } from "@/app/utils/token.utils";
 
 const resetPasswordSchema = z.object({
   password: z.string().min(6, {message: 'The password must have at least 6 characters'}),
