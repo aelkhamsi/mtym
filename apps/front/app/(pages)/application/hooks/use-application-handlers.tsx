@@ -5,10 +5,10 @@ import { User } from '@mdm/types';
 import { useState } from 'react';
 import { toast } from "@mdm/ui";
 import { postApplication, updateApplicationStatus } from '@/app/api/ApplicationApi';
-import { excludeFileFields, serializeApplication } from '../serialization';
 import { useFileUpload } from './use-file-upload';
 import { UseFormReturn } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { formatApplication } from '@/app/utils/applications.utils';
 
 export const useApplicationHandlers = (
   user: User|undefined
@@ -29,7 +29,7 @@ export const useApplicationHandlers = (
     try {
       // Post application
       const applicationResponse = await postApplication(
-        excludeFileFields(serializeApplication(formData))
+        formatApplication(formData)
       ) as any
 
       if (applicationResponse?.statusCode !== 200) {
@@ -74,7 +74,7 @@ export const useApplicationHandlers = (
 
     try {
       const applicationResponse = await postApplication(
-        excludeFileFields(serializeApplication(application))
+        formatApplication(application)
       ) as any;
 
       if (applicationResponse?.statusCode !== 200) {

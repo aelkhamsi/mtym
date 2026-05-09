@@ -53,7 +53,7 @@ export const applicationDefaultValues = {
   /* Personal Informations */
   firstName: '',
   lastName: '',
-  dateOfBirth: '',
+  dateOfBirth: null,
   identityCardNumber: '',
   city: '',
   region: '',

@@ -36,14 +36,3 @@ export const getUploadFolderName = (firstName: string|undefined, lastName: strin
   return firstName?.toLowerCase().replace(' ', '') + '_' + lastName?.toLowerCase().replace(' ', '');
 }
 
-export const sanitizeApplication = (application: any) => {
-  const newObject = {} as any;
-  Object.keys(application).forEach((key) => {
-    newObject[key] = (key === 'dateOfBirth')
-      ? new Date(application[key])
-      : key === 'activityChoices' || key === 'standMembers' || key === 'foodAllergy'
-        ? JSON.parse(application[key])
-        : application[key]===null ? "" : application[key]
-  });
-  return newObject;
-}

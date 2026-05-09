@@ -7,7 +7,6 @@ import { PersonalInformationStep, EducationStep, MotivationStep, UploadStep, Val
 import { useForm } from "react-hook-form"
 import { applicationSchema, applicationDefaultValues } from "@/app/schemas/application.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { sanitizeApplication } from "@/app/lib/utils"
 import { z } from "zod"
 import { Form } from "@mdm/ui"
 import { Button, Separator } from "@mdm/ui"
@@ -16,6 +15,7 @@ import { User } from "@mdm/types"
 import FormHeader from "./header/form-header"
 import FormErrorDialog from "./error/form-error-dialog"
 import { useApplicationHandlers } from "@/app/(pages)/application/hooks/use-application-handlers"
+import { parseApplication } from "@/app/utils/applications.utils"
 
 export const ApplicationForm = ({
   user
@@ -26,7 +26,7 @@ export const ApplicationForm = ({
   const [currentStep, setCurrentStep] = useState(0)
   const delta = currentStep - previousStep
   const application = {
-    ...(user?.application ? sanitizeApplication(user?.application) : applicationDefaultValues),
+    ...(user?.application ? parseApplication(user?.application) : applicationDefaultValues),
     firstName: user?.firstName, 
     lastName: user?.lastName
   }

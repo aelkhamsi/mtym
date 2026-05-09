@@ -4,7 +4,7 @@ import { computeSHA256, generateFileName, getUploadFolderName } from '@/app/lib/
 import { User } from '@mdm/types';
 import { getSignedURL, uploadFile } from '@/app/api/MediaApi';
 import { postApplication, putApplication } from '@/app/api/ApplicationApi';
-import { excludeFileFields, serializeApplication } from '../serialization';
+import { formatApplication } from '@/app/utils/applications.utils';
 
 export const useFileUpload = () => {
   const getFiles = (
@@ -59,7 +59,7 @@ export const useFileUpload = () => {
 
     if (result?.statusCode !== 200) {
       await postApplication({
-        ...excludeFileFields(serializeApplication(formData)),
+        ...formatApplication(formData),
         ...fileUrls,
       }) as any
     }
