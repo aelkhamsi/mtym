@@ -1,5 +1,4 @@
 "use client";
-
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -8,6 +7,7 @@ type Image = {
   name: string;
   src: string;
 };
+
 export const ImageStack = ({
   images,
   autoplay = false,
@@ -16,14 +16,15 @@ export const ImageStack = ({
   autoplay?: boolean;
 }) => {
   const [active, setActive] = useState(0);
+  const [rotations] = useState(() =>
+    images.map(() => Math.floor(Math.random() * 21) - 10)
+  );
 
   const handleNext = () => {
     setActive((prev) => (prev + 1) % images.length);
   };
 
-  const isActive = (index: number) => {
-    return index === active;
-  };
+  const isActive = (index: number) => index === active;
 
   useEffect(() => {
     if (autoplay) {
@@ -32,11 +33,8 @@ export const ImageStack = ({
     }
   }, [autoplay]);
 
-  const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
-  };
   return (
-    <div className="relative h-60 md:h-80 w-full max-w-sm md:max-w-lg mx-auto antialiased ">
+    <div className="relative h-60 md:h-80 w-full max-w-sm md:max-w-lg mx-auto antialiased">
       <AnimatePresence>
         {images.map((image, index) => (
           <motion.div
@@ -45,23 +43,21 @@ export const ImageStack = ({
               opacity: 0,
               scale: 0.9,
               z: -100,
-              rotate: randomRotateY(),
+              rotate: rotations[index],
             }}
             animate={{
               opacity: isActive(index) ? 1 : 0.7,
               scale: isActive(index) ? 1 : 0.95,
               z: isActive(index) ? 0 : -100,
-              rotate: isActive(index) ? 0 : randomRotateY(),
-              zIndex: isActive(index)
-                ? 999
-                : images.length + 2 - index,
+              rotate: isActive(index) ? 0 : rotations[index],
+              zIndex: isActive(index) ? 999 : images.length + 2 - index,
               y: isActive(index) ? [0, -80, 0] : 0,
             }}
             exit={{
               opacity: 0,
               scale: 0.9,
               z: 100,
-              rotate: randomRotateY(),
+              rotate: rotations[index],
             }}
             transition={{
               duration: 0.4,
@@ -75,7 +71,7 @@ export const ImageStack = ({
               fill
               draggable={false}
               sizes="(max-width: 768px) 100vw, 300px"
-              className="h-full w-full object-cover rounded-3xl object-cover object-center"
+              className="h-full w-full object-cover rounded-3xl object-center"
             />
           </motion.div>
         ))}

@@ -1,5 +1,11 @@
+"use client"
+
+import dynamic from "next/dynamic";
+
+const ImageStack = dynamic(() => import("../image-stack").then(m => m.ImageStack), {
+  ssr: false,
+})
 import { GlitterIcon, LightbulbIcon, StarShineIcon} from '@mdm/ui'
-import { ImageStack } from '../image-stack'
 
 const images = [
   {

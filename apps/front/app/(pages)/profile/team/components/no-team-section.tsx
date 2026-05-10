@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@mdm/ui";
 import { useRouter } from "next/navigation";
-import { CLOSE_APPLICATIONS } from "@/../config";
+import { CLOSE_APPLICATIONS } from "config";
 import { applicationAtom } from "@/app/store/applicationAtom";
 import { useAtomValue } from "jotai";
 

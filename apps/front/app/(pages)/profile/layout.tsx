@@ -11,7 +11,7 @@ interface ProfileLayoutProps {
 }
 
 export default async function ProfileLayout({ children }: ProfileLayoutProps) {
-  const cookieStore = cookies().toString()
+  const cookieStore = (await cookies()).toString()
   const session = await getSessionCookie(cookieStore) as any
   const user = await getUserById(session?.id, cookieStore) as User
 

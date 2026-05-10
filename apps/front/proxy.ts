@@ -22,7 +22,7 @@ const extractCookies = (res: Response): Record<string, string> => {
   return cookies
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const maintenanceMode = false
   if (maintenanceMode) {
     req.nextUrl.pathname = `/maintenance`

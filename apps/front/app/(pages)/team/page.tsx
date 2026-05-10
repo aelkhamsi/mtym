@@ -5,7 +5,7 @@ import { userAtom } from "@/app/store/userAtom";
 import { useAtomValue } from "jotai";
 import { TeamForm } from "./form/team-form";
 import { ProfileSkeleton } from "@mdm/ui";
-import { CLOSE_APPLICATIONS } from "@/../config";
+import { CLOSE_APPLICATIONS } from "config";
 
 export default function TeamPage() {
   const user = useAtomValue(userAtom)
