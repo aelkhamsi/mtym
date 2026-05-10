@@ -1,4 +1,4 @@
-import { steps } from "@/app/(pages)/application/form/steps"
+import { steps } from "@/app/(frontend)/participant-details/form/steps"
 
 export const FormSteps = ({
   currentStep,

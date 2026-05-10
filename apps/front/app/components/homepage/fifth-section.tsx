@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AnimatedTooltip } from '@/app/components/animated-tooltip';
-import { organizingCommittee, webDevelopment } from "@/app/(pages)/(static)/organizing-team/data";
+import { organizingCommittee, webDevelopment } from "@/app/(frontend)/(static)/organizing-team/data";
 
 const FifthSection = () => {
   const members = [...organizingCommittee, ...webDevelopment]

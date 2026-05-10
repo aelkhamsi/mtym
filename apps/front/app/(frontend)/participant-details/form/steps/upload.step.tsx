@@ -8,7 +8,7 @@ import {
   FormLabel,
   FormMessage
 } from "@mdm/ui"
-import { initFileInput } from '@/app/(pages)/application/form/steps/upload-step'
+import { initFileInput } from '@/app/(frontend)/application/form/steps/upload-step'
 import { FileInput } from '../components/file-input'
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
 import Link from 'next/link'

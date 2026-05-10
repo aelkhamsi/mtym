@@ -38,3 +38,8 @@ next-env.d.ts
 
 # misc
 .vscode
+
+# sqlite
+front.db
+front.db-shm
+front.db-wal

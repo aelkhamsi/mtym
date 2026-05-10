@@ -14,7 +14,7 @@ import { LoadingDots } from "@mdm/ui"
 import { User } from "@mdm/types"
 import FormHeader from "./header/form-header"
 import FormErrorDialog from "./error/form-error-dialog"
-import { useParticipantDetailsHandlers } from "@/app/(pages)/participant-details/hooks/use-participant-details-handlers"
+import { useParticipantDetailsHandlers } from "@/app/(frontend)/participant-details/hooks/use-participant-details-handlers"
 import { parseFormData } from "../serialization"
 
 export const ParticipantDetailsForm = ({

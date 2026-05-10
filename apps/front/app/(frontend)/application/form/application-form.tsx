@@ -14,7 +14,7 @@ import { LoadingDots } from "@mdm/ui"
 import { User } from "@mdm/types"
 import FormHeader from "./header/form-header"
 import FormErrorDialog from "./error/form-error-dialog"
-import { useApplicationHandlers } from "@/app/(pages)/application/hooks/use-application-handlers"
+import { useApplicationHandlers } from "@/app/(frontend)/application/hooks/use-application-handlers"
 import { parseApplication } from "@/app/utils/application.utils"
 
 export const ApplicationForm = ({
