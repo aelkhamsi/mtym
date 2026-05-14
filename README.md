@@ -106,23 +106,35 @@ pnpm install
 
 # 3. Configure Environment Variables
 
-## Copy the Example Environment File
+## Copy the Example Environment Files
+
+Each app requires its own `.env` file.
 
 ### Linux / macOS
 ```sh
-cp .env.example .env
+cp apps/admin/.env.example apps/admin/.env
+cp apps/api/.env.example apps/api/.env
+cp apps/front/.env.example apps/front/.env
 ```
 
 ### Windows
-```sh
-copy .env.example .env
+```bat
+copy apps\admin\.env.example apps\admin\.env
+copy apps\api\.env.example apps\api\.env
+copy apps\front\.env.example apps\front\.env
 ```
 
 ---
 
-## Edit `.env`
+## Edit the `.env` Files
 
-Open the `.env` file and configure your PostgreSQL credentials:
+Configure the required environment variables inside:
+
+- `apps/admin/.env`
+- `apps/api/.env`
+- `apps/front/.env`
+
+Example PostgreSQL configuration:
 
 ```env
 POSTGRES_USER=admin
