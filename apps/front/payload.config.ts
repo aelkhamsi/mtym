@@ -23,6 +23,9 @@ export default buildConfig({
         Icon: '@/app/components/Logo#Icon',
       },
     },
+    meta: {
+      icons: [{ url: '/images/logos/mtym_square.svg', type: 'image/svg+xml' }],
+    },
   },
   collections: [Users, Media],
   editor: lexicalEditor(),
