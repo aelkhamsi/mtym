@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Logo = () => (
-  <img src="/images/logos/mtym_square.svg" alt="MTYM" style={{ height: '40px', width: '40px' }} />
+  <img src="/images/logos/mtym.svg" alt="MTYM" style={{ height: '60px' }} />
 )
 
 export const Icon = () => (
