@@ -20,6 +20,7 @@ export default buildConfig({
     components: {
       graphics: {
         Logo: '@/app/components/Logo#Logo',
+        Icon: '@/app/components/Logo#Icon',
       },
     },
   },
