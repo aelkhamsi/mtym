@@ -30,66 +30,7 @@ import { Button } from "@mdm/ui"
 import { format } from "@mdm/ui"
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
 import SelectOrInput from '@/app/components/forms/select-or-input'
-
-const regions = [
-  {label: "Tanger-Tétouan-Al Hoceïma", value:"tanger-tetouan-al-houceima"},
-  {label: "Oriental", value:"oriental"},
-  {label: "Fès-Meknès", value:"fes-meknes"},
-  {label: "Rabat-Salé-Kénitra", value:"rabat-sale-kenitra"},
-  {label: "Béni Mellal-Khénifra", value:"beni-mellal-khenifra"},
-  {label: "Casablanca-Settat", value:"casablanca-settat"},
-  {label: "Marrakech-Safi", value:"marrakech-safi"},
-  {label: "Drâa-Tafilalet", value:"draa-tafilalet"},
-  {label: "Souss-Massa", value:"souss-massa"},
-  {label: "Guelmim-Oued Noun", value:"guelmim-oued-noun"},
-  {label: "Laâyoune-Sakia El Hamra", value:"laayoune-sakia-el-hamra"},
-  {label: "Dakhla-Oued Eddahab", value:"dakhla-oued-eddahab"},
-  {label: "Abroad", value:"abroad"},
-]
-
-const cities = [
-  { label: "Agadir", value: "agadir" },
-  { label: "Aït Melloul", value: "ait-melloul" },
-  { label: "Al Hoceima", value: "al-hoceima" },
-  { label: "Ben Guerir", value: "ben-guerir" },
-  { label: "Beni Mellal", value: "beni-mellal" },
-  { label: "Berrechid", value: "berrechid" },
-  { label: "Berkane", value: "berkane" },
-  { label: "Bouskoura", value: "bouskoura" },
-  { label: "Casablanca", value: "casablanca" },
-  { label: "El Jadida", value: "el-jadida" },
-  { label: "Errachidia", value: "errachidia" },
-  { label: "Essaouira", value: "essaouira" },
-  { label: "Fez", value: "fez" },
-  { label: "Guelmim", value: "guelmim" },
-  { label: "Guercif", value: "guercif" },
-  { label: "Ifrane", value: 'ifrane' },
-  { label: "Kenitra", value: "kenitra" },
-  { label: "Khouribga", value: "khouribga" },
-  { label: "Khemisset", value: "khemisset" },
-  { label: "Khenifra", value: "khenifra" },
-  { label: "Larache", value: "larache" },
-  { label: "Marrakesh", value: "marrakesh" },
-  { label: "Meknes", value: "meknes" },
-  { label: "Mohammedia", value: "mohammedia" },
-  { label: "Nador", value: "nador" },
-  { label: "Ouarzazate", value: "ouarzazate" },
-  { label: "Oujda", value: "oujda" },
-  { label: "Rabat", value: "rabat" },
-  { label: "Safi", value: "safi" },
-  { label: "Salé", value: "sale" },
-  { label: "Sefrou", value: "sefrou" },
-  { label: "Settat", value: "settat" },
-  { label: "Tan-Tan", value: "tan-tan" },
-  { label: "Tangier", value: "tangier" },
-  { label: "Taroudant", value: "taroudant" },
-  { label: "Taza", value: "taza" },
-  { label: "Temara", value: "temara" },
-  { label: "Tetouan", value: "tetouan" },
-  { label: "Tifelt", value: "tifelt" },
-  { label: "Tiznit", value: "tiznit" },
-  { label: "(Autre)", value: 'other' }
-]
+import { cities, regions } from "@mdm/shared"
 
 export const PersonalInformationStep = ({
   form,

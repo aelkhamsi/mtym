@@ -1,8 +1,4 @@
-const educationLevels = {
-  "tronc-commun": "Tronc commun",
-  "1bac": "1ère année Bac",
-  "2bac": "2ème année Bac",
-} as any;
+import { educationLevelLabels } from '@mdm/shared';
 
 const ApplicationEducationLevel = ({
   educationLevel
@@ -11,7 +7,7 @@ const ApplicationEducationLevel = ({
 }) => {
   return (
     <div>
-      {educationLevels[educationLevel]}
+      {educationLevelLabels[educationLevel] ?? educationLevel}
     </div>
   )
 }

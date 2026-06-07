@@ -13,6 +13,7 @@
   "prettier": "config/prettier.config.js",
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "@mdm/shared": "workspace:*",
     "@mdm/hooks": "workspace:*",
     "@mdm/types": "workspace:*",
     "@mdm/ui": "workspace:*",

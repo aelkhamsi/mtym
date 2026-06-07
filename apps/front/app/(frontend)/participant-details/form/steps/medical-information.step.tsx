@@ -11,28 +11,12 @@ import {
 import { CheckboxAndInput } from '@/app/components/forms/checkbox-and-input'
 import { useState } from 'react'
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
-
-const foodAllergies = [
-  { label: 'Aucune', value: 'none' },
-  { label: 'Gluten', value: 'gluten' },
-  { label: 'Lactose', value: 'lactose' },
-  { label: 'Arachides', value: 'arachides' },
-]
-
-const nonFoodAllergies = [
-  { label: 'Aucune', value: 'none' },
-  { label: 'Pollen', value: 'pollen' },
-  { label: "Piqûres d'insectes", value: 'insects' },
-]
-
-const illnessOrDisability = [
-  { label: 'Aucune', value: 'none' },
-  { label: 'Asthme', value: 'asthme' },
-  { label: "Diabète", value: 'diabete' },
-  { label: 'Épilepsie', value: 'epilepsie' },
-  { label: 'Trouble du spectre autistique (TSA)', value: 'autiste' },
-  { label: "TDAH", value: 'tdah' },
-]
+import {
+  foodAllergies,
+  genderOptions,
+  illnessOrDisability,
+  nonFoodAllergies,
+} from '@mdm/shared'
 
 export const MedicalInformationStep = ({
   form,
@@ -64,15 +48,12 @@ export const MedicalInformationStep = ({
                   defaultValue={field.value}
                   className="flex flex-col space-y-1"
                 >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <RadioGroupItem value="female" />
-                    <FormLabel className="font-normal"> Féminin </FormLabel>
-                  </FormItem>
-
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <RadioGroupItem value="male" />
-                    <FormLabel className="font-normal"> Masculin </FormLabel>
-                  </FormItem>
+                  {genderOptions.map((option) => (
+                    <FormItem key={option.value} className="flex items-center space-x-3 space-y-0">
+                      <RadioGroupItem value={option.value} />
+                      <FormLabel className="font-normal">{option.label}</FormLabel>
+                    </FormItem>
+                  ))}
                 </RadioGroup>
               </FormControl>
               <FormMessage />
