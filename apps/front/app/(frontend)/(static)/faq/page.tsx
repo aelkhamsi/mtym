@@ -1,10 +1,16 @@
+import { getPayload } from "payload"
+import config from "@payload-config"
 import { generalQuestions } from "./questions"
 import { FaqAccordion } from "./faq-accordion"
 import SectionContainer from "@/app/components/section-container"
 import CtaSection from "@/app/components/cta/cta-section"
 
 
-export default function ConferencesPage() {
+export default async function ConferencesPage() {
+  const payload = await getPayload({ config })
+  const faqs = await payload.find({ collection: "faq" })
+  console.log(faqs)
+
   return (
     <SectionContainer className="pt-24 pb-20 z-0">
 

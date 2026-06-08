@@ -7,6 +7,8 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Faq } from './collections/Faq'
+import { FaqCategories } from './collections/FaqCategories'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,7 +29,7 @@ export default buildConfig({
       icons: [{ url: '/images/logos/mtym_square.svg', type: 'image/svg+xml' }],
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Faq, FaqCategories],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
