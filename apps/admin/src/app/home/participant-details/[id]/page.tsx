@@ -18,11 +18,6 @@ import { participantDetailsAtom } from '@/store/participantDetailsAtom';
 import { cityLabels, foodAllergyLabels, illnessOrDisabilityLabels, nonFoodAllergyLabels, workshopLabels } from './select-options';
 import { usersAtom } from '@/store/usersAtom';
 
-const booleanLabels = {
-  "yes": "Oui",
-  "no": "Non",
-  "not-selected": "J'ai postulé, mais je n'ai pas été sélectionné."
-} as any;
 
 const renderText = (value: any) => {
   return value
