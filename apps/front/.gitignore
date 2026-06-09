@@ -43,3 +43,6 @@ next-env.d.ts
 front.db
 front.db-shm
 front.db-wal
+payload.db
+payload.db-shm
+payload.db-wal

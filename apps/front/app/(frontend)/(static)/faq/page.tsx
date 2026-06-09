@@ -1,15 +1,19 @@
 import { getPayload } from "payload"
 import config from "@payload-config"
-import { generalQuestions } from "./questions"
 import { FaqAccordion } from "./faq-accordion"
 import SectionContainer from "@/app/components/section-container"
 import CtaSection from "@/app/components/cta/cta-section"
 
 
-export default async function ConferencesPage() {
+export default async function FaqPage() {
   const payload = await getPayload({ config })
-  const faqs = await payload.find({ collection: "faq" })
-  console.log(faqs)
+  const faqsResult = await payload.find({ collection: "faq", limit: 200 })
+
+  const faqs = faqsResult.docs.map((doc) => ({
+    id: String(doc.id),
+    question: doc.question,
+    answer: doc.answer,
+  }))
 
   return (
     <SectionContainer className="pt-24 pb-20 z-0">
@@ -38,7 +42,7 @@ export default async function ConferencesPage() {
           className="animate-fade-up opacity-0"
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
         >
-          <FaqAccordion items={generalQuestions} />
+          <FaqAccordion items={faqs} />
         </div>
 
         <div className="flex justify-center">
