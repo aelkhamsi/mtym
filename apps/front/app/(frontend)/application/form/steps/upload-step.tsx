@@ -19,7 +19,7 @@ export const initFileInput = (field: any, id: string) => {
     dataTransfer.items.add(field?.value[0]);
     setTimeout(() => {
       const fileInputElement = document.querySelector(`#${id}`) as HTMLInputElement;
-      fileInputElement.files = dataTransfer.files;
+      if (fileInputElement) fileInputElement.files = dataTransfer.files;
     }, 300)
   }
 }

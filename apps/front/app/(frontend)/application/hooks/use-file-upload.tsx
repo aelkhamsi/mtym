@@ -38,7 +38,7 @@ export const useFileUpload = () => {
     for (const file of files) {
       if (file) {
         const checksum = await computeSHA256(file);
-        const signedURLResponse = await getSignedURL(`upload_mtym/${uploadFolderName}/${file.name}`, file.type, file.size, checksum) as any;
+        const signedURLResponse = await getSignedURL(`${uploadFolderName}/${file.name}`, file.type, file.size, checksum) as any;
         await uploadFile(signedURLResponse?.url, file) as any;
       }
     }
@@ -51,8 +51,8 @@ export const useFileUpload = () => {
   ) => {
     const uploadFolderName = getUploadFolderName(user?.firstName, user?.lastName);
     const fileUrls = {
-      fileRegulationsUrl: files[0] ? `upload_mtym/${uploadFolderName}/${files[0].name}` : (formData?.fileRegulationsUrl ?? null),
-      fileGradesUrl: files[1] ? `upload_mtym/${uploadFolderName}/${files[1].name}` : (formData?.fileGradesUrl ?? null),
+      fileRegulationsUrl: files[0] ? `${uploadFolderName}/${files[0].name}` : (formData?.fileRegulationsUrl ?? null),
+      fileGradesUrl: files[1] ? `${uploadFolderName}/${files[1].name}` : (formData?.fileGradesUrl ?? null),
     }
 
     const result = await putApplication(formData?.id, fileUrls) as any
