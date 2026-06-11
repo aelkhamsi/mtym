@@ -30,7 +30,7 @@ import { Button } from "@mdm/ui"
 import { format } from "@mdm/ui"
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
 import SelectOrInput from '@/app/components/forms/select-or-input'
-import { cities, regions } from "@mdm/shared"
+import { cityOptions, regionOptions } from "@mdm/shared"
 
 export const PersonalInformationStep = ({
   form,
@@ -146,7 +146,7 @@ export const PersonalInformationStep = ({
           name="city"
           form={form}
           label="Ville de résidence"
-          options={cities}
+          options={cityOptions}
           required={true}
         ></SelectOrInput>
         
@@ -167,7 +167,7 @@ export const PersonalInformationStep = ({
                   <SelectContent className="max-h-60">
                     <SelectGroup>
                       <SelectLabel>Régions</SelectLabel>
-                      {regions.map(region =>
+                      {regionOptions.map(region =>
                         <SelectItem key={region.value} value={region.value}>{region.label}</SelectItem>
                       )}
                     </SelectGroup>

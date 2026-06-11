@@ -1,4 +1,4 @@
-import { educationLevels, regionLabels, educationFields, cityLabels } from '../labels';
+import { educationLevelLabelMap, educationFieldLabelMap, regionLabelMap, cityLabelMap } from '@mdm/shared';
 
 export const applicationsRowFactory = (applications: any[], configService) => {
   const awsBucketName = configService.get('s3.name');
@@ -12,15 +12,11 @@ export const applicationsRowFactory = (applications: any[], configService) => {
     dateOfBirth: new Date(application?.dateOfBirth),
     identityCardNumber: application?.identityCardNumber,
     city: application?.city,
-    region: regionLabels[application?.region],
+    region: regionLabelMap[application?.region],
     phoneNumber: application?.phoneNumber,
 
-    educationLevel: educationLevels.find(
-      (level) => level.value == application?.educationLevel,
-    )?.label,
-    educationField: educationFields.find(
-      (level) => level.value == application?.educationField,
-    )?.label,
+    educationLevel: educationLevelLabelMap[application?.educationLevel],
+    educationField: educationFieldLabelMap[application?.educationField],
     universityType: application?.highschool,
 
     averageGrade: application?.averageGrade,
@@ -93,7 +89,7 @@ export const participantDetailsRowFactory = (participantDetails: any[], users: a
 
       needDepartureShuttle: details?.needDepartureShuttle,
       needArrivalShuttle: details?.needArrivalShuttle,
-      cityOfResidence: cityLabels[details?.cityOfResidence],
+      cityOfResidence: cityLabelMap[details?.cityOfResidence],
 
       haveTalent: details?.haveTalent,
       talentDescription: details?.talentDescription,

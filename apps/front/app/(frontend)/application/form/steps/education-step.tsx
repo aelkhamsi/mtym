@@ -18,7 +18,7 @@ import {
   SelectItem,
 } from "@mdm/ui"
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
-import { educationFields, educationLevels } from "@mdm/shared"
+import { educationFieldOptions, educationLevelOptions } from "@mdm/shared"
 
 export const EducationStep = ({
   form,
@@ -58,7 +58,7 @@ export const EducationStep = ({
                   <SelectContent className="max-h-60">
                     <SelectGroup>
                       <SelectLabel>Niveaux</SelectLabel>
-                      {educationLevels.map(level =>
+                      {educationLevelOptions.map(level =>
                         <SelectItem key={level.value} value={level.value}>{level.label}</SelectItem>
                       )}
                     </SelectGroup>
@@ -85,7 +85,7 @@ export const EducationStep = ({
                   <SelectContent className="max-h-60">
                     <SelectGroup>
                       <SelectLabel>Filières</SelectLabel>
-                      {educationFields.map(field =>
+                      {educationFieldOptions.map(field =>
                         <SelectItem key={field.value} value={field.value}>{field.label}</SelectItem>
                       )}
                     </SelectGroup>

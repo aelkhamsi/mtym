@@ -17,10 +17,10 @@ import FilesTable from './files-table';
 import { useAtomValue } from 'jotai';
 import { applicationsAtom } from '@/store/applicationsAtom';
 import {
-  educationFieldLabels,
-  educationLevelLabels,
-  previousParticipationLabels,
-  regionLabels,
+  educationFieldLabelMap,
+  educationLevelLabelMap,
+  previousParticipationLabelMap,
+  regionLabelMap,
 } from '@mdm/shared';
 
 const renderText = (value: any) => {
@@ -93,7 +93,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
                 <Field label='Date of birth'>{renderText(formatDate(application?.dateOfBirth))}</Field>
                 <Field label='CNIE number'>{renderText(application?.identityCardNumber)}</Field>
                 <Field label='City of residence'>{renderText(application?.city)}</Field>
-                <Field label='Region of residence'>{renderText(regionLabels[application?.region])}</Field>
+                <Field label='Region of residence'>{renderText(regionLabelMap[application?.region])}</Field>
                 <Field label='Phone number'>{renderText(application?.phoneNumber)}</Field>
               </div>
             </TabsContent>
@@ -101,8 +101,8 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
             {/* EDUCATION */}
             <TabsContent value="education">
               <div className='space-y-6'>
-                <Field label='Education Level'>{renderText(educationLevelLabels[application?.educationLevel])}</Field>
-                <Field label='University Type'>{renderText(educationFieldLabels[application?.educationField])}</Field>
+                <Field label='Education Level'>{renderText(educationLevelLabelMap[application?.educationLevel])}</Field>
+                <Field label='University Type'>{renderText(educationFieldLabelMap[application?.educationField])}</Field>
                 <Field label='University Name'>{renderText(application?.highschool)}</Field>
                 <Separator className="my-6" />
                 <Field label='Average Grade'>{renderText(application?.averageGrade)}</Field>
@@ -116,12 +116,12 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
             {/* COMPETTION */}
             <TabsContent value="competition">
               <div className='space-y-6'>
-                <Field label='Avez-vous déjà participé à des compétitions auparavant ? (Olympiades, concours, etc.)?'>{renderText(previousParticipationLabels[application?.hasPreviousExperiences])}</Field>
+                <Field label='Avez-vous déjà participé à des compétitions auparavant ? (Olympiades, concours, etc.)?'>{renderText(previousParticipationLabelMap[application?.hasPreviousExperiences])}</Field>
                 <Field label='Veuillez préciser lesquels et le résultat obtenu.'>{renderText(application?.previousExperiences)}</Field>
 
                 <Separator />
 
-                <Field label='Avez-vous participé à MTYM en Mai 2024 ou en Décembre 2024 ?'>{renderText(previousParticipationLabels[application?.hasPreviousMTYMParticipations])}</Field>
+                <Field label='Avez-vous participé à MTYM en Mai 2024 ou en Décembre 2024 ?'>{renderText(previousParticipationLabelMap[application?.hasPreviousMTYMParticipations])}</Field>
                 <Field label='Veuillez préciser le nom de votre équipe'>{renderText(application?.previousMTYMParticipations)}</Field>
 
                 <Separator />

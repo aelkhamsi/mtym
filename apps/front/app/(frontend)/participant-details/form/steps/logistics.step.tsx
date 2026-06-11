@@ -15,7 +15,7 @@ import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
 import { getAllUsers } from '@/app/api/UsersApi'
 import { RoommateChoiceField } from './roommate-choice.field'
 import SelectOrInput from '@/app/components/forms/select-or-input'
-import { cities } from '@mdm/shared'
+import { cityOptions } from '@mdm/shared'
 
 export const LogisticsStep = ({
   form,
@@ -204,7 +204,7 @@ export const LogisticsStep = ({
             name="cityOfResidence"
             form={form}
             label="Ville de résidence"
-            options={cities}
+            options={cityOptions}
             required={true}
           ></SelectOrInput>
         }

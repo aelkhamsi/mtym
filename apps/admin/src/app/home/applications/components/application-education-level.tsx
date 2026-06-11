@@ -1,4 +1,4 @@
-import { educationLevelLabels } from '@mdm/shared';
+import { educationLevelLabelMap } from '@mdm/shared';
 
 const ApplicationEducationLevel = ({
   educationLevel
@@ -7,7 +7,7 @@ const ApplicationEducationLevel = ({
 }) => {
   return (
     <div>
-      {educationLevelLabels[educationLevel] ?? educationLevel}
+      {educationLevelLabelMap[educationLevel] ?? educationLevel}
     </div>
   )
 }

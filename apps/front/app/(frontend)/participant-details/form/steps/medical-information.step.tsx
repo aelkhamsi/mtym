@@ -12,10 +12,10 @@ import { CheckboxAndInput } from '@/app/components/forms/checkbox-and-input'
 import { useState } from 'react'
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
 import {
-  foodAllergies,
+  foodAllergyOptions,
   genderOptions,
-  illnessOrDisability,
-  nonFoodAllergies,
+  illnessOrDisabilityOptions,
+  nonFoodAllergyOptions,
 } from '@mdm/shared'
 
 export const MedicalInformationStep = ({
@@ -110,7 +110,7 @@ export const MedicalInformationStep = ({
           name="foodAllergy"
           form={form}
           label="Allergies Alimentaires"
-          options={foodAllergies}
+          options={foodAllergyOptions}
           required={true}
         ></CheckboxAndInput>
 
@@ -119,7 +119,7 @@ export const MedicalInformationStep = ({
           name="nonFoodAllergy"
           form={form}
           label="Allergies non Alimentaires"
-          options={nonFoodAllergies}
+          options={nonFoodAllergyOptions}
           required={true}
         ></CheckboxAndInput>
       </div>
@@ -157,7 +157,7 @@ export const MedicalInformationStep = ({
           name="illnessOrDisability"
           form={form}
           label="Souffrez-vous d’une maladie chronique ou d’un handicap ?"
-          options={illnessOrDisability}
+          options={illnessOrDisabilityOptions}
           required={true}
         ></CheckboxAndInput>
 
