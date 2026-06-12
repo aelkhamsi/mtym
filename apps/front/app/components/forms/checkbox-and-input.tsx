@@ -20,7 +20,7 @@ export const CheckboxAndInput = ({
   name: string
   form: UseFormReturn
   label: string
-  options: Option<string>[]
+  options: readonly Option<string>[]
   required?: boolean
 }) => {
   const selectedInit = form.watch(name) || []
