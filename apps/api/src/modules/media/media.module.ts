@@ -10,8 +10,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         config: {
+          endpoint: configService.get('s3.endpoint'),
           region: configService.get('s3.region'),
-          credentials: configService.get('s3.credentials')
+          forcePathStyle: configService.get('s3.forcePathStyle'),
+          credentials: configService.get('s3.credentials'),
         }
       }),
       inject: [ConfigService],
