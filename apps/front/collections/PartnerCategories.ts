@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-export const FaqCategories: CollectionConfig = {
-  slug: 'faq-categories',
+export const PartnerCategories: CollectionConfig = {
+  slug: 'partner-categories',
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'order'],
@@ -14,6 +14,10 @@ export const FaqCategories: CollectionConfig = {
       name: 'name',
       type: 'text',
       required: true,
+      admin: {
+        description:
+          'Section title shown on the /partners page (e.g. Organisateur, Co-organisateur, Partenaire officiel, Sponsors).',
+      },
     },
     {
       name: 'order',
@@ -21,7 +25,7 @@ export const FaqCategories: CollectionConfig = {
       defaultValue: 0,
       admin: {
         description:
-          'Controls the display order of the tabs (lowest first).',
+          'Controls the display order of the sections (lowest first).',
       },
     },
   ],

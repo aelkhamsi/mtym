@@ -1,3 +1,5 @@
 node_modules
 dist
 .turbo
+apps/front/organizer-photos/
+apps/front/partner-logos/

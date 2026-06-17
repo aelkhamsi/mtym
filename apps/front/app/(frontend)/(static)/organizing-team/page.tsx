@@ -5,6 +5,9 @@ import Image from 'next/image'
 import { shuffle } from '@mdm/utils'
 import SectionContainer from '@/app/components/section-container'
 
+
+export const dynamic = 'force-dynamic'
+
 type Organizer = {
   id: string
   name: string
@@ -27,15 +30,29 @@ const Card = ({
   imageSrc: string
   portfolioSrc?: string
 }) => {
-  return (
-    <Link href={portfolioSrc || '#'} target={portfolioSrc ? '_blank' : undefined}>
-      <div className="w-[10rem] border-b-4 border-[#F6A806] flex flex-col justify-between items-center space-y-2 rounded-md py-2">
-        <div className="h-fit">
-          <Image src={imageSrc} alt={name} width={160} height={160} />
-        </div>
-
-        <div className="text-sm text-center font-semibold">{name}</div>
+  const inner = (
+    <div className="w-[10rem] border-b-4 border-[#F6A806] flex flex-col justify-between items-center space-y-2 rounded-md py-2">
+      <div className="h-fit">
+        <Image src={imageSrc} alt={name} width={160} height={160} />
       </div>
+
+      <div className="text-sm text-center font-semibold">{name}</div>
+    </div>
+  )
+
+
+  if (!portfolioSrc) {
+    return inner
+  }
+
+  return (
+    <Link
+      href={portfolioSrc}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="cursor-pointer transition-transform duration-200 hover:-translate-y-1"
+    >
+      {inner}
     </Link>
   )
 }
@@ -91,24 +108,34 @@ export default async function OrganizingTeamPage() {
   return (
     <SectionContainer className="pt-24 pb-20 z-0">
       <div className="space-y-12">
-        {sections.map((section) => (
-          <div key={section.id} className="space-y-4">
-            <h1 className="text-center text-3xl font-bold font-neco drop-shadow-sm">
-              <span className="text-[#244B3A]">{section.name}</span>
-            </h1>
+        <h1 className="text-center text-3xl font-bold font-neco drop-shadow-sm text-[#244B3A]">
+          Équipe organisatrice
+        </h1>
 
-            <div className="flex justify-around flex-wrap gap-6 p-8 rounded-lg md:gap-x-12">
-              {section.members.map((person) => (
-                <Card
-                  key={person.id}
-                  name={person.name}
-                  imageSrc={person.imageSrc}
-                  portfolioSrc={person.portfolioSrc}
-                />
-              ))}
+        {sections.length === 0 ? (
+          <p className="text-center text-gray-500">
+            L&apos;équipe sera bientôt dévoilée.
+          </p>
+        ) : (
+          sections.map((section) => (
+            <div key={section.id} className="space-y-4">
+              <h2 className="text-center text-3xl font-bold font-neco drop-shadow-sm">
+                <span className="text-[#244B3A]">{section.name}</span>
+              </h2>
+
+              <div className="flex justify-around flex-wrap gap-6 p-8 rounded-lg md:gap-x-12">
+                {section.members.map((person) => (
+                  <Card
+                    key={person.id}
+                    name={person.name}
+                    imageSrc={person.imageSrc}
+                    portfolioSrc={person.portfolioSrc}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </SectionContainer>
   )

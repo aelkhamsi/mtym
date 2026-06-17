@@ -12,6 +12,9 @@ import { FaqCategories } from './collections/FaqCategories'
 import { Organizers } from './collections/Organizers'
 import { OrganizerCategories } from './collections/OrganizerCategories'
 import { OrganizerPhotos } from './collections/OrganizerPhotos'
+import { Partners } from './collections/Partners'
+import { PartnerCategories } from './collections/PartnerCategories'
+import { PartnerLogos } from './collections/PartnerLogos'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -40,6 +43,9 @@ export default buildConfig({
     Organizers,
     OrganizerCategories,
     OrganizerPhotos,
+    Partners,
+    PartnerCategories,
+    PartnerLogos,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
