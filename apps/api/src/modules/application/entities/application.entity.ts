@@ -99,13 +99,16 @@ export class Application {
   /* Uploads */
 
   @Column({ type: 'varchar', nullable: true })
-  fileRegulationsUrl: string;
+  fileCnieUrl: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  filePhotoUrl: string;
 
   @Column({ type: 'varchar', nullable: true })
   fileGradesUrl: string;
 
   @Column({ type: 'varchar', nullable: true })
-  fileCnieUrl: string;
+  fileSchoolCertificateUrl: string;
 
   /* createAt & updatedAt */
   @CreateDateColumn()

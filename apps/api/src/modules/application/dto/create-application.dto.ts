@@ -140,9 +140,13 @@ export class CreateApplicationDto {
 
   @IsString()
   @IsOptional()
+  filePhotoUrl: string;
+
+  @IsString()
+  @IsOptional()
   fileGradesUrl: string;
 
   @IsString()
   @IsOptional()
-  fileParentalAuthorizationUrl: string;
+  fileSchoolCertificateUrl: string;
 }
