@@ -1,3 +1,4 @@
+import SectionContainer from '@/app/components/section-container'
 
 export default async function ApplicationLayout({
   children,
@@ -5,8 +6,8 @@ export default async function ApplicationLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="pt-24 w-full lg:w-3/4 px-5 lg:px-0">
+    <SectionContainer className="pt-24 pb-20 z-0">
       {children}
-    </main>
+    </SectionContainer>
   );
 }
