@@ -1,31 +1,27 @@
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent} from "@mdm/ui";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@mdm/ui";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 
 type FaqItem = {
+  id: string;
   question: string;
-
-  anwser: string;
+  answer: any;
 }
 
 export const FaqAccordion = ({
   items,
-}:{
-  items: FaqItem[]
+}: {
+  items: FaqItem[];
 }) => {
   return (
-    <Accordion 
-      type="single" 
-      collapsible 
-      className="animate-fade-up opacity-0"
-      style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
-    >
-      {items.map((item, index) => 
-        <AccordionItem value={`item-${index}`}>
+    <Accordion type="single" collapsible>
+      {items.map((item, index) => (
+        <AccordionItem key={item.id} value={`item-${index}`}>
           <AccordionTrigger>{item.question}</AccordionTrigger>
-          <AccordionContent className="text-gray-700 whitespace-pre-line">
-            {item.anwser}
+          <AccordionContent className="text-gray-700">
+            <RichText data={item.answer} />
           </AccordionContent>
         </AccordionItem>
-      )}
+      ))}
     </Accordion>
-  )
+  );
 }
