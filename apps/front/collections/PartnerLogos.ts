@@ -7,6 +7,7 @@ export const PartnerLogos: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'alt',
+    hidden: true,
   },
   fields: [
     {
@@ -18,6 +19,7 @@ export const PartnerLogos: CollectionConfig = {
     },
   ],
   upload: {
+    staticDir: 'public/images/payload/partner-logos',
     mimeTypes: ['image/*'],
     crop: true,
     focalPoint: true,

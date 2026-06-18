@@ -6,8 +6,6 @@ import { shuffle } from '@mdm/utils'
 import SectionContainer from '@/app/components/section-container'
 
 
-export const dynamic = 'force-dynamic'
-
 type Organizer = {
   id: string
   name: string
@@ -19,6 +17,38 @@ type CategorySection = {
   id: string
   name: string
   members: Organizer[]
+}
+
+
+
+type Row =
+  | { type: 'full'; section: CategorySection }
+  | { type: 'group'; sections: CategorySection[] }
+
+const SMALL_CATEGORY_MAX = 2
+
+const groupSectionsIntoRows = (sections: CategorySection[]): Row[] => {
+  const rows: Row[] = []
+  let smallRun: CategorySection[] = []
+
+  const flush = () => {
+    if (smallRun.length > 0) {
+      rows.push({ type: 'group', sections: smallRun })
+      smallRun = []
+    }
+  }
+
+  for (const section of sections) {
+    if (section.members.length <= SMALL_CATEGORY_MAX) {
+      smallRun.push(section)
+    } else {
+      flush()
+      rows.push({ type: 'full', section })
+    }
+  }
+  flush()
+
+  return rows
 }
 
 const Card = ({
@@ -33,7 +63,11 @@ const Card = ({
   const inner = (
     <div className="w-[10rem] border-b-4 border-[#F6A806] flex flex-col justify-between items-center space-y-2 rounded-md py-2">
       <div className="h-fit">
-        <Image src={imageSrc} alt={name} width={160} height={160} />
+        {imageSrc ? (
+          <Image src={imageSrc} alt={name} width={160} height={160} />
+        ) : (
+          <div className="w-[160px] h-[160px] bg-gray-100 rounded" />
+        )}
       </div>
 
       <div className="text-sm text-center font-semibold">{name}</div>
@@ -57,6 +91,29 @@ const Card = ({
   )
 }
 
+const CategoryBlock = ({ section }: { section: CategorySection }) => (
+  <div className="space-y-4">
+    <h2 className="text-center text-3xl font-bold font-neco drop-shadow-sm">
+      <span className="text-[#244B3A]">{section.name}</span>
+    </h2>
+
+    <div
+      className={`flex flex-wrap gap-6 p-8 rounded-lg md:gap-x-12 ${
+        section.members.length <= 2 ? 'justify-center' : 'justify-around'
+      }`}
+    >
+      {section.members.map((person) => (
+        <Card
+          key={person.id}
+          name={person.name}
+          imageSrc={person.imageSrc}
+          portfolioSrc={person.portfolioSrc}
+        />
+      ))}
+    </div>
+  </div>
+)
+
 export default async function OrganizingTeamPage() {
   const payload = await getPayload({ config })
 
@@ -73,10 +130,11 @@ export default async function OrganizingTeamPage() {
     organizersResult.docs.map((doc) => {
       const photo =
         doc.photo && typeof doc.photo === 'object' ? doc.photo : null
-      const imageSrc =
-        (photo?.sizes?.card?.url as string | undefined) ??
-        (photo?.url as string | undefined) ??
-        ''
+
+      const filename = photo?.filename as string | undefined
+      const imageSrc = filename
+        ? `/images/payload/organizer-photos/${filename}`
+        : ''
 
       const categoryId =
         doc.category && typeof doc.category === 'object'
@@ -88,7 +146,7 @@ export default async function OrganizingTeamPage() {
       return {
         id: String(doc.id),
         name: doc.fullName,
-        portfolioSrc: doc.linkedinUrl || doc.websiteUrl || undefined,
+        portfolioSrc: doc.portfolioUrl || undefined,
         imageSrc,
         categoryId,
       }
@@ -105,36 +163,35 @@ export default async function OrganizingTeamPage() {
     }))
     .filter((section) => section.members.length > 0)
 
+  const rows = groupSectionsIntoRows(sections)
+
   return (
     <SectionContainer className="pt-24 pb-20 z-0">
       <div className="space-y-12">
-        <h1 className="text-center text-3xl font-bold font-neco drop-shadow-sm text-[#244B3A]">
-          Équipe organisatrice
-        </h1>
-
-        {sections.length === 0 ? (
+        {rows.length === 0 ? (
           <p className="text-center text-gray-500">
             L&apos;équipe sera bientôt dévoilée.
           </p>
         ) : (
-          sections.map((section) => (
-            <div key={section.id} className="space-y-4">
-              <h2 className="text-center text-3xl font-bold font-neco drop-shadow-sm">
-                <span className="text-[#244B3A]">{section.name}</span>
-              </h2>
-
-              <div className="flex justify-around flex-wrap gap-6 p-8 rounded-lg md:gap-x-12">
-                {section.members.map((person) => (
-                  <Card
-                    key={person.id}
-                    name={person.name}
-                    imageSrc={person.imageSrc}
-                    portfolioSrc={person.portfolioSrc}
-                  />
+          rows.map((row, i) =>
+            row.type === 'full' ? (
+              <CategoryBlock key={row.section.id} section={row.section} />
+            ) : (
+              <div
+                key={`group-${i}`}
+                className="flex flex-wrap justify-center gap-x-12 gap-y-8"
+              >
+                {row.sections.map((section) => (
+                  <div
+                    key={section.id}
+                    className="flex-1 min-w-[16rem] max-w-md"
+                  >
+                    <CategoryBlock section={section} />
+                  </div>
                 ))}
               </div>
-            </div>
-          ))
+            ),
+          )
         )}
       </div>
     </SectionContainer>

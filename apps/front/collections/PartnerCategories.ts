@@ -5,6 +5,7 @@ export const PartnerCategories: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'order'],
+    hidden: true,
   },
   access: {
     read: () => true,

@@ -6,6 +6,7 @@ export const OrganizerCategories: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'order'],
+    hidden: true,
   },
   access: {
     read: () => true,

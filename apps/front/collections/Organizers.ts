@@ -16,19 +16,11 @@ export const Organizers: CollectionConfig = {
       required: true,
     },
     {
-      name: 'linkedinUrl',
+      name: 'portfolioUrl',
       type: 'text',
       admin: {
         description:
-          'LinkedIn profile URL. Used as the card link first if provided.',
-      },
-    },
-    {
-      name: 'websiteUrl',
-      type: 'text',
-      admin: {
-        description:
-          'Personal website URL. Used as the card link if there is no LinkedIn URL.',
+          'Link used on the card. Use a personal website if available, otherwise a LinkedIn profile URL.',
       },
     },
     {

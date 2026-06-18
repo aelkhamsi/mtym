@@ -8,6 +8,7 @@ export const OrganizerPhotos: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'alt',
+    hidden: true,
   },
   fields: [
     {
@@ -19,6 +20,7 @@ export const OrganizerPhotos: CollectionConfig = {
     },
   ],
   upload: {
+    staticDir: 'public/images/payload/organizer-photos',
     mimeTypes: ['image/*'],
     crop: true,
     focalPoint: true,
