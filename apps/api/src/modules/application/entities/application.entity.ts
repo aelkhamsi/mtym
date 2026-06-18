@@ -83,21 +83,6 @@ export class Application {
   @Column({ type: 'varchar', default: '' })
   isHighschoolFarFromHome: string;
 
-  @Column({ type: 'varchar', default: '' })
-  averageGrade: string;
-
-  @Column({ type: 'varchar', default: '' })
-  mathAverageGrade: string;
-
-  @Column({ type: 'varchar', default: '' })
-  ranking: string;
-
-  @Column({ type: 'varchar', default: '' })
-  mathRanking: string;
-
-  @Column({ type: 'varchar', default: '' })
-  numberOfStudentsInClass: string;
-
   /* Motivations */
   @Column({ type: 'varchar', default: '' })
   hasPreviousExperiences: string;

@@ -23,7 +23,7 @@ export const steps: Step[] = [
   {
     id: 'Step 2',
     name: 'Éducation',
-    getValidationFields: (_) => (['educationLevel', 'educationField', 'highschool', 'highschoolCity', 'highschoolRegion', 'isHighschoolFarFromHome', 'averageGrade', 'mathAverageGrade', 'ranking', 'mathRanking', 'numberOfStudentsInClass'])
+    getValidationFields: (_) => (['educationLevel', 'educationField', 'highschool', 'highschoolCity', 'highschoolRegion', 'isHighschoolFarFromHome'])
   },
   {
     id: 'Step 3',

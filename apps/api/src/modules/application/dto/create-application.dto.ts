@@ -71,26 +71,6 @@ export class CreateApplicationDto {
   @IsOptional()
   isHighschoolFarFromHome
 
-  @IsString()
-  @IsOptional()
-  averageGrade: string;
-
-  @IsString()
-  @IsOptional()
-  mathAverageGrade: string;
-
-  @IsString()
-  @IsOptional()
-  ranking: string;
-
-  @IsString()
-  @IsOptional()
-  mathRanking: string;
-
-  @IsString()
-  @IsOptional()
-  numberOfStudentsInClass: string;
-
   /* Motivations */
   @IsString()
   @IsOptional()

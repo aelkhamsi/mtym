@@ -26,12 +26,6 @@ export const applicationsRowFactory = (applications: any[], configService) => {
     highschoolRegion: regionLabelMap[application?.highschoolRegion],
     isHighschoolFarFromHome: application?.isHighschoolFarFromHome,
 
-    averageGrade: application?.averageGrade,
-    mathAverageGrade: application?.mathAverageGrade,
-    ranking: application?.ranking,
-    mathRanking: application?.mathRanking,
-    numberOfStudentsInClass: application?.numberOfStudentsInClass,
-
     hasPreviousExperiences: application?.hasPreviousExperiences,
     previousExperiences: application?.previousExperiences,
     hasPreviousMTYMParticipations: application?.hasPreviousMTYMParticipations,

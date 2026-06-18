@@ -35,11 +35,6 @@ export const applicationSchema: ZodSchema = z.object({
   highschoolCity: z.string().nonempty("Choisissez une option"),
   highschoolRegion: z.string().nonempty("Choisissez une option"),
   isHighschoolFarFromHome: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  averageGrade: z.coerce.number().min(0).max(20),
-  mathAverageGrade: z.coerce.number().min(0).max(20),
-  ranking: z.coerce.number().min(0).max(20),
-  mathRanking: z.coerce.number().min(0).max(20),
-  numberOfStudentsInClass: z.coerce.number().min(1),
 
   /* Motivation */
   hasPreviousExperiences: z.enum(["yes", "no"], { message: "Choisissez une option" }),
@@ -85,11 +80,6 @@ export const applicationDefaultValues = {
   highschoolCity: '',
   highschoolRegion: '',
   isHighschoolFarFromHome: '',
-  averageGrade: '',
-  mathAverageGrade: '',
-  ranking: '',
-  mathRanking: '',
-  numberOfStudentsInClass: '',
 
   /* Motivation */
   hasPreviousExperiences: '',
