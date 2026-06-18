@@ -52,6 +52,18 @@ export class Application {
   @Column({ type: 'varchar', default: '' })
   phoneNumber: string;
 
+  @Column({ type: 'varchar', default: '' })
+  allergyOrMedication: string;
+
+  @Column({ type: 'varchar', default: '' })
+  guardianFullName: string;
+
+  @Column({ type: 'varchar', default: '' })
+  guardianPhoneNumber: string;
+
+  @Column({ type: 'varchar', default: '' })
+  relationshipWithGuardian: string;
+
   /* Education */
   @Column({ type: 'varchar', default: '' })
   educationLevel: string;

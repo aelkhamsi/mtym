@@ -9,3 +9,4 @@ export * from "./food-allergy";
 export * from "./non-food-allergy";
 export * from "./illness-or-disability";
 export * from "./workshop";
+export * from "./guardian"

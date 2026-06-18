@@ -1,4 +1,4 @@
-import { educationLevelLabelMap, educationFieldLabelMap, regionLabelMap, cityLabelMap } from '@mdm/shared';
+import { educationLevelLabelMap, educationFieldLabelMap, regionLabelMap, cityLabelMap, guardianLabelMap } from '@mdm/shared';
 
 export const applicationsRowFactory = (applications: any[], configService) => {
   const endpoint = configService.get('s3.endpoint');
@@ -14,10 +14,14 @@ export const applicationsRowFactory = (applications: any[], configService) => {
     city: application?.city,
     region: regionLabelMap[application?.region],
     phoneNumber: application?.phoneNumber,
+    allergyOrMedication: application?.allergyOrMedication,
+    guardianFullName: application?.guardianFullName,
+    guardianPhoneNumber: application?.guardianPhoneNumber,
+    relationshipWithGuardian: guardianLabelMap[application?.guardianFullName],
 
     educationLevel: educationLevelLabelMap[application?.educationLevel],
     educationField: educationFieldLabelMap[application?.educationField],
-    universityType: application?.highschool,
+    highschool: application?.highschool,
 
     averageGrade: application?.averageGrade,
     mathAverageGrade: application?.mathAverageGrade,

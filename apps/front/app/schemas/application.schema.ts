@@ -17,6 +17,16 @@ export const applicationSchema: ZodSchema = z.object({
   city: z.string().nonempty("Choisissez une option"),
   region: z.string().nonempty("Choisissez une option"),
   phoneNumber: z.string().refine(isValidPhoneNumber, { message: "Numéro de téléphone invalide" }),
+  allergyOrMedication: z.string().optional().refine((val) => {
+    if (val) {
+      return val.split(' ').length <= 100
+    }
+    return true;
+  } , { message: "Maximum 100 mots"}),
+
+  guardianFullName: z.string().min(1).max(50),
+  guardianPhoneNumber: z.string().refine(isValidPhoneNumber, { message: "Numéro de téléphone invalide" }),
+  relationshipWithGuardian: z.string().min(1).max(50),
 
   /* Education */
   educationLevel: z.string().nonempty("Choisissez une option"),
@@ -60,6 +70,10 @@ export const applicationDefaultValues = {
   city: '',
   region: '',
   phoneNumber: '',
+  allergyOrMedication: '',
+  guardianFullName: '',
+  guardianPhoneNumber: '',
+  relationshipWithGuardian: '',
 
   /* Education */
   educationLevel: '',
