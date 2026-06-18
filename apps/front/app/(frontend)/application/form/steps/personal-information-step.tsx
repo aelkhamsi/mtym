@@ -6,6 +6,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  Textarea,
 } from "@mdm/ui"
 import {
   Select,
@@ -25,12 +26,13 @@ import {
 import { Calendar } from "@mdm/ui"
 import { CalendarIcon } from "@mdm/ui"
 import { PhoneInput } from "@mdm/ui"
-import { cn } from '@mdm/utils'
+import { cn, isOverEighteen } from '@mdm/utils'
 import { Button } from "@mdm/ui"
 import { format } from "@mdm/ui"
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
 import SelectOrInput from '@/app/components/forms/select-or-input'
-import { cityOptions, regionOptions } from "@mdm/shared"
+import { cityOptions, guardianOptions, regionOptions } from "@mdm/shared"
+import { useAge } from '@/app/(frontend)/application/hooks/use-age'
 
 export const PersonalInformationStep = ({
   form,
@@ -39,6 +41,10 @@ export const PersonalInformationStep = ({
   form: UseFormReturn,
   delta: number
 }) => {
+  const {
+    isAdult, 
+    setIsAdult
+  } = useAge(form)
 
   return (
     <motion.div
@@ -116,7 +122,17 @@ export const PersonalInformationStep = ({
                     fromYear={2000} 
                     toYear={2020}
                     selected={field.value}
-                    onSelect={(value) => field.onChange(value)}
+                    onSelect={(value) => {
+                      const _isAdult = isOverEighteen(value as Date)
+                      setIsAdult(_isAdult)
+                      form.clearErrors('identityCardNumber')
+                      if (_isAdult) {
+                        form.setValue('guardianFullName', '')
+                        form.setValue('guardianPhoneNumber', '')
+                        form.setValue('relationshipWithGuardian', '')
+                      }
+                      field.onChange(value)
+                    }}
                     className="rounded-md border"
                   />
                 </PopoverContent>
@@ -149,8 +165,6 @@ export const PersonalInformationStep = ({
           options={cityOptions}
           required={true}
         ></SelectOrInput>
-        
-        
 
         {/* Region */}
         <FormField
@@ -194,6 +208,95 @@ export const PersonalInformationStep = ({
           )}
         />
       </div>
+
+      <div className='mt-6 grid grid-cols-1 gap-4 justify-between'>
+        {/* Comments */}
+        <FormField
+          control={form.control}
+          name="allergyOrMedication"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Avez-vous des allérgies ou suivez-vous un traitement médical ?</FormLabel>
+              <FormControl>
+              <Textarea
+                placeholder=""
+                className="resize-none"
+                {...field}
+              />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
+      {!isAdult && (
+        <>
+          <h2 className='text-base font-semibold leading-7 text-[#0284C7] mt-6'>
+            Informations personnelles du tuteur
+          </h2>
+          <Separator className='mt-4 bg-[#0284C7]'/>
+
+          <div className='mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-between'>
+            {/* Guardian Full Name */}
+            <FormField
+              control={form.control}
+              name="guardianFullName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nom et Prénom du tuteur<RequiredAsterisk /></FormLabel>
+                  <FormControl>
+                    <Input placeholder="Entrez un nom complet" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+        
+            {/* Guardian Phone Number */}
+            <FormField
+              control={form.control}
+              name="guardianPhoneNumber"
+              render={({ field }) => (
+                <FormItem className="flex flex-col mt-2 items-start">
+                  <FormLabel className="text-left">Téléphone du tuteur <RequiredAsterisk /></FormLabel>
+                  <FormControl className="w-full">
+                    <PhoneInput onValueChange={field.onChange} defaultValue={field.value} defaultCountry='MA' />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Relationship with Guardian */}
+            <FormField
+              control={form.control}
+              name="relationshipWithGuardian"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Relation avec votre tuteur<RequiredAsterisk /></FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choisissez une option" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Relation avec votre tuteur</SelectLabel>
+                          {guardianOptions.map(relationship => 
+                            <SelectItem key={relationship.value} value={relationship.value}>{relationship.label}</SelectItem>
+                          )}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select> 
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </>
+      )}
     </motion.div>
   )
 }

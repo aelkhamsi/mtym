@@ -1,3 +1,5 @@
+import { isOverEighteen } from '@mdm/utils';
+
 type Step = {
   id: string,
   name: string,
@@ -6,14 +8,22 @@ type Step = {
 
 export const steps: Step[] = [
   {
-    id: 'Step 1',
-    name: 'Informations personnelles',
-    getValidationFields: (_) => (['firstName', 'lastName', 'dateOfBirth', 'city', 'region', 'phoneNumber'])
+    id: 'Étape 1',
+    name: 'Informations Personnelles',
+    getValidationFields: (formState: any) => {
+      const dob = formState?.dateOfBirth
+      const isAdult = isOverEighteen(dob)
+      return [
+        ...(!isAdult ? ['guardianFullName', 'guardianPhoneNumber', 'relationshipWithGuardian'] : []),
+        ...(isAdult ? ['identityCardNumber'] : []),
+        ...['firstName', 'lastName', 'dateOfBirth', 'city', 'region', 'phoneNumber']
+      ]
+    }
   },
   {
     id: 'Step 2',
     name: 'Éducation',
-    getValidationFields: (_) => (['educationLevel', 'educationField', 'highschool', 'averageGrade', 'mathAverageGrade', 'ranking', 'mathRanking', 'numberOfStudentsInClass'])
+    getValidationFields: (_) => (['educationLevel', 'educationField', 'highschool', 'highschoolCity', 'highschoolRegion', 'isHighschoolFarFromHome'])
   },
   {
     id: 'Step 3',

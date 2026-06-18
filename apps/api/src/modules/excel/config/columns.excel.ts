@@ -8,10 +8,17 @@ export const applicationsColumns = [
   { header: 'City', key: 'city', width: 15 },
   { header: 'Region', key: 'region', width: 20 },
   { header: 'Phone number', key: 'phone-number', width: 17 },
+  { header: 'allergyOrMedication', key: 'dob', width: 20 },
+  { header: 'guardianFullName', key: 'dob', width: 15 },
+  { header: 'guardianPhoneNumber', key: 'dob', width: 15 },
+  { header: 'relationshipWithGuardian', key: 'dob', width: 15 },
 
   { header: 'Education Level', key: 'education-level', width: 20 },
   { header: 'Education Field', key: 'education-field', width: 15 },
-  { header: 'Highschool', key: 'university-name', width: 15 },
+  { header: 'Highschool', key: 'highschool', width: 15 },
+  { header: 'Highschool City', key: 'highschool-city', width: 20 },
+  { header: 'Highschool Region', key: 'highschool-region', width: 20 },
+  { header: 'is Highschool far from home', key: 'is-highschool-far-from-home', width: 20 },
 
   { header: 'Average Grade', key: 'average-grade', width: 10 },
   { header: 'Math Average Grade', key: 'math-average-grade', width: 10 },

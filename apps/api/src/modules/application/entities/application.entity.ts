@@ -52,6 +52,18 @@ export class Application {
   @Column({ type: 'varchar', default: '' })
   phoneNumber: string;
 
+  @Column({ type: 'varchar', default: '' })
+  allergyOrMedication: string;
+
+  @Column({ type: 'varchar', default: '' })
+  guardianFullName: string;
+
+  @Column({ type: 'varchar', default: '' })
+  guardianPhoneNumber: string;
+
+  @Column({ type: 'varchar', default: '' })
+  relationshipWithGuardian: string;
+
   /* Education */
   @Column({ type: 'varchar', default: '' })
   educationLevel: string;
@@ -63,19 +75,13 @@ export class Application {
   highschool: string;
 
   @Column({ type: 'varchar', default: '' })
-  averageGrade: string;
+  highschoolCity: string;
 
   @Column({ type: 'varchar', default: '' })
-  mathAverageGrade: string;
-
+  highschoolRegion: string;
+    
   @Column({ type: 'varchar', default: '' })
-  ranking: string;
-
-  @Column({ type: 'varchar', default: '' })
-  mathRanking: string;
-
-  @Column({ type: 'varchar', default: '' })
-  numberOfStudentsInClass: string;
+  isHighschoolFarFromHome: string;
 
   /* Motivations */
   @Column({ type: 'varchar', default: '' })

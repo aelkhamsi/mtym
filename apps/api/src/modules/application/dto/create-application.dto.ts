@@ -32,6 +32,10 @@ export class CreateApplicationDto {
 
   @IsString()
   @IsOptional()
+  allergyOrMedication: string;
+
+  @IsString()
+  @IsOptional()
   guardianFullName: string;
 
   @IsString()
@@ -41,11 +45,6 @@ export class CreateApplicationDto {
   @IsString()
   @IsOptional()
   relationshipWithGuardian: string;
-
-  // Activity Choices
-  @IsString()
-  @IsOptional()
-  activityChoices: string[];
 
   /* Education */
   @IsString()
@@ -62,64 +61,32 @@ export class CreateApplicationDto {
 
   @IsString()
   @IsOptional()
-  averageGrade: string;
+  highschoolCity: string;
 
   @IsString()
   @IsOptional()
-  mathAverageGrade: string;
+  highschoolRegion: string;
 
   @IsString()
   @IsOptional()
-  ranking: string;
-
-  @IsString()
-  @IsOptional()
-  mathRanking: string;
-
-  @IsString()
-  @IsOptional()
-  numberOfStudentsInClass: string;
+  isHighschoolFarFromHome
 
   /* Motivations */
   @IsString()
   @IsOptional()
-  hasPreviouslyParticipated: string;
-
+  hasPreviousExperiences: string;
+  
   @IsString()
   @IsOptional()
-  previousCompetitions: string;
-
+  previousExperiences: string;
+  
   @IsString()
   @IsOptional()
-  videoTitle: string;
-
+  hasPreviousMTYMParticipations: string;
+  
   @IsString()
   @IsOptional()
-  videoLink: string;
-
-  @IsString()
-  @IsOptional()
-  videoSubject: string;
-
-  @IsString()
-  @IsOptional()
-  videoMotivations: string;
-
-  @IsString()
-  @IsOptional()
-  videoRessources: string;
-
-  @IsString()
-  @IsOptional()
-  standSubjectTitle: string;
-
-  @IsString()
-  @IsOptional()
-  standSubjectDetails: string;
-
-  @IsString()
-  @IsOptional()
-  standMembers: string[];
+  previousMTYMParticipations: string;
 
   @IsString()
   @IsOptional()
