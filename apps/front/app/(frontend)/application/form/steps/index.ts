@@ -38,8 +38,10 @@ export const steps: Step[] = [
     getValidationFields: (formState) => {
       const isFileUploaded = (key: string) => !!formState?.[`${key}Url`]
       return [
-        !isFileUploaded('fileRegulations') ? 'fileRegulations' : '',
+        !isFileUploaded('fileCnie') ? 'fileCnie' : '',
+        !isFileUploaded('filePhoto') ? 'filePhoto' : '',
         !isFileUploaded('fileGrades') ? 'fileGrades' : '',
+        !isFileUploaded('fileSchoolCertificate') ? 'fileSchoolCertificate' : '',
       ]
     }
   },

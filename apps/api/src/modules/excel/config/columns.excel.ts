@@ -42,9 +42,10 @@ export const applicationsColumns = [
   { header: 'Motivations', key: 'id', width: 30 },
   { header: 'Comments', key: 'id', width: 30 },
 
-  { header: 'Grades', key: 'grades', width: 10 },
-  { header: 'Regulations', key: 'regulations', width: 10 },
   { header: 'CNIE', key: 'cnie', width: 10 },
+  { header: 'Photo', key: 'photo', width: 10 },
+  { header: 'Grades', key: 'grades', width: 10 },
+  { header: 'School Certificate', key: 'school-certificate', width: 10 },
 
   { header: 'Status', key: 'status', width: 15 },
 

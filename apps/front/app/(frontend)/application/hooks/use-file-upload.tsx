@@ -10,10 +10,10 @@ export const useFileUpload = () => {
   const getFiles = (
     formData: z.infer<typeof applicationSchema>
   ) => {
-    const { fileRegulations, fileGrades } = formData;
-    const uploadFileNames = ['regulations', 'grades']
+    const { fileCnie, filePhoto, fileGrades, fileSchoolCertificate } = formData;
+    const uploadFileNames = ['cnie', 'photo', 'grades', 'school_certificate']
       .map(name => `${name}_${generateFileName()}`)
-    const files = [fileRegulations, fileGrades]
+    const files = [fileCnie, filePhoto, fileGrades, fileSchoolCertificate]
       .map((files, index) => {
         if (files && files.length) {
           return new File(
@@ -51,8 +51,10 @@ export const useFileUpload = () => {
   ) => {
     const uploadFolderName = getUploadFolderName(user?.firstName, user?.lastName);
     const fileUrls = {
-      fileRegulationsUrl: files[0] ? `${uploadFolderName}/${files[0].name}` : (formData?.fileRegulationsUrl ?? null),
-      fileGradesUrl: files[1] ? `${uploadFolderName}/${files[1].name}` : (formData?.fileGradesUrl ?? null),
+      fileCnieUrl: files[0] ? `${uploadFolderName}/${files[0].name}` : (formData?.fileCnieUrl ?? null),
+      filePhotoUrl: files[1] ? `${uploadFolderName}/${files[1].name}` : (formData?.filePhotoUrl ?? null),
+      fileGradesUrl: files[2] ? `${uploadFolderName}/${files[2].name}` : (formData?.fileGradesUrl ?? null),
+      fileSchoolCertificateUrl: files[3] ? `${uploadFolderName}/${files[3].name}` : (formData?.fileSchoolCertificateUrl ?? null),
     }
 
     const result = await putApplication(formData?.id, fileUrls) as any
