@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "generate:importmap": "payload generate:importmap",
-    "build": "payload generate:importmap && next build",
+    "build": "next build",
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "start": "next start",
