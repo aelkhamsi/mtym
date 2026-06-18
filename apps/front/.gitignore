@@ -46,3 +46,6 @@ front.db-wal
 payload.db
 payload.db-shm
 payload.db-wal
+
+# payload uploads (user-uploaded media, served from public)
+/public/images/payload/
