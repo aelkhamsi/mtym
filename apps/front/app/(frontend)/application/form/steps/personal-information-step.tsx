@@ -165,8 +165,6 @@ export const PersonalInformationStep = ({
           options={cityOptions}
           required={true}
         ></SelectOrInput>
-        
-        
 
         {/* Region */}
         <FormField

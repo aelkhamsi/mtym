@@ -75,6 +75,15 @@ export class Application {
   highschool: string;
 
   @Column({ type: 'varchar', default: '' })
+  highschoolCity: string;
+
+  @Column({ type: 'varchar', default: '' })
+  highschoolRegion: string;
+    
+  @Column({ type: 'varchar', default: '' })
+  isHighschoolFarFromHome: string;
+
+  @Column({ type: 'varchar', default: '' })
   averageGrade: string;
 
   @Column({ type: 'varchar', default: '' })

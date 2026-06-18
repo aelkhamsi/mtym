@@ -61,6 +61,18 @@ export class CreateApplicationDto {
 
   @IsString()
   @IsOptional()
+  highschoolCity: string;
+
+  @IsString()
+  @IsOptional()
+  highschoolRegion: string;
+
+  @IsString()
+  @IsOptional()
+  isHighschoolFarFromHome
+
+  @IsString()
+  @IsOptional()
   averageGrade: string;
 
   @IsString()

@@ -18,7 +18,9 @@ import {
   SelectItem,
 } from "@mdm/ui"
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
-import { educationFieldOptions, educationLevelOptions } from "@mdm/shared"
+import { cityOptions, educationFieldOptions, educationLevelOptions, regionOptions } from "@mdm/shared"
+import SelectOrInput from '@/app/components/forms/select-or-input'
+import { RadioGroup, RadioGroupItem } from '@mdm/ui';
 
 export const EducationStep = ({
   form,
@@ -106,6 +108,77 @@ export const EducationStep = ({
               <FormLabel>Nom du lycée<RequiredAsterisk /></FormLabel>
               <FormControl>
                 <Input placeholder="Entrez une valeur" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Highschool City */}
+        <SelectOrInput
+          name="highschoolCity"
+          form={form}
+          label="Ville du lycée"
+          options={cityOptions}
+          required={true}
+        ></SelectOrInput>
+
+        {/* Highschool Region*/}
+        <FormField
+          control={form.control}
+          name="highschoolRegion"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Région du lycée<RequiredAsterisk /></FormLabel>
+              <FormControl>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selectionnez une région" />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-60">
+                    <SelectGroup>
+                      <SelectLabel>Régions</SelectLabel>
+                      {regionOptions.map(region =>
+                        <SelectItem key={region.value} value={region.value}>{region.label}</SelectItem>
+                      )}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select> 
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="isHighschoolFarFromHome"
+          render={({ field }) => (
+            <FormItem className="space-y-3">
+              <FormLabel>J&apos;habite loin de mes parents lors de la période scolaire<RequiredAsterisk /></FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={(value) => field.onChange(value)}
+                  defaultValue={field.value}
+                  className="flex flex-col space-y-1"
+                >
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="yes" />
+                    </FormControl>
+                    <FormLabel className="font-normal">
+                      Yes
+                    </FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="no" />
+                    </FormControl>
+                    <FormLabel className="font-normal">
+                      No
+                    </FormLabel>
+                  </FormItem>
+                </RadioGroup>
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -13,7 +13,7 @@ export const regionOptions = [
   { label: "Guelmim-Oued Noun", value: "guelmim-oued-noun" },
   { label: "Laâyoune-Sakia El Hamra", value: "laayoune-sakia-el-hamra" },
   { label: "Dakhla-Oued Eddahab", value: "dakhla-oued-eddahab" },
-  { label: "Abroad", value: "abroad" },
+  { label: "Étranger", value: "abroad" },
 ] as const;
 
 export const regionLabelMap = toLabelMap(regionOptions);

@@ -11,7 +11,7 @@ export const applicationsRowFactory = (applications: any[], configService) => {
     email: application?.user?.email,
     dateOfBirth: new Date(application?.dateOfBirth),
     identityCardNumber: application?.identityCardNumber,
-    city: application?.city,
+    city: cityLabelMap[application?.city],
     region: regionLabelMap[application?.region],
     phoneNumber: application?.phoneNumber,
     allergyOrMedication: application?.allergyOrMedication,
@@ -22,6 +22,9 @@ export const applicationsRowFactory = (applications: any[], configService) => {
     educationLevel: educationLevelLabelMap[application?.educationLevel],
     educationField: educationFieldLabelMap[application?.educationField],
     highschool: application?.highschool,
+    highschoolCity: cityLabelMap[application?.highschoolCity],
+    highschoolRegion: regionLabelMap[application?.highschoolRegion],
+    isHighschoolFarFromHome: application?.isHighschoolFarFromHome,
 
     averageGrade: application?.averageGrade,
     mathAverageGrade: application?.mathAverageGrade,
