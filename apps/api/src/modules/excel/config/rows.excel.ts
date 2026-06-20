@@ -1,8 +1,8 @@
-import { educationLevels, regionLabels, educationFields, cityLabels } from '../labels';
+import { educationLevelLabelMap, educationFieldLabelMap, regionLabelMap, cityLabelMap, guardianLabelMap } from '@mdm/shared';
 
 export const applicationsRowFactory = (applications: any[], configService) => {
-  const awsBucketName = configService.get('s3.name');
-  const awsBucketRegion = configService.get('s3.region');
+  const endpoint = configService.get('s3.endpoint');
+  const bucketName = configService.get('s3.name');
 
   return applications.map((application: any) => ({
     id: application?.id,
@@ -11,23 +11,20 @@ export const applicationsRowFactory = (applications: any[], configService) => {
     email: application?.user?.email,
     dateOfBirth: new Date(application?.dateOfBirth),
     identityCardNumber: application?.identityCardNumber,
-    city: application?.city,
-    region: regionLabels[application?.region],
+    city: cityLabelMap[application?.city],
+    region: regionLabelMap[application?.region],
     phoneNumber: application?.phoneNumber,
+    allergyOrMedication: application?.allergyOrMedication,
+    guardianFullName: application?.guardianFullName,
+    guardianPhoneNumber: application?.guardianPhoneNumber,
+    relationshipWithGuardian: guardianLabelMap[application?.guardianFullName],
 
-    educationLevel: educationLevels.find(
-      (level) => level.value == application?.educationLevel,
-    )?.label,
-    educationField: educationFields.find(
-      (level) => level.value == application?.educationField,
-    )?.label,
-    universityType: application?.highschool,
-
-    averageGrade: application?.averageGrade,
-    mathAverageGrade: application?.mathAverageGrade,
-    ranking: application?.ranking,
-    mathRanking: application?.mathRanking,
-    numberOfStudentsInClass: application?.numberOfStudentsInClass,
+    educationLevel: educationLevelLabelMap[application?.educationLevel],
+    educationField: educationFieldLabelMap[application?.educationField],
+    highschool: application?.highschool,
+    highschoolCity: cityLabelMap[application?.highschoolCity],
+    highschoolRegion: regionLabelMap[application?.highschoolRegion],
+    isHighschoolFarFromHome: application?.isHighschoolFarFromHome,
 
     hasPreviousExperiences: application?.hasPreviousExperiences,
     previousExperiences: application?.previousExperiences,
@@ -36,17 +33,21 @@ export const applicationsRowFactory = (applications: any[], configService) => {
     motivations: application?.motivations,
     comments: application?.comments,
 
+    fileCnie: {
+      text: application?.fileCnieUrl ? 'link' : ' ',
+      hyperlink: application?.fileCnieUrl ? `${endpoint}/${bucketName}/${application.fileCnieUrl}` : '',
+    },
+    filePhoto: {
+      text: application?.filePhotoUrl ? 'link' : ' ',
+      hyperlink: application?.filePhotoUrl ? `${endpoint}/${bucketName}/${application.filePhotoUrl}` : '',
+    },
     fileGrades: {
       text: application?.fileGradesUrl ? 'link' : ' ',
-      hyperlink: `https://${awsBucketName}.s3.${awsBucketRegion}.amazonaws.com/${application?.fileGradesUrl}`,
+      hyperlink: application?.fileGradesUrl ? `${endpoint}/${bucketName}/${application.fileGradesUrl}` : '',
     },
-    fileRegulationsUrl: {
-      text: application?.fileRegulationsUrl ? 'link' : ' ',
-      hyperlink: `https://${awsBucketName}.s3.${awsBucketRegion}.amazonaws.com/${application?.fileRegulationsUrl}`,
-    },
-    fileCnieUrl: {
-      text: application?.fileCnieUrl ? 'link' : ' ',
-      hyperlink: `https://${awsBucketName}.s3.${awsBucketRegion}.amazonaws.com/${application?.fileCnieUrl}`,
+    fileSchoolCertificate: {
+      text: application?.fileSchoolCertificateUrl ? 'link' : ' ',
+      hyperlink: application?.fileSchoolCertificateUrl ? `${endpoint}/${bucketName}/${application.fileSchoolCertificateUrl}` : '',
     },
 
     status: application?.status?.status,
@@ -58,8 +59,8 @@ export const applicationsRowFactory = (applications: any[], configService) => {
 };
 
 export const participantDetailsRowFactory = (participantDetails: any[], users: any[], configService) => {
-  const awsBucketName = configService.get('s3.name');
-  const awsBucketRegion = configService.get('s3.region');
+  const endpoint = configService.get('s3.endpoint');
+  const bucketName = configService.get('s3.name');
 
   return participantDetails.map((details: any) => {
     const firstRoommate = users.find(user => user.id === +details?.firstRoommateId)
@@ -93,7 +94,7 @@ export const participantDetailsRowFactory = (participantDetails: any[], users: a
 
       needDepartureShuttle: details?.needDepartureShuttle,
       needArrivalShuttle: details?.needArrivalShuttle,
-      cityOfResidence: cityLabels[details?.cityOfResidence],
+      cityOfResidence: cityLabelMap[details?.cityOfResidence],
 
       haveTalent: details?.haveTalent,
       talentDescription: details?.talentDescription,
@@ -101,11 +102,11 @@ export const participantDetailsRowFactory = (participantDetails: any[], users: a
 
       filePhoto: {
         text: details?.filePhotoUrl ? 'link' : ' ',
-        hyperlink: `https://${awsBucketName}.s3.${awsBucketRegion}.amazonaws.com/${details?.filePhotoUrl}`,
+        hyperlink: details?.filePhotoUrl ? `${endpoint}/${bucketName}/${details.filePhotoUrl}` : '',
       },
       fileParentalAuthorization: {
         text: details?.fileParentalAuthorizationUrl ? 'link' : ' ',
-        hyperlink: `https://${awsBucketName}.s3.${awsBucketRegion}.amazonaws.com/${details?.fileParentalAuthorizationUrl}`,
+        hyperlink: details?.fileParentalAuthorizationUrl ? `${endpoint}/${bucketName}/${details.fileParentalAuthorizationUrl}` : '',
       },
 
       status: details?.status,

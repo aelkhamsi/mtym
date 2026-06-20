@@ -2,10 +2,13 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "next dev -p 3000",
     "generate:importmap": "payload generate:importmap",
-    "build": "payload generate:importmap && next build",
+    "build": "next build",
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "start": "next start",
@@ -14,6 +17,7 @@
   "prettier": "config/prettier.config.js",
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "@mdm/shared": "workspace:*",
     "@mdm/hooks": "workspace:*",
     "@mdm/types": "workspace:*",
     "@mdm/ui": "workspace:*",

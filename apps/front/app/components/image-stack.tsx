@@ -34,7 +34,7 @@ export const ImageStack = ({
   }, [autoplay]);
 
   return (
-    <div className="relative h-60 md:h-80 w-full max-w-sm md:max-w-lg mx-auto antialiased">
+    <div className="relative isolate h-60 md:h-80 w-full max-w-sm md:max-w-lg mx-auto antialiased">
       <AnimatePresence>
         {images.map((image, index) => (
           <motion.div

@@ -9,7 +9,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@mdm/ui"
-import Link from 'next/link';
 import { FileInput } from '../components/file-input';
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk';
 
@@ -19,7 +18,7 @@ export const initFileInput = (field: any, id: string) => {
     dataTransfer.items.add(field?.value[0]);
     setTimeout(() => {
       const fileInputElement = document.querySelector(`#${id}`) as HTMLInputElement;
-      fileInputElement.files = dataTransfer.files;
+      if (fileInputElement) fileInputElement.files = dataTransfer.files;
     }, 300)
   }
 }
@@ -47,22 +46,38 @@ export const UploadStep = ({
       </p>
 
       <div className='mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 justify-between'>
-        {/* REGULATIONS */}
+        {/* CNIE */}
         <FormField
           control={form.control}
-          name="fileRegulations"
+          name="fileCnie"
           render={({ field }) => {
-            initFileInput(field, "fileRegulations")
+            initFileInput(field, "fileCnie")
 
             return (
               <FormItem>
-                <FormLabel>Règlement signé (<Link className="text-blue-500 underline" href='https://drive.google.com/file/d/1tE5qMUjEoeicBQ01XqsF5LyzLqT34rsm/view?usp=sharing' target="_blank">file</Link>)<RequiredAsterisk /></FormLabel>
+                <FormLabel>CNIE recto-verso ou pièce d'identité avec photo<RequiredAsterisk /></FormLabel>
                 <FormControl>
-                  <FileInput form={form} id="fileRegulations" />
+                  <FileInput form={form} id="fileCnie" />
                 </FormControl>
-                <FormDescription>
-                    <span className="text-blue-500">Remarque</span>: À imprimer, signer puis scanner. <span className="font-bold">Pas besoin de légaliser.</span>.
-                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
+        />
+
+        {/* PHOTO */}
+        <FormField
+          control={form.control}
+          name="filePhoto"
+          render={({ field }) => {
+            initFileInput(field, "filePhoto")
+
+            return (
+              <FormItem>
+                <FormLabel>Photo<RequiredAsterisk /></FormLabel>
+                <FormControl>
+                  <FileInput form={form} id="filePhoto" />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )
@@ -78,13 +93,32 @@ export const UploadStep = ({
 
             return (
               <FormItem>
-                <FormLabel>Bulletin de notes (dernière année 2024/2025)<RequiredAsterisk /></FormLabel>
+                <FormLabel>Bulletin de notes (dernière année 2025-2026)<RequiredAsterisk /></FormLabel>
                 <FormControl>
                   <FileInput form={form} id="fileGrades" />
                 </FormControl>
                 <FormDescription>
                   <span className="text-blue-500">Remarque</span>: Ce fichier sera utilisé pour vérifier les notes que vous avez fournies plus tôt dans le formulaire.
                 </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
+        />
+
+        {/* SCHOOL CERTIFICATE */}
+        <FormField
+          control={form.control}
+          name="fileSchoolCertificate"
+          render={({ field }) => {
+            initFileInput(field, "fileSchoolCertificate")
+
+            return (
+              <FormItem>
+                <FormLabel>Certificat de scolarité 2025-2026<RequiredAsterisk /></FormLabel>
+                <FormControl>
+                  <FileInput form={form} id="fileSchoolCertificate" />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )

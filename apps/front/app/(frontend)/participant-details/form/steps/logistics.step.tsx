@@ -15,50 +15,7 @@ import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
 import { getAllUsers } from '@/app/api/UsersApi'
 import { RoommateChoiceField } from './roommate-choice.field'
 import SelectOrInput from '@/app/components/forms/select-or-input'
-
-const cities = [
-  { label: "Agadir", value: "agadir" },
-  { label: "Aït Melloul", value: "ait-melloul" },
-  { label: "Al Hoceima", value: "al-hoceima" },
-  { label: "Ben Guerir", value: "ben-guerir" },
-  { label: "Beni Mellal", value: "beni-mellal" },
-  { label: "Berrechid", value: "berrechid" },
-  { label: "Berkane", value: "berkane" },
-  { label: "Bouskoura", value: "bouskoura" },
-  { label: "Casablanca", value: "casablanca" },
-  { label: "El Jadida", value: "el-jadida" },
-  { label: "Errachidia", value: "errachidia" },
-  { label: "Essaouira", value: "essaouira" },
-  { label: "Fez", value: "fez" },
-  { label: "Guelmim", value: "guelmim" },
-  { label: "Guercif", value: "guercif" },
-  { label: "Ifrane", value: 'ifrane' },
-  { label: "Kenitra", value: "kenitra" },
-  { label: "Khouribga", value: "khouribga" },
-  { label: "Khemisset", value: "khemisset" },
-  { label: "Khenifra", value: "khenifra" },
-  { label: "Larache", value: "larache" },
-  { label: "Marrakesh", value: "marrakesh" },
-  { label: "Meknes", value: "meknes" },
-  { label: "Mohammedia", value: "mohammedia" },
-  { label: "Nador", value: "nador" },
-  { label: "Ouarzazate", value: "ouarzazate" },
-  { label: "Oujda", value: "oujda" },
-  { label: "Rabat", value: "rabat" },
-  { label: "Safi", value: "safi" },
-  { label: "Salé", value: "sale" },
-  { label: "Sefrou", value: "sefrou" },
-  { label: "Settat", value: "settat" },
-  { label: "Tan-Tan", value: "tan-tan" },
-  { label: "Tangier", value: "tangier" },
-  { label: "Taroudant", value: "taroudant" },
-  { label: "Taza", value: "taza" },
-  { label: "Temara", value: "temara" },
-  { label: "Tetouan", value: "tetouan" },
-  { label: "Tifelt", value: "tifelt" },
-  { label: "Tiznit", value: "tiznit" },
-  { label: "(Autre)", value: 'other' }
-]
+import { cityOptions } from '@mdm/shared'
 
 export const LogisticsStep = ({
   form,
@@ -67,7 +24,7 @@ export const LogisticsStep = ({
   form: UseFormReturn,
   delta: number
 }) => {
-  const [users, setUsers] = useState(undefined)
+  const [users, setUsers] = useState<any[]>([])
   const [haveRoommatePreference, setHaveRoommatePreference] = useState(
     form.getValues('haveRoommatePreference') === 'yes'
   )
@@ -247,7 +204,7 @@ export const LogisticsStep = ({
             name="cityOfResidence"
             form={form}
             label="Ville de résidence"
-            options={cities}
+            options={cityOptions}
             required={true}
           ></SelectOrInput>
         }

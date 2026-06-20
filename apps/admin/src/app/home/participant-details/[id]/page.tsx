@@ -15,14 +15,9 @@ import ApplicationStatus from '../components/application-status';
 import FilesTable from './files-table';
 import { useAtomValue } from 'jotai';
 import { participantDetailsAtom } from '@/store/participantDetailsAtom';
-import { cityLabels, foodAllergyLabels, illnessOrDisabilityLabels, nonFoodAllergyLabels, workshopLabels } from './select-options';
+import { cityLabelMap, foodAllergyLabelMap, illnessOrDisabilityLabelMap, nonFoodAllergyLabelMap, workshopLabelMap } from '@mdm/shared';
 import { usersAtom } from '@/store/usersAtom';
 
-const booleanLabels = {
-  "yes": "Oui",
-  "no": "Non",
-  "not-selected": "J'ai postulé, mais je n'ai pas été sélectionné."
-} as any;
 
 const renderText = (value: any) => {
   return value
@@ -112,11 +107,11 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
                 <Field label='Nom et Prénom du tuteur'>{renderText(participantDetails?.guardianFullName)}</Field>
                 <Field label='Téléphone du tuteur'>{renderText(participantDetails?.guardianPhoneNumber)}</Field>
                 <Separator />
-                <Field label='Allergies Alimentaires'>{renderList(participantDetails?.foodAllergy, foodAllergyLabels)}</Field>
-                <Field label='Allergies non Alimentaires'>{renderList(participantDetails?.nonFoodAllergy, nonFoodAllergyLabels)}</Field>
+                <Field label='Allergies Alimentaires'>{renderList(participantDetails?.foodAllergy, foodAllergyLabelMap)}</Field>
+                <Field label='Allergies non Alimentaires'>{renderList(participantDetails?.nonFoodAllergy, nonFoodAllergyLabelMap)}</Field>
                 <Field label='En cas de réaction allergique, des précautions sont-elles nécessaires (procédure, médicament spécifiques...) ?'>{renderText(participantDetails?.allergyPrecaution)}</Field>
                 <Separator />
-                <Field label='Souffrez-vous d’une maladie chronique ou d’un handicap ?'>{renderList(participantDetails?.illnessOrDisability, illnessOrDisabilityLabels)}</Field>
+                <Field label='Souffrez-vous d’une maladie chronique ou d’un handicap ?'>{renderList(participantDetails?.illnessOrDisability, illnessOrDisabilityLabelMap)}</Field>
                 <Field label="Avez-vous besoin d'un aménagement ou d'une attention particulière pendant le tournoi ?">{renderText(participantDetails?.specialAccommodations)}</Field>
                 <Field label="Suivez-vous actuellement un traitement médical ?">{renderText(participantDetails?.isOnMedication)}</Field>
 
@@ -136,7 +131,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
                 <Separator />
                 <Field label="As-tu besoin d'une navette pour l'aller ?">{renderText(participantDetails?.needDepartureShuttle)}</Field>
                 <Field label="As-tu besoin d'une navette pour le retour ?">{renderText(participantDetails?.needArrivalShuttle)}</Field>
-                <Field label='Ville de résidence'>{cityLabels[participantDetails?.cityOfResidence]}</Field>
+                <Field label='Ville de résidence'>{cityLabelMap[participantDetails?.cityOfResidence]}</Field>
               </div>
             </TabsContent>
               
@@ -146,7 +141,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
                 <Field label='Souhaites-tu présenter un talent sur scène lors du Talent Show ?'>{renderText(participantDetails?.haveTalent)}</Field>
                 <Field label='Décrivez-nous votre talent, et si vous avez besoin de matériel (musique, micro, etc)'>{renderText(participantDetails?.talentDescription)}</Field>
                 <Separator />
-                <Field label='Workshops'>{renderList(participantDetails?.workshops, workshopLabels, 'list-decimal')}</Field>
+                <Field label='Workshops'>{renderList(participantDetails?.workshops, workshopLabelMap, 'list-decimal')}</Field>
               </div>
             </TabsContent>
             
