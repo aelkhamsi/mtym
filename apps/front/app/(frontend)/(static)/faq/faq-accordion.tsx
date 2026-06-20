@@ -1,5 +1,5 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@mdm/ui";
-import { RichText } from "@payloadcms/richtext-lexical/react";
+import { ColoredRichText } from "@/app/components/rich-text/colored-rich-text";
 
 type FaqItem = {
   id: string;
@@ -17,8 +17,11 @@ export const FaqAccordion = ({
       {items.map((item, index) => (
         <AccordionItem key={item.id} value={`item-${index}`}>
           <AccordionTrigger>{item.question}</AccordionTrigger>
-          <AccordionContent className="text-gray-700">
-            <RichText data={item.answer} />
+          <AccordionContent>
+            <ColoredRichText
+              data={item.answer}
+              className="prose prose-sm max-w-none text-gray-700 [&_p]:my-0 [&>*+*]:mt-2 [&_strong]:text-inherit [&_em]:text-inherit [&_code]:text-inherit"
+            />
           </AccordionContent>
         </AccordionItem>
       ))}

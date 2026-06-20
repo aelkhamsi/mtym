@@ -10,6 +10,9 @@ services:
       - POSTGRES_DB=${POSTGRES_DATABASE}
       - POSTGRES_USER=${POSTGRES_USER}
     ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - mtym_pgdata:/var/lib/postgresql/data
       - "5432:5432"
     
   mtym_s3:
@@ -37,6 +40,25 @@ services:
       - "8080:80"
     depends_on:
       - mtym_db
-
+  mtym_db_backup:
+    image: prodrigestivill/postgres-backup-local
+    container_name: mtym_db_backup
+    restart: always
+    user: postgres:postgres
+    volumes:
+      - /opt/mtym/backups:/backups   # host path where dumps land
+    environment:
+      - POSTGRES_HOST=mtym_db
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - SCHEDULE=@daily              # cron-style; runs once a day
+      - BACKUP_KEEP_DAYS=7
+      - BACKUP_KEEP_WEEKS=4
+      - BACKUP_KEEP_MONTHS=6
+      - HEALTHCHECK_PORT=8080
+    depends_on:
+      - mtym_db
 volumes:
+  mtym_pgdata:
   s3_data:

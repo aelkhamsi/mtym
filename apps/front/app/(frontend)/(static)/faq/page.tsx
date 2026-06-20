@@ -5,6 +5,8 @@ import { FaqAccordion } from "./faq-accordion"
 import SectionContainer from "@/app/components/section-container"
 import CtaSection from "@/app/components/cta/cta-section"
 
+export const dynamic = "force-dynamic"
+
 const GENERAL_TAB = "general"
 
 type FaqItem = {
@@ -19,7 +21,7 @@ export default async function FaqPage() {
 
   const [faqsResult, categoriesResult] = await Promise.all([
     payload.find({ collection: "faq", limit: 200, depth: 1 }),
-    payload.find({ collection: "faq-categories", limit: 200 }),
+    payload.find({ collection: "faq-categories", limit: 200, sort: "order" }),
   ])
 
   const faqs: FaqItem[] = faqsResult.docs.map((doc) => ({
@@ -34,8 +36,7 @@ export default async function FaqPage() {
           : null,
   }))
 
-  // Build one tab per category that actually has questions, plus a
-  // "Général" tab gathering every question without a category.
+
   const tabs: { value: string; label: string; items: FaqItem[] }[] = []
 
   const generalItems = faqs.filter((faq) => !faq.categoryId)
@@ -77,7 +78,11 @@ export default async function FaqPage() {
           className="animate-fade-up opacity-0"
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
         >
-          {tabs.length > 0 && (
+          {tabs.length === 0 ? (
+            <p className="text-center text-gray-500">
+              Aucune question pour le moment. Revenez bientôt !
+            </p>
+          ) : (
             <Tabs defaultValue={tabs[0].value} className="w-full">
               <TabsList className="flex flex-wrap w-full h-auto gap-1">
                 {tabs.map((tab) => (
@@ -95,6 +100,7 @@ export default async function FaqPage() {
             </Tabs>
           )}
         </div>
+
 
         <div className="flex justify-center">
           <CtaSection />
