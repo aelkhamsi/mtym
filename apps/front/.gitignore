@@ -43,7 +43,7 @@ next-env.d.ts
 front.db
 front.db-shm
 front.db-wal
-payload.db
+# payload.db is committed (ships the schema to prod); only ignore its transient WAL sidecars
 payload.db-shm
 payload.db-wal
 
