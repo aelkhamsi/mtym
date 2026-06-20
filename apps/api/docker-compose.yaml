@@ -10,7 +10,9 @@ services:
       - POSTGRES_DB=${POSTGRES_DATABASE}
       - POSTGRES_USER=${POSTGRES_USER}
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - mtym_pgdata:/var/lib/postgresql/
     
   mtym_s3:
     image: minio/minio
@@ -40,3 +42,4 @@ services:
 
 volumes:
   s3_data:
+  mtym_pgdata:
