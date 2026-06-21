@@ -1,212 +1,121 @@
-import SectionContainer from "@/app/components/section-container"
-import PartnerCard from "./partner-card"
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import SectionContainer from '@/app/components/section-container'
+import PartnerCard from './partner-card'
 
-const organizers = [
-  {
-    key: 'math-and-maroc',
-    label: 'Math&Maroc',
-    imageHref: '/images/logos/mm.png',
-    imageHeight: '60px',
-  },
-]
+export const dynamic = 'force-dynamic'
 
-const partners = [
-  {
-    key: 'adria',
-    label: 'Adria ',
-    imageHref: '/images/logos/adria_official_partner.png',
-    imageHeight: '90px',
-  }
-]
+type Partner = {
+  id: string
+  name: string
+  imageSrc: string
+  imageAlt: string
+  imageWidth: number
+  imageHeight: number
+  description: any
+  order: number
+  categoryId: string | null
+}
 
-const hosts = [
-  {
-    key: 'aui',
-    label: 'AUI',
-    imageHref: '/images/logos/aui.png',
-    imageHeight: '120px',
-  }
-]
+type CategorySection = {
+  id: string
+  name: string
+  partners: Partner[]
+}
 
-const sponsors = [
-  {
-    key: 'evalmee',
-    label: 'EVALMEE',
-    imageHref: '/images/logos/evalmee.png',
-    imageHeight: '45px',
-  },
-  {
-    key: 'cdg',
-    label: 'CDG',
-    imageHref: '/images/logos/CDG.svg',
-    imageHeight: '110px',
-  },
-  {
-    key: 'ram',
-    label: 'RAM',
-    imageHref: '/images/logos/ram.svg',
-    imageHeight: '110px',
-  },
-  {
-    key: 'afretec_network',
-    label: 'Afretek Network',
-    imageHref: '/images/logos/afretec_network.jpeg',
-    imageHeight: '160px',
-  },
-  {
-    key: 'sidi_ali',
-    label: 'Sidi Ali',
-    imageHref: '/images/logos/sidi_ali.png',
-    imageHeight: '140px',
-  },
-]
+export default async function PartnersPage() {
+  const payload = await getPayload({ config })
 
-export default function PartnersPage() {
+  const [partnersResult, categoriesResult] = await Promise.all([
+    payload.find({ collection: 'partners', limit: 500, depth: 1 }),
+    payload.find({
+      collection: 'partner-categories',
+      limit: 200,
+      sort: 'order',
+    }),
+  ])
+
+  const partners: Partner[] = partnersResult.docs.map((doc) => {
+    const logo = doc.logo && typeof doc.logo === 'object' ? doc.logo : null
+    const card = logo?.sizes?.card
+    const imageSrc =
+      (card?.url as string | undefined) ??
+      (logo?.url as string | undefined) ??
+      ''
+    const imageWidth =
+      (card?.width as number | undefined) ??
+      (logo?.width as number | undefined) ??
+      600
+    const imageHeight =
+      (card?.height as number | undefined) ??
+      (logo?.height as number | undefined) ??
+      400
+
+    const categoryId =
+      doc.category && typeof doc.category === 'object'
+        ? String(doc.category.id)
+        : doc.category != null
+          ? String(doc.category)
+          : null
+
+    return {
+      id: String(doc.id),
+      name: doc.name,
+      imageSrc,
+      imageAlt: (logo?.alt as string | undefined) || doc.name,
+      imageWidth,
+      imageHeight,
+      description: doc.description,
+      order: typeof doc.order === 'number' ? doc.order : 0,
+      categoryId,
+    }
+  })
+
+  const sections: CategorySection[] = categoriesResult.docs
+    .map((category) => ({
+      id: String(category.id),
+      name: category.name as string,
+      partners: partners
+        .filter((p) => p.categoryId === String(category.id))
+        .sort((a, b) => a.order - b.order),
+    }))
+    .filter((section) => section.partners.length > 0)
+
   return (
     <SectionContainer className="pt-24 pb-20 z-0">
       <div className="space-y-6">
-        
-        {/* ORGANISATEUR */}
-        <div>
-          <h1 
-            className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
-            style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-          >
-            <span className='font-neco text-[#244B3A]'>Organisateur</span>
-          </h1>
-
-          <div
-            className="flex justify-around flex-wrap gap-6 p-8 rounded-lg animate-fade-up opacity-0"
-            style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-          >
-            <PartnerCard
-              key={organizers[0].key}
-              imageSrc={organizers[0].imageHref}
-              imageHeight={organizers[0].imageHeight}
-            >
-              <div className="text-sm space-y-2">
-                <div><span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span> est une association à but non lucratif créée en 2016 par de jeunes Marocains souhaitant redonner à la collectivité.</div>
-                <div><span className="font-bold">Notre mission</span> est de promouvoir les mathématiques et les sciences au Maroc, et ainsi guider les jeunes vers l&apos;excellence.</div>
-                <div><span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span> organise <span className="font-bold">MTYM</span> depuis sa première édition en mai 2024.</div>
-              </div>
-            </PartnerCard>
-          </div>
-        </div>
-
-        <div className="flex justify-around flex-wrap">
-          {/* En partenariat avec */}
-          <div>
-            <h1 
-              className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
-              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-            >
-              <span className='font-neco text-[#244B3A]'>Co-organisateur</span>
-            </h1>
-
-            <div
-              className="flex justify-around flex-wrap gap-6 p-6 rounded-lg animate-fade-up opacity-0"
-              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-            >
-              <PartnerCard
-                key={hosts[0].key}
-                imageSrc={hosts[0].imageHref}
-                imageHeight={hosts[0].imageHeight}
+        {sections.length === 0 ? (
+          <p className="text-center text-gray-500">
+            Nos partenaires seront bientôt annoncés.
+          </p>
+        ) : (
+          sections.map((section) => (
+            <div key={section.id}>
+              <h2
+                className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
+                style={{ animationDelay: '0.30s', animationFillMode: 'forwards' }}
               >
-                <div className="text-sm">
-                  <div><span className='mb-8 bg-gradient-to-br from-[#1d9145] to-[#166432] text-transparent bg-clip-text font-semibold'>Université Al Akhawayn (AUI)</span> est une institution d&apos;élite au Maroc, reconnue pour son excellence académique. Elle forme des leaders ouverts sur le monde, dans un cadre multiculturel et moderne.</div>
-                  <div><span className='mb-8 bg-gradient-to-br from-[#1d9145] to-[#166432] text-transparent bg-clip-text font-semibold'>AUI</span> co-organise cette 3ème édition de <span className="font-bold">MTYM</span> avec <span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span></div>
-                </div>
-              </PartnerCard>
-            </div>
-          </div>
+                <span className="font-neco text-[#244B3A]">{section.name}</span>
+              </h2>
 
-          {/* PARTENAIRE OFFICIEL */}
-          <div>
-            <h1 
-              className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
-              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-            >
-              <span className='font-neco text-[#244B3A]'>Partenaire officiel</span>
-            </h1>
-
-            <div 
-              className="flex justify-around flex-wrap gap-6 p-8 rounded-lg animate-fade-up opacity-0"
-              style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-            >
-              <PartnerCard
-                key={partners[0].key}
-                imageSrc={partners[0].imageHref}
-                imageHeight={partners[0].imageHeight}
+              <div
+                className="flex justify-around flex-wrap gap-6 p-8 rounded-lg animate-fade-up opacity-0"
+                style={{ animationDelay: '0.30s', animationFillMode: 'forwards' }}
               >
-                <div className="text-sm space-y-2">
-                  <div><span className='mb-8 bg-gradient-to-br from-stone-500 to-[#FC5C00] text-transparent bg-clip-text font-semibold'>Adria Business and Technology</span> est un expert dans l&apos;édition et l&apos;intégration des logiciels destinés aux institutions financières.</div>
-                  <div>Il s&apos;agit du <span className="font-semibold">partenaire officiel</span> de <span className='mb-8 bg-gradient-to-br from-sky-500 to-[#272162] text-transparent bg-clip-text font-semibold'>Math&Maroc</span>, qui a permis à la majorité de nos événements de voir le jour.</div>
-                </div>
-              </PartnerCard>
+                {section.partners.map((partner) => (
+                  <PartnerCard
+                    key={partner.id}
+                    imageSrc={partner.imageSrc}
+                    imageAlt={partner.imageAlt}
+                    imageWidth={partner.imageWidth}
+                    imageHeight={partner.imageHeight}
+                    description={partner.description}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-
-        {/* SPONSORS */}
-        <div>
-          <h1 
-            className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
-            style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-          >
-            <span className='font-neco text-[#244B3A]'>Sponsors</span>
-          </h1>
-
-          <div
-            className="flex justify-around flex-wrap gap-6 p-8 rounded-lg animate-fade-up opacity-0"
-            style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-          >
-            <PartnerCard
-              key={sponsors[0].key}
-              imageSrc={sponsors[0].imageHref}
-              imageHeight={sponsors[0].imageHeight}
-            >
-              <div className="text-sm"><span className='mb-8 bg-gradient-to-br from-[#7cb9ff] to-[#3691FB] text-transparent bg-clip-text font-semibold'>Evalmee</span> est une plateforme d&apos;évaluation en ligne offrant des outils précis et personnalisés pour dévoiler et perfectionner les compétences. Découvrez une approche dynamique pour révéler le potentiel caché et atteindre l&apos;excellence professionnelle.</div>
-            </PartnerCard>
-
-            <PartnerCard
-              key={sponsors[1].key}
-              imageSrc={sponsors[1].imageHref}
-              imageHeight={sponsors[1].imageHeight}
-            >
-              <div className="text-sm">
-                <div>La <span className='mb-8 bg-gradient-to-br from-[#303e48] to-[#303e48] text-transparent bg-clip-text font-semibold'>Caisse de Dépôt et de Gestion du Maroc (CDG)</span>,  incarne un pilier stratégique du développement national, œuvrant avec vision au service de l&apos;intérêt général.<br/>
-                Par son engagement durable et sa capacité à structurer des projets d&apos;envergure, la CDG contribue activement à bâtir le Maroc de demain.
-                </div>
-              </div>
-            </PartnerCard>
-
-            <PartnerCard
-              key={sponsors[2].key}
-              imageSrc={sponsors[2].imageHref}
-              imageHeight={sponsors[2].imageHeight}
-            >
-              <div className="text-sm">
-                <div>La <span className='mb-8 bg-gradient-to-br from-[#f9597c] to-[#c3022d] text-transparent bg-clip-text font-semibold'>Royal Air Maroc</span>, compagnie aérienne nationale du Maroc, est une référence en matière d&apos;excellence et de service. Alliant modernité et tradition, elle relie le Maroc au monde tout en offrant une expérience de voyage unique et authentique.</div>
-              </div>
-            </PartnerCard>
-
-            <PartnerCard
-              key={sponsors[3].key}
-              imageSrc={sponsors[3].imageHref}
-              imageHeight={sponsors[3].imageHeight}
-            >
-              <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Afretec</span> est un réseau panafricain d&apos;universités technologiques, mené par Carnegie Mellon University Africa, pour accélérer la transformation numérique du continent. Il favorise l&apos;enseignement, la recherche et l&apos;entrepreneuriat inclusifs en ingénierie et technologie.</div>
-            </PartnerCard>
-
-            <PartnerCard
-              key={sponsors[4].key}
-              imageSrc={sponsors[4].imageHref}
-              imageHeight={sponsors[4].imageHeight}
-            >
-              <div className="text-sm"><span className='mb-8 text-[#084981] font-semibold'>Sidi Ali</span> est une entreprise engagée à offrir une eau minérale naturelle d'une pureté exceptionnelle, puisée au cœur des montagnes marocaines. <br/>Elle s&apos;impose comme un leader emblématique alliant qualité, tradition et innovation.</div>
-            </PartnerCard>
-          </div>
-        </div>
+          ))
+        )}
       </div>
     </SectionContainer>
   )
