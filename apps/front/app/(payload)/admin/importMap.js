@@ -26,6 +26,7 @@ import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93
 import { Icon as Icon_92400324868dee237849e7c07305ad66 } from '@/app/components/Logo'
 import { Logo as Logo_92400324868dee237849e7c07305ad66 } from '@/app/components/Logo'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
+import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa3a949e5413b6cd4ee9e6e9b5dc9 } from '@payloadcms/storage-s3/client'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
@@ -56,5 +57,6 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/app/components/Logo#Icon": Icon_92400324868dee237849e7c07305ad66,
   "@/app/components/Logo#Logo": Logo_92400324868dee237849e7c07305ad66,
-  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
+  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa3a949e5413b6cd4ee9e6e9b5dc9
 }
