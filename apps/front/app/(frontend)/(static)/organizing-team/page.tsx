@@ -73,6 +73,7 @@ const Card = ({
             width={160}
             height={160}
             unoptimized
+            className="w-[160px] h-[160px] object-cover object-center rounded"
           />
         ) : (
           <div className="w-[160px] h-[160px] bg-gray-100 rounded" />
@@ -140,7 +141,12 @@ export default async function OrganizingTeamPage() {
       const photo =
         doc.photo && typeof doc.photo === 'object' ? doc.photo : null
 
-      const filename = photo?.filename as string | undefined
+      // Prefer the 500x500 center-cropped "card" size Payload generates
+      // (respects the focal point set in admin); fall back to the original
+      // for photos uploaded before imageSizes/crop was configured.
+      const filename =
+        (photo?.sizes?.card?.filename as string | undefined) ??
+        (photo?.filename as string | undefined)
       const imageSrc = filename
         ? `/images/payload/organizer-photos/${filename}`
         : ''
