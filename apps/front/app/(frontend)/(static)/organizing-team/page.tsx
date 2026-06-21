@@ -141,15 +141,14 @@ export default async function OrganizingTeamPage() {
       const photo =
         doc.photo && typeof doc.photo === 'object' ? doc.photo : null
 
-      // Prefer the 500x500 center-cropped "card" size Payload generates
-      // (respects the focal point set in admin); fall back to the original
-      // for photos uploaded before imageSizes/crop was configured.
-      const filename =
-        (photo?.sizes?.card?.filename as string | undefined) ??
-        (photo?.filename as string | undefined)
-      const imageSrc = filename
-        ? `/images/payload/organizer-photos/${filename}`
-        : ''
+      // Use the URL Payload provides so storage stays swappable (MinIO/S3 or
+      // local disk). Prefer the 500x500 center-cropped "card" size (respects
+      // the focal point set in admin); fall back to the original for photos
+      // uploaded before imageSizes/crop was configured.
+      const imageSrc =
+        (photo?.sizes?.card?.url as string | undefined) ??
+        (photo?.url as string | undefined) ??
+        ''
 
       const categoryId =
         doc.category && typeof doc.category === 'object'

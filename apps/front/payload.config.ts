@@ -1,7 +1,8 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
-import { buildConfig } from 'payload'
+import { buildConfig, type Plugin } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
@@ -18,6 +19,31 @@ import { PartnerLogos } from './collections/PartnerLogos'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+// Store uploads in MinIO (S3-compatible) when configured. Reuses the same
+// MINIO_* env the API already uses. When MINIO_ENDPOINT is unset (local dev),
+// Payload falls back to writing files to disk via each collection's staticDir.
+const storagePlugins: Plugin[] = process.env.MINIO_ENDPOINT
+  ? [
+      s3Storage({
+        collections: {
+          media: { prefix: 'media' },
+          'organizer-photos': { prefix: 'organizer-photos' },
+          'partner-logos': { prefix: 'partner-logos' },
+        },
+        bucket: process.env.MINIO_BUCKET_NAME || '',
+        config: {
+          endpoint: process.env.MINIO_ENDPOINT,
+          region: process.env.MINIO_REGION || 'us-east-1',
+          forcePathStyle: true, // required for MinIO
+          credentials: {
+            accessKeyId: process.env.MINIO_ROOT_USER || '',
+            secretAccessKey: process.env.MINIO_ROOT_PASSWORD || '',
+          },
+        },
+      }),
+    ]
+  : []
 
 export default buildConfig({
   admin: {
@@ -58,5 +84,5 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [],
+  plugins: [...storagePlugins],
 })
