@@ -1,10 +1,56 @@
-import { generalQuestions } from "./questions"
+import { getPayload } from "payload"
+import config from "@payload-config"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@mdm/ui"
 import { FaqAccordion } from "./faq-accordion"
 import SectionContainer from "@/app/components/section-container"
 import CtaSection from "@/app/components/cta/cta-section"
 
+export const dynamic = "force-dynamic"
 
-export default function ConferencesPage() {
+const GENERAL_TAB = "general"
+
+type FaqItem = {
+  id: string
+  question: string
+  answer: any
+  categoryId: string | null
+}
+
+export default async function FaqPage() {
+  const payload = await getPayload({ config })
+
+  const [faqsResult, categoriesResult] = await Promise.all([
+    payload.find({ collection: "faq", limit: 200, depth: 1 }),
+    payload.find({ collection: "faq-categories", limit: 200, sort: "order" }),
+  ])
+
+  const faqs: FaqItem[] = faqsResult.docs.map((doc) => ({
+    id: String(doc.id),
+    question: doc.question,
+    answer: doc.answer,
+    categoryId:
+      doc.category && typeof doc.category === "object"
+        ? String(doc.category.id)
+        : doc.category != null
+          ? String(doc.category)
+          : null,
+  }))
+
+
+  const tabs: { value: string; label: string; items: FaqItem[] }[] = []
+
+  const generalItems = faqs.filter((faq) => !faq.categoryId)
+  if (generalItems.length > 0) {
+    tabs.push({ value: GENERAL_TAB, label: "Général", items: generalItems })
+  }
+
+  for (const category of categoriesResult.docs) {
+    const items = faqs.filter((faq) => faq.categoryId === String(category.id))
+    if (items.length > 0) {
+      tabs.push({ value: String(category.id), label: category.name, items })
+    }
+  }
+
   return (
     <SectionContainer className="pt-24 pb-20 z-0">
 
@@ -32,8 +78,29 @@ export default function ConferencesPage() {
           className="animate-fade-up opacity-0"
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
         >
-          <FaqAccordion items={generalQuestions} />
+          {tabs.length === 0 ? (
+            <p className="text-center text-gray-500">
+              Aucune question pour le moment. Revenez bientôt !
+            </p>
+          ) : (
+            <Tabs defaultValue={tabs[0].value} className="w-full">
+              <TabsList className="flex flex-wrap w-full h-auto gap-1">
+                {tabs.map((tab) => (
+                  <TabsTrigger key={tab.value} value={tab.value} className="flex-1">
+                    {tab.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+
+              {tabs.map((tab) => (
+                <TabsContent key={tab.value} value={tab.value} className="mt-6">
+                  <FaqAccordion items={tab.items} />
+                </TabsContent>
+              ))}
+            </Tabs>
+          )}
         </div>
+
 
         <div className="flex justify-center">
           <CtaSection />

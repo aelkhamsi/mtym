@@ -17,7 +17,7 @@ const RankedSelect = ({
 }:{
   name: string,
   form: UseFormReturn,
-  options: WorkshopOption[],
+  options: readonly WorkshopOption[],
 }) => {
   const [chosenOptions, setChosenOptions] = useState<WorkshopOption[]>([])
   const [remainingOptions, setRemainingOptions] = useState<WorkshopOption[]>([])

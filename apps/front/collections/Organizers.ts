@@ -1,49 +1,39 @@
-import path from 'path'
-import { fileURLToPath } from 'url'
 import type { CollectionConfig } from 'payload'
-
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
 
 export const Organizers: CollectionConfig = {
   slug: 'organizers',
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: 'fullName',
+    defaultColumns: ['fullName', 'category'],
   },
   access: {
     read: () => true,
   },
-  upload: {
-    // Store uploaded photos directly under the front-end public folder so they
-    // are served as static assets at /images/payload/organizer-photos/<filename>
-    staticDir: path.resolve(dirname, '../public/images/payload/organizer-photos'),
-    mimeTypes: ['image/*'],
-  },
   fields: [
     {
-      name: 'name',
+      name: 'fullName',
       type: 'text',
+      required: true,
+    },
+    {
+      name: 'portfolioUrl',
+      type: 'text',
+      admin: {
+        description:
+          'Link used on the card. Use a personal website if available, otherwise a LinkedIn profile URL.',
+      },
+    },
+    {
+      name: 'photo',
+      type: 'upload',
+      relationTo: 'organizer-photos',
       required: true,
     },
     {
       name: 'category',
-      type: 'select',
-      required: true,
-      defaultValue: 'organizing-committee',
-      options: [
-        { label: 'Organizing Committee', value: 'organizing-committee' },
-        { label: 'Web Development', value: 'web-development' },
-        { label: 'Design & Branding', value: 'design-and-branding' },
-      ],
-    },
-    {
-      name: 'portfolioSrc',
-      type: 'text',
-      label: 'Portfolio / LinkedIn URL',
-    },
-    {
-      name: 'alt',
-      type: 'text',
+      type: 'relationship',
+      relationTo: 'organizer-categories',
+      hasMany: false,
       required: true,
     },
   ],

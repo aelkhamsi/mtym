@@ -1,31 +1,30 @@
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent} from "@mdm/ui";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@mdm/ui";
+import { ColoredRichText } from "@/app/components/rich-text/colored-rich-text";
 
 type FaqItem = {
+  id: string;
   question: string;
-
-  anwser: string;
+  answer: any;
 }
 
 export const FaqAccordion = ({
   items,
-}:{
-  items: FaqItem[]
+}: {
+  items: FaqItem[];
 }) => {
   return (
-    <Accordion 
-      type="single" 
-      collapsible 
-      className="animate-fade-up opacity-0"
-      style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
-    >
-      {items.map((item, index) => 
-        <AccordionItem value={`item-${index}`}>
+    <Accordion type="single" collapsible>
+      {items.map((item, index) => (
+        <AccordionItem key={item.id} value={`item-${index}`}>
           <AccordionTrigger>{item.question}</AccordionTrigger>
-          <AccordionContent className="text-gray-700 whitespace-pre-line">
-            {item.anwser}
+          <AccordionContent>
+            <ColoredRichText
+              data={item.answer}
+              className="prose prose-sm max-w-none text-gray-700 [&_p]:my-0 [&>*+*]:mt-2 [&_strong]:text-inherit [&_em]:text-inherit [&_code]:text-inherit"
+            />
           </AccordionContent>
         </AccordionItem>
-      )}
+      ))}
     </Accordion>
-  )
+  );
 }

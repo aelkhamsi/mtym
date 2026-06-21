@@ -1,4 +1,4 @@
-import { sqliteAdapter } from '@payloadcms/db-sqlite';
+import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -7,29 +7,56 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Faq } from './collections/Faq'
+import { FaqCategories } from './collections/FaqCategories'
 import { Organizers } from './collections/Organizers'
+import { OrganizerCategories } from './collections/OrganizerCategories'
+import { OrganizerPhotos } from './collections/OrganizerPhotos'
+import { Partners } from './collections/Partners'
+import { PartnerCategories } from './collections/PartnerCategories'
+import { PartnerLogos } from './collections/PartnerLogos'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-    admin: {
-        user: Users.slug,
-        importMap: {
-            baseDir: path.resolve(dirname),
-        },
+  admin: {
+    user: Users.slug,
+    importMap: {
+      baseDir: path.resolve(dirname),
     },
-    collections: [Users, Media, Organizers],
-    editor: lexicalEditor(),
-    secret: process.env.PAYLOAD_SECRET || '',
-    typescript: {
-        outputFile: path.resolve(dirname, 'payload-types.ts'),
+    components: {
+      graphics: {
+        Logo: '@/app/components/Logo#Logo',
+        Icon: '@/app/components/Logo#Icon',
+      },
     },
-    db: sqliteAdapter({
-        client: {
-            url: process.env.DATABASE_URL || '',
-        },
-    }),
-    sharp,
-    plugins: [],
+    meta: {
+      icons: [{ url: '/images/logos/mtym_square.svg', type: 'image/svg+xml' }],
+    },
+  },
+  collections: [
+    Users,
+    Media,
+    Faq,
+    FaqCategories,
+    Organizers,
+    OrganizerCategories,
+    OrganizerPhotos,
+    Partners,
+    PartnerCategories,
+    PartnerLogos,
+  ],
+  editor: lexicalEditor(),
+  secret: process.env.PAYLOAD_SECRET || '',
+  typescript: {
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
+  db: sqliteAdapter({
+    client: {
+      url: process.env.DATABASE_URL || '',
+    },
+  }),
+  sharp,
+  plugins: [],
 })

@@ -17,16 +17,24 @@ export const applicationSchema: ZodSchema = z.object({
   city: z.string().nonempty("Choisissez une option"),
   region: z.string().nonempty("Choisissez une option"),
   phoneNumber: z.string().refine(isValidPhoneNumber, { message: "Numéro de téléphone invalide" }),
+  allergyOrMedication: z.string().optional().refine((val) => {
+    if (val) {
+      return val.split(' ').length <= 100
+    }
+    return true;
+  } , { message: "Maximum 100 mots"}),
+
+  guardianFullName: z.string().min(1).max(50),
+  guardianPhoneNumber: z.string().refine(isValidPhoneNumber, { message: "Numéro de téléphone invalide" }),
+  relationshipWithGuardian: z.string().min(1).max(50),
 
   /* Education */
   educationLevel: z.string().nonempty("Choisissez une option"),
   educationField: z.string().min(1).max(50),
   highschool: z.string().min(1).max(50),
-  averageGrade: z.coerce.number().min(0).max(20),
-  mathAverageGrade: z.coerce.number().min(0).max(20),
-  ranking: z.coerce.number().min(0).max(20),
-  mathRanking: z.coerce.number().min(0).max(20),
-  numberOfStudentsInClass: z.coerce.number().min(1),
+  highschoolCity: z.string().nonempty("Choisissez une option"),
+  highschoolRegion: z.string().nonempty("Choisissez une option"),
+  isHighschoolFarFromHome: z.enum(["yes", "no"], { message: "Choisissez une option" }),
 
   /* Motivation */
   hasPreviousExperiences: z.enum(["yes", "no"], { message: "Choisissez une option" }),
@@ -42,8 +50,10 @@ export const applicationSchema: ZodSchema = z.object({
   } , { message: "Maximum 100 mots"}),
 
   /* Uploads */
-  fileRegulations: zodFileValidation,
+  fileCnie: zodFileValidation,
+  filePhoto: zodFileValidation,
   fileGrades: zodFileValidation,
+  fileSchoolCertificate: zodFileValidation,
 
   /* Terms of agreement */
   termsAgreement: z.boolean().default(false).refine(value => value === true, { message: "Vous devez accepter les Conditions Générales."}),
@@ -58,16 +68,18 @@ export const applicationDefaultValues = {
   city: '',
   region: '',
   phoneNumber: '',
+  allergyOrMedication: '',
+  guardianFullName: '',
+  guardianPhoneNumber: '',
+  relationshipWithGuardian: '',
 
   /* Education */
   educationLevel: '',
   educationField: '',
   highschool: '',
-  averageGrade: '',
-  mathAverageGrade: '',
-  ranking: '',
-  mathRanking: '',
-  numberOfStudentsInClass: '',
+  highschoolCity: '',
+  highschoolRegion: '',
+  isHighschoolFarFromHome: '',
 
   /* Motivation */
   hasPreviousExperiences: '',
@@ -78,9 +90,10 @@ export const applicationDefaultValues = {
   comments: '',
 
   /* Uploads */
-  fileRegulations: undefined,
+  fileCnie: undefined,
+  filePhoto: undefined,
   fileGrades: undefined,
-
+  fileSchoolCertificate: undefined,
 
   /* Terms of agreement */
   termsAgreement: false,

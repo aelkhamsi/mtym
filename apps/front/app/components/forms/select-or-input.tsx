@@ -30,7 +30,7 @@ const SelectOrInput = ({
   name: string,
   form: UseFormReturn,
   label: string,
-  options: Option<string>[],
+  options: readonly Option<string>[],
   required?: boolean,
 }) => {
   const [showInput, setShowInput] = useState<boolean>(false)

@@ -6,6 +6,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  Textarea,
 } from "@mdm/ui"
 import {
   Select,
@@ -25,71 +26,13 @@ import {
 import { Calendar } from "@mdm/ui"
 import { CalendarIcon } from "@mdm/ui"
 import { PhoneInput } from "@mdm/ui"
-import { cn } from '@mdm/utils'
+import { cn, isOverEighteen } from '@mdm/utils'
 import { Button } from "@mdm/ui"
 import { format } from "@mdm/ui"
 import { RequiredAsterisk } from '@/app/components/forms/required-asterisk'
 import SelectOrInput from '@/app/components/forms/select-or-input'
-
-const regions = [
-  {label: "Tanger-Tétouan-Al Hoceïma", value:"tanger-tetouan-al-houceima"},
-  {label: "Oriental", value:"oriental"},
-  {label: "Fès-Meknès", value:"fes-meknes"},
-  {label: "Rabat-Salé-Kénitra", value:"rabat-sale-kenitra"},
-  {label: "Béni Mellal-Khénifra", value:"beni-mellal-khenifra"},
-  {label: "Casablanca-Settat", value:"casablanca-settat"},
-  {label: "Marrakech-Safi", value:"marrakech-safi"},
-  {label: "Drâa-Tafilalet", value:"draa-tafilalet"},
-  {label: "Souss-Massa", value:"souss-massa"},
-  {label: "Guelmim-Oued Noun", value:"guelmim-oued-noun"},
-  {label: "Laâyoune-Sakia El Hamra", value:"laayoune-sakia-el-hamra"},
-  {label: "Dakhla-Oued Eddahab", value:"dakhla-oued-eddahab"},
-  {label: "Abroad", value:"abroad"},
-]
-
-const cities = [
-  { label: "Agadir", value: "agadir" },
-  { label: "Aït Melloul", value: "ait-melloul" },
-  { label: "Al Hoceima", value: "al-hoceima" },
-  { label: "Ben Guerir", value: "ben-guerir" },
-  { label: "Beni Mellal", value: "beni-mellal" },
-  { label: "Berrechid", value: "berrechid" },
-  { label: "Berkane", value: "berkane" },
-  { label: "Bouskoura", value: "bouskoura" },
-  { label: "Casablanca", value: "casablanca" },
-  { label: "El Jadida", value: "el-jadida" },
-  { label: "Errachidia", value: "errachidia" },
-  { label: "Essaouira", value: "essaouira" },
-  { label: "Fez", value: "fez" },
-  { label: "Guelmim", value: "guelmim" },
-  { label: "Guercif", value: "guercif" },
-  { label: "Ifrane", value: 'ifrane' },
-  { label: "Kenitra", value: "kenitra" },
-  { label: "Khouribga", value: "khouribga" },
-  { label: "Khemisset", value: "khemisset" },
-  { label: "Khenifra", value: "khenifra" },
-  { label: "Larache", value: "larache" },
-  { label: "Marrakesh", value: "marrakesh" },
-  { label: "Meknes", value: "meknes" },
-  { label: "Mohammedia", value: "mohammedia" },
-  { label: "Nador", value: "nador" },
-  { label: "Ouarzazate", value: "ouarzazate" },
-  { label: "Oujda", value: "oujda" },
-  { label: "Rabat", value: "rabat" },
-  { label: "Safi", value: "safi" },
-  { label: "Salé", value: "sale" },
-  { label: "Sefrou", value: "sefrou" },
-  { label: "Settat", value: "settat" },
-  { label: "Tan-Tan", value: "tan-tan" },
-  { label: "Tangier", value: "tangier" },
-  { label: "Taroudant", value: "taroudant" },
-  { label: "Taza", value: "taza" },
-  { label: "Temara", value: "temara" },
-  { label: "Tetouan", value: "tetouan" },
-  { label: "Tifelt", value: "tifelt" },
-  { label: "Tiznit", value: "tiznit" },
-  { label: "(Autre)", value: 'other' }
-]
+import { cityOptions, guardianOptions, regionOptions } from "@mdm/shared"
+import { useAge } from '@/app/(frontend)/application/hooks/use-age'
 
 export const PersonalInformationStep = ({
   form,
@@ -98,6 +41,10 @@ export const PersonalInformationStep = ({
   form: UseFormReturn,
   delta: number
 }) => {
+  const {
+    isAdult, 
+    setIsAdult
+  } = useAge(form)
 
   return (
     <motion.div
@@ -175,7 +122,17 @@ export const PersonalInformationStep = ({
                     fromYear={2000} 
                     toYear={2020}
                     selected={field.value}
-                    onSelect={(value) => field.onChange(value)}
+                    onSelect={(value) => {
+                      const _isAdult = isOverEighteen(value as Date)
+                      setIsAdult(_isAdult)
+                      form.clearErrors('identityCardNumber')
+                      if (_isAdult) {
+                        form.setValue('guardianFullName', '')
+                        form.setValue('guardianPhoneNumber', '')
+                        form.setValue('relationshipWithGuardian', '')
+                      }
+                      field.onChange(value)
+                    }}
                     className="rounded-md border"
                   />
                 </PopoverContent>
@@ -205,11 +162,9 @@ export const PersonalInformationStep = ({
           name="city"
           form={form}
           label="Ville de résidence"
-          options={cities}
+          options={cityOptions}
           required={true}
         ></SelectOrInput>
-        
-        
 
         {/* Region */}
         <FormField
@@ -226,7 +181,7 @@ export const PersonalInformationStep = ({
                   <SelectContent className="max-h-60">
                     <SelectGroup>
                       <SelectLabel>Régions</SelectLabel>
-                      {regions.map(region =>
+                      {regionOptions.map(region =>
                         <SelectItem key={region.value} value={region.value}>{region.label}</SelectItem>
                       )}
                     </SelectGroup>
@@ -253,6 +208,95 @@ export const PersonalInformationStep = ({
           )}
         />
       </div>
+
+      <div className='mt-6 grid grid-cols-1 gap-4 justify-between'>
+        {/* Comments */}
+        <FormField
+          control={form.control}
+          name="allergyOrMedication"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Avez-vous des allérgies ou suivez-vous un traitement médical ?</FormLabel>
+              <FormControl>
+              <Textarea
+                placeholder=""
+                className="resize-none"
+                {...field}
+              />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
+      {!isAdult && (
+        <>
+          <h2 className='text-base font-semibold leading-7 text-[#0284C7] mt-6'>
+            Informations personnelles du tuteur
+          </h2>
+          <Separator className='mt-4 bg-[#0284C7]'/>
+
+          <div className='mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-between'>
+            {/* Guardian Full Name */}
+            <FormField
+              control={form.control}
+              name="guardianFullName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nom et Prénom du tuteur<RequiredAsterisk /></FormLabel>
+                  <FormControl>
+                    <Input placeholder="Entrez un nom complet" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+        
+            {/* Guardian Phone Number */}
+            <FormField
+              control={form.control}
+              name="guardianPhoneNumber"
+              render={({ field }) => (
+                <FormItem className="flex flex-col mt-2 items-start">
+                  <FormLabel className="text-left">Téléphone du tuteur <RequiredAsterisk /></FormLabel>
+                  <FormControl className="w-full">
+                    <PhoneInput onValueChange={field.onChange} defaultValue={field.value} defaultCountry='MA' />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Relationship with Guardian */}
+            <FormField
+              control={form.control}
+              name="relationshipWithGuardian"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Relation avec votre tuteur<RequiredAsterisk /></FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choisissez une option" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Relation avec votre tuteur</SelectLabel>
+                          {guardianOptions.map(relationship => 
+                            <SelectItem key={relationship.value} value={relationship.value}>{relationship.label}</SelectItem>
+                          )}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select> 
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </>
+      )}
     </motion.div>
   )
 }
