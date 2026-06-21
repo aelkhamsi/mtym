@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { uploadDir } from './uploadDir'
 
 
 export const OrganizerPhotos: CollectionConfig = {
@@ -20,7 +21,7 @@ export const OrganizerPhotos: CollectionConfig = {
     },
   ],
   upload: {
-    staticDir: 'public/images/payload/organizer-photos',
+    staticDir: uploadDir('organizer-photos'),
     mimeTypes: ['image/*'],
     crop: true,
     focalPoint: true,

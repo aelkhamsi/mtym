@@ -64,7 +64,16 @@ const Card = ({
     <div className="w-[10rem] border-b-4 border-[#F6A806] flex flex-col justify-between items-center space-y-2 rounded-md py-2">
       <div className="h-fit">
         {imageSrc ? (
-          <Image src={imageSrc} alt={name} width={160} height={160} />
+          // Uploaded photos are served straight from disk by nginx (see
+          // staticDir / UPLOAD_DIR), so skip Next's image optimizer which only
+          // reads the build-time public folder and 404s on runtime uploads.
+          <Image
+            src={imageSrc}
+            alt={name}
+            width={160}
+            height={160}
+            unoptimized
+          />
         ) : (
           <div className="w-[160px] h-[160px] bg-gray-100 rounded" />
         )}

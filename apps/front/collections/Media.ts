@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { uploadDir } from './uploadDir'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -13,6 +14,6 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    staticDir: 'public/images/payload/media',
+    staticDir: uploadDir('media'),
   },
 }

@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { uploadDir } from './uploadDir'
 
 export const PartnerLogos: CollectionConfig = {
   slug: 'partner-logos',
@@ -19,7 +20,7 @@ export const PartnerLogos: CollectionConfig = {
     },
   ],
   upload: {
-    staticDir: 'public/images/payload/partner-logos',
+    staticDir: uploadDir('partner-logos'),
     mimeTypes: ['image/*'],
     crop: true,
     focalPoint: true,
