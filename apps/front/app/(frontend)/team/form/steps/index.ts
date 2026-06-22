@@ -33,9 +33,10 @@ export const steps: Step[] = [
     },
     asyncValidation: async (fieldsState?: any, setError?: UseFormSetError<any>) => {
       const quadrigram = fieldsState?.quadrigram
+      if (!quadrigram) return false
       const output = await getTeamByQuadrigram(quadrigram) as any
 
-      if (output?.statusCode === 404) return true
+      if (!output) return true
       if (setError) {
         setError("quadrigram", {
           type: "manual",

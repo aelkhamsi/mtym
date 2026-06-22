@@ -2,9 +2,15 @@ const { withPayload } = require("@payloadcms/next/withPayload");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
-    domains: ["lh3.googleusercontent.com", "vercel.com"],
+    localPatterns: [
+      { pathname: '/**' },
+    ],
+    remotePatterns: [
+      { hostname: "lh3.googleusercontent.com" },
+      { hostname: "vercel.com" },
+      { hostname: "s3.mathmaroc.org" },
+    ],
   },
   typescript: {
     // !! WARN !!

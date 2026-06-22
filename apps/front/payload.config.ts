@@ -27,9 +27,9 @@ const storagePlugins: Plugin[] = process.env.MINIO_ENDPOINT
   ? [
       s3Storage({
         collections: {
-          media: { prefix: 'media' },
-          'organizer-photos': { prefix: 'organizer-photos' },
-          'partner-logos': { prefix: 'partner-logos' },
+          media: { prefix: 'media', disablePayloadAccessControl: true },
+          'organizer-photos': { prefix: 'organizer-photos', disablePayloadAccessControl: true },
+          'partner-logos': { prefix: 'partner-logos', disablePayloadAccessControl: true },
         },
         bucket: process.env.MINIO_BUCKET_NAME || '',
         config: {

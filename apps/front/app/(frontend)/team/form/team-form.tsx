@@ -43,13 +43,13 @@ export const TeamForm = () => {
   const onSubmitCreateTeam = async (formData: z.infer<typeof createTeamSchema>) => {
     try {      
       const createTeamResult = await createTeam(formData) as any;
-      if (createTeamResult?.statusCode !== 200) {
-        throw new Error(createTeamResult?.message)
+      if (!createTeamResult?.id) {
+        throw new Error(createTeamResult?.message ?? 'Team creation failed')
       }
-      
-      const teamId = createTeamResult?.team?.id;
+
+      const teamId = createTeamResult.id;
       const addUserResult = await addUser(teamId) as any;
-      if (addUserResult?.statusCode !== 200) {
+      if (!addUserResult) {
         throw new Error('Adding the user in the team failed')
       }
       
