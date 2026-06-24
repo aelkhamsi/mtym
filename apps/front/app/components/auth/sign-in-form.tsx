@@ -34,8 +34,6 @@ export function SignInForm({
     const response = await logIn(email, password) as any;
     switch(response?.statusCode) {
       case 200:
-        console.log('[debug] response', response)
-
         if (response?.verified) {
           router.push('/')
           window.location.reload()
