@@ -18,7 +18,7 @@ export function SignInForm({
   verifyEmail 
 }:{
   className?: string,
-  verifyEmail: (email: string, accessToken: string) => void
+  verifyEmail: (email: string) => void
 }) {
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -34,13 +34,15 @@ export function SignInForm({
     const response = await logIn(email, password) as any;
     switch(response?.statusCode) {
       case 200:
-        // if (response?.verified) {
-        router.push('/')
-        window.location.reload()
-        // }
-        // else {
-        //   verifyEmail(email, response?.access_token)
-        // }
+        console.log('[debug] response', response)
+
+        if (response?.verified) {
+          router.push('/')
+          window.location.reload()
+        }
+        else {
+          verifyEmail(email)
+        }
         break;
       case 400:
       case 401:
