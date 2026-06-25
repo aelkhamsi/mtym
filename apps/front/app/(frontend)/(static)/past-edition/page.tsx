@@ -17,7 +17,7 @@ export default function MathSprintPage() {
           <p>Vous trouverez içi les problèmes proposés lors des éditions passées. </p>
           <p>Ces problèmes vous donneront une idée du type de questions posées et vous aideront à vous familiariser avec le format des compétitions.</p>
 
-          <div>2 éditions ont déjà vu le jour:
+          <div>3 éditions ont déjà vu le jour:
             <ul className="list-disc">
               <li><span className="font-bold">MTYM Mai 2024</span> à l&apos;UM6P Ben-guerir</li>
               <li><span className="font-bold">MTYM Décembre 2024</span> à l&apos;AUI Ifrane</li>              

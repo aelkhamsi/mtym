@@ -56,7 +56,7 @@ export default function Footer() {
               <h1 className='font-bold'>Pages</h1>
               <ul className='space-y-2'>
                 <li><Link href='/tournament-format' className='hover:underline'>Format du tournoi</Link></li>
-                <li><Link href='/past-edition' className='hover:underline'>Édition passée</Link></li>
+                <li><Link href='/past-edition' className='hover:underline'>Éditions passées</Link></li>
                 <li><Link href='/organizing-team' className='hover:underline'>Équipe organisatrice</Link></li>
                 <li><Link href='/partners' className='hover:underline'>Partenaires</Link></li>
                 <li><Link href='/faq' className='hover:underline'>FAQ</Link></li>
