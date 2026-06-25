@@ -6,7 +6,7 @@ import { Cross1Icon, HamburgerMenuIcon } from "@mdm/ui"
 
 const menuItems = [
   {label: 'Test de sélection', href: 'selection'},
-  {label: 'Edition passée', href: 'past-edition'},
+  {label: 'Editions passées', href: 'past-edition'},
   {label: 'Organisateurs', href: 'organizing-team'},
   {label: 'Partenaires', href: 'partners'},
   {label: 'FAQ', href: 'faq'},

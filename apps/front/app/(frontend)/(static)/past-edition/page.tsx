@@ -13,20 +13,20 @@ export default function MathSprintPage() {
           <span className='font-neco text-[#244B3A]'>Éditions passées</span>
         </h1>
 
-        <div className="w-full flex flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0 justify-between">
-          <div className="w-full lg:w-1/3 space-y-4 p-4">
-            <h1 className='font-bold text-3xl'>Les problèmes des dernières éditions</h1>
-            <p>Vous trouverez içi les problèmes proposés lors des éditions passées. </p>
-            <p>Ces problèmes vous donneront une idée du type de questions posées et vous aideront à vous familiariser avec le format des compétitions.</p>
+        <div className="w-full space-y-4 p-4">
+          <p>Vous trouverez içi les problèmes proposés lors des éditions passées. </p>
+          <p>Ces problèmes vous donneront une idée du type de questions posées et vous aideront à vous familiariser avec le format des compétitions.</p>
 
-            <p>2 éditions ont déjà vu le jour:
-              <ul className="list-disc">
-                <li><span className="font-bold">MTYM Mai 2024</span> à l&apos;UM6P Ben-guerir</li>
-                <li><span className="font-bold">MTYM Décembre 2024</span> à l&apos;AUI Ifrane</li>              
-              </ul>
-            </p>
+          <div>2 éditions ont déjà vu le jour:
+            <ul className="list-disc">
+              <li><span className="font-bold">MTYM Mai 2024</span> à l&apos;UM6P Ben-guerir</li>
+              <li><span className="font-bold">MTYM Décembre 2024</span> à l&apos;AUI Ifrane</li>              
+              <li><span className="font-bold">MTYM Décembre 2025</span> à l&apos;AUI Ifrane</li>              
+            </ul>
           </div>
+        </div>
 
+        <div className="w-full flex flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0 justify-between">
           <div className="flex flex-col items-center w-full lg:w-1/3">
             <div className="text-center">Mai 2024</div>
             <Link
@@ -34,7 +34,7 @@ export default function MathSprintPage() {
               target="_blank"
             >
               <Image
-                src="/images/problems/problems_mai_2025.webp"
+                src="/images/problems/problems_mai_2024.webp"
                 alt="Logo"
                 width={350}
                 height={0}
@@ -47,6 +47,22 @@ export default function MathSprintPage() {
             <div className="text-center">Décembre 2024</div>
             <Link
               href='https://drive.google.com/file/d/15cELRc4dH3tbKW6z7pCO7yXiL5H-KskM/view?usp=sharing'
+              target="_blank"
+            >
+              <Image
+                src="/images/problems/problems_decembre_2024.webp"
+                alt="Logo"
+                width={350}
+                height={0}
+                className="w-full"
+              />
+            </Link>
+          </div>
+
+          <div className="flex flex-col items-center w-full lg:w-1/3">
+            <div className="text-center">Décembre 2025</div>
+            <Link
+              href='https://drive.google.com/file/d/1EIRuCYoFHq9bVw56pzNSy13bJ9mnZlob/view?usp=sharing'
               target="_blank"
             >
               <Image
