@@ -7,7 +7,7 @@ import HeroSectionTitle from './hero-section-title'
 import HeroSectionInformations from './hero-section-informations'
 import HeroSectionOrganizers from './hero-section-organizers'
 import { Separator } from '@mdm/ui'
-import ProblemsButton from '../../cta/problems-button'
+import CtaButton from '../../cta/cta-button'
 
 const HeroSection = () => {
   // const backgroundColorClassname = "bg-[url('/grain.png'),linear-gradient(to_bottom,#244B3A,#244B3A,#122019)] bg-center bg-repeat [background-blend-mode:multiply]"
@@ -35,7 +35,7 @@ const HeroSection = () => {
         <div
           className="flex justify-center space-x-4"
         >
-          <ProblemsButton />
+          <CtaButton />
           <RegulationButton />
           <FaqButton />
         </div>
@@ -47,7 +47,6 @@ const HeroSection = () => {
         className='w-full flex flex-col items-center space-y-6 animate-fade-up opacity-0'
         style={{ animationDelay: "0.50s", animationFillMode: "forwards" }}
       >
-        <HeroSectionInformations />
         <HeroSectionOrganizers />
       </div>
     </SectionContainer>

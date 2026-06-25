@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 const ImageStack = dynamic(() => import("../image-stack").then(m => m.ImageStack), {
   ssr: false,
 })
-import { GlitterIcon, LightbulbIcon, StarShineIcon} from '@mdm/ui'
+import { CalendarMDMIcon, GlitterIcon, LightbulbIcon, BookIcon, StarShineIcon} from '@mdm/ui'
 
 const images = [
   {
@@ -43,9 +43,9 @@ const SecondSection = () => {
         <div className="w-full space-y-4 p-4 lg:p-0">
           <p className='font-bold text-xs text-[#244B3A]'>Qu&apos;est-ce que le MTYM ?</p>
           <h1 className='font-bold text-3xl font-neco'>MTYM, la scène de la recherche mathématique pour les lycéens</h1>
-          <p>Organisé par <span className='font-semibold'>Math&Maroc</span>, le <span className='font-semibold'> Moroccan Tournament of Young Mathematicians (MTYM)</span> est un tournoi national destiné aux lycéens d&apos;orientation scientifique du Maroc.</p>
-          <p>Il offre aux participants une expérience de recherche scientifique en mathématiques, en valorisant la curiosité, l&apos;esprit critique et la créativité à travers des problèmes mathématiques ouverts, conçus pour stimuler la réflexion et l&apos;investigation collective.</p>
-          <p>Chaque équipe, formée de trois à cinq personnes, est encouragée à explorer différentes pistes, à développer ses propres idées et à présenter ses résultats, à l&apos;image du travail d&apos;un chercheur en mathématiques.</p>
+          <p>Organisé par <span className='font-semibold'>Math&Maroc</span>, le <span className='font-semibold'> Moroccan Tournament of Young Mathematicians (MTYM)</span> est la première compétition de recherche mathématique destinée aux lycéens au Maroc et aux lycéens marocains scolarisés à l&apos;étranger.</p>
+          <p>Le MTYM propose une approche des mathématiques différente du cadre scolaire traditionnel à travers des problèmes de recherche ouverts qui encouragent la curiosité, l&apos;esprit critique, la créativité et le travail collaboratif.</p>
+          <p>Réunis en équipes de 3 à 5 élèves, les participants explorent ces problèmes pendant plusieurs mois avant de présenter et défendre leurs résultats devant d&apos;autres équipes et un jury lors des Tournois Régionaux puis du Tournoi National.</p>
         </div>
 
         <div className="w-full">
@@ -53,6 +53,21 @@ const SecondSection = () => {
             images={images}
             autoplay={true}
           />
+        </div>
+      </div>
+
+      <div className='flex flex-col md:flex-row justify-center gap-x-8 text-lg'>
+        <div className='flex items-center justify-center gap-x-6'>
+          <CalendarMDMIcon />
+          <div> 
+            <span className="font-semibold">Octobre</span>: Tournois régionaux <br/>
+            <span className="font-semibold">Décembre</span>: Tournoi national
+          </div>
+        </div>
+
+        <div className='flex items-center justify-center gap-x-6' >
+          <BookIcon />
+          <div className="font-semibold text-center w-[8rem] md:w-full">Lycéens de l&apos;année <br/> scolaire 2026-2027</div>
         </div>
       </div>
 
@@ -65,11 +80,12 @@ const SecondSection = () => {
             </div>
           </div>
 
-          <h1 className='text-center font-bold text-xl'>L&apos;esprit du tournoi</h1>
+          <h1 className='text-center font-bold text-xl'>Chiffres clés</h1>
           <p>
-            Le MTYM valorise le travail collaboratif, l&apos;esprit critique et la persévérance.<br/>
-            Les problèmes proposés sont ouverts et peuvent avoir plusieurs pistes de solution.<br/>
-            L&apos;objectif est d&apos;encourager l&apos;analyse en profondeur, le raisonnement autonome et l&apos;esprit critique.
+            <span className="font-semibold">+1000 participants</span> aux tournois régionaux dans 9 villes du Maroc <br/>
+            <span className="font-semibold">+150 étudiants</span> au tournoi national (4 jours) <br/>
+            <span className="font-semibold">3 éditions</span> : une communauté en pleine croissance <br/>
+            <span className="font-semibold">10 étudiants</span> sélectionnés pour ETEAM 2025 (Lyon) et 2026 (Lausanne) <br/>
           </p>
         </div>
 
@@ -80,8 +96,12 @@ const SecondSection = () => {
             </div>
           </div>
 
-          <h1 className='text-center font-bold text-xl'>Au delà de la compétition</h1>
-          <p>Plus qu&apos;un simple concours, MTYM est une expérience complète: plusieurs mois de travail aboutissant à trois jours intenses, rythmés par des débats mathématiques, des conférences, des ateliers et des activités ludiques, alliant apprentissage et convivialité avec d&apos;autres passionnés.</p>
+          <h1 className='text-center font-bold text-xl'>Vers le trophée MTYM</h1>
+          <p>
+            Avec son format XXL, le MTYM est ouvert à tous.<br/>
+            Les tournois régionaux, en octobre dans 9 villes, rassemblent tous les étudiants intéressés.<br/>
+            Le tournoi national, en décembre, réunit les meilleures équipes du Maroc.
+          </p>
         </div>
 
         <div className="w-full space-y-4 p-8 bg-[#F9FAFB] rounded-3xl shadow-sm border-[1px] border-gray-100">
@@ -91,10 +111,10 @@ const SecondSection = () => {
             </div>
           </div>
 
-          <h1 className='text-center font-bold text-xl'>Retour sur les éditions précédentes</h1>
+          <h1 className='text-center font-bold text-xl'>Une expérience unique</h1>
           <p>
-            La dernière édition, à l&apos;instar de celle-ci, s&apos;est tenue à l&apos;Université Al Akhawayn à Ifrane (AUI).<br/>
-            L&apos;événement a connu une forte affluence de plus de 200 lycéens venant des quatre coins du Maroc pour relever des défis hors du cadre scolaire traditionnel.
+            Plus qu&apos;une compétition, le MTYM est un espace d&apos;apprentissage et de rencontres.<br/>
+            Au programme : débats scientifiques, ateliers en mathématiques, informatique et IA, sessions d&apos;orientation et activités ludiques et conviviales.
           </p>
         </div>
       </div>

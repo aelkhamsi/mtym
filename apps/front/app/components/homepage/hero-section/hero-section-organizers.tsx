@@ -32,26 +32,39 @@ const OrganizerLogo = ({
 
 const HeroSectionOrganizers = () => {
   return (
-    <div
-      className="w-full flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0 md:space-x-4 lg:w-2/3 xl:w-1/2"
-    >
-      <div className='flex items-center space-x-6'>
-        <p className='text-sm text-gray-500'>
-          Organized by
-        </p>
+    <>
+      <div
+        className="w-full flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0 md:space-x-4 lg:w-2/3 xl:w-1/2"
+      >
+        <div className='flex items-center space-x-6'>
+          <p className='text-sm text-gray-500'>
+            Organized by
+          </p>
 
-        <OrganizerLogo src="/images/logos/mm.png" alt="Math&Maroc Logo" width={100} height={0}/>
-        <OrganizerLogo src="/images/logos/aui.png" alt="AUI Logo" brightness={70} width={80} height={0}/>
+          <OrganizerLogo src="/images/logos/mm.png" alt="Math&Maroc Logo" width={100} height={0}/>
+        </div>
+        
+        <div className="flex space-x-8 items-center">
+          <p className='text-sm text-gray-500'>
+            Official partner
+          </p>
+          
+          <OrganizerLogo src="/images/logos/adria_official_partner.png" alt="Adria Logo" brightness={50} width={100} height={0} />
+        </div>
       </div>
       
-      <div className="flex space-x-8 items-center">
-        <p className='text-sm text-gray-500'>
-          Trusted by
-        </p>
-        
-        <OrganizerLogo src="/images/logos/adria_official_partner.png" alt="Adria Logo" brightness={50} width={100} height={0} />
+      <div
+        className="w-full flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0 md:space-x-4 lg:w-2/3 xl:w-1/2"
+      >
+        <div className="flex space-x-8 items-center">
+          <p className='text-sm text-gray-500'>
+            Partners
+          </p>
+          <OrganizerLogo src="/images/logos/cdg.svg" alt="Adria Logo" brightness={50} width={60} height={0} />
+          <OrganizerLogo src="/images/logos/cdg_capital.png" alt="Adria Logo" brightness={50} width={200} height={0} />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
