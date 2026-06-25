@@ -33,7 +33,7 @@ export const useFileUpload = () => {
     files: (File|undefined)[], 
     user: User|undefined
   ) => {
-    const uploadFolderName = getUploadFolderName(user?.firstName, user?.lastName);
+    const uploadFolderName = `applications/${getUploadFolderName(user?.firstName, user?.lastName)}`;
 
     for (const file of files) {
       if (file) {
@@ -49,7 +49,7 @@ export const useFileUpload = () => {
     files: (File|undefined)[], 
     user: User|undefined
   ) => {
-    const uploadFolderName = getUploadFolderName(user?.firstName, user?.lastName);
+    const uploadFolderName = `applications/${getUploadFolderName(user?.firstName, user?.lastName)}`;
     const fileUrls = {
       fileCnieUrl: files[0] ? `${uploadFolderName}/${files[0].name}` : (formData?.fileCnieUrl ?? null),
       filePhotoUrl: files[1] ? `${uploadFolderName}/${files[1].name}` : (formData?.filePhotoUrl ?? null),
