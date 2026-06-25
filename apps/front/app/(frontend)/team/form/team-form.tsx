@@ -110,9 +110,8 @@ export const TeamForm = () => {
 
     if (formType === 'join' && teams?.length === 0) {
       getAllTeams()
-        .then(res => {
-          const teams = (res as any)?.teams;
-          setTeams(teams)
+        .then((teams) => {
+          setTeams(teams as Team[] ?? [])
         })
     }
   }, [formType])
@@ -167,7 +166,7 @@ export const TeamForm = () => {
             {currentStep === 2 && (
               <div className='mt-20 text-center'> 
                 <Button type="submit" className='text-lg md:w-1/4 lg:w-1/6 p-8'>
-                  <div>Create Team</div>
+                  <div>Créer l&apos;équipe</div>
                 </Button>
               </div>
             )}
@@ -190,7 +189,7 @@ export const TeamForm = () => {
             {currentStep === 2 && (
               <div className='mt-20 text-center'> 
                 <Button type="submit" className='text-lg md:w-1/4 lg:w-1/6 p-8'>
-                  <div>Join Team</div>
+                  <div>Rejoindre l&apos;équipe</div>
                 </Button>
               </div>
             )}

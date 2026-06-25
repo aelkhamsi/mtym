@@ -56,7 +56,7 @@ export class TeamAccessCodeController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.USER)
   @Delete(':id')
   async deleteById(@Param('id', ParseIntPipe) id: number) {
     return this.teamAccessCodeService.deleteById(+id);

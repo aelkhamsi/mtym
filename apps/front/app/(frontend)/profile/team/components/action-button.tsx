@@ -20,14 +20,15 @@ import {
   DropdownMenuTrigger,
 } from "@mdm/ui"
 import { removeUser } from "@/app/api/TeamApi";
-import { useAtomValue } from "jotai";
-import { userAtom } from "@/app/store/userAtom";
-import { teamAtom } from "@/app/store/teamAtom";
 import { Team, User } from "@mdm/types";
 
-export function ActionButton() {
-  const user = useAtomValue(userAtom) as User
-  const team = useAtomValue(teamAtom) as Team
+export function ActionButton({
+  user,
+  team,
+}:{
+  user: User,
+  team: Team,
+}) {
 
   const onRemoveUser = async () => {
     try {

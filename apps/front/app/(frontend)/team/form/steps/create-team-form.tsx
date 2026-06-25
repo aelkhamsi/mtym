@@ -82,24 +82,6 @@ export const CreateTeamForm = ({
             </FormItem>
           )}
         />
-
-        {/* Mentor Full Name*/}
-        <FormField
-          control={form.control}
-          name="mentorFullname"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Prénom et Nom de votre mentor</FormLabel>
-              <FormControl>
-                <Input placeholder="Nom complet du mentor" {...field} />
-              </FormControl>
-              <FormMessage />
-              <FormDescription>
-                Si votre équipe a un mentor (enseignant, chercheur, etc.), veuillez indiquer son nom complet ci-dessus.
-              </FormDescription>
-            </FormItem>
-          )}
-        />
       </div>
     </motion.div>
   )

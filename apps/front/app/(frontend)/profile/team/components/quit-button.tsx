@@ -32,7 +32,7 @@ const QuitButton = ({
 }:{
   isTeamLeader: boolean
 }) => {
-  const team = useAtomValue(teamAtom) as Team
+  const team = useAtomValue(teamAtom) as Team ?? {}
   const [newLeaderId, setNewLeaderId] = useState<number>()
 
   const onQuitTeam = async () => {
@@ -82,7 +82,7 @@ const QuitButton = ({
           </AlertDialogDescription>
         </AlertDialogHeader>        
 
-        {isTeamLeader && team?.users?.length &&
+        {isTeamLeader && (team?.users?.length ?? 0) > 1 &&
           <div>
             <Separator className="bg-black"/>
 
@@ -111,7 +111,7 @@ const QuitButton = ({
           <AlertDialogCancel>Fermer</AlertDialogCancel>
           <AlertDialogAction
             onClick={onQuitTeam}
-            disabled={isTeamLeader && team?.users?.length !== 0 && !newLeaderId}
+            disabled={isTeamLeader && (team?.users?.length ?? 0) > 1 && !newLeaderId}
           >
             Quitter
           </AlertDialogAction>

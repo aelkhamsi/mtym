@@ -42,7 +42,7 @@ const TeamMembers = () => {
                 {user?.id === creator?.id
                   ? <Badge className="bg-green-700">Créateur</Badge>
                   : isTeamCreator
-                    ? <ActionButton />
+                    ? <ActionButton user={user} team={team ?? undefined} />
                     : ''
                 }
               </TableCell>
