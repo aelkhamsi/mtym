@@ -27,15 +27,13 @@ const AuthModal = ({
   const router = useRouter()
   const [formType, setFormType] = useState<FormType>('sign-in')
   const [email, setEmail] = useState<string>('')
-  const [accessToken, setAccessToken] = useState<string>('')
 
   const onFormToggle = (type: string) => {
     setFormType(type as FormType);
   }
 
-  const verifyEmail = (email: string, accessToken: string) => {
+  const verifyEmail = (email: string) => {
     setEmail(email)
-    setAccessToken(accessToken)
     setFormType('email-verification')
   }
 
