@@ -52,7 +52,7 @@ export const EducationStep = ({
           name="educationLevel"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Niveau scolaire en 2025/2026 <RequiredAsterisk /></FormLabel>
+              <FormLabel>Niveau scolaire en 2026/2027 <RequiredAsterisk /></FormLabel>
               <FormControl>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <SelectTrigger>
