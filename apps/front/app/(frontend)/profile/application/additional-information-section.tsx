@@ -57,15 +57,15 @@ const AdditionalInformationsSection = () => {
       )
     }
     
-    const uploadFolderName = getUploadFolderName(user?.firstName, user?.lastName);
+    const uploadFolderName = `applications/${getUploadFolderName(user?.firstName, user?.lastName)}`;
     if (file) {
       const checksum = await computeSHA256(file);
-      const signedURLResponse = await getSignedURL(`upload_mtym/${uploadFolderName}/${file.name}`, file.type, file.size, checksum) as any;
+      const signedURLResponse = await getSignedURL(`${uploadFolderName}/${file.name}`, file.type, file.size, checksum) as any;
       await uploadFile(signedURLResponse?.url, file) as any;
     }
 
     const fileUrls = {
-      fileCnieUrl: file ? `upload_mtym/${uploadFolderName}/${file.name}` : (application?.fileCnieUrl ?? null),
+      fileCnieUrl: file ? `${uploadFolderName}/${file.name}` : (application?.fileCnieUrl ?? null),
     }
 
     await putApplication(application?.id, fileUrls) as any
