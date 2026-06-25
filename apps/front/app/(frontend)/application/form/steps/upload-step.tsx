@@ -98,27 +98,8 @@ export const UploadStep = ({
                   <FileInput form={form} id="fileGrades" />
                 </FormControl>
                 <FormDescription>
-                  <span className="text-blue-500">Remarque</span>: Ce fichier sera utilisé pour vérifier les notes que vous avez fournies plus tôt dans le formulaire.
+                  <span className="text-blue-500">Remarque</span>: Veuillez vous assurer que les informations suivantes sont clairement visibles sur votre bulletin : nom, prénom, code Massar, année scolaire et nom de l'établissement.
                 </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )
-          }}
-        />
-
-        {/* SCHOOL CERTIFICATE */}
-        <FormField
-          control={form.control}
-          name="fileSchoolCertificate"
-          render={({ field }) => {
-            initFileInput(field, "fileSchoolCertificate")
-
-            return (
-              <FormItem>
-                <FormLabel>Certificat de scolarité 2025-2026<RequiredAsterisk /></FormLabel>
-                <FormControl>
-                  <FileInput form={form} id="fileSchoolCertificate" />
-                </FormControl>
                 <FormMessage />
               </FormItem>
             )

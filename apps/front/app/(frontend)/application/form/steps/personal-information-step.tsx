@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { UseFormReturn } from 'react-hook-form'
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -225,6 +226,7 @@ export const PersonalInformationStep = ({
               />
               </FormControl>
               <FormMessage />
+              <FormDescription>Ces informations nous permettent de garantir votre sécurité et d'adapter les repas proposés durant la compétition</FormDescription>
             </FormItem>
           )}
         />

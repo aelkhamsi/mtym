@@ -51,7 +51,6 @@ export const steps: Step[] = [
         !isFileUploaded('fileCnie') ? 'fileCnie' : '',
         !isFileUploaded('filePhoto') ? 'filePhoto' : '',
         !isFileUploaded('fileGrades') ? 'fileGrades' : '',
-        !isFileUploaded('fileSchoolCertificate') ? 'fileSchoolCertificate' : '',
       ]
     }
   },

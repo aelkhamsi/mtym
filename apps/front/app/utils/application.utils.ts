@@ -12,7 +12,7 @@ const formatTransformers: Record<string, Transformer> = {
   standMembers: (value) => JSON.stringify(value),
 };
 
-const EXCLUDED_FIELDS = ['status', 'fileCnie', 'filePhoto', 'fileGrades', 'fileSchoolCertificate', 'termsAgreement'];
+const EXCLUDED_FIELDS = ['status', 'fileCnie', 'filePhoto', 'fileGrades', 'termsAgreement'];
 
 // API response → Frontend state
 export const parseApplication = (application: any) => {
