@@ -33,12 +33,12 @@ export const useFileUpload = () => {
     files: (File|undefined)[], 
     user: User|undefined
   ) => {
-    const uploadFolderName = getUploadFolderName(user?.firstName, user?.lastName);
+    const uploadFolderName = `participant-details/${getUploadFolderName(user?.firstName, user?.lastName)}`;
 
     for (const file of files) {
       if (file) {
         const checksum = await computeSHA256(file);
-        const signedURLResponse = await getSignedURL(`upload_mtym/${uploadFolderName}/${file.name}`, file.type, file.size, checksum) as any;
+        const signedURLResponse = await getSignedURL(`${uploadFolderName}/${file.name}`, file.type, file.size, checksum) as any;
         await uploadFile(signedURLResponse?.url, file) as any;
       }
     }
@@ -49,10 +49,10 @@ export const useFileUpload = () => {
     files: (File|undefined)[], 
     user: User|undefined
   ) => {
-    const uploadFolderName = getUploadFolderName(user?.firstName, user?.lastName);
+    const uploadFolderName = `participant-details/${getUploadFolderName(user?.firstName, user?.lastName)}`;
     const fileUrls = {
-      filePhotoUrl: files[0] ? `upload_mtym/${uploadFolderName}/${files[0].name}` : (formData?.filePhotoUrl ?? null),
-      fileParentalAuthorizationUrl: files[1] ? `upload_mtym/${uploadFolderName}/${files[1].name}` : (formData?.fileParentalAuthorizationUrl ?? null),
+      filePhotoUrl: files[0] ? `${uploadFolderName}/${files[0].name}` : (formData?.filePhotoUrl ?? null),
+      fileParentalAuthorizationUrl: files[1] ? `${uploadFolderName}/${files[1].name}` : (formData?.fileParentalAuthorizationUrl ?? null),
     }
 
     const result = await putParticipantDetails(formData?.id, fileUrls) as any
