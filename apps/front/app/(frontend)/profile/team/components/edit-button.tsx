@@ -53,7 +53,7 @@ const EditButton = ({
 
     const result = await getTeamByQuadrigram(quadrigram) as any
 
-    if (!result || result?.id === team?.id) {
+    if (!result?.id || result.id === team?.id) {
       await updateTeam(team?.id, {name, slogan, quadrigram, mentorFullname})
       window.location.reload()
       return

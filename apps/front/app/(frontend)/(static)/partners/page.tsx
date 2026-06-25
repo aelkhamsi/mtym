@@ -99,7 +99,7 @@ export default async function PartnersPage() {
               </h2>
 
               <div
-                className="flex justify-around flex-wrap gap-6 p-8 rounded-lg animate-fade-up opacity-0"
+                className={`flex flex-wrap justify-center gap-6 p-8 rounded-lg animate-fade-up opacity-0 ${section.partners.length > 3 ? '[&>*]:sm:w-[calc(50%-0.75rem)] [&>*]:lg:w-[calc(25%-1.125rem)]' : '[&>*]:sm:w-[calc(50%-0.75rem)] [&>*]:lg:w-[calc(33.333%-1rem)]'}`}
                 style={{ animationDelay: '0.30s', animationFillMode: 'forwards' }}
               >
                 {section.partners.map((partner) => (

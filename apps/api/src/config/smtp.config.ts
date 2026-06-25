@@ -5,8 +5,8 @@ import { join } from 'path';
 export default registerAs('smtp', () => ({
   endpoint: process.env.SMTP_ENDPOINT,
   transport: {
-    host: 'smtp.purelymail.com',
-    port: 587,
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT) || 587,
     secure: false,
     auth: {
       user: process.env.SMTP_USER,

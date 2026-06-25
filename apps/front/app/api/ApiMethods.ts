@@ -29,7 +29,7 @@ class ApiMethods {
     return new Promise((resolve, reject) => {
       fetch(url, requestParams)
         .then(res => {
-          if (!res.ok) return null
+          if (!res.ok) return res.json().then(data => ({ ...data, statusCode: res.status })).catch(() => null)
           return res.json()
         })
         .then(resolve)

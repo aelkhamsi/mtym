@@ -24,7 +24,7 @@ export default async function RootLayout({
 }) {
   const cookieStore = (await cookies()).toString();
   const session = await getSessionCookie(cookieStore) as any
-  const user = await getUserById(session?.id, cookieStore) as User
+  const user = session?.id ? await getUserById(session.id, cookieStore) as User : undefined
 
   return (
     <html lang="en">

@@ -36,7 +36,7 @@ export const steps: Step[] = [
       if (!quadrigram) return false
       const output = await getTeamByQuadrigram(quadrigram) as any
 
-      if (!output) return true
+      if (!output?.id) return true
       if (setError) {
         setError("quadrigram", {
           type: "manual",
