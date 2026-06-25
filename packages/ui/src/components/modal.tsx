@@ -52,7 +52,7 @@ export default function Modal({
           onOpenAutoFocus={(e) => e.preventDefault()}
           onCloseAutoFocus={(e) => e.preventDefault()}
           className={cn(
-            "animate-scale-in fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md overflow-hidden border border-gray-200 bg-white p-0 shadow-xl md:rounded-2xl",
+            "animate-scale-in fixed left-1/2 top-1/2 z-40 max-h-fit w-full max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden border border-gray-200 bg-white p-0 shadow-xl md:rounded-2xl",
             className,
           )}
         >
