@@ -40,7 +40,8 @@ export const EducationStep = ({
       </h2>
 
       <p className='mt-1 text-sm leading-6 text-gray-600'>
-        Veuillez fournir des informations sur votre niveau d&apos;études pour <span className='font-semibold'> l&apos;année scolaire 2025/2026</span>.
+        Veuillez fournir des informations sur votre niveau d&apos;études pour <span className='font-semibold'> l&apos;année scolaire 2026/2027</span>.<br/>
+        Si vous êtes incertains des informations concernant votre scolarité l&apos;année prochaine (nom et région du lycée, filière, etc.), veuillez renseigner les informations les plus probables à ce jour.
         <Separator className='mt-4 bg-[#0284C7]'/>
       </p>
       
@@ -155,7 +156,7 @@ export const EducationStep = ({
           name="isHighschoolFarFromHome"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>J&apos;habite loin de mes parents lors de la période scolaire<RequiredAsterisk /></FormLabel>
+              <FormLabel>J&apos;habiterai loin de mes parents lors de la période scolaire<RequiredAsterisk /></FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={(value) => field.onChange(value)}
