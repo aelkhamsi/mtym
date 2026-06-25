@@ -57,7 +57,7 @@ const ParticipationStepsSection = () => {
             Les participants ayant soumis un dossier complet et faisant partie d&apos;une équipe composée de 3 à 5 membres seront invités à passer un test de sélection le <span className="font-bold">28 septembre 2025</span>.
           </div>
 
-          <Link href="selection">
+          <Link href="/selection">
             <Button className='w-fit bg-transparent text-black border border-black hover:text-white'>
               Learn more
             </Button>
