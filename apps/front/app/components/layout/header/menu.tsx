@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Cross1Icon, HamburgerMenuIcon } from "@mdm/ui"
 
 const menuItems = [
-  {label: 'Test de sélection', href: 'selection'},
+  {label: 'Format du tournoi', href: 'tournament-format'},
   {label: 'Editions passées', href: 'past-edition'},
   {label: 'Organisateurs', href: 'organizing-team'},
   {label: 'Partenaires', href: 'partners'},
