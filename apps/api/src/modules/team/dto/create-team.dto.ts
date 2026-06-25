@@ -12,8 +12,4 @@ export class CreateTeamDto {
   @IsString()
   @IsNotEmpty()
   quadrigram: string;
-
-  @IsString()
-  @IsOptional()
-  mentorFullname: string;
 }

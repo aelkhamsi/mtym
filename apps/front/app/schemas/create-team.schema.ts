@@ -6,7 +6,6 @@ export const createTeamSchema = z.object({
   quadrigram: z.string().trim().transform((v: string) => v.toUpperCase()).refine((v: string) => /^[A-Z]{4}$/.test(v), {
     message: "Un quadrigramme contient exactement 4 lettres (A–Z).",
   }),
-  mentorFullname: z.string().optional(),
 }).superRefine(({ name, quadrigram }, ctx) => {
   const quad = quadrigram;
 
@@ -23,5 +22,4 @@ export const createTeamDefaultValues = {
   name: "",
   slogan: "",
   quadrigram: "",
-  mentorFullname: "",
 }

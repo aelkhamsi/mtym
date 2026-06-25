@@ -28,9 +28,6 @@ export class Team {
   @Column({ type: 'varchar', default: '' })
   quadrigram: string;
 
-  @Column({ type: 'varchar', default: '' })
-  mentorFullname: string;
-
   @ManyToOne(() => User)
   @JoinColumn()
   leader: User;
