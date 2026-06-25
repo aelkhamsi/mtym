@@ -1,5 +1,10 @@
 node_modules
 dist
 .turbo
+
+# Vim swap files (can contain secrets)
+*.swp
+*.swo
+*~
 apps/front/organizer-photos/
 apps/front/partner-logos/

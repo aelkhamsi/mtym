@@ -9,7 +9,7 @@
     "build": "turbo run build --parallel",
     "start:db": "pnpm run --filter api start:db",
     "format": "turbo run format --parallel"
-  },
+  }, 
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -24,7 +24,7 @@ const FifthSection = () => {
       </div>
 
       <Link
-        href='organizing-team'
+        href='/organizing-team'
       >
         <button
           className="p-[3px] relative text-sm"
