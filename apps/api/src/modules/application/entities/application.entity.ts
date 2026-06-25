@@ -113,9 +113,6 @@ export class Application {
   @Column({ type: 'varchar', nullable: true })
   fileGradesUrl: string;
 
-  @Column({ type: 'varchar', nullable: true })
-  fileSchoolCertificateUrl: string;
-
   /* createAt & updatedAt */
   @CreateDateColumn()
   createdAt: Date;

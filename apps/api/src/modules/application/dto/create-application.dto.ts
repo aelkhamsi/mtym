@@ -112,8 +112,4 @@ export class CreateApplicationDto {
   @IsString()
   @IsOptional()
   fileGradesUrl: string;
-
-  @IsString()
-  @IsOptional()
-  fileSchoolCertificateUrl: string;
 }
