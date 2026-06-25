@@ -55,8 +55,8 @@ export default function Footer() {
             <div className='space-y-6'>
               <h1 className='font-bold'>Pages</h1>
               <ul className='space-y-2'>
-                <li><Link href='/selection' className='hover:underline'>Test de sélection</Link></li>
-                <li><Link href='/past-edition' className='hover:underline'>Édition passée</Link></li>
+                <li><Link href='/tournament-format' className='hover:underline'>Format du tournoi</Link></li>
+                <li><Link href='/past-edition' className='hover:underline'>Éditions passées</Link></li>
                 <li><Link href='/organizing-team' className='hover:underline'>Équipe organisatrice</Link></li>
                 <li><Link href='/partners' className='hover:underline'>Partenaires</Link></li>
                 <li><Link href='/faq' className='hover:underline'>FAQ</Link></li>
@@ -78,7 +78,7 @@ export default function Footer() {
         <Separator className='w-3/4 bg-gray-600' />
 
         <div className='w-3/4 text-sm text-left text-gray-600'>
-          Math&Maroc © 2025. All Rights Reserved
+          Math&Maroc © 2026. All Rights Reserved
         </div>
       </div>
     </footer>

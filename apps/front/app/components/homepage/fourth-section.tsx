@@ -22,7 +22,7 @@ const ParticipationStepsSection = () => {
           </div>
 
           <div className='text-center p-6'>
-            Vous devez remplir et soumettre votre candidature de façon individuelle avant le <span className='font-bold'>20 septembre 2025</span>.
+            Vous devez remplir et soumettre votre candidature de façon individuelle avant le <span className='font-bold'>30 juillet 2026</span>.
           </div>
 
           <CtaButton label="Candidature" />
@@ -38,7 +38,7 @@ const ParticipationStepsSection = () => {
           </div>
 
           <div className='text-center p-6'>
-            Vous devez créer voter propore équipe ou rejoindre une équipe déjà existante avant le  <span className='font-bold'>20 septembre 2025</span>.
+            Vous devez créer voter propore équipe ou rejoindre une équipe déjà existante avant le  <span className='font-bold'>30 juillet 2026</span>.
           </div>
 
           <CtaButton label="Équipe" href='/profile/team' />
@@ -50,14 +50,14 @@ const ParticipationStepsSection = () => {
           </span>
 
           <div className='text-center p-6 text-lg font-semibold text-[#244B3A]'>
-            Passe le test de sélection
+            Résous les problèmes
           </div>
 
           <div className='text-center p-6'>
-            Les participants ayant soumis un dossier complet et faisant partie d&apos;une équipe composée de 3 à 5 membres seront invités à passer un test de sélection le <span className="font-bold">28 septembre 2025</span>.
+            Les participants ayant soumis un dossier complet et intégrés à une équipe de 3 à 5 membres peuvent dès à présent commencer à travailler sur les problèmes, rédiger leur rapport et le soumettre avant le <span className='font-bold'>1 septembre 2026</span>.
           </div>
 
-          <Link href="selection">
+          <Link href="/tournament-format">
             <Button className='w-fit bg-transparent text-black border border-black hover:text-white'>
               Learn more
             </Button>

@@ -17,8 +17,7 @@ const CtaSection = ({
       </div>
       
       <div className='flex flex-col items-center justify-center space-y-2 lg:flex-row lg:space-y-0 lg:space-x-4'>
-        {/* <CtaButton /> */}
-        <ProblemsButton />
+        <CtaButton />
         <RegulationButton />
         <FaqButton />
       </div>
