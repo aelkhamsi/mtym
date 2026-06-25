@@ -29,7 +29,7 @@ export const FormNavigation = ({
       const fieldValues = form?.getValues(fieldKeys)
       const fields = Object.fromEntries(fieldKeys?.map((key: string, i: number) => [key, fieldValues ? fieldValues[i] : undefined]))
       
-      const output = await steps[currentStep].asyncValidation(fields, form?.setError)
+      const output = await steps[currentStep].asyncValidation(fields, formType, form?.setError)
       if (!output) return
     }
 

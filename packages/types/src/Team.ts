@@ -3,7 +3,6 @@ export type Team = {
   name: string;
   slogan: string;
   quadrigram: string;
-  mentorFullname: string;
   leader: any;
   users?: any[],
 }

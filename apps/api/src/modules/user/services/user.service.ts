@@ -24,7 +24,10 @@ export class UserService {
         application: {
           status: true,
         },
-        team: true,
+        team: {
+          leader: true,
+          users: true,
+        },
         participantDetails: true,
       },
     });
@@ -37,7 +40,10 @@ export class UserService {
         application: {
           status: true,
         },
-        team: true,
+        team: {
+          leader: true,
+          users: true,
+        },
         participantDetails: true,
       },
     });
@@ -48,7 +54,10 @@ export class UserService {
       where: { email },
       relations: {
         application: true,
-        team: true,
+        team: {
+          leader: true,
+          users: true,
+        },
         participantDetails: true,
       }
     });

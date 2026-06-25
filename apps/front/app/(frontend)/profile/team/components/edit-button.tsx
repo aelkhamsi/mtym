@@ -49,12 +49,12 @@ const EditButton = ({
 
   const onSubmit = async () => {
     setIsFormLoading(true)
-    const {name, slogan, quadrigram, mentorFullname} = form?.getValues()
+    const {name, slogan, quadrigram} = form?.getValues()
 
     const result = await getTeamByQuadrigram(quadrigram) as any
 
     if (!result?.id || result.id === team?.id) {
-      await updateTeam(team?.id, {name, slogan, quadrigram, mentorFullname})
+      await updateTeam(team?.id, {name, slogan, quadrigram})
       window.location.reload()
       return
     }
@@ -120,20 +120,6 @@ const EditButton = ({
                   <FormLabel>Quadrigramme</FormLabel>
                   <FormControl>
                     <Input placeholder="Quadrigramme de l'équipe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="mentorFullname"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Mentor</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Mentor de l'équipe" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

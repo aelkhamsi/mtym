@@ -7,7 +7,6 @@ import {
 } from "@mdm/ui";
 import TeamBanner from "./team-banner";
 import TeamMembers from "./team-members";
-import TeamMentor from "./team-mentor";
 import QuitButton from "./quit-button";
 import { InviteButton } from "./invite-button";
 import { CLOSE_APPLICATIONS } from "config";
@@ -29,9 +28,6 @@ const TeamSection = () => {
       <CardContent className="space-y-4 px-8">            
         <Separator />
         <TeamMembers />
-
-        <Separator />
-        <TeamMentor />
       </CardContent>
 
       <CardFooter className="flex space-x-4">
