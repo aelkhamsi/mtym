@@ -14,7 +14,9 @@ export default registerAs('smtp', () => ({
     },
   },
   defaults: {
-    from: `"MTYM" <${process.env.SMTP_USER}>`,
+
+    from: `MTYM" <${process.env.SMTP_USER}>`,
+    replyTo: 'noreply@mathmaroc.org',
   },
   template: {
     dir: join(__dirname, '../modules/mail/templates/'),

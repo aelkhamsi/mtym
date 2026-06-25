@@ -44,7 +44,7 @@ export class AuthController {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.json({ statusCode: 200 });
+    res.json({ statusCode: 200, verified: user?.verified });
   }
 
   @HttpCode(HttpStatus.OK)

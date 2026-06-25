@@ -45,10 +45,6 @@ export const applicationsRowFactory = (applications: any[], configService) => {
       text: application?.fileGradesUrl ? 'link' : ' ',
       hyperlink: application?.fileGradesUrl ? `${endpoint}/${bucketName}/${application.fileGradesUrl}` : '',
     },
-    fileSchoolCertificate: {
-      text: application?.fileSchoolCertificateUrl ? 'link' : ' ',
-      hyperlink: application?.fileSchoolCertificateUrl ? `${endpoint}/${bucketName}/${application.fileSchoolCertificateUrl}` : '',
-    },
 
     status: application?.status?.status,
 

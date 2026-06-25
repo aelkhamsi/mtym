@@ -95,7 +95,7 @@ export const MotivationStep = ({
             name="previousExperiences"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Veuillez préciser lesquels et le résultat obtenu.<RequiredAsterisk /></FormLabel>
+                <FormLabel>Veuillez préciser lesquelles et le résultat obtenu.<RequiredAsterisk /></FormLabel>
                 <FormControl>
                 <Textarea
                   placeholder="Maximum 100 mots"
@@ -118,7 +118,7 @@ export const MotivationStep = ({
           render={({ field }) => (
             <FormItem className="space-y-3">
               
-              <FormLabel>Avez-vous participé à MTYM en Mai 2024 ou en Décembre 2024 ?<RequiredAsterisk /></FormLabel>
+              <FormLabel>Avez-vous participé à l&apos;une des 3 dernières éditions du MTYM ?<RequiredAsterisk /></FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={(value) => {
@@ -162,7 +162,7 @@ export const MotivationStep = ({
             name="previousMTYMParticipations"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Veuillez préciser le nom de votre équipe<RequiredAsterisk /></FormLabel>
+                <FormLabel>Veuillez préciser lesquelles et votre nom d&apos;équipe pour chacune<RequiredAsterisk /></FormLabel>
                 <FormControl>
                 <Textarea
                   placeholder="Maximum 100 mots"
