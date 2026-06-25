@@ -50,7 +50,7 @@ export default function SelectionPage() {
               <li>Laâyoune (UM6P)</li>
             </ul>
 
-            <Image alt='tournament cities' src='/images/tournament/tournament_cities_2.png' width={300} height={300} />
+            <Image alt='tournament cities' src='/images/tournament/tournament_cities.png' width={300} height={300} />
 
           </div>
         </div>
