@@ -19,7 +19,7 @@ export default function MathSprintPage() {
 
           <div>3 éditions ont déjà vu le jour:
             <ul className="list-disc">
-              <li><span className="font-bold">MTYM Mai 2024</span> à l&apos;UM6P Ben-guerir</li>
+              <li><span className="font-bold">MTYM Mai 2024</span> au Lycée Mohammed VI d&apos;Excellence (LM6E/Lydex)</li>
               <li><span className="font-bold">MTYM Décembre 2024</span> à l&apos;AUI Ifrane</li>              
               <li><span className="font-bold">MTYM Décembre 2025</span> à l&apos;AUI Ifrane</li>              
             </ul>
@@ -34,7 +34,7 @@ export default function MathSprintPage() {
               target="_blank"
             >
               <Image
-                src="/images/problems/problems_mai_2024.webp"
+                src="/images/problems/problems_2024_mai.webp"
                 alt="Logo"
                 width={350}
                 height={0}
@@ -50,7 +50,7 @@ export default function MathSprintPage() {
               target="_blank"
             >
               <Image
-                src="/images/problems/problems_decembre_2024.webp"
+                src="/images/problems/problems_2024_december.webp"
                 alt="Logo"
                 width={350}
                 height={0}
@@ -66,7 +66,7 @@ export default function MathSprintPage() {
               target="_blank"
             >
               <Image
-                src="/images/problems/problems_decembre_2025.webp"
+                src="/images/problems/problems_2025.webp"
                 alt="Logo"
                 width={350}
                 height={0}
