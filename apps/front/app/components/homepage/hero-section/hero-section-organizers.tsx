@@ -37,7 +37,7 @@ const groups: PartnerGroup[] = [
   {
     label: 'Partners',
     logos: [
-      { src: '/images/logos/cdg.svg', alt: 'CDG', width: 100 },
+      { src: '/images/logos/CDG.png', alt: 'CDG', width: 100 },
       { src: '/images/logos/cdg_capital.webp', alt: 'CDG Capital', width: 140 },
     ],
   },
