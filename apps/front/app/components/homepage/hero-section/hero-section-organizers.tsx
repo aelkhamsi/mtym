@@ -4,68 +4,75 @@ import Link from 'next/link'
 const OrganizerLogo = ({
   src,
   alt,
-  brightness=100,
   width,
   height,
-}:{
-  src: string,
-  alt: string,
-  brightness?: number
-  width: number,
-  height: number,
-}) => {
-  return (
-    <Link 
-      className="h-[3.5rem] flex items-center bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#F6A806]/[.15] via-transparent to-transparent" 
-      href="/partners"
-    >
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className={`filter grayscale brightness-${brightness} contrast-125 invert hover:grayscale-0 hover:brightness-100 hover:contrast-100 hover:invert-0`}
-      />
-    </Link>
-  )
+}: {
+  src: string
+  alt: string
+  width: number
+  height: number
+}) => (
+  <Link
+    href="/partners"
+    title={alt}
+className="flex items-center justify-center h-9 px-1 grayscale brightness-150 opacity-60 hover:grayscale-0 hover:brightness-100 hover:opacity-100 transition-[opacity,filter] duration-200"  >
+    <Image src={src} alt={alt} width={width} height={height} className="max-h-full w-auto" />
+  </Link>
+)
+
+type PartnerGroup = {
+  label: string
+  logos: { src: string; alt: string; width: number }[]
 }
 
-const HeroSectionOrganizers = () => {
-  return (
-    <>
-      <div
-        className="w-full flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0 md:space-x-4 lg:w-2/3 xl:w-1/2"
-      >
-        <div className='flex items-center space-x-6'>
-          <p className='text-sm text-gray-500'>
-            Organized by
-          </p>
+const groups: PartnerGroup[] = [
+  {
+    label: 'Organized by',
+    logos: [{ src: '/images/logos/mm_light.png', alt: 'Math&Maroc', width: 100 }],
+  },
+  {
+    label: 'Official partner',
+    logos: [{ src: '/images/logos/adria.png', alt: 'Adria', width: 100 }],
+  },
+  {
+    label: 'Partners',
+    logos: [
+      { src: '/images/logos/cdg.svg', alt: 'CDG', width: 100 },
+      { src: '/images/logos/cdg_capital.webp', alt: 'CDG Capital', width: 140 },
+    ],
+  },
+]
 
-          <OrganizerLogo src="/images/logos/mm.png" alt="Math&Maroc Logo" width={100} height={0}/>
-        </div>
-        
-        <div className="flex space-x-8 items-center">
-          <p className='text-sm text-gray-500'>
-            Official partner
-          </p>
-          
-          <OrganizerLogo src="/images/logos/adria_official_partner.png" alt="Adria Logo" brightness={50} width={100} height={0} />
-        </div>
-      </div>
+const Dot = () => (
+  <span className="text-white/20 select-none text-lg leading-none max-sm:hidden">·</span>
+)
+
+const HeroSectionOrganizers = () => (
+  <div className="flex flex-wrap items-center gap-x-3 gap-y-4">
+    {groups.map((group, i) => (
       
-      <div
-        className="w-full flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0 md:space-x-4 lg:w-2/3 xl:w-1/2"
-      >
-        <div className="flex space-x-8 items-center">
-          <p className='text-sm text-gray-500'>
-            Partners
-          </p>
-          <OrganizerLogo src="/images/logos/cdg.svg" alt="Adria Logo" brightness={50} width={60} height={0} />
-          <OrganizerLogo src="/images/logos/cdg_capital.png" alt="Adria Logo" brightness={50} width={200} height={0} />
+        
+        <div key={group.label} className="flex items-center gap-3">
+          {i > 0 && <Dot key={`dot-${i}`} />}
+          <span className="text-[11px] uppercase tracking-wider text-[#F6A806]/50 whitespace-nowrap">
+            {group.label}
+          </span>
+
+          <div className="flex items-center gap-3">
+            {group.logos.map((logo) => (
+              <OrganizerLogo
+                key={logo.src}
+                src={logo.src}
+                alt={logo.alt}
+                width={logo.width}
+                height={0}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </>
-  )
-}
+      
+    ))}
+  </div>
+)
 
 export default HeroSectionOrganizers
