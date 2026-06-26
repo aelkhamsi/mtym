@@ -10,6 +10,7 @@ export const Faq: CollectionConfig = {
   slug: 'faq',
   admin: {
     useAsTitle: 'question',
+    defaultColumns: ['question', 'category', 'order'],
   },
   access: {
     read: () => true,
@@ -43,6 +44,15 @@ export const Faq: CollectionConfig = {
       type: 'relationship',
       relationTo: 'faq-categories',
       hasMany: false,
+    },
+    {
+      name: 'order',
+      type: 'number',
+      defaultValue: 0,
+      admin: {
+        description:
+          'Controls the display order of the questions within a category (lowest first).',
+      },
     },
   ],
 }

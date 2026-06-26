@@ -20,7 +20,7 @@ export default async function FaqPage() {
   const payload = await getPayload({ config })
 
   const [faqsResult, categoriesResult] = await Promise.all([
-    payload.find({ collection: "faq", limit: 200, depth: 1 }),
+    payload.find({ collection: "faq", limit: 200, depth: 1, sort: "order" }),
     payload.find({ collection: "faq-categories", limit: 200, sort: "order" }),
   ])
 
@@ -70,7 +70,7 @@ export default async function FaqPage() {
           className="animate-fade-up bg-clip-text text-center font-display opacity-0"
           style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
         >
-          Pour toute autre question non traitée sur le site vous pouvez nous contacter via nos réseaux sociaux ou par email sur <span className="text-blue-500">math.maroc.mtym@gmail.com</span>.<br/>
+          Pour toute autre question non traitée sur le site vous pouvez nous contacter via nos réseaux sociaux ou par email sur <span className="text-blue-500">mtym@mathmaroc.org</span>.<br/>
           Notez cependant que nous ne pouvons répondre qu&apos;aux questions non discutées sur le site.
         </p>
 
