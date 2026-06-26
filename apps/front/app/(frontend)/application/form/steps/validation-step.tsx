@@ -51,7 +51,7 @@ export const ValidationStep = ({
                     Conditions Générales <RequiredAsterisk />
                   </FormLabel>
                   <FormDescription>
-                  Je confirme avoir pris connaissance du règlement <Link className="text-blue-500 font-bold underline" href='https://drive.google.com/file/d/1tE5qMUjEoeicBQ01XqsF5LyzLqT34rsm/view?usp=drive_link' target="_blank">(lien)</Link> de l&apos;événement et m&apos;engage à le respecter.<br/>
+                  Je confirme avoir pris connaissance du règlement <Link className="text-blue-500 font-bold underline" href='https://drive.google.com/file/d/1oClnNHdbevayBN_OSxmYDFn2mjgsVtDr/view?usp=sharing' target="_blank">(lien)</Link> de l&apos;événement et m&apos;engage à le respecter.<br/>
                   En particulier, je m&apos;engage à être présent au Centre Régional MTYM qui me sera assigné, à la date indiquée, ainsi qu&apos;au Tournoi National durant les cinq jours de la compétition (sauf exception demandée par e-mail et explicitement approuvée par le comité d'organisation)
                   </FormDescription>
                 </div>
