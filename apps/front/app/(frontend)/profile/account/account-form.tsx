@@ -22,7 +22,7 @@ import { User } from "@mdm/types"
 const profileFormSchema = z.object({
   firstName: z.string().min(1).max(50),
   lastName: z.string().min(1).max(50),
-  email: z.string({ required_error: "Please select an email to display." }).email(),
+  email: z.string({ required_error: "Please select an email to display." }).max(1000, { message: 'Maximum 1000 caractères' }).email(),
 })
 
 type AccountFormValues = z.infer<typeof profileFormSchema>

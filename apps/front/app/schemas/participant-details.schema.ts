@@ -15,28 +15,28 @@ export const participantDetailsSchema: ZodSchema = z.object({
   guardianPhoneNumber: z.string().refine(isValidPhoneNumber, { message: "Numéro de téléphone invalide" }),
   foodAllergy: z.array(z.string()).nonempty({ message: 'Choissisez une option' }),
   nonFoodAllergy: z.array(z.string()).nonempty({ message: 'Choissisez une option' }),
-  allergyPrecaution: z.string().optional(),
+  allergyPrecaution: z.string().max(1000, { message: "Maximum 1000 caractères" }).optional(),
   
   illnessOrDisability: z.array(z.string()).nonempty({ message: 'Choissisez une option' }),
   specialAccommodations: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   isOnMedication: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  medication: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
+  medication: z.string().min(1, { message: 'Entrez une valeur' }).max(1000, { message: "Maximum 1000 caractères" }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
   needAssistance: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   hasBeenHospitalized: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  hospitalizationReasons: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
+  hospitalizationReasons: z.string().min(1, { message: 'Entrez une valeur' }).max(1000, { message: "Maximum 1000 caractères" }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
 
   haveRoommatePreference: z.enum(["yes", "no"], { message: "Choisissez une option" }),
   firstRoommateId: z.string().min(1, {message: 'Choisissez une option'}),
   secondRoommateId: z.string().optional(),
 
   needDepartureShuttle: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  departureCity: z.string().nonempty("Choisissez une option"),
+  departureCity: z.string().nonempty("Choisissez une option").max(1000, { message: "Maximum 1000 caractères" }),
   needArrivalShuttle: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  arrivalCity: z.string().nonempty("Choisissez une option"),
-  cityOfResidence: z.string().nonempty("Choisissez une option"),
+  arrivalCity: z.string().nonempty("Choisissez une option").max(1000, { message: "Maximum 1000 caractères" }),
+  cityOfResidence: z.string().nonempty("Choisissez une option").max(1000, { message: "Maximum 1000 caractères" }),
 
   haveTalent: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  talentDescription: z.string().min(1, { message: 'Entrez une valeur' }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
+  talentDescription: z.string().min(1, { message: 'Entrez une valeur' }).max(1000, { message: "Maximum 1000 caractères" }).refine(async text => text.split(' ').length <= 100, { message: "Le texte ne doit pas dépasser 100 mots", }),
   workshops: z.array(z.string()).length(4, { message: 'Vous devez classer tout les workshops' }),
 
   /* Uploads */

@@ -14,10 +14,10 @@ export const applicationSchema: ZodSchema = z.object({
   lastName: z.string().min(1).max(50),
   dateOfBirth: z.date({ required_error: "La date de naissance est obligatoire." }),
   identityCardNumber: z.string().min(1).max(50),
-  city: z.string().nonempty("Choisissez une option"),
-  region: z.string().nonempty("Choisissez une option"),
+  city: z.string().nonempty("Choisissez une option").max(1000, { message: "Maximum 1000 caractères" }),
+  region: z.string().nonempty("Choisissez une option").max(1000, { message: "Maximum 1000 caractères" }),
   phoneNumber: z.string().refine(isValidPhoneNumber, { message: "Numéro de téléphone invalide" }),
-  allergyOrMedication: z.string().optional().refine((val) => {
+  allergyOrMedication: z.string().max(1000, { message: "Maximum 1000 caractères" }).optional().refine((val) => {
     if (val) {
       return val.split(' ').length <= 100
     }
@@ -29,20 +29,20 @@ export const applicationSchema: ZodSchema = z.object({
   relationshipWithGuardian: z.string().min(1).max(50),
 
   /* Education */
-  educationLevel: z.string().nonempty("Choisissez une option"),
+  educationLevel: z.string().nonempty("Choisissez une option").max(1000, { message: "Maximum 1000 caractères" }),
   educationField: z.string().min(1).max(50),
   highschool: z.string().min(1).max(50),
-  highschoolCity: z.string().nonempty("Choisissez une option"),
-  highschoolRegion: z.string().nonempty("Choisissez une option"),
+  highschoolCity: z.string().nonempty("Choisissez une option").max(1000, { message: "Maximum 1000 caractères" }),
+  highschoolRegion: z.string().nonempty("Choisissez une option").max(1000, { message: "Maximum 1000 caractères" }),
   isHighschoolFarFromHome: z.enum(["yes", "no"], { message: "Choisissez une option" }),
 
   /* Motivation */
   hasPreviousExperiences: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  previousExperiences: z.string().min(1).refine(async text => text.split(' ').length <= 100, { message: "Text can't be more than 100 words", }),
+  previousExperiences: z.string().min(1).max(1000, { message: "Maximum 1000 caractères" }).refine(async text => text.split(' ').length <= 100, { message: "Text can't be more than 100 words", }),
   hasPreviousMTYMParticipations: z.enum(["yes", "no"], { message: "Choisissez une option" }),
-  previousMTYMParticipations: z.string().min(1).refine(async text => text.split(' ').length <= 100, { message: "Text can't be more than 100 words", }),
-  motivations: z.string().min(1).refine(async text => text.split(' ').length <= 300, { message: "Maximum 300 mots", }),
-  comments: z.string().optional().refine((val) => {
+  previousMTYMParticipations: z.string().min(1).max(1000, { message: "Maximum 1000 caractères" }).refine(async text => text.split(' ').length <= 100, { message: "Text can't be more than 100 words", }),
+  motivations: z.string().min(1).max(1000, { message: "Maximum 1000 caractères" }).refine(async text => text.split(' ').length <= 300, { message: "Maximum 300 mots", }),
+  comments: z.string().max(1000, { message: "Maximum 1000 caractères" }).optional().refine((val) => {
     if (val) {
       return val.split(' ').length <= 100
     }
