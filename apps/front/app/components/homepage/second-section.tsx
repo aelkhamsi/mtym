@@ -42,10 +42,10 @@ const SecondSection = () => {
       >
         <div className="w-full space-y-4 p-4 lg:p-0">
           <p className='font-bold text-xs text-[#244B3A]'>Qu&apos;est-ce que le MTYM ?</p>
-          <h1 className='font-bold text-3xl font-neco'>MTYM, la scène de la recherche mathématique pour les lycéens</h1>
-          <p>Organisé par <span className='font-semibold'>Math&Maroc</span>, le <span className='font-semibold'> Moroccan Tournament of Young Mathematicians (MTYM)</span> est la première compétition de recherche mathématique destinée aux lycéens au Maroc et aux lycéens marocains scolarisés à l&apos;étranger.</p>
+          <h1 className='font-bold text-3xl font-neco'>MTYM, la scène de la recherche mathématique pour les lycéen·nes</h1>
+          <p>Organisé par <span className='font-semibold'>Math&Maroc</span>, le <span className='font-semibold'> Moroccan Tournament of Young Mathematicians (MTYM)</span> est la première compétition de recherche mathématique destinée aux lycéen·nes au Maroc et aux lycéen·nes marocain·nes scolarisé·es à l&apos;étranger.</p>
           <p>Le MTYM propose une approche des mathématiques différente du cadre scolaire traditionnel à travers des problèmes de recherche ouverts qui encouragent la curiosité, l&apos;esprit critique, la créativité et le travail collaboratif.</p>
-          <p>Réunis en équipes de 3 à 5 élèves, les participants explorent ces problèmes pendant plusieurs mois avant de présenter et défendre leurs résultats devant d&apos;autres équipes et un jury lors des Tournois Régionaux puis du Tournoi National.</p>
+          <p>Réunis en équipes de 3 à 5 élèves, les participant·es explorent ces problèmes pendant plusieurs mois avant de présenter et défendre leurs résultats devant d&apos;autres équipes et un·e jury lors des Tournois Régionaux puis du Tournoi National.</p>
         </div>
 
         <div className="w-full">
@@ -67,7 +67,7 @@ const SecondSection = () => {
 
         <div className='flex items-center justify-center gap-x-6' >
           <BookIcon />
-          <div className="font-semibold text-center w-[8rem] md:w-full">Lycéens de l&apos;année <br/> scolaire 2026-2027</div>
+          <div className="font-semibold text-center w-[8rem] md:w-full">Lycéen·es de l&apos;année <br/> scolaire 2026-2027</div>
         </div>
       </div>
 
@@ -82,10 +82,10 @@ const SecondSection = () => {
 
           <h1 className='text-center font-bold text-xl'>Chiffres clés</h1>
           <p>
-            <span className="font-semibold">+1000 participants</span> aux tournois régionaux dans 9 villes du Maroc <br/>
-            <span className="font-semibold">+150 étudiants</span> au tournoi national (4 jours) <br/>
+            <span className="font-semibold">+1000 participant·es</span> aux tournois régionaux dans 9 villes du Maroc <br/>
+            <span className="font-semibold">+150 étudiant·es</span> au tournoi national (4 jours) <br/>
             <span className="font-semibold">3 éditions</span> : une communauté en pleine croissance <br/>
-            <span className="font-semibold">10 étudiants</span> sélectionnés pour ETEAM 2025 (Lyon) et 2026 (Lausanne) <br/>
+            <span className="font-semibold">10 étudiant·es</span> sélectionné·es pour ETEAM 2025 (Lyon) et 2026 (Lausanne) <br/>
           </p>
         </div>
 
@@ -98,8 +98,8 @@ const SecondSection = () => {
 
           <h1 className='text-center font-bold text-xl'>Vers le trophée MTYM</h1>
           <p>
-            Avec son format XXL, le MTYM est ouvert à tous.<br/>
-            Les tournois régionaux, en octobre dans 9 villes, rassemblent tous les étudiants intéressés.<br/>
+            Avec son format XXL, le MTYM est ouvert à tous·tes.<br/>
+            Les tournois régionaux, en octobre dans 9 villes, rassemblent tous·tes les étudiant·es intéressé·es.<br/>
             Le tournoi national, en décembre, réunit les meilleures équipes du Maroc.
           </p>
         </div>
