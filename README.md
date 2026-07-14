@@ -75,25 +75,6 @@ https://git-scm.com/
 
 ---
 
-## PostgreSQL
-
-### Ubuntu / Debian
-```sh
-sudo apt install postgresql
-```
-
-### Alpine Linux
-```sh
-sudo apk add postgresql
-```
-
-### Arch Linux (yay)
-```sh
-yay -S postgresql
-```
-
----
-
 # 2. Install Project Dependencies
 
 From the root of the monorepo:
@@ -165,16 +146,10 @@ Navigate to the API app:
 cd apps/api
 ```
 
-Install dependencies:
-
-```sh
-npm install
-```
-
 Run migrations:
 
 ```sh
-npm run migration:run
+pnpm run migration:run
 ```
 
 ---

@@ -1,0 +1,45 @@
+version: '3.1'
+
+services:
+  mtym_db:
+    image: postgres
+    container_name: mtym_db
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+      - POSTGRES_USER=${POSTGRES_USER}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - mtym_pgdata:/var/lib/postgresql/
+
+  mtym_s3:
+    image: minio/minio
+    container_name: mtym_s3
+    command: server /data --console-address ":9001"
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - s3_data:/data
+
+  mtym_pgadmin:
+    image: dpage/pgadmin4
+    container_name: mtym_pgadmin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    ports:
+      - "8080:80"
+    depends_on:
+      - mtym_db
+
+volumes:
+  s3_data:
+  mtym_pgdata:
