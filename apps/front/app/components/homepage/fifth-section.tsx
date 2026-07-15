@@ -15,7 +15,7 @@ const FifthSection = () => {
       </h1>
 
       <div className='max-w-screen-md text-center my-6 xl:p-0'>
-        Nous sommes des passionnés de science, unis par le désir de partager et de former les leaders de demain. 
+        Nous sommes des passionné·es de science, uni·es par le désir de partager et de former les leaders de demain. 
         Notre vision est celle d'un Maroc où chaque jeune a la possibilité de réaliser son plein potentiel grâce à une éducation de qualité.
       </div>
 

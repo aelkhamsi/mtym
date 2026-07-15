@@ -1,7 +1,7 @@
 export const generalQuestions = [
   {
     question: "Qui peut s’inscrire ?",
-    anwser: "Les élèves en Tronc Commun/ 1ère Année Bac / 2ème Année Bac (Il n’ y a pas de restriction d’âge tant que le candidat est un étudiant de lycée lors de sa candidature)"
+    anwser: "Les élèves en Tronc Commun/ 1ère Année Bac / 2ème Année Bac (Il n’ y a pas de restriction d’âge tant que l'élève est un·e étudiant·e de lycée lors de sa candidature)"
   },
   {
     question: "Quel est le délai d’inscription ?",
@@ -13,7 +13,7 @@ export const generalQuestions = [
   },
   {
     question: "Est-ce que nos parents peuvent nous accompagner pour les 3 jours de la compétition ?",
-    anwser: "Non, ce n’est réservé qu'aux participants ! Mais vos parents pourront suivre vos exploits sur nos réseaux sociaux !"
+    anwser: "Non, ce n’est réservé qu'aux participant·es ! Mais vos parents pourront suivre vos exploits sur nos réseaux sociaux !"
   },
   {
     question: "Où pourrais-je vous contacter si j’ai une demande spéciale, ou une autre question ?",
@@ -85,7 +85,7 @@ export const generalQuestions = [
   },
   {
     question: "Est-ce qu’il y aura des certificats de participation ?",
-    anwser: "Oui, il y aura des certificats aux gagnants ainsi qu’aux participants."
+    anwser: "Oui, il y aura des certificats aux gagnant·es ainsi qu’aux participant·es."
   },
   {
     question: "Quels sont les prix à gagner ?",
@@ -97,11 +97,11 @@ export const generalQuestions = [
   },
   {
     question: "Va-t-on passer des tests type examen lors de la compétition ?",
-    anwser: "Non, il n'y aura pas d’examen durant la compétition. Un rendu intermédiaire et un rendu final seront cependant demandés à un moment donné. Les détails seront communiqués par mail ainsi que par le groupe whatsapp qui sera créé pour les participants."
+    anwser: "Non, il n'y aura pas d’examen durant la compétition. Un rendu intermédiaire et un rendu final seront cependant demandés à un moment donné. Les détails seront communiqués par mail ainsi que par le groupe WhatsApp qui sera créé pour les participant·es."
   },
   {
     question: "Doit-on choisir une personne pour faire la présentation ?",
-    anwser: "Le jour de la présentation, le jury vous demandera de choisir une personne pour faire la présentation. Il est cependant préférable de se préparer à l’avance et de désigner par exemple une personne par problème."
+    anwser: "Le jour de la présentation, le·la jury vous demandera de choisir une personne pour faire la présentation. Il est cependant préférable de se préparer à l’avance et de désigner par exemple une personne par problème."
   },
   {
     question: "Comment se fait le classement des équipes si elles arrivent toutes à résoudre les problèmes ?",

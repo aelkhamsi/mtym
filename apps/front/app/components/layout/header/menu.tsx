@@ -7,7 +7,7 @@ import { Cross1Icon, HamburgerMenuIcon } from "@mdm/ui"
 const menuItems = [
   {label: 'Format du tournoi', href: '/tournament-format'},
   {label: 'Editions passées', href: '/past-edition'},
-  {label: 'Organisateurs', href: '/organizing-team'},
+  {label: 'Organisateur·rices', href: '/organizing-team'},
   {label: 'Partenaires', href: '/partners'},
   {label: 'FAQ', href: '/faq'},
 ]
