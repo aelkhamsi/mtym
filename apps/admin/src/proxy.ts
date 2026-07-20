@@ -36,13 +36,13 @@ const handleUnauthenticatedUser = (req: NextRequest, pathname: string) => {
   return res
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const maintenanceMode = false
   if (maintenanceMode) {
     req.nextUrl.pathname = `/maintenance`
     return NextResponse.rewrite(req.nextUrl)
   }
-
+  
   const pathname = req.nextUrl.pathname
   const accessToken = req.cookies.get('access_token')?.value
   const refreshToken = req.cookies.get('refresh_token')?.value  

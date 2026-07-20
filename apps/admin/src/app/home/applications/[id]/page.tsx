@@ -10,7 +10,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/shared/tabs";
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { ExpandingArrow } from '@/components/shared/icons';
 import ApplicationStatus from '../components/application-status';
 import FilesTable from './files-table';
@@ -45,9 +45,10 @@ const Field = ({
   </div>
 }
 
-export default function ApplicationDetailsPage({ params }: { params: { id: string } }) {
+export default function ApplicationDetailsPage() {
   const applications = useAtomValue(applicationsAtom)
   const [application, setApplication] = useState<any>(undefined);
+  const params = useParams<{ id: string }>();
   const id = parseInt(params.id);
   const router = useRouter();
 
