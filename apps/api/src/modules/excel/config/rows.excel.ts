@@ -1,4 +1,4 @@
-import { educationLevelLabelMap, educationFieldLabelMap, regionLabelMap, cityLabelMap, guardianLabelMap } from '@mdm/shared';
+import { educationLevelLabelMap, educationFieldLabelMap, regionLabelMap, cityLabelMap, guardianLabelMap, yesNoLabelMap, previousParticipationLabelMap } from '@mdm/shared';
 
 export const applicationsRowFactory = (applications: any[], configService) => {
   const endpoint = configService.get('s3.endpoint');
@@ -17,18 +17,18 @@ export const applicationsRowFactory = (applications: any[], configService) => {
     allergyOrMedication: application?.allergyOrMedication,
     guardianFullName: application?.guardianFullName,
     guardianPhoneNumber: application?.guardianPhoneNumber,
-    relationshipWithGuardian: guardianLabelMap[application?.guardianFullName],
+    relationshipWithGuardian: guardianLabelMap[application?.relationshipWithGuardian],
 
     educationLevel: educationLevelLabelMap[application?.educationLevel],
     educationField: educationFieldLabelMap[application?.educationField],
     highschool: application?.highschool,
     highschoolCity: cityLabelMap[application?.highschoolCity],
     highschoolRegion: regionLabelMap[application?.highschoolRegion],
-    isHighschoolFarFromHome: application?.isHighschoolFarFromHome,
+    isHighschoolFarFromHome: yesNoLabelMap[application?.isHighschoolFarFromHome],
 
-    hasPreviousExperiences: application?.hasPreviousExperiences,
+    hasPreviousExperiences: previousParticipationLabelMap[application?.hasPreviousExperiences],
     previousExperiences: application?.previousExperiences,
-    hasPreviousMTYMParticipations: application?.hasPreviousMTYMParticipations,
+    hasPreviousMTYMParticipations: previousParticipationLabelMap[application?.hasPreviousMTYMParticipations],
     previousMTYMParticipations: application?.previousMTYMParticipations,
     motivations: application?.motivations,
     comments: application?.comments,

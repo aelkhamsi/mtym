@@ -20,7 +20,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = cookies().toString();
+  const cookieStore = (await cookies()).toString();
   const session = await getSessionCookie(cookieStore) as any
   const adminUser = await getAdminUserById(session?.id, cookieStore) as any
   const applications = await getAllApplications(cookieStore) as any[]

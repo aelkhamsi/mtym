@@ -27,7 +27,7 @@ export default function HomeLayout({
   }, [adminUser])
 
   return (
-    <div className="grid min-h-screen w-full lg:grid-cols-[250px_1fr]">
+    <div className="grid min-h-screen w-full lg:grid-cols-[220px_1fr]">
       
       <div className="flex h-full max-h-screen flex-col gap-2 border-r">
         <div className="flex h-[60px] items-center border-b px-5">
@@ -39,10 +39,10 @@ export default function HomeLayout({
               <UsersIcon className="h-4 w-4" />
               Applications
             </NavItem>
-            <NavItem href="/home/participant-details?page=1" className="h-12">
+            {/* <NavItem href="/home/participant-details?page=1" className="h-12">
               <UsersIcon className="h-4 w-4" />
               Participant Details
-            </NavItem>
+            </NavItem> */}
             <NavItem href="/home/users" className="h-12">
               <UsersIcon className="h-4 w-4" />
               Users
@@ -59,7 +59,7 @@ export default function HomeLayout({
         </div>
       </div>
       
-      <div className="flex flex-col">
+      <div className="flex flex-col min-w-0">
         <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b px-6 justify-between lg:justify-end">
           {!isLoading ? <AdminNav /> : <></>}
         </header>
