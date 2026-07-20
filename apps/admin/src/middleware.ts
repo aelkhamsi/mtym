@@ -37,7 +37,7 @@ const handleUnauthenticatedUser = (req: NextRequest, pathname: string) => {
   return res
 }
 
-export async function proxy(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const maintenanceMode = false
   if (maintenanceMode) {
     req.nextUrl.pathname = `/maintenance`
