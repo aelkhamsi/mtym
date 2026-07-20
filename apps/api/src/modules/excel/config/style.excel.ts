@@ -10,7 +10,7 @@ export const styleApplicationsSheet = (sheet) => {
   }
 
   // personal informations style
-  for (let i = 2; i <= 9; i++) {
+  for (let i = 2; i <= 13; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -20,7 +20,7 @@ export const styleApplicationsSheet = (sheet) => {
   }
 
   // education style
-  for (let i = 10; i <= 12; i++) {
+  for (let i = 14; i <= 19; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -30,7 +30,7 @@ export const styleApplicationsSheet = (sheet) => {
   }
 
   // motivations style
-  for (let i = 13; i <= 17; i++) {
+  for (let i = 20; i <= 25; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -40,7 +40,7 @@ export const styleApplicationsSheet = (sheet) => {
   }
 
   // files style
-  for (let i = 18; i <= 23; i++) {
+  for (let i = 26; i <= 28; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -50,7 +50,7 @@ export const styleApplicationsSheet = (sheet) => {
   }
 
   // status style
-  for (let i = 24; i <= 27; i++) {
+  for (let i = 29; i <= 29; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -60,7 +60,7 @@ export const styleApplicationsSheet = (sheet) => {
   }
 
   // team style
-  for (let i = 28; i <= 30; i++) {
+  for (let i = 30; i <= 32; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
