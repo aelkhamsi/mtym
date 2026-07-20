@@ -14,7 +14,7 @@ export default function LoginLayout({
               src="/mtym.png"
               alt="Logo"
               className="h-10 w-10 rounded-full"
-              width={20}
+              width={60}
               height={20}
             />
           </a>
