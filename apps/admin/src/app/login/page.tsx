@@ -35,6 +35,7 @@ export default function LoginPage() {
     setIsFormLoading(true)
     const { username, password } = formData;
     const response = await logIn(username, password) as any;
+    console.log('[debug]', response)
     switch(response?.statusCode) {
       case 200:
         router.push('/home')
