@@ -14,7 +14,8 @@ const extractCookies = (res: Response): Record<string, string> => {
   const cookies: Record<string, string> = {}
   for (const raw of rawCookies) {
     const [nameValue] = raw.split(';')
-    const [name, value] = nameValue.trim().split('=')
+    const [name, ...rest] = nameValue.trim().split('=')
+    const value = rest.join('=')
     if (name && value) cookies[name] = value
   }
   return cookies
@@ -70,7 +71,9 @@ export async function proxy(req: NextRequest) {
     const cookies = extractCookies(refreshRes)
     const requestHeaders = new Headers(req.headers);
     requestHeaders.set('cookie', `access_token=${cookies.access_token}`);
-    const response = NextResponse.next({request: { headers: requestHeaders }})
+    const response = pathname.startsWith('/home')
+      ? NextResponse.next({ request: { headers: requestHeaders } })
+      : NextResponse.redirect(new URL('/home', req.url))
     response.cookies.set('access_token', cookies.access_token, {
       httpOnly: true,
       maxAge: 60 * 60,
