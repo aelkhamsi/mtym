@@ -17,10 +17,13 @@ import FilesTable from './files-table';
 import { useAtomValue } from 'jotai';
 import { applicationsAtom } from '@/store/applicationsAtom';
 import {
+  cityLabelMap,
   educationFieldLabelMap,
   educationLevelLabelMap,
+  guardianLabelMap,
   previousParticipationLabelMap,
   regionLabelMap,
+  yesNoLabelMap,
 } from '@mdm/shared';
 
 const renderText = (value: any) => {
@@ -92,9 +95,14 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
                 <Field label='Last name'>{renderText(application?.lastName)}</Field>
                 <Field label='Date of birth'>{renderText(formatDate(application?.dateOfBirth))}</Field>
                 <Field label='CNIE number'>{renderText(application?.identityCardNumber)}</Field>
-                <Field label='City of residence'>{renderText(application?.city)}</Field>
+                <Field label='City of residence'>{renderText(cityLabelMap[application?.city])}</Field>
                 <Field label='Region of residence'>{renderText(regionLabelMap[application?.region])}</Field>
                 <Field label='Phone number'>{renderText(application?.phoneNumber)}</Field>
+                <Field label='Allergies or Medication'>{renderText(application?.allergyOrMedication)}</Field>
+                <hr/>
+                <Field label='Guardian Full Name'>{renderText(application?.guardianFullName)}</Field>
+                <Field label='Guardian Phone Number'>{renderText(application?.guardianPhoneNumber)}</Field>
+                <Field label='Relationship with Guardian'>{renderText(guardianLabelMap[application?.relationshipWithGuardian])}</Field>
               </div>
             </TabsContent>
             
@@ -103,13 +111,10 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
               <div className='space-y-6'>
                 <Field label='Education Level'>{renderText(educationLevelLabelMap[application?.educationLevel])}</Field>
                 <Field label='University Type'>{renderText(educationFieldLabelMap[application?.educationField])}</Field>
-                <Field label='University Name'>{renderText(application?.highschool)}</Field>
-                <Separator className="my-6" />
-                <Field label='Average Grade'>{renderText(application?.averageGrade)}</Field>
-                <Field label='Math Average Grade'>{renderText(application?.mathAverageGrade)}</Field>
-                <Field label='Ranking'>{renderText(application?.ranking)}</Field>
-                <Field label='Math Ranking'>{renderText(application?.mathRanking)}</Field>
-                <Field label='Number of Students in the class'>{renderText(application?.numberOfStudentsInClass)}</Field>
+                <Field label='Highschool Name'>{renderText(application?.highschool)}</Field>
+                <Field label='Highschool City'>{renderText(cityLabelMap[application?.highschoolCity])}</Field>
+                <Field label='Highschool Region'>{renderText(regionLabelMap[application?.highschoolRegion])}</Field>
+                <Field label='Is highschool far from home?'>{renderText(yesNoLabelMap[application?.isHighschoolFarFromHome])}</Field>
               </div>
             </TabsContent>
               
