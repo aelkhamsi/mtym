@@ -32,11 +32,14 @@ services:
       image: minio/mc
       depends_on:
         - mtym-s3
+      volumes:
+        - ./minio/anonymous-policy.json:/policy/anonymous-policy.json:ro
       entrypoint: >
         /bin/sh -c "
         until mc alias set local http://mtym-s3:9000 $${MINIO_ROOT_USER} $${MINIO_ROOT_PASSWORD}; do sleep 2; done;
         mc mb --ignore-existing local/$${MINIO_BUCKET_NAME};
-        mc anonymous set download local/$${MINIO_BUCKET_NAME};
+        sed s/__BUCKET__/$${MINIO_BUCKET_NAME}/g /policy/anonymous-policy.json > /tmp/anonymous-policy.json;
+        mc anonymous set-json /tmp/anonymous-policy.json local/$${MINIO_BUCKET_NAME};
         exit 0;
         "
       environment:
