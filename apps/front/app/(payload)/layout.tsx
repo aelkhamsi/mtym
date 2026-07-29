@@ -1,11 +1,11 @@
-/* THIS FILE WAS GENERATED AUTOMATICALLY BY PAYLOAD. */
-/* DO NOT MODIFY IT BECAUSE IT COULD BE REWRITTEN AT ANY TIME. */
+import '../(frontend)/globals.css'
 import config from '@payload-config'
 import { handleServerFunctions, RootLayout } from '@payloadcms/next/layouts'
 import '@payloadcms/next/css'
 import React from 'react'
 
 import { importMap } from './admin/importMap'
+import { ServerFunctionClient } from 'payload'
 
 type Args = {
   children: React.ReactNode
@@ -17,7 +17,7 @@ const serverFunction = async function (args: Parameters<typeof handleServerFunct
 }
 
 const Layout = ({ children }: Args) => (
-  <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
+  <RootLayout config={config} importMap={importMap} serverFunction={serverFunction as ServerFunctionClient}>
     {children}
   </RootLayout>
 )

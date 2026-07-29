@@ -56,6 +56,21 @@ export default buildConfig({
         Logo: '@/app/components/Logo#Logo',
         Icon: '@/app/components/Logo#Icon',
       },
+      views: {
+        applications: {
+          Component: '@/app/(admin)/applications/view#ApplicationsView',
+          path: '/applications',
+        },
+        teams: {
+          Component: '@/app/(admin)/teams/view#TeamsView',
+          path: '/teams',
+        },
+        users: {
+          Component: '@/app/(admin)/users/view#UsersView',
+          path: '/users',
+        },
+      },
+      beforeNavLinks: ['@/app/(admin)/CustomNavLinks#CustomNavLinks'],
     },
     meta: {
       icons: [{ url: '/images/logos/mtym_square.svg', type: 'image/svg+xml' }],
