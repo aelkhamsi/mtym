@@ -11,9 +11,6 @@
 .env.prod
 .env.hidden
 
-# Docker compose
-docker-compose.yaml
-
 # Logs
 logs
 *.log
