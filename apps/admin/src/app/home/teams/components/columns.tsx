@@ -9,7 +9,6 @@ export type TeamRow = {
   name: string,
   quadrigram: string,
   slogan: string,
-  mentorFullname: string,
   leaderName: string,
   leaderId: string,
   members: any[],
@@ -83,26 +82,6 @@ export const columns: ColumnDef<TeamRow>[] = [
     },
   },
   {
-    accessorKey: "mentorFullname",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Mentor
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => {
-      const mentorFullname = row.getValue("mentorFullname") as string;
-      return <>
-        {mentorFullname ? mentorFullname : <span className="text-gray-300">{"(empty)"}</span>}
-      </>
-    }
-  },
-  {
     accessorKey: "leader",
     header: ({ column }) => {
       return (
@@ -131,7 +110,7 @@ export const columns: ColumnDef<TeamRow>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Number of Members
+          N° of Members
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )

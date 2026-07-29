@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Table,
   TableBody,
@@ -6,29 +8,7 @@ import {
   TableRow,
   TableCell
 } from "@/components/shared/table";
-import Link from "next/link";
-import { FileIcon } from "@/components/shared/icons";
-
-const FileCard = ({
-  href,
-}:{
-  href: string,
-}) => {
-  const url = `https://${process.env.NEXT_PUBLIC_AWS_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_BUCKET_REGION}.amazonaws.com/${href}`;
-
-  return (
-    <Link
-      href={url}
-      target='_blank'
-    >
-      <div 
-        className='w-[6rem] h-[6rem] rounded-xl border flex flex-col justify-center items-center space-y-2 cursor-pointer hover:bg-gray-100'
-      >
-        <FileIcon />
-      </div>
-    </Link>
-  )
-}
+import FilePreviewButton from "./file-preview-button";
 
 const FilesTable = ({
   application
@@ -41,7 +21,6 @@ const FilesTable = ({
         <TableRow>
           <TableHead>File</TableHead>
           <TableHead>Link</TableHead>
-          <TableHead>Status</TableHead>
         </TableRow>
       </TableHeader>
 
@@ -49,31 +28,23 @@ const FilesTable = ({
         {application?.fileCnieUrl && 
           <TableRow key='cnie'>
             <TableCell>CNIE</TableCell>
-            <TableCell><FileCard href={application?.fileCnieUrl} /></TableCell>
+            <TableCell><FilePreviewButton filename={application?.fileCnieUrl} /></TableCell>
           </TableRow>
         }
 
-        {application?.fileSchoolCertificateUrl && 
-          <TableRow key='school-certificate'>
-            <TableCell>School Certificate</TableCell>
-            <TableCell><FileCard href={application?.fileSchoolCertificateUrl} /></TableCell>
+        {application?.filePhotoUrl && 
+          <TableRow key='photo'>
+            <TableCell>Photo</TableCell>
+            <TableCell><FilePreviewButton filename={application?.filePhotoUrl} /></TableCell>
           </TableRow>
         }
 
         {application?.fileGradesUrl && 
           <TableRow key='grades'>
             <TableCell>Grades</TableCell>
-            <TableCell><FileCard href={application?.fileGradesUrl} /></TableCell>
+            <TableCell><FilePreviewButton filename={application?.fileGradesUrl} /></TableCell>
           </TableRow>
         }
-
-        {application?.fileRegulationsUrl && 
-          <TableRow key='regulations'>
-            <TableCell>Regulations</TableCell>
-            <TableCell><FileCard href={application?.fileRegulationsUrl} /></TableCell>
-          </TableRow>
-        }
-        
       </TableBody>
     </Table>
   )

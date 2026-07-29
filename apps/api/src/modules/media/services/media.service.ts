@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectS3, S3 } from 'nestjs-s3';
-import { PutObjectCommand } from '@aws-sdk/client-s3';
+import { PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 @Injectable()
@@ -22,7 +22,7 @@ export class MediaService {
 
   maxFileSize = 1024 * 1024 * 3; // 3MB
 
-  async getSignedURL(
+  async getSignedPutURL(
     userId: number,
     filename: string,
     type: string,
@@ -51,5 +51,17 @@ export class MediaService {
     });
 
     return signedURL;
+  }
+
+  async getSignedPreviewURL(
+    filename: string,
+    expiresIn = 60
+  ) {
+    const previewObjectCommand = new GetObjectCommand({
+      Bucket: this.configService.get('s3.name'),
+      Key: filename,
+    })
+    
+    return getSignedUrl(this.s3, previewObjectCommand, { expiresIn: expiresIn });
   }
 }

@@ -63,7 +63,7 @@ export default async function FaqPage() {
           className="animate-fade-up bg-clip-text text-center font-display opacity-0"
           style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
         >
-          Une question ? Consultez cette FAQ, où vous trouverez les réponses aux demandes les plus fréquentes des participants de l'édition précédente.
+          Une question ? Consultez cette FAQ, où vous trouverez les réponses aux demandes les plus fréquentes des participant·es de l'édition précédente.
         </p>
 
         <p

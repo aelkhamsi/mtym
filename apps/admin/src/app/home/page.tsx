@@ -29,7 +29,8 @@ const links = [
 ];
 
 const countApplications = (applications: any[]) => {
-  return (applications||[])?.reduce(
+  const list = Array.isArray(applications) ? applications : [];
+  return list.reduce(
     (count: any[], application: any) => {
       count[0]++;
       const status = application?.status?.status
@@ -56,7 +57,8 @@ const countApplications = (applications: any[]) => {
 }
 
 const countTeams = (teams: any[]) => {
-  return (teams||[])?.reduce(
+  const list = Array.isArray(teams) ? teams : [];
+  return list.reduce(
     (count: any[], team: any) => {
       const membersNumber = team?.users?.length
       count[0]++

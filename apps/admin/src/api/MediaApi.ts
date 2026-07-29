@@ -1,6 +1,6 @@
 import ApiMethods from "./ApiMethods";
 
-export const getSignedURL = (
+export const getSignedPutURL = (
   filename: string, 
   type: string, 
   size: number, 
@@ -14,6 +14,13 @@ export const getSignedURL = (
     checksum,
   }
   return ApiMethods.post(url, {body});
+}
+
+export const getSignedPreviewURL = (
+  filename: string,
+) => {
+  const url = `/media/preview-url?filename=${filename}`;
+  return ApiMethods.get(url)
 }
 
 export const uploadFile = async (url: string, file: File) => {

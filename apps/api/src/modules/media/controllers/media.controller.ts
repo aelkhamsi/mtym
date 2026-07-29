@@ -2,8 +2,10 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   HttpCode,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -20,12 +22,22 @@ export class MediaController {
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN, Role.USER)
+  @Get('preview-url')
+  @HttpCode(200)
+  async getPreviewUrl(@Query('filename') filename: string) {
+    return { 
+      url: await this.mediaService.getSignedPreviewURL(filename) 
+    };
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.USER)
   @Post('signed-url')
   @HttpCode(200)
   async getSignedURL(@Req() request: Request, @Body() body: GetSignedURLDto) {
     const userId = request['user'].id;
     const { filename, type, size, checksum } = body;
-    const signedURL = await this.mediaService.getSignedURL(
+    const signedURL = await this.mediaService.getSignedPutURL(
       userId,
       filename,
       type,

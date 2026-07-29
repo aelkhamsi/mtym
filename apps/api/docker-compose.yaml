@@ -13,7 +13,7 @@ services:
       - "127.0.0.1:5432:5432"
     volumes:
       - mtym_pgdata:/var/lib/postgresql/
-
+    
   mtym-s3:
     image: minio/minio
     container_name: mtym-s3
@@ -46,7 +46,7 @@ services:
         MINIO_ROOT_USER: ${MINIO_ROOT_USER}
         MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
         MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME}
-    
+
   mtym_pgadmin:
     image: dpage/pgadmin4
     container_name: mtym_pgadmin

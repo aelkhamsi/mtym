@@ -12,7 +12,7 @@ import RootProvider from "./root-provider";
 import { User } from "@mdm/types";
 
 export const metadata = {
-  title: "MTYM 2025",
+  title: "MTYM 2026",
   description: "MTYM: Explorer, Élaborer, Collaborer",
   metadataBase: new URL("https://mtym.mathmaroc.org"),
 };

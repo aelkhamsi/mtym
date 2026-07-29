@@ -8,3 +8,9 @@ dist
 *~
 apps/front/organizer-photos/
 apps/front/partner-logos/
+
+# local security PoC / notes — not for the repo
+security/
+
+# local docker compose overrides
+docker-compose.override.yaml

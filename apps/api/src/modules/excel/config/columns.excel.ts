@@ -8,10 +8,10 @@ export const applicationsColumns = [
   { header: 'City', key: 'city', width: 15 },
   { header: 'Region', key: 'region', width: 20 },
   { header: 'Phone number', key: 'phone-number', width: 17 },
-  { header: 'allergyOrMedication', key: 'dob', width: 20 },
-  { header: 'guardianFullName', key: 'dob', width: 15 },
-  { header: 'guardianPhoneNumber', key: 'dob', width: 15 },
-  { header: 'relationshipWithGuardian', key: 'dob', width: 15 },
+  { header: 'Allergies or Medication', key: 'alergies-or-medication', width: 20 },
+  { header: 'guardianFullName', key: 'guardian-fullname', width: 15 },
+  { header: 'guardianPhoneNumber', key: 'huardian-phone-number', width: 15 },
+  { header: 'relationshipWithGuardian', key: 'relationship-with-guardian', width: 15 },
 
   { header: 'Education Level', key: 'education-level', width: 20 },
   { header: 'Education Field', key: 'education-field', width: 15 },
@@ -20,19 +20,13 @@ export const applicationsColumns = [
   { header: 'Highschool Region', key: 'highschool-region', width: 20 },
   { header: 'is Highschool far from home', key: 'is-highschool-far-from-home', width: 20 },
 
-  { header: 'Average Grade', key: 'average-grade', width: 10 },
-  { header: 'Math Average Grade', key: 'math-average-grade', width: 10 },
-  { header: 'Ranking', key: 'ranking', width: 10 },
-  { header: 'Math Ranking', key: 'math-ranking', width: 10 },
-  { header: 'Nb of students in class', key: 'nb-student-class', width: 10 },
-
   {
     header: 'Have you participated in competitions before ?',
     key: 'has-previous-experiences',
     width: 15,
   },
   {
-    header: '[detail] Previous experiences',
+    header: '[details] Previous experiences',
     key: 'previous-experiences',
     width: 20,
   },
@@ -52,7 +46,6 @@ export const applicationsColumns = [
   { header: 'CNIE', key: 'cnie', width: 10 },
   { header: 'Photo', key: 'photo', width: 10 },
   { header: 'Grades', key: 'grades', width: 10 },
-  { header: 'School Certificate', key: 'school-certificate', width: 10 },
 
   { header: 'Status', key: 'status', width: 15 },
 
