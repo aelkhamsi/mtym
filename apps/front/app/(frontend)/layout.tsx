@@ -26,6 +26,9 @@ export default async function RootLayout({
   const session = await getSessionCookie(cookieStore) as any
   const user = session?.id ? await getUserById(session.id, cookieStore) as User : undefined
 
+  console.log('cookieStore 2', cookieStore)
+
+
   return (
     <html lang="en">
       <body className={`${cx(pally.variable, poppins.variable)} font-poppins`}>

@@ -6,6 +6,11 @@ import React from 'react'
 
 import { importMap } from './admin/importMap'
 import { ServerFunctionClient } from 'payload'
+import RootProvider from './root-provider'
+import { cookies } from 'next/headers';
+import { getAllUsers } from '../api/UsersApi'
+import { getAllApplications } from '../api/ApplicationApi'
+import { getAllTeams } from '../api/TeamApi'
 
 type Args = {
   children: React.ReactNode
@@ -16,10 +21,28 @@ const serverFunction = async function (args: Parameters<typeof handleServerFunct
   return handleServerFunctions({ ...args, config, importMap })
 }
 
-const Layout = ({ children }: Args) => (
-  <RootLayout config={config} importMap={importMap} serverFunction={serverFunction as ServerFunctionClient}>
-    {children}
-  </RootLayout>
-)
+const Layout = async ({ children }: Args) => {
+  const cookieStore = (await cookies()).toString();
+  console.log('cookieStore', cookieStore)
+  // const session = await getSessionCookie(cookieStore) as any  
+  const applications = await getAllApplications(cookieStore) as any[]
+  const teams = await getAllTeams(cookieStore) as any[]
+  const users = await getAllUsers(cookieStore) as any[]
+
+  return (
+    <RootLayout config={config} importMap={importMap} serverFunction={serverFunction as ServerFunctionClient}>
+      <RootProvider
+        applications={applications}
+        teams={teams}
+        users={users}
+      >
+        {children}
+      </RootProvider>
+      
+    </RootLayout>
+  )
+}
+  
+
 
 export default Layout
