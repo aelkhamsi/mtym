@@ -2,11 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, HttpCode,
 import { ParticipantDetailsService } from './participant-details.service';
 import { CreateParticipantDetailsDto } from './dto/create-participant-details.dto';
 import { UpdateParticipantDetailsDto } from './dto/update-participant-details.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/guards/roles.guard';
-import { Roles } from 'src/decorators/roles.decorator';
-import { Role } from 'src/guards/role.enum';
 import { UserService } from '../user/services/user.service';
+import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
 
 @Controller('mtym-api/participant-details')
 export class ParticipantDetailsController {
@@ -15,8 +13,7 @@ export class ParticipantDetailsController {
     private readonly participantDetailsService: ParticipantDetailsService
   ) {}
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(AuthGuard)
   @Post()
   @HttpCode(200)
   async create(
@@ -42,22 +39,19 @@ export class ParticipantDetailsController {
     };
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Get()
   findAll() {
     return this.participantDetailsService.findAll();
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.participantDetailsService.findOneById(id);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(AuthGuard)
   @Put(':id')
   @HttpCode(200)
   async update(
@@ -81,8 +75,7 @@ export class ParticipantDetailsController {
     };
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Delete(':id')
   @HttpCode(200)
   delete(@Param('id', ParseIntPipe) id: number) {

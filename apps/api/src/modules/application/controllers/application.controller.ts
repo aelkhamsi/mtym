@@ -18,14 +18,13 @@ import { ApplicationService } from '../services/application.service';
 import { SerializedApplication } from '../entities/serialized-application.entity';
 import { CreateApplicationDto } from '../dto/create-application.dto';
 import { UpdateApplicationDto } from '../dto/update-application.dto';
-import { RolesGuard } from 'src/guards/roles.guard';
-import { Roles } from 'src/decorators/roles.decorator';
 import { UserService } from 'src/modules/user/services/user.service';
 import { ApplicationStatusService } from '../services/application-status.service';
 import { UpdateApplicationStatusDto } from '../dto/update-application-status.dto';
 import { SerializedUser } from 'src/modules/user/entities/serialized-user';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
-import { Role } from 'src/guards/role.enum';
+import { Role } from 'src/modules/auth/strategies/role.enum';
+import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
 
 @Controller('mtym-api/applications')
 export class ApplicationController {
@@ -35,8 +34,7 @@ export class ApplicationController {
     private readonly applicationStatusService: ApplicationStatusService,
   ) {}
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Get('user/:id')
   @HttpCode(200)
   async findByUserId(@Param('id', ParseIntPipe) id: number) {
@@ -48,8 +46,7 @@ export class ApplicationController {
     return new SerializedApplication(application);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Get()
   @HttpCode(200)
   async findAll() {
@@ -63,7 +60,7 @@ export class ApplicationController {
       .map((application) => new SerializedApplication(application))
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthGuard)
   @Get(':id')
   @HttpCode(200)
   async findOneById(@Req() req, @Param('id', ParseIntPipe) id: number) {
@@ -79,8 +76,7 @@ export class ApplicationController {
     return new SerializedApplication(application);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(AuthGuard)
   @Post()
   @HttpCode(200)
   async create(
@@ -123,8 +119,7 @@ export class ApplicationController {
     };
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(AuthGuard)
   @Put(':id')
   @HttpCode(200)
   async update(
@@ -160,8 +155,7 @@ export class ApplicationController {
     };
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(AuthGuard)
   @Put('status/:applicationId')
   @HttpCode(200)
   async updateStatus(
@@ -187,8 +181,7 @@ export class ApplicationController {
     };
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Delete(':id')
   @HttpCode(200)
   delete(@Param('id', ParseIntPipe) id: number) {

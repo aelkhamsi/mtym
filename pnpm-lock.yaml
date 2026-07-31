@@ -16,7 +16,7 @@ importers:
         version: 8.4.47
       tailwindcss:
         specifier: ^3.3.3
-        version: 3.4.14(ts-node@10.9.2)
+        version: 3.4.14(ts-node@10.9.2(@types/node@18.11.18)(typescript@5.2.2))
       turbo:
         specifier: ^2.0.9
         version: 2.2.3
@@ -195,6 +195,9 @@ importers:
       cookie-parser:
         specifier: ^1.4.7
         version: 1.4.7
+      crypto:
+        specifier: ^1.0.1
+        version: 1.0.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -6000,6 +6003,10 @@ packages:
     resolution: {integrity: sha512-GsVpkFPlycH7/fRR7Dhcmnoii54gV1nz7y4CWyeFS14N+JVBBhY+r8amRHE4BwSYal7BPTDp8isvAlCxyFt3Hg==}
     engines: {node: '>=4'}
 
+  crypto@1.0.1:
+    resolution: {integrity: sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==}
+    deprecated: This package is no longer supported. It's now a built-in Node module. If you've depended on crypto, you should switch to the one that's built-in.
+
   css-background-parser@0.1.0:
     resolution: {integrity: sha512-2EZLisiZQ+7m4wwur/qiYJRniHX4K5Tc9w93MT3AS0WS1u5kaZ4FKXlOTBhOjc+CgEgPiGY+fX1yWD8UwpEqUA==}
 
@@ -8508,6 +8515,7 @@ packages:
 
   libsql@0.4.7:
     resolution: {integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lie@3.3.0:
@@ -18802,6 +18810,8 @@ snapshots:
 
   crypto-random-string@1.0.0: {}
 
+  crypto@1.0.1: {}
+
   css-background-parser@0.1.0: {}
 
   css-box-shadow@1.0.0-3: {}
@@ -19618,7 +19628,7 @@ snapshots:
       eslint: 8.57.1
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.31.0(eslint@8.57.1))(eslint@8.57.1)
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.31.0(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1)
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.1)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@8.57.1)
       eslint-plugin-react: 7.37.2(eslint@8.57.1)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.57.1)
@@ -19635,7 +19645,7 @@ snapshots:
       eslint: 9.39.4(jiti@1.21.6)
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@9.39.4(jiti@1.21.6))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.4(jiti@1.21.6))
       eslint-plugin-react: 7.37.2(eslint@9.39.4(jiti@1.21.6))
       eslint-plugin-react-hooks: 7.1.1(eslint@9.39.4(jiti@1.21.6))
@@ -19673,7 +19683,7 @@ snapshots:
       is-bun-module: 1.2.1
       is-glob: 4.0.3
     optionalDependencies:
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.31.0(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1)
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@typescript-eslint/parser'
       - eslint-import-resolver-node
@@ -19692,7 +19702,7 @@ snapshots:
       is-bun-module: 1.2.1
       is-glob: 4.0.3
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@9.39.4(jiti@1.21.6))
     transitivePeerDependencies:
       - '@typescript-eslint/parser'
       - eslint-import-resolver-node
@@ -19732,7 +19742,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.31.0(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1):
+  eslint-plugin-import@2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.1):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.8
@@ -19761,7 +19771,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6)):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@9.39.4(jiti@1.21.6)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -23965,14 +23975,6 @@ snapshots:
       postcss: 8.4.47
       ts-node: 10.9.2(@types/node@20.17.8)(typescript@5.2.2)
 
-  postcss-load-config@4.0.2(postcss@8.4.47)(ts-node@10.9.2):
-    dependencies:
-      lilconfig: 3.1.2
-      yaml: 2.6.0
-    optionalDependencies:
-      postcss: 8.4.47
-      ts-node: 10.9.2(@types/node@24.9.1)(typescript@5.9.3)
-
   postcss-modules-extract-imports@2.0.0:
     dependencies:
       postcss: 7.0.39
@@ -25452,7 +25454,7 @@ snapshots:
 
   tailwindcss-animate@1.0.7(tailwindcss@3.4.14(ts-node@10.9.2)):
     dependencies:
-      tailwindcss: 3.4.14(ts-node@10.9.2)
+      tailwindcss: 3.4.14(ts-node@10.9.2(@types/node@18.11.18)(typescript@5.2.2))
 
   tailwindcss@3.4.14(ts-node@10.9.2(@types/node@18.11.18)(typescript@5.2.2)):
     dependencies:
@@ -25501,33 +25503,6 @@ snapshots:
       postcss-import: 15.1.0(postcss@8.4.47)
       postcss-js: 4.0.1(postcss@8.4.47)
       postcss-load-config: 4.0.2(postcss@8.4.47)(ts-node@10.9.2(@types/node@20.17.8)(typescript@5.2.2))
-      postcss-nested: 6.2.0(postcss@8.4.47)
-      postcss-selector-parser: 6.1.2
-      resolve: 1.22.8
-      sucrase: 3.35.0
-    transitivePeerDependencies:
-      - ts-node
-
-  tailwindcss@3.4.14(ts-node@10.9.2):
-    dependencies:
-      '@alloc/quick-lru': 5.2.0
-      arg: 5.0.2
-      chokidar: 3.6.0
-      didyoumean: 1.2.2
-      dlv: 1.1.3
-      fast-glob: 3.3.2
-      glob-parent: 6.0.2
-      is-glob: 4.0.3
-      jiti: 1.21.6
-      lilconfig: 2.1.0
-      micromatch: 4.0.8
-      normalize-path: 3.0.0
-      object-hash: 3.0.0
-      picocolors: 1.1.1
-      postcss: 8.4.47
-      postcss-import: 15.1.0(postcss@8.4.47)
-      postcss-js: 4.0.1(postcss@8.4.47)
-      postcss-load-config: 4.0.2(postcss@8.4.47)(ts-node@10.9.2)
       postcss-nested: 6.2.0(postcss@8.4.47)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.8

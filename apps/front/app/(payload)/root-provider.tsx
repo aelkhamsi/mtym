@@ -8,9 +8,7 @@ import { teamsAtom } from '@/app/store/admin/teamsAtom'
 import { usersAtom } from '@/app/store/admin/usersAtom'
 
 type ProviderProps = {
-  adminUser?: any,
   applications?: any[],
-  participantDetails?: any[],
   teams?: any[],
   users?: any[],
   children: ReactNode,
