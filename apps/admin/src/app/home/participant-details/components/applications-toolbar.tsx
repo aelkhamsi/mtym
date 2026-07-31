@@ -7,6 +7,7 @@ import { ApplicationsViewOptions } from "./applications-view-options"
 import { FileTextIcon } from "@radix-ui/react-icons"
 import axios from 'axios-typescript';
 import { getToken } from "@/lib/utils"
+import { AUTH_CONTEXT_HEADERS } from "@/api/ApiMethods"
 import { cookies } from "next/headers"
 
 export interface ApplicationsToolbarProps<TData> {
@@ -23,6 +24,7 @@ export function ApplicationsToolbar<TData>({
       {
         method: "GET",
         credentials: "include",
+        headers: AUTH_CONTEXT_HEADERS,
       }
     )
     .then(res => res.blob())
