@@ -83,8 +83,9 @@ export class AuthService {
   async refreshToken(refreshToken: string) {
     try {
       const payload = await this.jwtService.verify(refreshToken);
+      if (payload?.role !== Role.USER) throw new Error()
       const user = await this.userService.findOneById(payload?.sub);
-      if (!user) throw new Error() 
+      if (!user) throw new Error()
       return this.login(user);
     } catch {
       throw new UnauthorizedException();;
@@ -94,8 +95,9 @@ export class AuthService {
   async refreshTokenAdmin(refreshToken: string) {
     try {
       const payload = await this.jwtService.verify(refreshToken);
+      if (payload?.role !== Role.ADMIN) throw new Error()
       const adminUser = await this.adminUserService.findOneById(payload?.sub);
-      if (!adminUser) throw new Error() 
+      if (!adminUser) throw new Error()
       return this.loginAdmin(adminUser);
     } catch {
       throw new UnauthorizedException();;
