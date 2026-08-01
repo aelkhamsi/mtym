@@ -53,6 +53,10 @@ export default buildConfig({
         Icon: '@/app/components/Logo#Icon',
       },
       views: {
+        applicationDetail: {
+          Component: '@/app/(payload)/views/applications/[id]/index.tsx',
+          path: '/applications/:id',
+        },
         applications: {
           Component: '@/app/(payload)/views/applications/index.tsx',
           path: '/applications'

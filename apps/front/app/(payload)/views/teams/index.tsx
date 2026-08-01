@@ -2,6 +2,7 @@ import React from 'react'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import { Gutter, SetStepNav, type StepNavItem } from '@payloadcms/ui'
 import { AdminViewServerProps } from 'payload'
+import TeamsClient from './index.client'
 
 export const TeamsView: React.FC<AdminViewServerProps> = ({
   initPageResult, params, searchParams
@@ -10,7 +11,7 @@ export const TeamsView: React.FC<AdminViewServerProps> = ({
 
   const steps: StepNavItem[] = [
     {
-      url: '/teams',
+      url: '/admin/teams',
       label: 'Teams',
     }
   ]
@@ -27,7 +28,7 @@ export const TeamsView: React.FC<AdminViewServerProps> = ({
   >
     <SetStepNav nav={steps} />
     <Gutter>
-      <h1>Teams Page</h1>
+      <TeamsClient />
     </Gutter>
   </DefaultTemplate>
 }

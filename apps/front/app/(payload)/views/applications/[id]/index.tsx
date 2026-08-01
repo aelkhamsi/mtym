@@ -2,19 +2,15 @@ import React from 'react'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import { Gutter, SetStepNav, type StepNavItem } from '@payloadcms/ui'
 import { AdminViewServerProps } from 'payload'
-import ApplicationsClient from './index.client'
+import ApplicationDetailsClient from './index.client'
 
-export const ApplicationsView: React.FC<AdminViewServerProps> = ({
+export const ApplicationDetailsView: React.FC<AdminViewServerProps> = async ({
   initPageResult, params, searchParams
 }) => {
   if (!initPageResult.req.user) return <p>You must be logged in to access this page.</p>
 
-  const steps: StepNavItem[] = [
-    {
-      url: '/admin/applications',
-      label: 'Applications',
-    }
-  ]
+  const resolvedParams = await params
+  const id = resolvedParams?.segments?.[1]
 
   return <DefaultTemplate
     visibleEntities={initPageResult.visibleEntities}
@@ -26,11 +22,11 @@ export const ApplicationsView: React.FC<AdminViewServerProps> = ({
     user={initPageResult.req.user || undefined}
     searchParams={searchParams}
   >
-    <SetStepNav nav={steps} />
+    {/* <SetStepNav nav={steps} /> */}
     <Gutter>
-      <ApplicationsClient />
+      <ApplicationDetailsClient id={id} />
     </Gutter>
   </DefaultTemplate>
 }
 
-export default ApplicationsView;
+export default ApplicationDetailsView;

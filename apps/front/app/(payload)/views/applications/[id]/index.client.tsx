@@ -10,10 +10,10 @@ import {
   TabsList,
   TabsTrigger,
 } from "@mdm/ui";
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { ExpandingArrow } from '@mdm/ui';
-import ApplicationStatus from '../components/application-status';
-import FilesTable from './files-table';
+import ApplicationStatus from '../components/table/application-status';
+import FilesTable from '../components/file/files-table';
 import { useAtomValue } from 'jotai';
 import { applicationsAtom } from "@/app/store/admin/applicationsAtom";
 import {
@@ -45,16 +45,19 @@ const Field = ({
   </div>
 }
 
-export default function ApplicationDetailsPage() {
+export const ApplicationDetailsClient = ({
+  id,
+}:{
+  id: string|undefined
+}) => {
   const applications = useAtomValue(applicationsAtom)
   const [application, setApplication] = useState<any>(undefined);
-  const params = useParams<{ id: string }>();
-  const id = parseInt(params.id);
   const router = useRouter();
 
   useEffect(() => {
-    if (applications) {
-      const searchResult = applications.find((application: any) => application?.id === id)
+    if (id && applications) {
+      const searchResult = applications.find((application: any) => application?.id === +id)
+      console.log('searchResult', searchResult)
       setApplication(searchResult)
     }
   }, [applications])
@@ -150,3 +153,5 @@ export default function ApplicationDetailsPage() {
     </>
   )
 }
+
+export default ApplicationDetailsClient;

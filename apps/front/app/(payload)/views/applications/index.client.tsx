@@ -1,8 +1,8 @@
 "use client"
 
-import { ApplicationsTable } from "./components/applications-table";
-import { columns } from "./components/columns";
-import { ApplicationRow } from "./components/columns";
+import { ApplicationsTable } from "./components/table/applications-table";
+import { columns } from "./components/table/columns";
+import { ApplicationRow } from "./components/table/columns";
 import { useEffect, useState } from "react";
 import { applicationsAtom } from "@/app/store/admin/applicationsAtom";
 import { useAtomValue } from "jotai";

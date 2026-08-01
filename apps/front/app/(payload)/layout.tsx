@@ -8,7 +8,7 @@ import { importMap } from './admin/importMap'
 import { ServerFunctionClient } from 'payload'
 import RootProvider from './root-provider'
 import { cookies } from 'next/headers';
-import { getAllUsers, getSessionCookie } from '../api/UsersApi'
+import { getAllUsers } from '../api/UsersApi'
 import { getAllApplications } from '../api/ApplicationApi'
 import { getAllTeams } from '../api/TeamApi'
 
@@ -34,12 +34,10 @@ const Layout = async ({ children }: Args) => {
       users={users}
     >
       <RootLayout config={config} importMap={importMap} serverFunction={serverFunction as ServerFunctionClient}>
-          {children}
+        {children}
       </RootLayout>
     </RootProvider>
   )
 }
-  
-
 
 export default Layout

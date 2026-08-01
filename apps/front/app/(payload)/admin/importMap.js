@@ -27,6 +27,7 @@ import { Icon as Icon_92400324868dee237849e7c07305ad66 } from '@/app/components/
 import { Logo as Logo_92400324868dee237849e7c07305ad66 } from '@/app/components/Logo'
 import { default as default_b3e65077b8c1f10fc959290930f4c678 } from '@/app/(payload)/components/CustomNavLinks'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
+import { default as default_81e74e59b1b29f5d5e516ae054af02b2 } from '@/app/(payload)/views/applications/[id]/index.tsx'
 import { default as default_202df67c00cfe4a9fe563f83c3fa59ad } from '@/app/(payload)/views/applications/index.tsx'
 import { default as default_9dd7fea7b23d3d048cdd07226f2c805b } from '@/app/(payload)/views/teams/index.tsx'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
@@ -62,6 +63,7 @@ export const importMap = {
   "@/app/components/Logo#Logo": Logo_92400324868dee237849e7c07305ad66,
   "@/app/(payload)/components/CustomNavLinks#default": default_b3e65077b8c1f10fc959290930f4c678,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
+  "@/app/(payload)/views/applications/[id]/index.tsx#default": default_81e74e59b1b29f5d5e516ae054af02b2,
   "@/app/(payload)/views/applications/index.tsx#default": default_202df67c00cfe4a9fe563f83c3fa59ad,
   "@/app/(payload)/views/teams/index.tsx#default": default_9dd7fea7b23d3d048cdd07226f2c805b,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
