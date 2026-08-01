@@ -2,12 +2,13 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "engines": {
     "node": "22.x"
   },
   "scripts": {
     "dev": "next dev -p 3000",
-    "generate:importmap": "payload generate:importmap",
+    "generate:importmap": "bash scripts/generate-importmap.sh",
     "build": "next build",
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
@@ -17,8 +18,8 @@
   "prettier": "config/prettier.config.js",
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
-    "@mdm/shared": "workspace:*",
     "@mdm/hooks": "workspace:*",
+    "@mdm/shared": "workspace:*",
     "@mdm/types": "workspace:*",
     "@mdm/ui": "workspace:*",
     "@mdm/utils": "workspace:*",
@@ -26,12 +27,9 @@
     "@payloadcms/next": "^3.85.0",
     "@payloadcms/richtext-lexical": "^3.85.0",
     "@payloadcms/storage-s3": "3.85.0",
-    "@tanstack/react-table": "^8.17.3",
-    "@radix-ui/react-dialog": "^1.0.5",
-    "@radix-ui/react-popover": "^1.0.7",
-    "@radix-ui/react-tooltip": "^1.0.7",
+    "@payloadcms/ui": "^3.87.0",
     "@radix-ui/react-icons": "^1.3.0",
-    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@tanstack/react-table": "^8.17.3",
     "@types/node": "18.11.18",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
@@ -78,7 +76,8 @@
   "pnpm": {
     "overrides": {
       "@types/react": "19.2.14",
-      "@types/react-dom": "19.2.3"
+      "@types/react-dom": "19.2.3",
+      "undici": "6.21.0"
     }
   }
 }

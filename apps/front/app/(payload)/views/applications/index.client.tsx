@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { applicationsAtom } from "@/app/store/admin/applicationsAtom";
 import { useAtomValue } from "jotai";
 
-export default function ApplicationsPage() {
+export default function ApplicationsClient() {
   const applications = useAtomValue(applicationsAtom);
   const [tableData, setTableData] = useState<ApplicationRow[]>([])
 

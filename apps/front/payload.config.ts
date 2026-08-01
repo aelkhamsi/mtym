@@ -52,21 +52,19 @@ export default buildConfig({
         Logo: '@/app/components/Logo#Logo',
         Icon: '@/app/components/Logo#Icon',
       },
-      // views: {
-      //   applications: {
-      //     Component: '@/app/(admin)/applications/view#ApplicationsView',
-      //     path: '/applications',
-      //   },
-      //   teams: {
-      //     Component: '@/app/(admin)/teams/view#TeamsView',
-      //     path: '/teams',
-      //   },
-      //   users: {
-      //     Component: '@/app/(admin)/users/view#UsersView',
-      //     path: '/users',
-      //   },
-      // },
-      beforeNavLinks: ['@/app/(admin)/CustomNavLinks#CustomNavLinks'],
+      views: {
+        applications: {
+          Component: '@/app/(payload)/views/applications/index.tsx',
+          path: '/applications'
+        },
+        teams: {
+          Component: '@/app/(payload)/views/teams/index.tsx',
+          path: '/teams'
+        },
+      },
+      beforeNavLinks: [
+        {path: '@/app/(payload)/components/CustomNavLinks'}
+      ],
     },
     meta: {
       icons: [{ url: '/images/logos/mtym_square.svg', type: 'image/svg+xml' }],

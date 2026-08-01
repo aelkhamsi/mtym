@@ -25,8 +25,10 @@ import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { Icon as Icon_92400324868dee237849e7c07305ad66 } from '@/app/components/Logo'
 import { Logo as Logo_92400324868dee237849e7c07305ad66 } from '@/app/components/Logo'
-import { CustomNavLinks as CustomNavLinks_c34cbf170aeae0ac94f156849d2ac458 } from '@/app/(admin)/CustomNavLinks'
+import { default as default_b3e65077b8c1f10fc959290930f4c678 } from '@/app/(payload)/components/CustomNavLinks'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
+import { default as default_202df67c00cfe4a9fe563f83c3fa59ad } from '@/app/(payload)/views/applications/index.tsx'
+import { default as default_9dd7fea7b23d3d048cdd07226f2c805b } from '@/app/(payload)/views/teams/index.tsx'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -58,7 +60,9 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/app/components/Logo#Icon": Icon_92400324868dee237849e7c07305ad66,
   "@/app/components/Logo#Logo": Logo_92400324868dee237849e7c07305ad66,
-  "@/app/(admin)/CustomNavLinks#CustomNavLinks": CustomNavLinks_c34cbf170aeae0ac94f156849d2ac458,
+  "@/app/(payload)/components/CustomNavLinks#default": default_b3e65077b8c1f10fc959290930f4c678,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
+  "@/app/(payload)/views/applications/index.tsx#default": default_202df67c00cfe4a9fe563f83c3fa59ad,
+  "@/app/(payload)/views/teams/index.tsx#default": default_9dd7fea7b23d3d048cdd07226f2c805b,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }
