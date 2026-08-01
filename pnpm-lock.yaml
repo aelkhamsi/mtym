@@ -428,8 +428,8 @@ importers:
         specifier: ^8.0.7
         version: 8.0.7(@types/react@19.2.14)(react@19.2.6)
       react-phone-number-input:
-        specifier: ^3.3.12
-        version: 3.4.10(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: ^3.4.17
+        version: 3.4.17(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
@@ -627,8 +627,8 @@ importers:
         specifier: ^7.13.0
         version: 7.13.0
       libphonenumber-js:
-        specifier: ^1.11.16
-        version: 1.11.16
+        specifier: ^1.13.10
+        version: 1.13.10
       lucide-react:
         specifier: 0.105.0-alpha.4
         version: 0.105.0-alpha.4(react@18.3.1)
@@ -645,8 +645,8 @@ importers:
         specifier: ^7.53.2
         version: 7.53.2(react@18.3.1)
       react-phone-number-input:
-        specifier: ^3.4.10
-        version: 3.4.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^3.4.17
+        version: 3.4.17(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.14(ts-node@10.9.2))
@@ -5932,8 +5932,8 @@ packages:
       typescript:
         optional: true
 
-  country-flag-icons@1.5.13:
-    resolution: {integrity: sha512-4JwHNqaKZ19doQoNcBjsoYA+I7NqCH/mC/6f5cBWvdKzcK5TMmzLpq3Z/syVHMHJuDGFwJ+rPpGizvrqJybJow==}
+  country-flag-icons@1.6.20:
+    resolution: {integrity: sha512-py8JiEKzjhYw6HPJ0L7SxLgCYim36UPRTZX43/kqGueUCZLSvnrqAiwW8HtQibur7mdkFQUkjOgdK+o/9FBtaw==}
 
   crc-32@1.2.2:
     resolution: {integrity: sha512-ROmzCKrTnOwybPcJApAA6WBWij23HVfGVNKqqrZpuyZOHqK2CwHSvpGuyt/UNNvaIjEd8X5IFGp4Mh+Ie1IHJQ==}
@@ -7726,11 +7726,11 @@ packages:
   inline-style-parser@0.1.1:
     resolution: {integrity: sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==}
 
-  input-format@0.3.11:
-    resolution: {integrity: sha512-q24+iW10ZMb7KIRDlVUl3GvFcadf1ttE/QA2waINkDMdjsPXStQSOvdTyHwO8p+4Mq433ILQJZRL8YKtPjNk4g==}
+  input-format@0.3.14:
+    resolution: {integrity: sha512-gHMrgrbCgmT4uK5Um5eVDUohuV9lcs95ZUUN9Px2Y0VIfjTzT2wF8Q3Z4fwLFm7c5Z2OXCm53FHoovj6SlOKdg==}
     peerDependencies:
-      react: ^18.1.0
-      react-dom: ^18.1.0
+      react: '>=18.1.0'
+      react-dom: '>=18.1.0'
     peerDependenciesMeta:
       react:
         optional: true
@@ -8500,6 +8500,9 @@ packages:
   libphonenumber-js@1.11.16:
     resolution: {integrity: sha512-Noyazmt0yOvnG0OeRY45Cd1ur8G7Z0HWVkuCuKe+yysGNxPQwBAODBQQ40j0AIagi9ZWurfmmZWNlpg4h4W+XQ==}
 
+  libphonenumber-js@1.13.10:
+    resolution: {integrity: sha512-xJxrdqvbl2rtn2MaUJrUejz8J7/uZNC0V77oks2LxYrO/+ZtVpRmz+fEQMuu6VusnEB1fmpByiLS1WXecOnAnw==}
+
   libqp@2.0.1:
     resolution: {integrity: sha512-Ka0eC5LkF3IPNQHJmYBWljJsw0UvM6j+QdKRbWyCdTmYwvIDE6a7bCm0UkTAL/K+3KXK5qXT/ClcInU01OpdLg==}
 
@@ -8508,6 +8511,7 @@ packages:
 
   libsql@0.4.7:
     resolution: {integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lie@3.3.0:
@@ -10220,8 +10224,8 @@ packages:
       '@types/react': '>=16'
       react: '>=16'
 
-  react-phone-number-input@3.4.10:
-    resolution: {integrity: sha512-9kwr6R1PwvW9YGant3VqEY+CMBjqSr8v3wjEIXSPxDw7KLvHMDDFDglEpCjDy20/54PFY6RTKgN73WCvvFByCA==}
+  react-phone-number-input@3.4.17:
+    resolution: {integrity: sha512-1wcjhBAWHgEBAGLi5/XbeZI7Q3aEHNb2z/dHY6R2Gz70TQvu0ZoOT28NTdwtZf4lyRKXWufnTzVhLPBUD8LfmQ==}
     peerDependencies:
       react: '>=16.8'
       react-dom: '>=16.8'
@@ -18697,7 +18701,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.3
 
-  country-flag-icons@1.5.13: {}
+  country-flag-icons@1.6.20: {}
 
   crc-32@1.2.2: {}
 
@@ -19618,7 +19622,7 @@ snapshots:
       eslint: 8.57.1
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.31.0(eslint@8.57.1))(eslint@8.57.1)
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.31.0(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1)
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.1)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@8.57.1)
       eslint-plugin-react: 7.37.2(eslint@8.57.1)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.57.1)
@@ -19635,7 +19639,7 @@ snapshots:
       eslint: 9.39.4(jiti@1.21.6)
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@9.39.4(jiti@1.21.6))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.4(jiti@1.21.6))
       eslint-plugin-react: 7.37.2(eslint@9.39.4(jiti@1.21.6))
       eslint-plugin-react-hooks: 7.1.1(eslint@9.39.4(jiti@1.21.6))
@@ -19673,7 +19677,7 @@ snapshots:
       is-bun-module: 1.2.1
       is-glob: 4.0.3
     optionalDependencies:
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.31.0(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1)
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.1)
     transitivePeerDependencies:
       - '@typescript-eslint/parser'
       - eslint-import-resolver-node
@@ -19692,7 +19696,7 @@ snapshots:
       is-bun-module: 1.2.1
       is-glob: 4.0.3
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@9.39.4(jiti@1.21.6))
     transitivePeerDependencies:
       - '@typescript-eslint/parser'
       - eslint-import-resolver-node
@@ -19732,7 +19736,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.31.0(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1):
+  eslint-plugin-import@2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.1):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.8
@@ -19761,7 +19765,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6)))(eslint@9.39.4(jiti@1.21.6)):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.59.2(eslint@9.39.4(jiti@1.21.6))(typescript@5.2.2))(eslint-import-resolver-typescript@3.6.3)(eslint@9.39.4(jiti@1.21.6)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -21062,14 +21066,14 @@ snapshots:
 
   inline-style-parser@0.1.1: {}
 
-  input-format@0.3.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  input-format@0.3.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       prop-types: 15.8.1
     optionalDependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  input-format@0.3.11(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+  input-format@0.3.14(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
     dependencies:
       prop-types: 15.8.1
     optionalDependencies:
@@ -22053,6 +22057,8 @@ snapshots:
     optional: true
 
   libphonenumber-js@1.11.16: {}
+
+  libphonenumber-js@1.13.10: {}
 
   libqp@2.0.1:
     optional: true
@@ -24415,22 +24421,22 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  react-phone-number-input@3.4.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-phone-number-input@3.4.17(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       classnames: 2.5.1
-      country-flag-icons: 1.5.13
-      input-format: 0.3.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      libphonenumber-js: 1.11.16
+      country-flag-icons: 1.6.20
+      input-format: 0.3.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      libphonenumber-js: 1.13.10
       prop-types: 15.8.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  react-phone-number-input@3.4.10(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+  react-phone-number-input@3.4.17(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
     dependencies:
       classnames: 2.5.1
-      country-flag-icons: 1.5.13
-      input-format: 0.3.11(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      libphonenumber-js: 1.11.16
+      country-flag-icons: 1.6.20
+      input-format: 0.3.14(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      libphonenumber-js: 1.13.10
       prop-types: 15.8.1
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
