@@ -23,8 +23,6 @@ const serverFunction = async function (args: Parameters<typeof handleServerFunct
 
 const Layout = async ({ children }: Args) => {
   const cookieStore = (await cookies()).toString();
-  console.log('cookieStore', cookieStore)
-  const session = await getSessionCookie(cookieStore) as any 
   const applications = await getAllApplications(cookieStore) as any[]
   const teams = await getAllTeams(cookieStore) as any[]
   const users = await getAllUsers(cookieStore) as any[]

@@ -19,10 +19,6 @@ import { PartnerLogos } from './collections/PartnerLogos'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
-
-// Store uploads in MinIO (S3-compatible) when configured. Reuses the same
-// MINIO_* env the API already uses. When MINIO_ENDPOINT is unset (local dev),
-// Payload falls back to writing files to disk via each collection's staticDir.
 const storagePlugins: Plugin[] = process.env.MINIO_ENDPOINT
   ? [
       s3Storage({
@@ -56,20 +52,20 @@ export default buildConfig({
         Logo: '@/app/components/Logo#Logo',
         Icon: '@/app/components/Logo#Icon',
       },
-      views: {
-        applications: {
-          Component: '@/app/(admin)/applications/view#ApplicationsView',
-          path: '/applications',
-        },
-        teams: {
-          Component: '@/app/(admin)/teams/view#TeamsView',
-          path: '/teams',
-        },
-        users: {
-          Component: '@/app/(admin)/users/view#UsersView',
-          path: '/users',
-        },
-      },
+      // views: {
+      //   applications: {
+      //     Component: '@/app/(admin)/applications/view#ApplicationsView',
+      //     path: '/applications',
+      //   },
+      //   teams: {
+      //     Component: '@/app/(admin)/teams/view#TeamsView',
+      //     path: '/teams',
+      //   },
+      //   users: {
+      //     Component: '@/app/(admin)/users/view#UsersView',
+      //     path: '/users',
+      //   },
+      // },
       beforeNavLinks: ['@/app/(admin)/CustomNavLinks#CustomNavLinks'],
     },
     meta: {
