@@ -3,12 +3,20 @@
 import { NavGroup, Link } from '@payloadcms/ui'
 import { usePathname } from 'next/navigation'
 
+const links = [
+  { label: 'Applications', href: '/admin/applications' },
+  { label: 'Teams', href: '/admin/teams' },
+  { label: 'Users', href: '/admin/users' }
+]
+
 const NavLink = ({
   label,
   href,
+  // k,
 }:{
   label: string,
   href: string,
+  // k: string,
 }) => {
   const pathname = usePathname()
   const active = pathname.includes(href)
@@ -27,8 +35,7 @@ const NavLink = ({
 
 export const CustomNavLinks = () => (
   <NavGroup label={"Views"}>
-    <NavLink label='Applications' href='/admin/applications'/>
-    <NavLink label='Teams' href='/admin/teams' />
+    {links.map((link, index) => <NavLink label={link.label} href={link.href} key={`link_${index}`}/>)}
   </NavGroup>
 )
 

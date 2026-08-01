@@ -65,6 +65,10 @@ export default buildConfig({
           Component: '@/app/(payload)/views/teams/index.tsx',
           path: '/teams'
         },
+        users: {
+          Component: '@/app/(payload)/views/users/index.tsx',
+          path: '/users'
+        },
       },
       beforeNavLinks: [
         {path: '@/app/(payload)/components/CustomNavLinks'}

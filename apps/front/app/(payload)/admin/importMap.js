@@ -30,6 +30,7 @@ import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc056
 import { default as default_81e74e59b1b29f5d5e516ae054af02b2 } from '@/app/(payload)/views/applications/[id]/index.tsx'
 import { default as default_202df67c00cfe4a9fe563f83c3fa59ad } from '@/app/(payload)/views/applications/index.tsx'
 import { default as default_9dd7fea7b23d3d048cdd07226f2c805b } from '@/app/(payload)/views/teams/index.tsx'
+import { default as default_2b4b69ebe6d64b3d24e67e7403085d1e } from '@/app/(payload)/views/users/index.tsx'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -66,5 +67,6 @@ export const importMap = {
   "@/app/(payload)/views/applications/[id]/index.tsx#default": default_81e74e59b1b29f5d5e516ae054af02b2,
   "@/app/(payload)/views/applications/index.tsx#default": default_202df67c00cfe4a9fe563f83c3fa59ad,
   "@/app/(payload)/views/teams/index.tsx#default": default_9dd7fea7b23d3d048cdd07226f2c805b,
+  "@/app/(payload)/views/users/index.tsx#default": default_2b4b69ebe6d64b3d24e67e7403085d1e,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }
