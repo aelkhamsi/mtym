@@ -2,7 +2,7 @@ import React from 'react'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import { Gutter, SetStepNav, type StepNavItem } from '@payloadcms/ui'
 import { AdminViewServerProps } from 'payload'
-import TeamsClient from './index.client'
+import TeamsClient from './index.cilent'
 
 export const TeamsView: React.FC<AdminViewServerProps> = ({
   initPageResult, params, searchParams
