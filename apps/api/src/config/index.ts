@@ -3,3 +3,4 @@ export { default as DatabaseConfig } from './database.config';
 export { default as JwtConfig } from './jwt.config';
 export { default as S3Config } from './s3.config';
 export { default as SmtpConfig } from './smtp.config';
+export { default as PayloadConfig } from './payload.config'

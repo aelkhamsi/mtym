@@ -13,10 +13,7 @@ import { LoginDto } from '../dto/login.dto';
 import { SignupDto } from '../dto/sign-up.dto';
 import { LoginAdminDto } from '../dto/login-admin.dto';
 import { SignupAdminDto } from '../dto/sign-up-admin.dto';
-import { RolesGuard } from 'src/guards/roles.guard';
-import { Roles } from 'src/decorators/roles.decorator';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-import { Role } from 'src/guards/role.enum';
+import { AdminGuard } from '../guards/admin.guard';
 
 @Controller('mtym-api/auth')
 export class AuthController {
@@ -135,8 +132,7 @@ export class AuthController {
     return { statusCode: 200 };
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @HttpCode(HttpStatus.OK)
   @Post('signup/admin')
   async signupAdmin(@Body() signupAdminDto: SignupAdminDto) {

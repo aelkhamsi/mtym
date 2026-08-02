@@ -12,7 +12,6 @@ import { MailService } from 'src/modules/mail/mail.service';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from 'src/modules/user/entities/user.entity';
 import { AdminUser } from 'src/modules/admin-user/entities/admin-user.entity';
-import { Role } from 'src/guards/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -50,7 +49,6 @@ export class AuthService {
       verified: user.verified,
       applicationId: user?.application?.id,
       teamId: user?.team?.id,
-      role: Role.USER,
     };
 
     const accessToken = await this.jwtService.sign(payload, {
@@ -67,7 +65,6 @@ export class AuthService {
     const payload = {
       sub: adminUser.id,
       username: adminUser.username,
-      role: Role.ADMIN,
     };
 
     const accessToken = await this.jwtService.sign(payload, {

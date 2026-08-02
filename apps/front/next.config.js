@@ -1,4 +1,5 @@
-const { withPayload } = require("@payloadcms/next/withPayload");
+import { withPayload } from "@payloadcms/next/withPayload";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -13,10 +14,6 @@ const nextConfig = {
     ],
   },
   typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
     ignoreBuildErrors: true,
   },
   async headers() {
@@ -34,4 +31,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withPayload(nextConfig);
+export default withPayload(nextConfig);

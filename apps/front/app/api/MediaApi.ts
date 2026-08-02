@@ -16,6 +16,13 @@ export const getSignedURL = (
   return ApiMethods.post(url, {body});
 }
 
+export const getSignedPreviewURL = (
+  filename: string,
+) => {
+  const url = `/media/preview-url?filename=${filename}`;
+  return ApiMethods.get(url)
+}
+
 export const uploadFile = async (url: string, file: File) => {
   return new Promise((resolve, reject) => {
     fetch(url, {

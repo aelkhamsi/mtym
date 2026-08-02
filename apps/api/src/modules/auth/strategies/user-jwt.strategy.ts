@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Role } from './role.enum';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class UserJwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
@@ -29,7 +30,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         email: payload.email,
         verified: payload.verified,
         applicationId: payload.applicationId,
-        teamId: payload.teamId
+        teamId: payload.teamId,
+        role: Role.USER
       };
     }
     return result;

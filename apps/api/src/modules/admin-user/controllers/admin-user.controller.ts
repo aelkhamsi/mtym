@@ -14,17 +14,13 @@ import {
 import { AdminUserService } from '../services/admin-user.service';
 import { UpdateAdminUserDto } from '../dto/update-admin-user.dto';
 import { SerializedAdminUser } from '../entities/serialized-admin-user';
-import { RolesGuard } from 'src/guards/roles.guard';
-import { Roles } from 'src/decorators/roles.decorator';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
-import { Role } from 'src/guards/role.enum';
+import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
 
 @Controller('mtym-api/admin')
 export class AdminUserController {
   constructor(private readonly adminUserService: AdminUserService) {}
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Get('informations')
   @HttpCode(200)
   async findByToken(@Request() req) {
@@ -40,8 +36,7 @@ export class AdminUserController {
     };
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Get()
   @HttpCode(200)
   async findAll() {
@@ -49,8 +44,7 @@ export class AdminUserController {
     return users.map((user) => new SerializedAdminUser(user));
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Get(':id')
   @HttpCode(200)
   async findOne(@Param('id', ParseIntPipe) id: number) {
@@ -62,8 +56,7 @@ export class AdminUserController {
     return new SerializedAdminUser(user);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Put(':id')
   @HttpCode(200)
   async update(
@@ -78,8 +71,7 @@ export class AdminUserController {
     };
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Delete(':id')
   @HttpCode(200)
   remove(@Param('id', ParseIntPipe) id: number) {
