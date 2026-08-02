@@ -48,7 +48,7 @@ export default function Header() {
           <Link href="/">
             <Image
               src="/images/logos/mtym_square.svg"
-              alt="MMC logo"
+              alt="MTYM logo"
               width={40}
               height={40}
             ></Image>
