@@ -17,12 +17,6 @@ import { RolesGuard } from 'src/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { Role } from 'src/guards/role.enum';
-import {
-  ADMIN_COOKIES,
-  USER_COOKIES,
-  clearAuthCookies,
-  setAuthCookies,
-} from '../auth.cookies';
 
 @Controller('mtym-api/auth')
 export class AuthController {
@@ -34,8 +28,21 @@ export class AuthController {
     const { email, password } = loginDto;
     const user = await this.authService.validateUser(email, password);
 
-    const tokens = await this.authService.login(user);
-    setAuthCookies(res, USER_COOKIES, tokens);
+    const { accessToken, refreshToken } = await this.authService.login(user);
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+      maxAge: 60 * 60 * 1000,
+    });
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     res.json({ statusCode: 200, verified: user?.verified });
   }
@@ -46,8 +53,23 @@ export class AuthController {
     const { username, password } = loginAdminDto;
     const admin = await this.authService.validateAdmin(username, password);
 
-    const tokens = await this.authService.loginAdmin(admin);
-    setAuthCookies(res, ADMIN_COOKIES, tokens);
+    const { accessToken, refreshToken } = await this.authService.loginAdmin(
+      admin,
+    );
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+      maxAge: 60 * 60 * 1000,
+    });
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     res.json({ statusCode: 200 });
   }
@@ -55,11 +77,17 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('refresh')
   async refresh(@Req() req, @Res() res) {
-    const reqRefreshToken = req.cookies[USER_COOKIES.refresh];
+    const reqRefreshToken = req.cookies['refresh_token'];
     const { accessToken } = await this.authService.refreshToken(
       reqRefreshToken,
     );
-    setAuthCookies(res, USER_COOKIES, { accessToken });
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+      maxAge: 60 * 60 * 1000,
+    });
 
     res.json({ statusCode: 200 });
   }
@@ -67,11 +95,17 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('refresh/admin')
   async refreshAdmin(@Req() req, @Res() res) {
-    const reqRefreshToken = req.cookies[ADMIN_COOKIES.refresh];
+    const reqRefreshToken = req.cookies['refresh_token'];
     const { accessToken } = await this.authService.refreshTokenAdmin(
       reqRefreshToken,
     );
-    setAuthCookies(res, ADMIN_COOKIES, { accessToken });
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+      maxAge: 60 * 60 * 1000,
+    });
 
     res.json({ statusCode: 200 });
   }
@@ -79,14 +113,16 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('logout')
   async logout(@Res() res) {
-    clearAuthCookies(res, USER_COOKIES);
-    res.json({ statusCode: 200 });
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Post('logout/admin')
-  async logoutAdmin(@Res() res) {
-    clearAuthCookies(res, ADMIN_COOKIES);
+    res.clearCookie('access_token', {
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+    });
+    res.clearCookie('refresh_token', {
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+    });
     res.json({ statusCode: 200 });
   }
 
