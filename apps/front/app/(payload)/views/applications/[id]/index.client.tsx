@@ -55,7 +55,7 @@ export const ApplicationDetailsClient = ({
   const router = useRouter();
 
   useEffect(() => {
-    if (id && applications) {
+    if (id && applications && Array.isArray(applications)) {
       const searchResult = applications.find((application: any) => application?.id === +id)
       console.log('searchResult', searchResult)
       setApplication(searchResult)

@@ -12,19 +12,20 @@ export default function TeamsClient() {
 
   useEffect(() => {
     if (teams) {
+      const list = Array.isArray(teams) ? teams : []
       setTableData(
-        teams
-        .filter((team: any) => team?.users?.length)
-        .map((team: any) => ({
-          id: team?.id,
-          name: team?.name,
-          quadrigram: team?.quadrigram,
-          slogan: team?.slogan,
-          leaderId: team?.leader?.id,
-          leaderName: `${team?.leader?.firstName} ${team?.leader?.lastName}`,
-          numberOfMembers: team?.users?.length,
-          members: team?.users,
-        }))
+        list
+          .filter((team: any) => team?.users?.length)
+          .map((team: any) => ({
+            id: team?.id,
+            name: team?.name,
+            quadrigram: team?.quadrigram,
+            slogan: team?.slogan,
+            leaderId: team?.leader?.id,
+            leaderName: `${team?.leader?.firstName} ${team?.leader?.lastName}`,
+            numberOfMembers: team?.users?.length,
+            members: team?.users,
+          }))
       )
     }
   }, [teams])

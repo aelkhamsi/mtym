@@ -1,5 +1,13 @@
+/**
+ * Both the candidate and admin sessions live on `.mathmaroc.org`, so the
+ * browser sends both cookie pairs to the API. This header tells the API to read
+ * the admin pair — every request out of this dashboard must carry it.
+ */
+export const AUTH_CONTEXT_HEADERS = { 'x-auth-context': 'admin' }
+
 const getHeaders = (token?: string) => ({
   'Content-Type': 'application/json',
+  ...AUTH_CONTEXT_HEADERS,
   ...(token ? { 'Authorization': `Bearer ${token}` } : {})
 })
 

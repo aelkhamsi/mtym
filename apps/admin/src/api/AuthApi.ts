@@ -19,15 +19,15 @@ export const signUp = (username: string, password: string) => {
 }
 
 export const refreshToken = (cookie?: string) => {
-  const url = '/auth/refresh';
+  const url = '/auth/refresh/admin';
   return ApiMethods.post(url, {
-    cookie, 
+    cookie,
     params: cookie ? {cache: "no-store"} : {}
   })
 }
 
 export const logout = () => {
-  const url = '/auth/logout';
+  const url = '/auth/logout/admin';
   return ApiMethods.post(url);
 }
 

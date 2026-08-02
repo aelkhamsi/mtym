@@ -11,7 +11,9 @@ export const getTeamById = (teamId: number, cookie?: string) => {
 }
 
 export const getTeamByQuadrigram = (quadrigram: string) => {
-  const url = `/teams/quadrigram/${quadrigram}`;
+  /* Normalized the same way the API stores it, so the availability check asks
+   * about the value that will actually be saved */
+  const url = `/teams/quadrigram/${encodeURIComponent(quadrigram?.trim()?.toUpperCase() ?? '')}`;
   return ApiMethods.get(url)
 }
 

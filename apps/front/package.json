@@ -52,7 +52,7 @@
     "react-dom": "19.2.6",
     "react-hook-form": "^7.53.2",
     "react-markdown": "^8.0.7",
-    "react-phone-number-input": "^3.3.12",
+    "react-phone-number-input": "^3.4.17",
     "sharp": "^0.34.5",
     "tailwind-merge": "^1.14.0",
     "typescript": "5.2.2",

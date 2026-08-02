@@ -1,7 +1,7 @@
 node_modules
 dist
 .turbo
-
+Makefile
 # Vim swap files (can contain secrets)
 *.swp
 *.swo

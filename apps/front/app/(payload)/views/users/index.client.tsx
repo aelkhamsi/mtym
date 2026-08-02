@@ -12,8 +12,9 @@ export default function UsersClient() {
 
   useEffect(() => {
     if (users) {
+      const list = Array.isArray(users) ? users : []
       setTableData(
-        users.map((user: any) => ({
+        list.map((user: any) => ({
           id: user?.id,
           firstName: user?.firstName,
           lastName: user?.lastName,

@@ -13,8 +13,9 @@ export default function ApplicationsClient() {
 
   useEffect(() => {
     if (applications) {
+      const list = Array.isArray(applications) ? applications : []
       setTableData(
-        applications.map((application: any) => ({
+        list.map((application: any) => ({
           id: application?.id,
           firstName: application?.user?.firstName,
           lastName: application?.user?.lastName,
