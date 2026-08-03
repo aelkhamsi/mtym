@@ -1,6 +1,10 @@
 import { educationLevelLabelMap, educationFieldLabelMap, regionLabelMap, cityLabelMap, guardianLabelMap, yesNoLabelMap, previousParticipationLabelMap } from '@mdm/shared';
 
-export const applicationsRowFactory = (applications: any[], configService) => {
+export const applicationsRowFactory = (
+  applications: any[],
+  configService,
+  adminNames: Map<string, string>,
+) => {
   const endpoint = configService.get('s3.endpoint');
   const bucketName = configService.get('s3.name');
 
@@ -47,6 +51,9 @@ export const applicationsRowFactory = (applications: any[], configService) => {
     },
 
     status: application?.status?.status,
+    assignedAdmin: application?.assignedAdminId
+      ? adminNames.get(String(application.assignedAdminId)) ?? 'Unknown admin'
+      : 'Unassigned',
 
     teamId: application?.user?.team?.id,
     teamName: application?.user?.team?.name,

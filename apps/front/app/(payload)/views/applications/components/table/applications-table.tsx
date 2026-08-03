@@ -26,6 +26,7 @@ import {
 } from '@tanstack/react-table';
 import { ApplicationsPagination } from './applications-pagination';
 import { ApplicationsToolbarProps } from './applications-toolbar';
+import type { AdminOption } from './columns';
 const ApplicationsToolbar = dynamic<ApplicationsToolbarProps<any>>(
   () => import('./applications-toolbar').then(module =>   module.ApplicationsToolbar),
   { ssr: false },
@@ -34,11 +35,15 @@ const ApplicationsToolbar = dynamic<ApplicationsToolbarProps<any>>(
 interface ApplicationsTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  admins: AdminOption[]
+  currentAdminId: string
 }
 
 export function ApplicationsTable<TData, TValue>({
   columns,
   data,
+  admins,
+  currentAdminId,
 }: ApplicationsTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -64,7 +69,7 @@ export function ApplicationsTable<TData, TValue>({
 
   return (
     <div className='space-y-4'>
-      <ApplicationsToolbar table={table} />
+      <ApplicationsToolbar table={table} admins={admins} currentAdminId={currentAdminId} />
       
       <div className="rounded-md border ">
         <Table>

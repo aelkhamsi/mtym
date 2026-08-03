@@ -4,10 +4,16 @@ import { Gutter, SetStepNav, type StepNavItem } from '@payloadcms/ui'
 import { AdminViewServerProps } from 'payload'
 import ApplicationsClient from './index.client'
 
-export const ApplicationsView: React.FC<AdminViewServerProps> = ({
+export const ApplicationsView = async ({
   initPageResult, params, searchParams
-}) => {
+}: AdminViewServerProps) => {
   if (!initPageResult.req.user) return <p>You must be logged in to access this page.</p>
+
+  const admins = await initPageResult.req.payload.find({
+    collection: 'users',
+    pagination: false,
+    sort: 'email',
+  })
 
   const steps: StepNavItem[] = [
     {
@@ -28,7 +34,13 @@ export const ApplicationsView: React.FC<AdminViewServerProps> = ({
   >
     <SetStepNav nav={steps} />
     <Gutter>
-      <ApplicationsClient />
+      <ApplicationsClient
+        admins={admins.docs.map((admin) => {
+          const name = [admin.firstName, admin.lastName].filter(Boolean).join(' ')
+          return { id: String(admin.id), label: name || 'Unnamed admin' }
+        })}
+        currentAdminId={String(initPageResult.req.user.id)}
+      />
     </Gutter>
   </DefaultTemplate>
 }

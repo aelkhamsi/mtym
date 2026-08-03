@@ -29,12 +29,14 @@ interface ApplicationsFacetedFilterProps<TData, TValue> {
     value: string
     icon?: React.ComponentType<{ className?: string }>
   }[]
+  colorizeOptions?: boolean
 }
 
 export function ApplicationsFacetedFilter<TData, TValue>({
   column,
   title,
   options,
+  colorizeOptions = false,
 }: ApplicationsFacetedFilterProps<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
@@ -69,7 +71,7 @@ export function ApplicationsFacetedFilter<TData, TValue>({
                       <Badge
                         variant="secondary"
                         key={option.value}
-                        className={`rounded-sm px-1 font-normal ${getStatusClassname(option.value as Status, 'sm')}`}
+                        className={`rounded-sm px-1 font-normal ${colorizeOptions ? getStatusClassname(option.value as Status, 'sm') : ''}`}
                       >
                         {option.label}
                       </Badge>
@@ -80,7 +82,15 @@ export function ApplicationsFacetedFilter<TData, TValue>({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0" align="start">
+      <PopoverContent
+        className="w-[200px] p-0"
+        align="start"
+        style={{
+          backgroundColor: "var(--theme-input-bg)",
+          borderColor: "var(--theme-elevation-150)",
+          color: "var(--theme-text)",
+        }}
+      >
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>
@@ -116,7 +126,7 @@ export function ApplicationsFacetedFilter<TData, TValue>({
                     {option.icon && (
                       <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
                     )}
-                    <div className={getStatusClassname(option.value as Status, 'sm')}>
+                    <div className={colorizeOptions ? getStatusClassname(option.value as Status, 'sm') : ''}>
                       <span>{option.label}</span>
                     </div>
                     {facets?.get(option.value) && (
