@@ -7,15 +7,19 @@ import { UserModule } from '../user/user.module';
 import { ApplicationStatus } from './entities/application-status.entity';
 import { ApplicationStatusService } from './services/application-status.service';
 import { applicationCommands } from './commands';
+import { ApplicationReview } from './entities/application-review.entity';
+import { ApplicationReviewController } from './controllers/application-review.controller';
+import { ApplicationReviewService } from './services/application-review.service';
 @Module({
   imports: [
     UserModule,
-    TypeOrmModule.forFeature([Application, ApplicationStatus]),
+    TypeOrmModule.forFeature([Application, ApplicationStatus, ApplicationReview,]),
   ],
-  controllers: [ApplicationController],
+  controllers: [ApplicationController, ApplicationReviewController],
   providers: [
     ApplicationService,
     ApplicationStatusService,
+    ApplicationReviewService,
     ...applicationCommands,
   ],
   exports: [

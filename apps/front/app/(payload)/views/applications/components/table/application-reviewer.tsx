@@ -2,54 +2,73 @@
 
 import { useState } from "react"
 import { useAtom } from "jotai"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, toast } from "@mdm/ui"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  toast,
+} from "@mdm/ui"
 import { applicationsAtom } from "@/app/store/admin/applicationsAtom"
-import { putApplicationAssignee } from "@/app/api/ApplicationApi"
+import { putApplicationReview } from "@/app/api/ApplicationApi"
 import type { AdminOption } from "./columns"
 
 const UNASSIGNED = "__unassigned__"
 
-export function ApplicationAssignee({
+export function ApplicationReviewer({
   applicationId,
-  assignedAdminId,
+  reviewerId,
   admins,
 }: {
   applicationId: number
-  assignedAdminId: string | null
+  reviewerId: string | null
   admins: AdminOption[]
 }) {
   const [applications, setApplications] = useAtom(applicationsAtom)
   const [saving, setSaving] = useState(false)
 
   const handleChange = async (value: string) => {
-    const nextId = value === UNASSIGNED ? null : value
+    const nextReviewerId = value === UNASSIGNED ? null : value
 
     setSaving(true)
     try {
-      const response = await putApplicationAssignee(applicationId, nextId) as any
-      if (response?.statusCode !== 200) throw new Error()
+      const response = await putApplicationReview(applicationId, {
+        reviewerId: nextReviewerId,
+      }) as any
+      if (response?.statusCode >= 400) throw new Error()
 
       setApplications(applications.map((application: any) =>
         application.id === applicationId
           ? {
               ...application,
-              assignedAdminId: nextId,
+              review: {
+                ...application.review,
+                reviewerId: nextReviewerId,
+              },
             }
           : application
       ))
-      toast({ title: "Assigned admin updated" })
+      toast({ title: "Reviewer updated" })
     } catch {
-      toast({ title: "Could not update assigned admin", variant: "destructive" })
+      toast({ title: "Could not update reviewer", variant: "destructive" })
     } finally {
       setSaving(false)
     }
   }
 
   return (
-    <Select value={assignedAdminId ?? UNASSIGNED} onValueChange={handleChange} disabled={saving}>
+    <Select
+      value={reviewerId ?? UNASSIGNED}
+      onValueChange={handleChange}
+      disabled={saving}
+    >
       <SelectTrigger
         className="w-[220px]"
-        style={{ backgroundColor: "var(--theme-input-bg)", color: "var(--theme-text)" }}
+        style={{
+          backgroundColor: "var(--theme-input-bg)",
+          color: "var(--theme-text)",
+        }}
       >
         <SelectValue placeholder="Unassigned" />
       </SelectTrigger>
@@ -61,13 +80,15 @@ export function ApplicationAssignee({
         }}
       >
         <SelectItem value={UNASSIGNED}>Unassigned</SelectItem>
-        {assignedAdminId && !admins.some((admin) => admin.id === assignedAdminId) && (
-          <SelectItem value={assignedAdminId} disabled>
+        {reviewerId && !admins.some((admin) => admin.id === reviewerId) && (
+          <SelectItem value={reviewerId} disabled>
             Unknown admin
           </SelectItem>
         )}
         {admins.map((admin) => (
-          <SelectItem key={admin.id} value={admin.id}>{admin.label}</SelectItem>
+          <SelectItem key={admin.id} value={admin.id}>
+            {admin.label}
+          </SelectItem>
         ))}
       </SelectContent>
     </Select>

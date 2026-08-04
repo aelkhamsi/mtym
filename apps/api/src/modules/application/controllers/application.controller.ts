@@ -25,7 +25,6 @@ import { SerializedUser } from 'src/modules/user/entities/serialized-user';
 import { Role } from 'src/modules/auth/strategies/role.enum';
 import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
 import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
-import { AssignApplicationDto } from '../dto/assign-application.dto';
 
 @Controller('mtym-api/applications')
 export class ApplicationController {
@@ -178,27 +177,6 @@ export class ApplicationController {
     return {
       id: applicationId,
       update: update,
-      statusCode: 200,
-    };
-  }
-
-  @UseGuards(AdminGuard)
-  @Put('assignee/:applicationId')
-  @HttpCode(200)
-  async assignAdmin(
-    @Param('applicationId', ParseIntPipe) applicationId: number,
-    @Body() assignment: AssignApplicationDto,
-    @Request() req,
-  ) {
-    const application = await this.applicationService.assignAdmin(
-      applicationId,
-      assignment,
-      req.headers.cookie ?? '',
-    );
-
-    return {
-      id: application.id,
-      assignedAdminId: application.assignedAdminId,
       statusCode: 200,
     };
   }

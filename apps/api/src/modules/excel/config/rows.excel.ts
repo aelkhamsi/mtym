@@ -51,8 +51,8 @@ export const applicationsRowFactory = (
     },
 
     status: application?.status?.status,
-    assignedAdmin: application?.assignedAdminId
-      ? adminNames.get(String(application.assignedAdminId)) ?? 'Unknown admin'
+    reviewer: application?.review?.reviewerId
+      ? adminNames.get(String(application.review.reviewerId)) ?? 'Unknown admin'
       : 'Unassigned',
 
     teamId: application?.user?.team?.id,
@@ -116,4 +116,3 @@ export const participantDetailsRowFactory = (participantDetails: any[], users: a
     }
   });
 };
-

@@ -48,7 +48,7 @@ export const applicationsColumns = [
   { header: 'Grades', key: 'grades', width: 10 },
 
   { header: 'Status', key: 'status', width: 15 },
-  { header: 'Assigned Admin', key: 'assigned-admin', width: 30 },
+  { header: 'Reviewer', key: 'reviewer', width: 30 },
 
   { header: 'Team ID', key: 'team_id', width: 10 },
   { header: 'Team Name', key: 'team_name', width: 10 },
@@ -92,4 +92,3 @@ export const participantDetailsColumns = [
 
   { header: 'Status', key: 'status', width: 15 },
 ];
-

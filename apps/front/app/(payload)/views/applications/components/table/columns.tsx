@@ -6,7 +6,7 @@ import { Button } from '@mdm/ui'
 import { useRouter } from 'next/navigation'
 import { ArrowUpDown } from 'lucide-react'
 import ApplicationEducationLevel from './application-education-level'
-import { ApplicationAssignee } from './application-assignee'
+import { ApplicationReviewer } from './application-reviewer'
 
 export type AdminOption = { id: string; label: string }
 
@@ -18,7 +18,7 @@ export type ApplicationRow = {
   establishment: string,
   educationLevel: string,
   status: string,
-  assignedAdminId: string | null,
+  reviewerId: string | null,
 }
 
 const ActionButton = ({
@@ -162,17 +162,17 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<ApplicationRow>[] =
     },
   },
   {
-    accessorKey: "assignedAdminId",
-    header: "Assigned Admin",
+    accessorKey: "reviewerId",
+    header: "Reviewer",
     cell: ({ row }) => (
-      <ApplicationAssignee
+      <ApplicationReviewer
         applicationId={Number(row.original.id)}
-        assignedAdminId={row.original.assignedAdminId}
+        reviewerId={row.original.reviewerId}
         admins={admins}
       />
     ),
     filterFn: (row, _, value: string[]) =>
-      value.includes(row.original.assignedAdminId ?? "__unassigned__"),
+      value.includes(row.original.reviewerId ?? "__unassigned__"),
   },
   {
     id: "actionButton",

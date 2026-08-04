@@ -12,7 +12,7 @@ export const ApplicationsView = async ({
   const admins = await initPageResult.req.payload.find({
     collection: 'users',
     pagination: false,
-    sort: 'email',
+    sort: 'firstName',
   })
 
   const steps: StepNavItem[] = [
@@ -35,10 +35,10 @@ export const ApplicationsView = async ({
     <SetStepNav nav={steps} />
     <Gutter>
       <ApplicationsClient
-        admins={admins.docs.map((admin) => {
-          const name = [admin.firstName, admin.lastName].filter(Boolean).join(' ')
-          return { id: String(admin.id), label: name || 'Unnamed admin' }
-        })}
+        admins={admins.docs.map((admin) => ({
+          id: String(admin.id),
+          label: [admin.firstName, admin.lastName].filter(Boolean).join(' ') || 'Unnamed admin',
+        }))}
         currentAdminId={String(initPageResult.req.user.id)}
       />
     </Gutter>

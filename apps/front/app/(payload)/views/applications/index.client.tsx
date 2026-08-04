@@ -31,7 +31,7 @@ export default function ApplicationsClient({
           establishment: application?.highschool,
           educationLevel: application?.educationLevel,
           status: application?.status?.status,
-          assignedAdminId: application?.assignedAdminId ?? null,
+          reviewerId: application?.review?.reviewerId ?? null,
         }))
       )
     }

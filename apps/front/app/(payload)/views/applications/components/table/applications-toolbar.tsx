@@ -53,10 +53,10 @@ export function ApplicationsToolbar<TData>({
             colorizeOptions
           />
         )}
-        {table.getColumn("assignedAdminId") && (
+        {table.getColumn("reviewerId") && (
           <ApplicationsFacetedFilter
-            column={table.getColumn("assignedAdminId")}
-            title="Assigned admin"
+            column={table.getColumn("reviewerId")}
+            title="Reviewer"
             options={[
               { value: "__unassigned__", label: "Unassigned" },
               ...admins.map((admin) => ({

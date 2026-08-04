@@ -39,12 +39,9 @@ export const putApplicationStatus = (id: number, partialApplicationStatus: any) 
   return ApiMethods.put(url, {body});
 }
 
-export const putApplicationAssignee = (
-  id: number,
-  assignedAdminId: string | null,
-) => {
-  return ApiMethods.put(`/applications/assignee/${id}`, {
-    body: { assignedAdminId },
+export const putApplicationReview = (id: number, partialApplicationReview: any) => {
+  return ApiMethods.put(`/applications/review/${id}`, {
+    body: partialApplicationReview,
   });
 }
 

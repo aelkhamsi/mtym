@@ -69,7 +69,11 @@ export function ApplicationsTable<TData, TValue>({
 
   return (
     <div className='space-y-4'>
-      <ApplicationsToolbar table={table} admins={admins} currentAdminId={currentAdminId} />
+      <ApplicationsToolbar
+        table={table}
+        admins={admins}
+        currentAdminId={currentAdminId}
+      />
       
       <div className="rounded-md border ">
         <Table>
