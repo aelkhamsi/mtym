@@ -3,7 +3,6 @@ import "@mdm/ui/globals.css";
 import cx from "classnames";
 import { pally, poppins } from "../lib/fonts";
 import Footer from "@/app/components/layout/footer/footer";
-import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import Header from "@/app/components/layout/header";
 import { Toaster } from "@mdm/ui";
 import { cookies } from "next/headers";
@@ -34,7 +33,6 @@ export default async function RootLayout({
           <>{children}</>
           <Footer />
           <Toaster />
-          <VercelAnalytics />
         </RootProvider>
       </body>
     </html>

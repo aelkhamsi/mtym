@@ -21,10 +21,7 @@ export type Status =
   | 'WAITLIST';
 
 export const getStatusClassname = (status: Status, size: 'sm' | 'md') => {
-  const baseClassname = size === 'md' 
-    ? 'rounded-lg px-6 py-1'
-    : 'rounded-lg px-2';
-
+  const baseClassname = `rounded-xl text-center ${size === 'md' ? 'px-4 py-1 w-[7rem]' : 'px-2'}`
   let colorClassname;
 
   switch(status) {
@@ -118,8 +115,8 @@ const ApplicationStatus = ({
 
   return (
     <div>
-      <Select defaultValue={status} onValueChange={handleStatusChange}>
-        <SelectTrigger className="w-[180px]">
+      <Select value={status} onValueChange={handleStatusChange}>
+        <SelectTrigger className="w-[12rem]">
           <SelectValue placeholder="Select a status" />
         </SelectTrigger>
         <SelectContent
