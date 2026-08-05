@@ -1,157 +1,308 @@
 "use client"
 
-import { Label } from '@mdm/ui'
-import { Separator } from '@mdm/ui';
-import { formatDate } from '@mdm/utils'
-import React, { ReactNode, useEffect, useState } from 'react'
+import { useEffect, useState } from "react"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  ExpandingArrow,
+} from "@mdm/ui"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@mdm/ui";
-import { useRouter } from 'next/navigation';
-import { ExpandingArrow } from '@mdm/ui';
-import ApplicationStatus from '../components/table/application-status';
-import FilesTable from '../components/file/files-table';
-import { useAtomValue } from 'jotai';
-import { applicationsAtom } from "@/app/store/admin/applicationsAtom";
+} from "@mdm/ui"
+import { Badge } from "@mdm/ui"
+import { Separator } from "@mdm/ui"
+import { Checkbox } from "@mdm/ui"
+import { Label } from "@mdm/ui"
+import { Input } from "@mdm/ui"
+import { Textarea } from "@mdm/ui"
+import { Button } from "@mdm/ui"
 import {
-  cityLabelMap,
-  educationFieldLabelMap,
-  educationLevelLabelMap,
-  guardianLabelMap,
-  previousParticipationLabelMap,
-  regionLabelMap,
-  yesNoLabelMap,
-} from '@mdm/shared';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@mdm/ui"
+import { useAtomValue } from "jotai"
+import { applicationsAtom } from "@/app/store/admin/applicationsAtom"
+import { useRouter } from "next/navigation"
 
-const renderText = (value: any) => {
-  return value
-    ? value
-    : <span className='text-gray-400'>(empty)</span>
-}
-
-const Field = ({
-  label,
-  children,
-}: {
-  label: string,
-  children: ReactNode,
-}) => {
-  return <div>
-    <Label className='text-[#272162] font-semibold'>{label}</Label>
-    <p>{children}</p>
-  </div>
-}
-
-export const ApplicationDetailsClient = ({
+export default function ApplicationDetailsClient({
   id,
 }:{
   id: string|undefined
-}) => {
+}) {
+  const router = useRouter()
+  const [tab, setTab] = useState("personal")
   const applications = useAtomValue(applicationsAtom)
   const [application, setApplication] = useState<any>(undefined);
-  const router = useRouter();
-
+  
   useEffect(() => {
-    if (id && applications && Array.isArray(applications)) {
-      const searchResult = applications.find((application: any) => application?.id === +id)
-      console.log('searchResult', searchResult)
-      setApplication(searchResult)
-    }
-  }, [applications])
+    if (!id || !applications || !Array.isArray(applications)) return;
+
+    const searchResult = applications.find((application: any) => application?.id === +id)
+    setApplication(searchResult)
+  }, [id, applications])
 
   return (
-    <>
-      {application
-        ? (
-          <Tabs defaultValue="personal-informations" className='space-y-8'>
-            <div 
-              className='font-semibold flex cursor-pointer'
-              onClick={() => router.push('/admin/applications')}
-            >
-              <ExpandingArrow className='rotate-180 mr-2'/> {"  "} Back
-            </div>
+    <div className="w-full">
+      {/* Header */}
+      <div
+        className='font-semibold flex cursor-pointer'
+        onClick={() => router.back()}
+      >
+        <ExpandingArrow className='rotate-180 mr-2'/> {"  "} Go Back
+      </div>
 
-            <div 
-              className='font-semibold text-2xl flex justify-between'
-            >
-              <div>
-                Application of <span className='bg-gradient-to-br from-sky-800 to-[#272162] inline-block text-transparent bg-clip-text'>{application?.firstName} {application?.lastName}</span>
+      <div className="mb-6 flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">
+            Application #{application?.id} - {application?.firstName} {application?.lastName}
+          </h1>
+
+          <div className="mt-2 flex items-center gap-3">
+            <Badge>Pending Review</Badge>
+
+            <span className="text-muted-foreground text-sm">
+              Submitted on April 18, 2025
+            </span>
+          </div>
+        </div>
+
+        <Button variant="outline">Actions</Button>
+      </div>
+
+      {/* Main Layout */}
+      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+        {/* LEFT */}
+        <Card>
+          <CardHeader className="pb-0">
+            <Tabs value={tab} onValueChange={setTab}>
+              <TabsList className="w-full justify-start">
+                <TabsTrigger value="personal">
+                  Personal
+                </TabsTrigger>
+
+                <TabsTrigger value="education">
+                  Education
+                </TabsTrigger>
+
+                <TabsTrigger value="documents">
+                  Documents
+                </TabsTrigger>
+
+                <TabsTrigger value="essay">
+                  Essay
+                </TabsTrigger>
+              </TabsList>
+
+              {/* PERSONAL */}
+              <TabsContent value="personal">
+                <Section
+                  title="Personal Information"
+                  fields={[
+                    ["Full Name", "John Doe"],
+                    ["Email", "john@example.com"],
+                    ["Phone", "+212 ..."],
+                    ["Nationality", "Moroccan"],
+                    ["Birth Date", "14/05/2004"],
+                    ["Address", "Casablanca"],
+                  ]}
+                />
+              </TabsContent>
+
+              {/* EDUCATION */}
+              <TabsContent value="education">
+                <Section
+                  title="Education"
+                  fields={[
+                    ["High School", "..."],
+                    ["Graduation", "..."],
+                    ["Average", "..."],
+                    ["Major", "..."],
+                  ]}
+                />
+              </TabsContent>
+
+              {/* DOCUMENTS */}
+              <TabsContent value="documents">
+                <Section
+                  title="Documents"
+                  fields={[
+                    ["Passport", "Uploaded"],
+                    ["Transcript", "Uploaded"],
+                    ["Recommendation", "Uploaded"],
+                  ]}
+                />
+              </TabsContent>
+
+              {/* ESSAY */}
+              <TabsContent value="essay">
+                <Section
+                  title="Essay"
+                  fields={[
+                    [
+                      "Motivation",
+                      "Lorem ipsum dolor sit amet...",
+                    ],
+                  ]}
+                />
+              </TabsContent>
+            </Tabs>
+          </CardHeader>
+        </Card>
+
+        {/* RIGHT */}
+        <div className="sticky top-6 h-fit">
+          <Card>
+            <CardHeader>
+              <CardTitle>Reviewer Panel</CardTitle>
+
+              <CardDescription>
+                Assigned to Ibrahim
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="space-y-6">
+              {/* Checklist */}
+
+              <div className="space-y-3">
+                <h3 className="font-medium">
+                  Checklist
+                </h3>
+
+                <ReviewCheckbox label="Identity verified" />
+
+                <ReviewCheckbox label="Documents complete" />
+
+                <ReviewCheckbox label="Eligible" />
+
+                <ReviewCheckbox label="No red flags" />
               </div>
 
-              <ApplicationStatus applicationId={application?.id} status={application?.status?.status} />
-            </div>
+              <Separator />
 
-            <TabsList className="flex justify-start space-x-8 h-[4rem] bg-slate-200 text-black">
-              <TabsTrigger value="personal-informations" className='text-base h-full'>Personal Informations</TabsTrigger>
-              <TabsTrigger value="education" className='text-base h-full'>Education</TabsTrigger>
-              <TabsTrigger value="competition" className='text-base h-full'>Motivation</TabsTrigger>
-              <TabsTrigger value="uploads" className='text-base h-full'>Uploads</TabsTrigger>
-            </TabsList>
-            <Separator className="my-6" />
+              {/* Score */}
 
-            {/* PERSONAL INFORMARIONS */}
-            <TabsContent value="personal-informations">
-              <div className='space-y-6'>
-                <Field label='First name'>{renderText(application?.firstName)}</Field>
-                <Field label='Last name'>{renderText(application?.lastName)}</Field>
-                <Field label='Date of birth'>{renderText(formatDate(application?.dateOfBirth))}</Field>
-                <Field label='CNIE number'>{renderText(application?.identityCardNumber)}</Field>
-                <Field label='City of residence'>{renderText(cityLabelMap[application?.city])}</Field>
-                <Field label='Region of residence'>{renderText(regionLabelMap[application?.region])}</Field>
-                <Field label='Phone number'>{renderText(application?.phoneNumber)}</Field>
-                <Field label='Allergies or Medication'>{renderText(application?.allergyOrMedication)}</Field>
-                <hr/>
-                <Field label='Guardian Full Name'>{renderText(application?.guardianFullName)}</Field>
-                <Field label='Guardian Phone Number'>{renderText(application?.guardianPhoneNumber)}</Field>
-                <Field label='Relationship with Guardian'>{renderText(guardianLabelMap[application?.relationshipWithGuardian])}</Field>
+              <div className="space-y-2">
+                <Label>Score</Label>
+
+                <Input
+                  type="number"
+                  placeholder="0 - 100"
+                />
               </div>
-            </TabsContent>
-            
-            {/* EDUCATION */}
-            <TabsContent value="education">
-              <div className='space-y-6'>
-                <Field label='Education Level'>{renderText(educationLevelLabelMap[application?.educationLevel])}</Field>
-                <Field label='University Type'>{renderText(educationFieldLabelMap[application?.educationField])}</Field>
-                <Field label='Highschool Name'>{renderText(application?.highschool)}</Field>
-                <Field label='Highschool City'>{renderText(cityLabelMap[application?.highschoolCity])}</Field>
-                <Field label='Highschool Region'>{renderText(regionLabelMap[application?.highschoolRegion])}</Field>
-                <Field label='Is highschool far from home?'>{renderText(yesNoLabelMap[application?.isHighschoolFarFromHome])}</Field>
-              </div>
-            </TabsContent>
-              
-            {/* COMPETTION */}
-            <TabsContent value="competition">
-              <div className='space-y-6'>
-                <Field label='Avez-vous déjà participé à des compétitions auparavant ? (Olympiades, concours, etc.)?'>{renderText(previousParticipationLabelMap[application?.hasPreviousExperiences])}</Field>
-                <Field label='Veuillez préciser lesquels et le résultat obtenu.'>{renderText(application?.previousExperiences)}</Field>
 
-                <Separator />
+              {/* Recommendation */}
 
-                <Field label='Avez-vous participé à MTYM en Mai 2024 ou en Décembre 2024 ?'>{renderText(previousParticipationLabelMap[application?.hasPreviousMTYMParticipations])}</Field>
-                <Field label='Veuillez préciser le nom de votre équipe'>{renderText(application?.previousMTYMParticipations)}</Field>
+              <div className="space-y-2">
+                <Label>Recommendation</Label>
 
-                <Separator />
-                
-                <Field label='Motivations'>{renderText(application?.motivations)}</Field>
-                <Field label='Commentaires'>{renderText(application?.comments)}</Field>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select..." />
+                  </SelectTrigger>
+
+                  <SelectContent>
+                    <SelectItem value="accept">
+                      Accept
+                    </SelectItem>
+
+                    <SelectItem value="waitlist">
+                      Waitlist
+                    </SelectItem>
+
+                    <SelectItem value="reject">
+                      Reject
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
-            </TabsContent>
-            
-            {/* UPLOADS */}
-            <TabsContent value="uploads">
-              <div className='md:flex space-y-4 md:space-x-4 md:space-y-0 mt-8'>
-                <FilesTable application={application} />
+
+              {/* Comments */}
+
+              <div className="space-y-2">
+                <Label>Comments</Label>
+
+                <Textarea
+                  rows={8}
+                  placeholder="Write your review..."
+                />
               </div>
-            </TabsContent>
-          </Tabs>
-        )
-        : <></>
-      }
-    </>
+
+              <Separator />
+
+              {/* Actions */}
+
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Save Draft
+                </Button>
+
+                <Button className="flex-1">
+                  Submit
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
   )
 }
 
-export default ApplicationDetailsClient;
+function Section({
+  title,
+  fields,
+}: {
+  title: string
+  fields: [string, string][]
+}) {
+  return (
+    <Card className="mt-6 border-0 shadow-none">
+      <CardHeader className="px-0">
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+
+      <CardContent className="px-0">
+        <div className="divide-y rounded-lg border">
+          {fields.map(([label, value]) => (
+            <div
+              key={label}
+              className="grid grid-cols-[220px_1fr] gap-4 px-6 py-4"
+            >
+              <div className="text-muted-foreground">
+                {label}
+              </div>
+
+              <div>{value}</div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+function ReviewCheckbox({
+  label,
+}: {
+  label: string
+}) {
+  return (
+    <div className="flex items-center space-x-2">
+      <Checkbox id={label} />
+
+      <Label htmlFor={label}>{label}</Label>
+    </div>
+  )
+}

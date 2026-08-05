@@ -1,8 +1,9 @@
 import '../(frontend)/globals.css'
+import './globals.css'
+import "@mdm/ui/globals.css";
 import config from '@payload-config'
 import { handleServerFunctions, RootLayout } from '@payloadcms/next/layouts'
 import '@payloadcms/next/css'
-import React from 'react'
 
 import { importMap } from './admin/importMap'
 import { ServerFunctionClient } from 'payload'
@@ -11,6 +12,8 @@ import { cookies } from 'next/headers';
 import { getAllUsers } from '../api/UsersApi'
 import { getAllApplications } from '../api/ApplicationApi'
 import { getAllTeams } from '../api/TeamApi'
+import { pally, poppins } from '../lib/fonts';
+import cx from "classnames";
 
 type Args = {
   children: React.ReactNode
@@ -28,15 +31,18 @@ const Layout = async ({ children }: Args) => {
   const users = await getAllUsers(cookieStore) as any[]
 
   return (
-    <RootProvider
-      applications={applications}
-      teams={teams}
-      users={users}
-    >
-      <RootLayout config={config} importMap={importMap} serverFunction={serverFunction as ServerFunctionClient}>
-        {children}
-      </RootLayout>
-    </RootProvider>
+    <RootLayout config={config} importMap={importMap} serverFunction={serverFunction as ServerFunctionClient}>
+      <RootProvider
+        applications={applications}
+        teams={teams}
+        users={users}
+      >
+        <div className={`${cx(pally.variable, poppins.variable)} font-poppins`}>
+          {children}
+        </div>
+      </RootProvider>    
+    </RootLayout>
+  
   )
 }
 
