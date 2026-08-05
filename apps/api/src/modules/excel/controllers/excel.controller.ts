@@ -3,11 +3,12 @@ import {
   Controller,
   Get,
   Header,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { ExcelService } from '../services/excel.service';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
 
 @Controller('mtym-api/excel')
@@ -17,8 +18,10 @@ export class ExcelController {
   @UseGuards(AdminGuard)
   @Get('applications')
   @Header('Content-Type', 'text/xlsx')
-  async downloadApplications(@Res() res: Response) {
-    const file = await this.excelService.downloadApplications();
+  async downloadApplications(@Req() req: Request, @Res() res: Response) {
+    const file = await this.excelService.downloadApplications(
+      req.headers.cookie ?? '',
+    );
     if (!file) {
       return new BadRequestException();
     }

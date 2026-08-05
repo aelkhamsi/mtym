@@ -122,7 +122,13 @@ const ApplicationStatus = ({
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Select a status" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent
+          style={{
+            backgroundColor: "var(--theme-input-bg)",
+            borderColor: "var(--theme-elevation-150)",
+            color: "var(--theme-text)",
+          }}
+        >
           <SelectItem value="DRAFT"><StatusCard value='DRAFT' /></SelectItem>
           <SelectItem value="PENDING"><StatusCard value='PENDING' /></SelectItem>
           <SelectItem value="NOTIFIED"><StatusCard value='NOTIFIED' /></SelectItem>

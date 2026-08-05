@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { ApplicationStatus } from './application-status.entity';
+import { ApplicationReview } from './application-review.entity';
 
 @Entity({ name: 'applications' })
 export class Application {
@@ -30,6 +31,12 @@ export class Application {
   )
   @JoinColumn()
   status: ApplicationStatus;
+
+  @OneToOne(
+    () => ApplicationReview,
+    (applicationReview) => applicationReview.application,
+  )
+  review: ApplicationReview;
 
   @Column({ type: 'varchar', default: '' })
   firstName: string;
