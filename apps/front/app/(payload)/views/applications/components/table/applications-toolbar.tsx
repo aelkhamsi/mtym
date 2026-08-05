@@ -7,13 +7,18 @@ import { ApplicationsViewOptions } from "./applications-view-options"
 import { statusOptions } from "./application-status"
 import { ApplicationsFacetedFilter } from "./applications-faceted-filter"
 import { FileTextIcon } from "@radix-ui/react-icons"
+import type { AdminOption } from "./columns"
 
 export interface ApplicationsToolbarProps<TData> {
   table: Table<TData>
+  admins: AdminOption[]
+  currentAdminId: string
 }
 
 export function ApplicationsToolbar<TData>({
   table,
+  admins,
+  currentAdminId,
 }: ApplicationsToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const onExportData = async () => {
@@ -45,6 +50,22 @@ export function ApplicationsToolbar<TData>({
             column={table.getColumn("status")}
             title="Status"
             options={statusOptions}
+            colorizeOptions
+          />
+        )}
+        {table.getColumn("reviewerId") && (
+          <ApplicationsFacetedFilter
+            column={table.getColumn("reviewerId")}
+            title="Reviewer"
+            options={[
+              { value: "__unassigned__", label: "Unassigned" },
+              ...admins.map((admin) => ({
+                value: admin.id,
+                label: admin.id === currentAdminId
+                  ? `Assigned to me (${admin.label})`
+                  : admin.label,
+              })),
+            ]}
           />
         )}
         {isFiltered && (

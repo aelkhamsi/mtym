@@ -39,6 +39,12 @@ export const putApplicationStatus = (id: number, partialApplicationStatus: any) 
   return ApiMethods.put(url, {body});
 }
 
+export const putApplicationReview = (id: number, partialApplicationReview: any) => {
+  return ApiMethods.put(`/applications/review/${id}`, {
+    body: partialApplicationReview,
+  });
+}
+
 export const deleteApplication = (id: number) => {
   const url = `/applications/${id}`;
   return ApiMethods.delete(url);

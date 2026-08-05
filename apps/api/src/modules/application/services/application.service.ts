@@ -6,12 +6,14 @@ import { CreateApplicationDto } from '../dto/create-application.dto';
 import { UserService } from 'src/modules/user/services/user.service';
 import { UpdateApplicationDto } from '../dto/update-application.dto';
 import { ApplicationStatusService } from './application-status.service';
+import { ApplicationReviewService } from './application-review.service';
 
 @Injectable()
 export class ApplicationService {
   constructor(
     private userService: UserService,
     private applicationStatusService: ApplicationStatusService,
+    private applicationReviewService: ApplicationReviewService,
     @InjectRepository(Application)
     private applicationRepository: Repository<Application>,
   ) {}
@@ -31,6 +33,7 @@ export class ApplicationService {
     const applicationStatus = await this.applicationStatusService.create(
       application,
     );
+    await this.applicationReviewService.create(application);
 
     application.user = user;
     application.status = applicationStatus;
@@ -41,6 +44,7 @@ export class ApplicationService {
     return this.applicationRepository
       .createQueryBuilder('application')
       .leftJoinAndSelect('application.status', 'status')
+      .leftJoinAndSelect('application.review', 'review')
       .leftJoinAndSelect('application.user', 'user')
       .leftJoinAndSelect('user.team', 'team')
       .getMany();

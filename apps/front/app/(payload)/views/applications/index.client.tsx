@@ -1,15 +1,22 @@
 "use client"
 
 import { ApplicationsTable } from "./components/table/applications-table";
-import { columns } from "./components/table/columns";
+import { getColumns, type AdminOption } from "./components/table/columns";
 import { ApplicationRow } from "./components/table/columns";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { applicationsAtom } from "@/app/store/admin/applicationsAtom";
 import { useAtomValue } from "jotai";
 
-export default function ApplicationsClient() {
+export default function ApplicationsClient({
+  admins,
+  currentAdminId,
+}: {
+  admins: AdminOption[]
+  currentAdminId: string
+}) {
   const applications = useAtomValue(applicationsAtom);
   const [tableData, setTableData] = useState<ApplicationRow[]>([])
+  const columns = useMemo(() => getColumns(admins), [admins])
 
   useEffect(() => {
     if (applications) {
@@ -24,6 +31,7 @@ export default function ApplicationsClient() {
           establishment: application?.highschool,
           educationLevel: application?.educationLevel,
           status: application?.status?.status,
+          reviewerId: application?.review?.reviewerId ?? null,
         }))
       )
     }
@@ -35,7 +43,12 @@ export default function ApplicationsClient() {
         Applications
       </div>
 
-      <ApplicationsTable columns={columns} data={tableData} />
+      <ApplicationsTable
+        columns={columns}
+        data={tableData}
+        admins={admins}
+        currentAdminId={currentAdminId}
+      />
     </div>
   );
 }
