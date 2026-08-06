@@ -6,131 +6,212 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
+  RadioGroup,
+  RadioGroupItem,
+  toast,
 } from "@mdm/ui"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@mdm/ui"
 import { Separator } from "@mdm/ui"
-import { Checkbox } from "@mdm/ui"
-import { Label } from "@mdm/ui"
-import { Input } from "@mdm/ui"
 import { Textarea } from "@mdm/ui"
 import { Button } from "@mdm/ui"
+import { AdminOption } from "../../components/table/columns"
+import { useForm, UseFormReturn } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import z from "zod"
+import { applicationReviewSchema } from "@/app/schemas/application-review.schema"
+import { RequiredAsterisk } from "@/app/components/forms/required-asterisk"
+import SelectOrInput from "@/app/components/forms/select-or-input"
+import { cityOptions } from "@mdm/shared"
+import { Loader2 } from "lucide-react"
+import { putApplicationReview } from "@/app/api/ApplicationApi"
+import { ApplicationReviewer } from "../../components/table/application-reviewer"
 
-const ReviewerPanel = () => {
+const checklistOptions = [
+  {label: 'Yes', value: 'YES'},
+  {label: 'No', value: 'NO'},
+  {label: 'Not sure', value: 'NOT_SURE'},
+]
+
+const cityCheclistOptions = [
+  {label: 'Yes', value: 'YES'},
+  {label: 'Changed', value: 'CHANGED'},
+  {label: 'Not sure', value: 'NOT_SURE'},
+]
+
+const ReviewerPanel = ({
+  application,
+  admins,
+}:{
+  application: any,
+  admins: AdminOption[],
+}) => {
+  const applicationId = application?.id
+  const reviewData = application?.review
+  const reviewerId = reviewData?.reviewerId
+  const reviewer = admins.find(admin => +admin.id === +reviewerId)
+  const form = useForm<z.infer<typeof applicationReviewSchema>>({
+    resolver: zodResolver(applicationReviewSchema),
+    values: reviewData,
+    mode: "onChange",
+  })
+  const { isSubmitting } = form.formState
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+  
+  const onSubmit = async (data: z.infer<typeof applicationReviewSchema>) => {
+    if (!applicationId) return
+    await wait(800)
+
+    try {
+      const response = await putApplicationReview(applicationId, data) as any
+      if (response?.statusCode >= 400) throw new Error()
+      toast({
+        title: 'Application Review',
+        description: 'Your application review was saved successfully',
+      })
+    } catch {
+      toast({ 
+        title: "Could not update reviewer",
+        description: 'Your application review was saved successfully',
+        variant: "destructive" 
+      })
+    } 
+  }
+
   return (
-    <Card>
-      <CardHeader>
+    <Card className="relative">
+      {isSubmitting && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/60 backdrop-blur-[1px]">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      )}
+
+      <CardHeader className="space-y-4">
         <CardTitle>Reviewer Panel</CardTitle>
 
-        <CardDescription>
-          Assigned to Ibrahim
+        <CardDescription className="flex items-center gap-x-2">
+          Assigned to <ApplicationReviewer applicationId={applicationId} reviewerId={reviewerId} admins={admins} />
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-6">
-        {/* Checklist */}
+      <Separator />
+      
+      <CardContent>
+        <Form {...form}>
+          <form id="form-application-review" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-8">
+            
+            <ReviewRadioGroup form={form} name="identityCheck" label="Identity" options={checklistOptions}/>
 
-        <div className="space-y-3">
-          <h3 className="font-medium">
-            Checklist
-          </h3>
+            <ReviewRadioGroup form={form} name="levelCheck" label="Education Level" options={checklistOptions} />
 
-          <ReviewCheckbox label="Identity verified" />
+            <ReviewRadioGroup form={form} name="pictureCheck" label="Picture" options={checklistOptions} />
 
-          <ReviewCheckbox label="Documents complete" />
+            <ReviewRadioGroup form={form} name="cityCheck" label="City" options={cityCheclistOptions} />
 
-          <ReviewCheckbox label="Eligible" />
+            <SelectOrInput
+              form={form}
+              name="updatedCity"
+              label="Updated City"
+              options={cityOptions}
+              required={false}
+              reset={true}
+            ></SelectOrInput>
 
-          <ReviewCheckbox label="No red flags" />
-        </div>
+            <ReviewTextArea
+              form={form}
+              name="comment"
+              label="Comments"
+            />
 
-        <Separator />
-
-        {/* Score */}
-
-        <div className="space-y-2">
-          <Label>Score</Label>
-
-          <Input
-            type="number"
-            placeholder="0 - 100"
-          />
-        </div>
-
-        {/* Recommendation */}
-
-        <div className="space-y-2">
-          <Label>Recommendation</Label>
-
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Select..." />
-            </SelectTrigger>
-
-            <SelectContent>
-              <SelectItem value="accept">
-                Accept
-              </SelectItem>
-
-              <SelectItem value="waitlist">
-                Waitlist
-              </SelectItem>
-
-              <SelectItem value="reject">
-                Reject
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Comments */}
-
-        <div className="space-y-2">
-          <Label>Comments</Label>
-
-          <Textarea
-            rows={8}
-            placeholder="Write your review..."
-          />
-        </div>
-
-        <Separator />
-
-        {/* Actions */}
-
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            className="flex-1"
-          >
-            Save Draft
-          </Button>
-
-          <Button className="flex-1">
-            Submit
-          </Button>
-        </div>
+            <div className="flex">
+              <Button type="submit" className="flex-1">
+                Submit Review
+              </Button>
+            </div>
+          </form>
+        </Form>
       </CardContent>
+      
     </Card>
   )
 }
 
-function ReviewCheckbox({
+const ReviewTextArea = ({
+  form,
+  name,
   label,
 }: {
-  label: string
-}) {
+  form: UseFormReturn,
+  name: string,
+  label: string,
+}) => {
   return (
-    <div className="flex items-center space-x-2">
-      <Checkbox id={label} />
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>{label}</FormLabel>
+          <FormControl>
+          <Textarea
+            rows={8}
+            placeholder=""
+            {...field}
+          />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
 
-      <Label htmlFor={label}>{label}</Label>
-    </div>
+const ReviewRadioGroup = ({
+  form,
+  name,
+  label,
+  options,
+}: {
+  form: UseFormReturn,
+  name: string,
+  label: string,
+  options: {label: string, value: string}[]
+}) => {
+  return (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <div className="flex items-center space-x-2 space-y-0">
+            <FormLabel className="w-[9rem]">{label} <RequiredAsterisk /></FormLabel>
+
+            <FormControl>
+              <RadioGroup
+                onValueChange={(value: string) => field.onChange(value)}
+                value={field.value}
+                className="flex space-x-2"
+              >
+                {options.map(option => 
+                  <FormItem className="flex items-center space-x-2 space-y-0">
+                    <FormControl><RadioGroupItem value={option.value} /></FormControl>
+                    <FormLabel className="font-normal">{option.label}</FormLabel>
+                  </FormItem>
+                )}
+              </RadioGroup>
+            </FormControl>
+          </div>
+
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   )
 }
 

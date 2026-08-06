@@ -4,7 +4,6 @@ import "@mdm/ui/globals.css";
 import config from '@payload-config'
 import { handleServerFunctions, RootLayout } from '@payloadcms/next/layouts'
 import '@payloadcms/next/css'
-
 import { importMap } from './admin/importMap'
 import { ServerFunctionClient } from 'payload'
 import RootProvider from './root-provider'
@@ -14,6 +13,7 @@ import { getAllApplications } from '../api/ApplicationApi'
 import { getAllTeams } from '../api/TeamApi'
 import { pally, poppins } from '../lib/fonts';
 import cx from "classnames";
+import { Toaster } from "@mdm/ui";
 
 type Args = {
   children: React.ReactNode
@@ -38,7 +38,8 @@ const Layout = async ({ children }: Args) => {
         users={users}
       >
         <div className={`${cx(pally.variable, poppins.variable)} font-poppins`}>
-          {children}
+          <>{children}</>
+          <Toaster />
         </div>
       </RootProvider>    
     </RootLayout>

@@ -39,8 +39,8 @@ export const putApplicationStatus = (id: number, partialApplicationStatus: any) 
   return ApiMethods.put(url, {body});
 }
 
-export const putApplicationReview = (id: number, partialApplicationReview: any) => {
-  return ApiMethods.put(`/applications/review/${id}`, {
+export const putApplicationReview = (applicationId: number, partialApplicationReview: any) => {
+  return ApiMethods.put(`/applications/review/${applicationId}`, {
     body: partialApplicationReview,
   });
 }

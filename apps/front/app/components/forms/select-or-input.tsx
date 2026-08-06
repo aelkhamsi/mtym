@@ -26,12 +26,14 @@ const SelectOrInput = ({
   label,
   options,
   required = true,
+  reset = false
 }:{
   name: string,
   form: UseFormReturn,
   label: string,
   options: readonly Option<string>[],
   required?: boolean,
+  reset?: boolean,
 }) => {
   const [showInput, setShowInput] = useState<boolean>(false)
 
@@ -50,7 +52,11 @@ const SelectOrInput = ({
   })
 
   const labelComponent = <div>
-    <FormLabel>{label}{required && <RequiredAsterisk />}</FormLabel>
+    <FormLabel>
+      {label}{required && <RequiredAsterisk />}
+      {reset && <span className="text-blue-500 text-xs cursor-pointer" onClick={() => form.resetField(name, { defaultValue: '' })}> ↺ Reset</span>}
+    </FormLabel>
+
     {showInput && <span className="text-blue-500 text-xs cursor-pointer" onClick={() => toggleShowInput()}> ↺ Revenir aux options</span>}
   </div>
 
@@ -73,7 +79,7 @@ const SelectOrInput = ({
               {labelComponent}
 
               <FormControl>
-                <Select onValueChange={(value) => onValueChange(field, value)} defaultValue={field.value}>
+                <Select onValueChange={(value) => onValueChange(field, value)} value={field.value}>
                   <SelectTrigger>
                     <SelectValue placeholder="Choisissez une option" />
                   </SelectTrigger>

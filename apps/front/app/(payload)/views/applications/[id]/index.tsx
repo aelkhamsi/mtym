@@ -9,6 +9,16 @@ export const ApplicationDetailsView: React.FC<AdminViewServerProps> = async ({
 }) => {
   if (!initPageResult.req.user) return <p>You must be logged in to access this page.</p>
 
+  const usersCollection = await initPageResult.req.payload.find({
+    collection: 'users',
+    pagination: false,
+    sort: 'firstName',
+  })
+  const admins = usersCollection.docs.map((admin) => ({
+    id: String(admin.id),
+    label: [admin.firstName, admin.lastName].filter(Boolean).join(' ') || 'Unnamed admin',
+  }))
+
   const resolvedParams = await params
   const id = resolvedParams?.segments?.[1]
 
@@ -24,7 +34,7 @@ export const ApplicationDetailsView: React.FC<AdminViewServerProps> = async ({
   >
     {/* <SetStepNav nav={steps} /> */}
     <Gutter>
-      <ApplicationDetailsClient id={id} />
+      <ApplicationDetailsClient id={id} admins={admins} />
     </Gutter>
   </DefaultTemplate>
 }

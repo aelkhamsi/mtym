@@ -6,11 +6,14 @@ import { applicationsAtom } from "@/app/store/admin/applicationsAtom"
 import ApplicationPanel from "./layout/ApplicationPanel"
 import ReviewerPanel from "./layout/ReviewerPanel"
 import Header from "./layout/Header"
+import { AdminOption } from "../components/table/columns"
 
 export default function ApplicationDetailsClient({
   id,
+  admins,
 }:{
-  id: string|undefined
+  id: string|undefined,
+  admins: AdminOption[],
 }) {
   const applications = useAtomValue(applicationsAtom)
   const [application, setApplication] = useState<any>(undefined);
@@ -30,7 +33,7 @@ export default function ApplicationDetailsClient({
         <ApplicationPanel application={application} />
 
         <div className="sticky top-6 h-fit">
-          <ReviewerPanel />
+          <ReviewerPanel application={application} admins={admins} />
         </div>
       </div>
     </div>
