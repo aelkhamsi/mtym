@@ -13,6 +13,7 @@ import {
   Request,
   ForbiddenException,
   Req,
+  Query,
 } from '@nestjs/common';
 import { ApplicationService } from '../services/application.service';
 import { SerializedApplication } from '../entities/serialized-application.entity';
@@ -49,28 +50,35 @@ export class ApplicationController {
   @UseGuards(AdminGuard)
   @Get()
   @HttpCode(200)
-  async findAll() {
-    const applications = await this.applicationService.findAll();
+  async findAll(@Query('filter') filter?: string) {
+    const applications = await this.applicationService.findAll(filter);
 
     return applications
       .map((application) => ({
         ...application,
         user: new SerializedUser(application?.user),
       }))
-      .map((application) => new SerializedApplication(application))
+      .map((application) => new SerializedApplication(application));
   }
 
   @UseGuards(AuthGuard)
   @Get(':id')
   @HttpCode(200)
-  async findOneById(@Req() req, @Param('id', ParseIntPipe) id: number) {
-    const application = await this.applicationService.findOneById(id);
+  async findOneById(
+    @Req() req,
+    @Param('id', ParseIntPipe) id: number,
+    @Query('filter') filter?: string,
+  ) {
+    const application = await this.applicationService.findOneById(id, filter);
     if (!application) {
       throw new NotFoundException();
     }
 
-    if (req.user.role == Role.USER && application.id !== req.user.applicationId) {
-      throw new ForbiddenException()
+    if (
+      req.user.role == Role.USER &&
+      application.id !== req.user.applicationId
+    ) {
+      throw new ForbiddenException();
     }
 
     return new SerializedApplication(application);
