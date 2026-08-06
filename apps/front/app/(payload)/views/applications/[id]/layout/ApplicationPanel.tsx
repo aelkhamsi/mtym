@@ -5,6 +5,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  Separator,
 } from "@mdm/ui"
 import {
   Tabs,
@@ -25,43 +26,47 @@ const ApplicationPanel = ({
   
   return (
     <Card>
-      <CardHeader className="pb-0">
-        <Tabs value={tab} onValueChange={setTab}>
-          <TabsList className="w-full justify-start">
-            <TabsTrigger value="personal"> Personal </TabsTrigger>
-            <TabsTrigger value="education"> Education </TabsTrigger>
-            <TabsTrigger value="motivation"> Motivation </TabsTrigger>
-            <TabsTrigger value="documents"> Documents </TabsTrigger>
-          </TabsList>
+      <CardHeader className="space-y-4">
+          <CardTitle>Application Panel</CardTitle>
 
-          <TabsContent value="personal">
-            <ApplicationTab
-              title="Personal Information"
-              fields={applicationSections.personal}
-            />
-          </TabsContent>
+          <Tabs value={tab} onValueChange={setTab}>
+            <TabsList className="w-full justify-start">
+              <TabsTrigger value="personal"> Personal </TabsTrigger>
+              <TabsTrigger value="education"> Education </TabsTrigger>
+              <TabsTrigger value="motivation"> Motivation </TabsTrigger>
+              <TabsTrigger value="documents"> Documents </TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="education">
-            <ApplicationTab
-              title="Education"
-              fields={applicationSections.education}
-            />
-          </TabsContent>
+            <Separator  className="my-6"/>
 
-          <TabsContent value="motivation">
-            <ApplicationTab
-              title="Motivation"
-              fields={applicationSections.motivation}
-            />
-          </TabsContent>
+            <TabsContent value="personal">
+              <ApplicationTab
+                title="Personal Information"
+                fields={applicationSections.personal}
+              />
+            </TabsContent>
 
-          <TabsContent value="documents">
-            <ApplicationTab
-              title="Documents"
-              fields={applicationSections.documents}
-            />
-          </TabsContent>
-        </Tabs>
+            <TabsContent value="education">
+              <ApplicationTab
+                title="Education"
+                fields={applicationSections.education}
+              />
+            </TabsContent>
+
+            <TabsContent value="motivation">
+              <ApplicationTab
+                title="Motivation"
+                fields={applicationSections.motivation}
+              />
+            </TabsContent>
+
+            <TabsContent value="documents">
+              <ApplicationTab
+                title="Documents"
+                fields={applicationSections.documents}
+              />
+            </TabsContent>
+          </Tabs>        
       </CardHeader>
     </Card>
   )
@@ -75,7 +80,7 @@ const ApplicationTab = ({
   fields: Field[]
 }) => {
   return (
-    <Card className="mt-6 border-0 shadow-none">
+    <Card className="border-0 shadow-none">
       <CardHeader className="px-0">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
