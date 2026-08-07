@@ -3,7 +3,6 @@
 import { applicationAtom } from "@/app/store/applicationAtom"
 import { participantDetailsAtom } from "@/app/store/participantDetailsAtom"
 import { teamAtom } from "@/app/store/teamAtom"
-import { Team } from "@mdm/types"
 import { useHydrateAtoms } from "jotai/utils"
 import { ReactNode } from "react"
 
@@ -14,7 +13,7 @@ const ProfileHydrator = ({
   children
 }:{
   application: any,
-  team: Team,
+  team: any,
   participantDetails: any,
   children: ReactNode
 }) => {

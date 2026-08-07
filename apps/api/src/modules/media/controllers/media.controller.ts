@@ -11,17 +11,14 @@ import {
 } from '@nestjs/common';
 import { MediaService } from 'src/modules/media/services/media.service';
 import { GetSignedURLDto } from '../dto/get-signed-url.dto';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/guards/roles.guard';
-import { Roles } from 'src/decorators/roles.decorator';
-import { Role } from 'src/guards/role.enum';
+import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
 
 @Controller('mtym-api/media')
 export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(AuthGuard)
   @Get('preview-url')
   @HttpCode(200)
   async getPreviewUrl(@Query('filename') filename: string) {
@@ -30,8 +27,7 @@ export class MediaController {
     };
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(AuthGuard)
   @Post('signed-url')
   @HttpCode(200)
   async getSignedURL(@Req() request: Request, @Body() body: GetSignedURLDto) {

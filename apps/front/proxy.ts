@@ -2,19 +2,10 @@ import { NextRequest, NextResponse } from "next/server"
 
 const PROTECTED_ROUTES = ['/profile', '/application', '/team']
 
-/**
- * Unexpired *and* actually a candidate token. The admin dashboard's session is
- * scoped to the same parent domain, so expiry alone proves nothing about who
- * this is.
- */
 const validateToken = (token: string): boolean => {
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    const now = Math.floor(Date.now() / 1000);
-    return payload.exp > now && payload.role === 'user';
-  } catch {
-    return false;
-  }
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const now = Math.floor(Date.now() / 1000);
+  return payload.exp > now;
 }
 
 const extractCookies = (res: Response): Record<string, string> => {
@@ -72,11 +63,6 @@ export async function proxy(req: NextRequest) {
     }
     
     const cookies = extractCookies(refreshRes)
-    if (!cookies.access_token) {
-      if (isProtected) return redirectToHome()
-      return NextResponse.next()
-    }
-
     const response = NextResponse.next()
     response.cookies.set('access_token', cookies.access_token, {
       httpOnly: true,

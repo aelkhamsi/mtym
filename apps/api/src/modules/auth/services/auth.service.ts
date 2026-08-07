@@ -12,7 +12,6 @@ import { MailService } from 'src/modules/mail/mail.service';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from 'src/modules/user/entities/user.entity';
 import { AdminUser } from 'src/modules/admin-user/entities/admin-user.entity';
-import { Role } from 'src/guards/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -50,7 +49,6 @@ export class AuthService {
       verified: user.verified,
       applicationId: user?.application?.id,
       teamId: user?.team?.id,
-      role: Role.USER,
     };
 
     const accessToken = await this.jwtService.sign(payload, {
@@ -67,7 +65,6 @@ export class AuthService {
     const payload = {
       sub: adminUser.id,
       username: adminUser.username,
-      role: Role.ADMIN,
     };
 
     const accessToken = await this.jwtService.sign(payload, {
@@ -83,9 +80,8 @@ export class AuthService {
   async refreshToken(refreshToken: string) {
     try {
       const payload = await this.jwtService.verify(refreshToken);
-      if (payload?.role !== Role.USER) throw new Error()
       const user = await this.userService.findOneById(payload?.sub);
-      if (!user) throw new Error()
+      if (!user) throw new Error() 
       return this.login(user);
     } catch {
       throw new UnauthorizedException();;
@@ -95,9 +91,8 @@ export class AuthService {
   async refreshTokenAdmin(refreshToken: string) {
     try {
       const payload = await this.jwtService.verify(refreshToken);
-      if (payload?.role !== Role.ADMIN) throw new Error()
       const adminUser = await this.adminUserService.findOneById(payload?.sub);
-      if (!adminUser) throw new Error()
+      if (!adminUser) throw new Error() 
       return this.loginAdmin(adminUser);
     } catch {
       throw new UnauthorizedException();;

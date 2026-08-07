@@ -1,8 +1,8 @@
 import ApiMethods from "./ApiMethods";
 
-export const getAllTeams = () => {
+export const getAllTeams = (cookie?: string) => {
   const url = '/teams';
-  return ApiMethods.get(url);
+  return ApiMethods.get(url, {cookie});
 }
 
 export const getTeamById = (teamId: number, cookie?: string) => {

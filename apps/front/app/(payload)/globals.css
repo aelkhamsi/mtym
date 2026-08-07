@@ -1,0 +1,9 @@
+
+:root {
+  --nav-width: 180px;
+  
+  .gutter--left,
+  .gutter--right {
+    --gutter-h: 24px; /* default is usually larger, e.g. base(3)+ */
+  }
+}

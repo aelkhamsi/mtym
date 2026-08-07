@@ -12,9 +12,9 @@ export const updateApplicationStatus = (applicationId: number, partialApplicatio
   return ApiMethods.put(url, {body});
 }
 
-export const getAllApplications = () => {
+export const getAllApplications = (cookie?: string) => {
   const url = '/applications';
-  return ApiMethods.get(url);
+  return ApiMethods.get(url, {cookie});
 }
 
 export const getApplicationById = (id: number, cookie?: string) => {
@@ -31,6 +31,18 @@ export const putApplication = (id: number, partialApplication: any) => {
   const url = `/applications/${id}`;
   const body = {...partialApplication};
   return ApiMethods.put(url, {body});
+}
+
+export const putApplicationStatus = (id: number, partialApplicationStatus: any) => {
+  const url = `/applications/status/${id}`;
+  const body = {...partialApplicationStatus};
+  return ApiMethods.put(url, {body});
+}
+
+export const putApplicationReview = (applicationId: number, partialApplicationReview: any) => {
+  return ApiMethods.put(`/applications/review/${applicationId}`, {
+    body: partialApplicationReview,
+  });
 }
 
 export const deleteApplication = (id: number) => {

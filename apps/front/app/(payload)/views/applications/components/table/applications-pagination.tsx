@@ -1,0 +1,138 @@
+"use client"
+
+import { useEffect, useRef } from "react"
+import { useRouter, useSearchParams, usePathname } from "next/navigation"
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DoubleArrowLeftIcon,
+  DoubleArrowRightIcon,
+} from "@radix-ui/react-icons"
+import { Table } from "@tanstack/react-table"
+
+import { Button } from "@mdm/ui"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@mdm/ui"
+import { Route } from "next"
+
+interface DataTablePaginationProps<TData> {
+  table: Table<TData>
+}
+
+export function ApplicationsPagination<TData>({
+  table,
+}: DataTablePaginationProps<TData>) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const hasHydrated = useRef(false)
+  const { pageIndex, pageSize } = table.getState().pagination
+  const pageSizes = [
+    {label: '10', value: 10},
+    {label: '20', value: 20},
+    {label: '50', value: 50},
+    {label: 'all', value: 9999},
+  ];
+
+  useEffect(() => {
+    if (hasHydrated.current) return
+    hasHydrated.current = true
+
+    const pageParam = searchParams.get("page")
+    const sizeParam = searchParams.get("pageSize")
+
+    if (sizeParam && !isNaN(Number(sizeParam))) {
+      table.setPageSize(Number(sizeParam))
+    }
+    if (pageParam && !isNaN(Number(pageParam))) {
+      table.setPageIndex(Math.max(0, Number(pageParam) - 1))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!hasHydrated.current) return
+
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("page", `${pageIndex + 1}`)
+    params.set("pageSize", `${pageSize}`)
+
+    router.replace(`${pathname}?${params.toString()}` as Route, { scroll: false })
+  }, [pageIndex, pageSize])
+
+  return (
+    <div className="flex items-center justify-between px-2 py-4">
+      <div className="flex-1 text-sm text-muted-foreground">
+        {/* {table.getFilteredSelectedRowModel().rows.length} of{" "}
+        {table.getFilteredRowModel().rows.length} row(s) selected. */}
+      </div>
+      <div className="flex items-center space-x-6 lg:space-x-8">
+        <div className="flex items-center space-x-2">
+          <p className="text-sm font-medium">Rows per page</p>
+          <Select
+            value={`${pageSize}`}
+            onValueChange={(value: any) => {
+              table.setPageSize(Number(value))
+            }}
+          >
+            <SelectTrigger className="h-8 w-[70px]">
+              <SelectValue placeholder={pageSize} />
+            </SelectTrigger>
+            <SelectContent side="top">
+              {pageSizes.map((size) => (
+                <SelectItem key={size.value} value={`${size.value}`}>
+                  {size.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+          Page {pageIndex + 1} of {table.getPageCount()}
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            className="hidden h-8 w-8 p-0 lg:flex"
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <span className="sr-only">Go to first page</span>
+            <DoubleArrowLeftIcon className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <span className="sr-only">Go to previous page</span>
+            <ChevronLeftIcon className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <span className="sr-only">Go to next page</span>
+            <ChevronRightIcon className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            className="hidden h-8 w-8 p-0 lg:flex"
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          >
+            <span className="sr-only">Go to last page</span>
+            <DoubleArrowRightIcon className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+}

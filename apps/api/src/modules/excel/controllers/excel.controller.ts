@@ -3,26 +3,25 @@ import {
   Controller,
   Get,
   Header,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { ExcelService } from '../services/excel.service';
-import { RolesGuard } from 'src/guards/roles.guard';
-import { Roles } from 'src/decorators/roles.decorator';
-import { Response } from 'express';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
-import { Role } from 'src/guards/role.enum';
+import { Request, Response } from 'express';
+import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
 
 @Controller('mtym-api/excel')
 export class ExcelController {
   constructor(private readonly excelService: ExcelService) {}
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Get('applications')
   @Header('Content-Type', 'text/xlsx')
-  async downloadApplications(@Res() res: Response) {
-    const file = await this.excelService.downloadApplications();
+  async downloadApplications(@Req() req: Request, @Res() res: Response) {
+    const file = await this.excelService.downloadApplications(
+      req.headers.cookie ?? '',
+    );
     if (!file) {
       return new BadRequestException();
     }
@@ -30,8 +29,7 @@ export class ExcelController {
     res.download(`${file}`);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Get('participant-details')
   @Header('Content-Type', 'text/xlsx')
   async downloadParticipantDetails(@Res() res: Response) {

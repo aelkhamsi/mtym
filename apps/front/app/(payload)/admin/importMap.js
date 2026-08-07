@@ -25,8 +25,13 @@ import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { Icon as Icon_92400324868dee237849e7c07305ad66 } from '@/app/components/Logo'
 import { Logo as Logo_92400324868dee237849e7c07305ad66 } from '@/app/components/Logo'
+import { default as default_b3e65077b8c1f10fc959290930f4c678 } from '@/app/(payload)/components/CustomNavLinks'
+import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
+import { default as default_81e74e59b1b29f5d5e516ae054af02b2 } from '@/app/(payload)/views/applications/[id]/index.tsx'
+import { default as default_202df67c00cfe4a9fe563f83c3fa59ad } from '@/app/(payload)/views/applications/index.tsx'
+import { default as default_9dd7fea7b23d3d048cdd07226f2c805b } from '@/app/(payload)/views/teams/index.tsx'
+import { default as default_2b4b69ebe6d64b3d24e67e7403085d1e } from '@/app/(payload)/views/users/index.tsx'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
-import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa3a949e5413b6cd4ee9e6e9b5dc9 } from '@payloadcms/storage-s3/client'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
@@ -57,6 +62,11 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/app/components/Logo#Icon": Icon_92400324868dee237849e7c07305ad66,
   "@/app/components/Logo#Logo": Logo_92400324868dee237849e7c07305ad66,
-  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
-  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa3a949e5413b6cd4ee9e6e9b5dc9
+  "@/app/(payload)/components/CustomNavLinks#default": default_b3e65077b8c1f10fc959290930f4c678,
+  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
+  "@/app/(payload)/views/applications/[id]/index.tsx#default": default_81e74e59b1b29f5d5e516ae054af02b2,
+  "@/app/(payload)/views/applications/index.tsx#default": default_202df67c00cfe4a9fe563f83c3fa59ad,
+  "@/app/(payload)/views/teams/index.tsx#default": default_9dd7fea7b23d3d048cdd07226f2c805b,
+  "@/app/(payload)/views/users/index.tsx#default": default_2b4b69ebe6d64b3d24e67e7403085d1e,
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }
