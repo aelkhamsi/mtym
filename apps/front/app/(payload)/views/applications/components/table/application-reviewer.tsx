@@ -64,7 +64,7 @@ export function ApplicationReviewer({
       disabled={saving}
     >
       <SelectTrigger
-        className="w-[220px]"
+        className="w-[14rem]"
         style={{
           backgroundColor: "var(--theme-input-bg)",
           color: "var(--theme-text)",

@@ -121,7 +121,7 @@ const ApplicationStatus = ({
   return (
     <div>
       <Select value={status} onValueChange={handleStatusChange}>
-        <SelectTrigger className="w-[12rem]">
+        <SelectTrigger className="w-[11rem]">
           <SelectValue placeholder="Select a status" />
         </SelectTrigger>
         <SelectContent

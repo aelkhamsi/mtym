@@ -1,4 +1,3 @@
-import * as React from "react"
 import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons"
 import { Column } from "@tanstack/react-table"
 import { cn } from "@mdm/utils"
@@ -20,6 +19,7 @@ import {
 } from "@mdm/ui"
 import { Separator } from "@mdm/ui"
 import { Status, getStatusClassname } from "./application-status"
+import { useEffect, useRef } from "react"
 
 interface ApplicationsFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>
@@ -40,6 +40,36 @@ export function ApplicationsFacetedFilter<TData, TValue>({
 }: ApplicationsFacetedFilterProps<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
+  const storageKey = `applications-table-filter:${column?.id}`
+  const hasHydrated = useRef(false)
+  const filterValue = column?.getFilterValue()
+
+  useEffect(() => {
+    if (hasHydrated.current || !column) return
+    hasHydrated.current = true
+
+    try {
+      const saved = localStorage.getItem(storageKey)
+      if (!saved) return
+
+      const values: string[] = JSON.parse(saved)
+      if (Array.isArray(values) && values.length) {
+        column.setFilterValue(values)
+      }
+    } catch {}
+  }, [column])
+
+  useEffect(() => {
+    if (!hasHydrated.current) return
+
+    try {
+      if (filterValue && (filterValue as string[]).length) {
+        localStorage.setItem(storageKey, JSON.stringify(filterValue))
+      } else {
+        localStorage.removeItem(storageKey)
+      }
+    } catch {}
+  }, [filterValue, storageKey])
 
   return (
     <Popover>
