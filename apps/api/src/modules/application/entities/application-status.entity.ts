@@ -12,6 +12,7 @@ import {
 export type Status =
   | 'DRAFT'
   | 'PENDING'
+  | 'NOT_VALID'
   | 'NOTIFIED'
   | 'UPDATED'
   | 'VALIDATED'
