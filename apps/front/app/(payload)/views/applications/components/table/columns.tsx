@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation'
 import { ArrowUpDown } from 'lucide-react'
 import ApplicationEducationLevel from './application-education-level'
 import { ApplicationReviewer } from './application-reviewer'
-import Link from 'next/link'
 
 export type AdminOption = { id: string; label: string }
 
