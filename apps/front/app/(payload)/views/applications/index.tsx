@@ -9,12 +9,15 @@ export const ApplicationsView = async ({
 }: AdminViewServerProps) => {
   if (!initPageResult.req.user) return <p>You must be logged in to access this page.</p>
 
-  const admins = await initPageResult.req.payload.find({
+  const usersCollection = await initPageResult.req.payload.find({
     collection: 'users',
     pagination: false,
     sort: 'firstName',
   })
-
+  const admins = usersCollection.docs.map((admin) => ({
+    id: String(admin.id),
+    label: [admin.firstName, admin.lastName].filter(Boolean).join(' ') || 'Unnamed admin',
+  }))
   const steps: StepNavItem[] = [
     {
       url: '/admin/applications',
@@ -35,10 +38,7 @@ export const ApplicationsView = async ({
     <SetStepNav nav={steps} />
     <Gutter>
       <ApplicationsClient
-        admins={admins.docs.map((admin) => ({
-          id: String(admin.id),
-          label: [admin.firstName, admin.lastName].filter(Boolean).join(' ') || 'Unnamed admin',
-        }))}
+        admins={admins}
         currentAdminId={String(initPageResult.req.user.id)}
       />
     </Gutter>
