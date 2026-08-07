@@ -13,15 +13,16 @@ import { putApplicationStatus } from "@/app/api/ApplicationApi";
 export type Status =
   | 'DRAFT'
   | 'PENDING'
+  | 'INFO_NEEDED'
   | 'NOTIFIED'
   | 'UPDATED'
   | 'VALIDATED'
-  | 'ACCEPTED'
   | 'REJECTED'
-  | 'WAITLIST';
+  | 'NOT_VALID'
+  | 'NOT_SURE'
 
 export const getStatusClassname = (status: Status, size: 'sm' | 'md') => {
-  const baseClassname = `rounded-xl text-center ${size === 'md' ? 'px-4 py-1 w-[7rem]' : 'px-2'}`
+  const baseClassname = `rounded-xl text-center ${size === 'md' ? 'px-4 py-1 w-[8rem]' : 'px-2'}`
   let colorClassname;
 
   switch(status) {
@@ -31,23 +32,26 @@ export const getStatusClassname = (status: Status, size: 'sm' | 'md') => {
     case 'PENDING':
       colorClassname = 'bg-[#FFE380] text-black';
       break;
+    case 'INFO_NEEDED':
+      colorClassname = 'bg-[#EFFF99] text-black';
+      break;
     case 'NOTIFIED':
       colorClassname = 'bg-[#79E2F2] text-black';
       break;
     case 'UPDATED':
-      colorClassname = 'bg-[#B3D4FF] text-black';
+      colorClassname = 'bg-[#DBABFF] text-black';
       break;
     case 'VALIDATED':
-      colorClassname = 'bg-[#79F2C0] text-black';
-      break;
-    case 'ACCEPTED':
-      colorClassname = 'bg-[#006644] text-white';
+      colorClassname = 'bg-[#41D997] text-black';
       break;
     case 'REJECTED':
       colorClassname = 'bg-[#BF2600] text-white';
       break;
-    case 'WAITLIST':
-      colorClassname = 'bg-[#403294] text-white';
+    case 'NOT_VALID':
+      colorClassname = 'bg-[#D1401B] text-white';
+      break;
+    case 'NOT_SURE':
+      colorClassname = 'bg-[#EAED9A] text-black';
       break;
   }
 
@@ -57,12 +61,13 @@ export const getStatusClassname = (status: Status, size: 'sm' | 'md') => {
 export const statusOptions = [
   { value: "DRAFT", label: "DRAFT"},
   { value: "PENDING", label: "PENDING"},
+  { value: "INFO_NEEDED", label: "INFO NEEDED"},
   { value: "NOTIFIED", label: "NOTIFIED"},
   { value: "UPDATED", label: "UPDATED"},
   { value: "VALIDATED", label: "VALIDATED"},
-  { value: "ACCEPTED", label: "ACCEPTED"},
   { value: "REJECTED", label: "REJECTED"},
-  { value: "WAITLIST", label: "WAITLIST"}
+  { value: "NOT_VALID", label: "NOT VALID"},
+  { value: "NOT_SURE", label: "NOT SURE"}
 ]
 
 const StatusCard = ({
@@ -72,7 +77,7 @@ const StatusCard = ({
 }) => {
   return (
     <div className={getStatusClassname(value, 'md')}>
-      {value}
+      {value.split('_').join(' ')}
     </div>
   )
 }
@@ -128,12 +133,13 @@ const ApplicationStatus = ({
         >
           <SelectItem value="DRAFT"><StatusCard value='DRAFT' /></SelectItem>
           <SelectItem value="PENDING"><StatusCard value='PENDING' /></SelectItem>
+          <SelectItem value="INFO_NEEDED"><StatusCard value='INFO_NEEDED' /></SelectItem>
           <SelectItem value="NOTIFIED"><StatusCard value='NOTIFIED' /></SelectItem>
           <SelectItem value="UPDATED"><StatusCard value='UPDATED' /></SelectItem>
           <SelectItem value="VALIDATED"><StatusCard value='VALIDATED' /></SelectItem>
-          <SelectItem value="ACCEPTED"><StatusCard value='ACCEPTED' /></SelectItem>
           <SelectItem value="REJECTED"><StatusCard value='REJECTED' /></SelectItem>
-          <SelectItem value="WAITLIST"><StatusCard value='WAITLIST' /></SelectItem>
+          <SelectItem value="NOT_VALID"><StatusCard value='NOT_VALID' /></SelectItem>
+          <SelectItem value="NOT_SURE"><StatusCard value='NOT_SURE' /></SelectItem>
         </SelectContent>
       </Select>
     </div>
