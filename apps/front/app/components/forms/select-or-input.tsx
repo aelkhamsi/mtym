@@ -36,6 +36,7 @@ const SelectOrInput = ({
   reset?: boolean,
 }) => {
   const [showInput, setShowInput] = useState<boolean>(false)
+  const fieldValue = form.watch(name)
 
   const toggleShowInput = () => {
     setShowInput(!showInput)
@@ -61,12 +62,11 @@ const SelectOrInput = ({
   </div>
 
   useEffect(() => {
-    const fieldValue = form.getValues()?.[name]
     const isAnOption = options.find(option => option.value === fieldValue)
-    if (fieldValue && !isAnOption) {
+    if (fieldValue && !isAnOption) { 
       setShowInput(true)
     }
-  }, [])
+  }, [fieldValue])
 
   return (
     <>
@@ -74,7 +74,9 @@ const SelectOrInput = ({
         <FormField
           control={form.control}
           name={name}
-          render={({ field }) => (
+          render={({ field }) => {
+            console.log('field.value', field.value)
+            return (
             <FormItem>
               {labelComponent}
 
@@ -95,7 +97,8 @@ const SelectOrInput = ({
               </FormControl>
               <FormMessage />
             </FormItem>
-          )}
+          )
+        }}
         />
       }
       

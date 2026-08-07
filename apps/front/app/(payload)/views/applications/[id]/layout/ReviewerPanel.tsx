@@ -9,6 +9,11 @@ import {
   RadioGroup,
   RadioGroupItem,
   toast,
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
 } from "@mdm/ui"
 import {
   Form,
@@ -32,6 +37,8 @@ import { cityOptions } from "@mdm/shared"
 import { Loader2 } from "lucide-react"
 import { putApplicationReview } from "@/app/api/ApplicationApi"
 import { ApplicationReviewer } from "../../components/table/application-reviewer"
+import { useAtom } from "jotai"
+import { applicationsAtom } from "@/app/store/admin/applicationsAtom"
 
 const checklistOptions = [
   {label: 'Yes', value: 'YES'},
@@ -52,10 +59,10 @@ const ReviewerPanel = ({
   application: any,
   admins: AdminOption[],
 }) => {
+  const [applications, setApplications] = useAtom(applicationsAtom)
   const applicationId = application?.id
   const reviewData = application?.review
   const reviewerId = reviewData?.reviewerId
-  const reviewer = admins.find(admin => +admin.id === +reviewerId)
   const form = useForm<z.infer<typeof applicationReviewSchema>>({
     resolver: zodResolver(applicationReviewSchema),
     values: reviewData,
@@ -71,6 +78,18 @@ const ReviewerPanel = ({
     try {
       const response = await putApplicationReview(applicationId, data) as any
       if (response?.statusCode >= 400) throw new Error()
+
+      setApplications(applications.map((application: any) =>
+        application.id === applicationId
+          ? {
+              ...application,
+              review: {
+                ...application.review,
+                ...data
+              },
+            }
+          : application
+      ))
       toast({
         title: 'Application Review',
         description: 'Your application review was saved successfully',
@@ -114,14 +133,33 @@ const ReviewerPanel = ({
 
             <ReviewRadioGroup form={form} name="cityCheck" label="City" options={cityCheclistOptions} />
 
-            <SelectOrInput
-              form={form}
+            <FormField
+              control={form.control}
               name="updatedCity"
-              label="Updated City"
-              options={cityOptions}
-              required={false}
-              reset={true}
-            ></SelectOrInput>
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Updated City</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {cityOptions.map(option =>
+                          <SelectItem value={option.value}>{option.label}</SelectItem>
+                        )}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
 
             <ReviewTextArea
               form={form}
@@ -130,7 +168,7 @@ const ReviewerPanel = ({
             />
 
             <div className="flex">
-              <Button type="submit" className="flex-1">
+              <Button className="flex-1">
                 Submit Review
               </Button>
             </div>
@@ -199,7 +237,7 @@ const ReviewRadioGroup = ({
                 className="flex space-x-2"
               >
                 {options.map(option => 
-                  <FormItem className="flex items-center space-x-2 space-y-0">
+                  <FormItem key={option.value} className="flex items-center space-x-2 space-y-0">
                     <FormControl><RadioGroupItem value={option.value} /></FormControl>
                     <FormLabel className="font-normal">{option.label}</FormLabel>
                   </FormItem>

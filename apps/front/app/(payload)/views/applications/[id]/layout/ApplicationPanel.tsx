@@ -81,7 +81,7 @@ const ApplicationTab = ({
 }) => {
   return (
     <Card className="border-0 shadow-none">
-      <CardHeader className="px-0">
+      <CardHeader className="px-0 pt-0 pb-6">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
 
