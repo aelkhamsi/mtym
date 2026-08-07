@@ -1,3 +1,7 @@
+"use client"
+
+import { useEffect, useRef } from "react"
+import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -14,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@mdm/ui"
+import { Route } from "next"
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
@@ -22,12 +27,42 @@ interface DataTablePaginationProps<TData> {
 export function ApplicationsPagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const hasHydrated = useRef(false)
+  const { pageIndex, pageSize } = table.getState().pagination
   const pageSizes = [
     {label: '10', value: 10},
     {label: '20', value: 20},
     {label: '50', value: 50},
     {label: 'all', value: 9999},
   ];
+
+  useEffect(() => {
+    if (hasHydrated.current) return
+    hasHydrated.current = true
+
+    const pageParam = searchParams.get("page")
+    const sizeParam = searchParams.get("pageSize")
+
+    if (sizeParam && !isNaN(Number(sizeParam))) {
+      table.setPageSize(Number(sizeParam))
+    }
+    if (pageParam && !isNaN(Number(pageParam))) {
+      table.setPageIndex(Math.max(0, Number(pageParam) - 1))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!hasHydrated.current) return
+
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("page", `${pageIndex + 1}`)
+    params.set("pageSize", `${pageSize}`)
+
+    router.replace(`${pathname}?${params.toString()}` as Route, { scroll: false })
+  }, [pageIndex, pageSize])
 
   return (
     <div className="flex items-center justify-between px-2 py-4">
@@ -39,26 +74,25 @@ export function ApplicationsPagination<TData>({
         <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Rows per page</p>
           <Select
-            value={`${table.getState().pagination.pageSize}`}
-            onValueChange={(value) => {
+            value={`${pageSize}`}
+            onValueChange={(value: any) => {
               table.setPageSize(Number(value))
             }}
           >
             <SelectTrigger className="h-8 w-[70px]">
-              <SelectValue placeholder={table.getState().pagination.pageSize} />
+              <SelectValue placeholder={pageSize} />
             </SelectTrigger>
             <SelectContent side="top">
-              {pageSizes.map((pageSize) => (
-                <SelectItem key={pageSize.value} value={`${pageSize.value}`}>
-                  {pageSize.label}
+              {pageSizes.map((size) => (
+                <SelectItem key={size.value} value={`${size.value}`}>
+                  {size.label}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
-          {table.getPageCount()}
+          Page {pageIndex + 1} of {table.getPageCount()}
         </div>
         <div className="flex items-center space-x-2">
           <Button
