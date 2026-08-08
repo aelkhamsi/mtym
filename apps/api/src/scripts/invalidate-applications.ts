@@ -15,15 +15,12 @@ async function main() {
         ON applicant.id = application."userId"
       WHERE status.id = application."statusId"
         AND (
-          status.status = 'DRAFT'
-          OR (
-            status.status = 'PENDING'
-            AND (
-              SELECT COUNT(*)
-              FROM "users" member
-              WHERE member."teamId" = applicant."teamId"
-            ) < 3
-          )
+          status.status = 'PENDING'
+          AND (
+            SELECT COUNT(*)
+            FROM "users" member
+            WHERE member."teamId" = applicant."teamId"
+          ) < 3
         )
       RETURNING application.id
     `);

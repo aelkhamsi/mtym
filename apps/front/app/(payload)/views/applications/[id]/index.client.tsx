@@ -33,7 +33,7 @@ export default function ApplicationDetailsClient({
         <ApplicationPanel application={application} />
 
         <div className="sticky top-6 h-fit">
-          <ReviewerPanel application={application} admins={admins} />
+          {application && <ReviewerPanel application={application} admins={admins} />}
         </div>
       </div>
     </div>
