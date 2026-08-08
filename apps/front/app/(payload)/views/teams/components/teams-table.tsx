@@ -41,6 +41,7 @@ export function TeamsTable<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
+    autoResetPageIndex: false,
     state: {
       sorting,
       columnFilters,

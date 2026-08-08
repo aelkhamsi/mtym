@@ -52,6 +52,7 @@ export function ApplicationsTable<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
+    autoResetPageIndex: false,
     state: {
       sorting,
       columnFilters,

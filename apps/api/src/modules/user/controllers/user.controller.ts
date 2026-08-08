@@ -19,12 +19,13 @@ import { SerializedUser } from '../entities/serialized-user';
 import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
 import { Role } from 'src/modules/auth/strategies/role.enum';
 import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
+import { UserGuard } from 'src/modules/auth/guards/user.guard';
 
 @Controller('mtym-api/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(AuthGuard)
+  @UseGuards(UserGuard)
   @Get('me')
   @HttpCode(200)
   async findByToken(@Request() req) {

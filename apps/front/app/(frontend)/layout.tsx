@@ -22,7 +22,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const cookieStore = (await cookies()).toString();
+  console.log('cookieStore', cookieStore)
   const session = await getSessionCookie(cookieStore) as any
+  console.log('session', session)
   const user = session?.id ? await getUserById(session.id, cookieStore) as User : undefined
 
   return (
