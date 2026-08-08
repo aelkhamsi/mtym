@@ -14,7 +14,7 @@ const Header = ({
   application: any,
 }) => {
   const router = useRouter()
-  const status = application?.status.status
+  const status = application?.status?.status
 
   return (
     <>
