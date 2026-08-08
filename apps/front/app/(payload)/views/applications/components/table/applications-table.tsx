@@ -13,7 +13,6 @@ import {
 import { 
   ColumnDef,
   ColumnFiltersState,
-  SortingState,
   VisibilityState,
   flexRender,
   getCoreRowModel,
@@ -27,6 +26,8 @@ import {
 import { ApplicationsPagination } from './applications-pagination';
 import { ApplicationsToolbarProps } from './applications-toolbar';
 import type { AdminOption } from './columns';
+import { usePersistedSorting } from '@/app/(payload)/hooks/usePersistedSorting';
+
 const ApplicationsToolbar = dynamic<ApplicationsToolbarProps<any>>(
   () => import('./applications-toolbar').then(module =>   module.ApplicationsToolbar),
   { ssr: false },
@@ -45,7 +46,7 @@ export function ApplicationsTable<TData, TValue>({
   admins,
   currentAdminId,
 }: ApplicationsTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([])
+  const [sorting, setSorting] = usePersistedSorting('applications-table-sorting')
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const table = useReactTable({

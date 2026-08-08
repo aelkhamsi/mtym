@@ -163,7 +163,17 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<ApplicationRow>[] =
   },
   {
     accessorKey: "reviewerId",
-    header: "Reviewer",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Reviewer
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => (
       <ApplicationReviewer
         applicationId={Number(row.original.id)}
