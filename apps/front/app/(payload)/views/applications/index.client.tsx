@@ -3,9 +3,10 @@
 import { ApplicationsTable } from "./components/table/applications-table";
 import { getColumns, type AdminOption } from "./components/table/columns";
 import { ApplicationRow } from "./components/table/columns";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { applicationsAtom } from "@/app/store/admin/applicationsAtom";
 import { useAtomValue } from "jotai";
+import { ProfileSkeleton } from "@mdm/ui";
 
 export default function ApplicationsClient({
   admins,
@@ -17,6 +18,15 @@ export default function ApplicationsClient({
   const applications = useAtomValue(applicationsAtom);
   const [tableData, setTableData] = useState<ApplicationRow[]>([])
   const columns = useMemo(() => getColumns(admins), [admins])
+  const hasRefreshed = useRef(false)
+
+  useEffect(() => {
+    const isEmpty = !Array.isArray(applications) || applications?.length === 0
+    if (isEmpty && !hasRefreshed.current) {
+      hasRefreshed.current = true
+      window.location.reload()
+    }
+  }, [applications])
 
   useEffect(() => {
     if (applications) {
@@ -43,12 +53,15 @@ export default function ApplicationsClient({
         Applications
       </div>
 
-      <ApplicationsTable
-        columns={columns}
-        data={tableData}
-        admins={admins}
-        currentAdminId={currentAdminId}
-      />
+      {tableData?.length
+        ?  <ApplicationsTable
+            columns={columns}
+            data={tableData}
+            admins={admins}
+            currentAdminId={currentAdminId}
+          />
+        : <ProfileSkeleton />
+      }
     </div>
   );
 }
