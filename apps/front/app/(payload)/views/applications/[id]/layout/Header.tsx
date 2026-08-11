@@ -31,6 +31,7 @@ const Header = ({
 }) => {
   const router = useRouter()
   const status = application?.status?.status
+  console.log('application', application)
 
   return (
     <>
@@ -60,7 +61,7 @@ const Header = ({
 
         <div className="flex flex-col items-end gap-2">
           <div className="flex items-center gap-2">
-            <EmailDialog user={application?.user} />
+            <EmailDialog application={application} />
             <ApplicationStatus applicationId={application?.id} status={status} />
           </div>
 

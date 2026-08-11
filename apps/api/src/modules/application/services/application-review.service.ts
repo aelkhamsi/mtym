@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateApplicationReviewDto } from '../dto/update-application-review.dto';
+import { CreateApplicationReviewEmailDto } from '../dto/create-application-review-email.dto';
 import { ApplicationReview } from '../entities/application-review.entity';
 import { Application } from '../entities/application.entity';
 
@@ -9,7 +10,7 @@ import { Application } from '../entities/application.entity';
 export class ApplicationReviewService {
   constructor(
     @InjectRepository(ApplicationReview)
-    private readonly applicationReviewRepository: Repository<ApplicationReview>,
+    private readonly applicationReviewRepository: Repository<ApplicationReview>
   ) {}
 
   create(application: Application) {
@@ -34,6 +35,24 @@ export class ApplicationReviewService {
     }
 
     Object.assign(review, updateApplicationReviewDto);
+    return this.applicationReviewRepository.save(review);
+  }
+
+  async storeReviewEmail(
+    applicationId: number,
+    dto: CreateApplicationReviewEmailDto,
+  ) {
+    const review = await this.findOneByApplicationId(applicationId);
+    if (!review) {
+      throw new NotFoundException('Application review does not exist');
+    }
+
+    review.emails.push({
+      subject: dto.subject,
+      content: dto.content,
+      sentAt: new Date().toISOString(),
+    });
+
     return this.applicationReviewRepository.save(review);
   }
 }

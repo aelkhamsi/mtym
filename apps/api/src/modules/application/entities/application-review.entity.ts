@@ -54,6 +54,9 @@ export class ApplicationReview {
   @Column({ type: 'text', nullable: true })
   comment: string | null;
 
+  @Column({ type: 'jsonb', default: [] })
+  emails: { subject: string; content: string; sentAt: string }[];
+
   @CreateDateColumn()
   createdAt: Date;
 

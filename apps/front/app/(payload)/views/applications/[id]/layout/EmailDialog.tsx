@@ -14,13 +14,13 @@ import {
   Textarea,
   toast,
 } from "@mdm/ui"
-import { User } from "@mdm/types"
 import { sendCustomEmail } from "@/app/api/SmtpApi"
+import { postApplicationReviewEmail } from "@/app/api/ApplicationApi"
 
 const EmailDialog = ({
-  user,
+  application,
 }: {
-  user: User
+  application: any
 }) => {
   const [open, setOpen] = useState(false)
   const [subject, setSubject] = useState("")
@@ -42,7 +42,8 @@ const EmailDialog = ({
 
     setIsSending(true)
     try {
-      await sendCustomEmail(user?.email, subject, content)
+      await sendCustomEmail(application?.user?.email, subject, content)
+      await postApplicationReviewEmail(application?.id, {subject, content})
       setOpen(false)
       resetForm()
       toast({
