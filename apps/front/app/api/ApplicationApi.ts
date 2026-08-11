@@ -45,6 +45,12 @@ export const putApplicationReview = (applicationId: number, partialApplicationRe
   });
 }
 
+export const postApplicationReviewEmail = (applicationId: number, partialApplicationReviewEmail: any) => {
+  return ApiMethods.post(`/applications/review/${applicationId}/emails`, {
+    body: partialApplicationReviewEmail,
+  });
+}
+
 export const deleteApplication = (id: number) => {
   const url = `/applications/${id}`;
   return ApiMethods.delete(url);

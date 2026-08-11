@@ -3,17 +3,23 @@
 import { useRouter } from "next/navigation"
 import { ExpandingArrow} from "@mdm/ui"
 import { Badge } from "@mdm/ui"
-import { Button } from "@mdm/ui"
 import { getStatusClassname } from "../../components/table/application-status"
-import { formatDate } from "@mdm/utils"
+import { formatDate, timeAgo } from "@mdm/utils"
 import ApplicationStatus from "../../components/table/application-status"
+import EmailDialog from "./EmailDialog"
+import { AdminOption } from "../../components/table/columns"
+import { ApplicationReviewer } from "../../components/table/application-reviewer"
 
 const Header = ({
   application,
+  admins
 }:{
   application: any,
+  admins: AdminOption[]
 }) => {
   const router = useRouter()
+  const applicationId = application?.id
+  const reviewerId = application?.review?.reviewerId
   const status = application?.status?.status
 
   return (
@@ -42,8 +48,18 @@ const Header = ({
           </div>
         </div>
 
-        
-        <ApplicationStatus applicationId={application?.id} status={status} />
+        <div className="flex flex-col items-end gap-2">
+          <div className="flex items-center gap-4">
+            <EmailDialog application={application} />
+            <ApplicationReviewer applicationId={applicationId} reviewerId={reviewerId} admins={admins} />
+            <ApplicationStatus applicationId={application?.id} status={status} />
+          </div>
+
+          <div className="text-xs">
+            Last status update <span className="font-semibold">{timeAgo(application?.status?.updatedAt)}</span>
+          </div>
+        </div>
+
       </div>
     </>
   )

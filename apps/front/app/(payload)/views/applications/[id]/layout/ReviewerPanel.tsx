@@ -2,10 +2,8 @@
 
 import {
   Card,
-  CardContent,
   CardHeader,
   CardTitle,
-  CardDescription,
   RadioGroup,
   RadioGroupItem,
   toast,
@@ -23,10 +21,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@mdm/ui"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@mdm/ui"
 import { Separator } from "@mdm/ui"
 import { Textarea } from "@mdm/ui"
 import { Button } from "@mdm/ui"
-import { AdminOption } from "../../components/table/columns"
 import { useForm, UseFormReturn } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod"
@@ -35,9 +38,12 @@ import { RequiredAsterisk } from "@/app/components/forms/required-asterisk"
 import { cityOptions } from "@mdm/shared"
 import { Loader2 } from "lucide-react"
 import { putApplicationReview } from "@/app/api/ApplicationApi"
-import { ApplicationReviewer } from "../../components/table/application-reviewer"
 import { useAtom } from "jotai"
 import { applicationsAtom } from "@/app/store/admin/applicationsAtom"
+import { useState } from "react"
+import { EmailHistory } from "./EmailHistory"
+import { sleep } from "@mdm/utils"
+import EmailDialog from "./EmailDialog"
 
 const checklistOptions = [
   {label: 'Yes', value: 'YES'},
@@ -53,26 +59,58 @@ const cityCheclistOptions = [
 
 const ReviewerPanel = ({
   application,
-  admins,
 }:{
   application: any,
-  admins: AdminOption[],
+}) => {
+  const [tab, setTab] = useState("review")
+
+  return (
+    <Card className="relative">
+      <CardHeader className="space-y-4">
+        <CardTitle>
+          Reviewer Panel
+        </CardTitle>
+
+        <Tabs value={tab} onValueChange={setTab}>
+          <TabsList className="w-full justify-start">
+            <TabsTrigger value="review"> Review </TabsTrigger>
+            <TabsTrigger value="emails"> Emails </TabsTrigger>
+          </TabsList>
+
+          <Separator  className="my-6"/>
+
+          <TabsContent value="review">
+            <ReviewForm application={application}/>
+          </TabsContent>
+
+          <TabsContent value="emails" className="space-y-4">
+            <EmailHistory emails={application?.review?.emails} />
+            <EmailDialog application={application} />
+          </TabsContent>
+        </Tabs>
+      </CardHeader>
+    </Card>
+  )
+}
+
+const ReviewForm = ({
+  application
+}: {
+  application: any
 }) => {
   const [applications, setApplications] = useAtom(applicationsAtom)
   const applicationId = application?.id
-  const reviewData = application?.review
-  const reviewerId = reviewData?.reviewerId
+  const review = application?.review
   const form = useForm<z.infer<typeof applicationReviewSchema>>({
     resolver: zodResolver(applicationReviewSchema),
-    values: reviewData,
+    values: review,
     mode: "onChange",
   })
   const { isSubmitting } = form.formState
-  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
   
   const onSubmit = async (data: z.infer<typeof applicationReviewSchema>) => {
     if (!applicationId) return
-    await wait(800)
+    await sleep(800)
 
     try {
       const response = await putApplicationReview(applicationId, data) as any
@@ -101,81 +139,68 @@ const ReviewerPanel = ({
       })
     } 
   }
-
+  
   return (
-    <Card className="relative">
+    <>
       {isSubmitting && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/60 backdrop-blur-[1px]">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
       )}
 
-      <CardHeader className="space-y-4">
-        <CardTitle>Reviewer Panel</CardTitle>
+      <Form {...form}>
+        <form id="form-application-review" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-8">
+          
+          <ReviewRadioGroup form={form} name="identityCheck" label="Identity" options={checklistOptions}/>
 
-        <CardDescription className="flex items-center gap-x-2">
-          Assigned to <ApplicationReviewer applicationId={applicationId} reviewerId={reviewerId} admins={admins} />
-        </CardDescription>
-      </CardHeader>
+          <ReviewRadioGroup form={form} name="levelCheck" label="Education Level" options={checklistOptions} />
 
-      <Separator />
-      
-      <CardContent>
-        <Form {...form}>
-          <form id="form-application-review" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-8">
-            
-            <ReviewRadioGroup form={form} name="identityCheck" label="Identity" options={checklistOptions}/>
+          <ReviewRadioGroup form={form} name="pictureCheck" label="Picture" options={checklistOptions} />
 
-            <ReviewRadioGroup form={form} name="levelCheck" label="Education Level" options={checklistOptions} />
+          <ReviewRadioGroup form={form} name="cityCheck" label="City" options={cityCheclistOptions} />
 
-            <ReviewRadioGroup form={form} name="pictureCheck" label="Picture" options={checklistOptions} />
+          <FormField
+            control={form.control}
+            name="updatedCity"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Updated City</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {cityOptions.map(option =>
+                        <SelectItem value={option.value}>{option.label}</SelectItem>
+                      )}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
 
-            <ReviewRadioGroup form={form} name="cityCheck" label="City" options={cityCheclistOptions} />
+          <ReviewTextArea
+            form={form}
+            name="comment"
+            label="Comments"
+          />
 
-            <FormField
-              control={form.control}
-              name="updatedCity"
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel>Updated City</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      value={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {cityOptions.map(option =>
-                          <SelectItem value={option.value}>{option.label}</SelectItem>
-                        )}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
-
-            <ReviewTextArea
-              form={form}
-              name="comment"
-              label="Comments"
-            />
-
-            <div className="flex">
-              <Button className="flex-1">
-                Submit Review
-              </Button>
-            </div>
-          </form>
-        </Form>
-      </CardContent>
-      
-    </Card>
+          <div className="flex">
+            <Button className="flex-1">
+              Submit Review
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </>
   )
 }
 

@@ -5,12 +5,14 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
+  Post,
   Put,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
 import { UpdateApplicationReviewDto } from '../dto/update-application-review.dto';
 import { ApplicationReviewService } from '../services/application-review.service';
+import { CreateApplicationReviewEmailDto } from '../dto/create-application-review-email.dto';
 
 @UseGuards(AdminGuard)
 @Controller('mtym-api/applications/review')
@@ -40,5 +42,13 @@ export class ApplicationReviewController {
       applicationId,
       updateApplicationReviewDto,
     );
+  }
+
+  @Post(':applicationId/emails')
+  sendEmail(
+    @Param('applicationId', ParseIntPipe) applicationId: number,
+    @Body() dto: CreateApplicationReviewEmailDto,
+  ) {
+    return this.applicationReviewService.storeReviewEmail(applicationId, dto);
   }
 }
