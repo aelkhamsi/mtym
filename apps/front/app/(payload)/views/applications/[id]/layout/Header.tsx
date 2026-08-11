@@ -3,10 +3,10 @@
 import { useRouter } from "next/navigation"
 import { ExpandingArrow} from "@mdm/ui"
 import { Badge } from "@mdm/ui"
-import { Button } from "@mdm/ui"
 import { getStatusClassname } from "../../components/table/application-status"
 import { formatDate } from "@mdm/utils"
 import ApplicationStatus from "../../components/table/application-status"
+import EmailDialog from "./EmailDialog"
 
 const timeAgo = (updatedAt: string) => {
   const diffMs = Date.now() - new Date(updatedAt).getTime();
@@ -58,13 +58,17 @@ const Header = ({
           </div>
         </div>
 
-        <div className="">
-          <ApplicationStatus applicationId={application?.id} status={status} />
+        <div className="flex flex-col items-end gap-2">
+          <div className="flex items-center gap-2">
+            <EmailDialog user={application?.user} />
+            <ApplicationStatus applicationId={application?.id} status={status} />
+          </div>
+
           <div className="text-xs">
-            Last update <span className="font-semibold">{timeAgo(application?.status?.updatedAt)}</span>
+            Last status update <span className="font-semibold">{timeAgo(application?.status?.updatedAt)}</span>
           </div>
         </div>
-        
+
       </div>
     </>
   )

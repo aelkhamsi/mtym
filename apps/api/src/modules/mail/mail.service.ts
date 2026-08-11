@@ -38,4 +38,12 @@ export class MailService {
       },
     });
   }
+
+  async sendCustomEmail(email: string, subject: string, content: string) {
+    await this.mailer.sendMail({
+      to: email,
+      subject: subject,
+      html: content.replace(/\n/g, '<br>'),
+    });
+  }
 }
