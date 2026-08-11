@@ -47,6 +47,7 @@ const ApplicationSection = () => {
   const team = useAtomValue(teamAtom)
   const [content, setContent] = useState<any>(undefined);
   const router = useRouter();
+  const isFormClosed = CLOSE_APPLICATIONS && application?.status?.status !== 'NOTIFIED'
   
   useEffect(() => {
     const applicationStatus = application?.status?.status;
@@ -55,7 +56,7 @@ const ApplicationSection = () => {
     if (!application) {
       setContent({
         title: "Vous n'avez pas soumis une candidature",
-        subtitle: CLOSE_APPLICATIONS
+        subtitle: isFormClosed
           ? "Merci pour l'intérêt que vous portez à MTYM! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "On attend ta candidature avec impatience.",
         ctaLabel: "Créer votre candidature",
@@ -63,7 +64,7 @@ const ApplicationSection = () => {
     } else if (applicationStatus === 'DRAFT') {
       setContent({
         title: "Vous avez sauvegardé un brouillon de candidature. Elle n'est pas encore soumise!",
-        subtitle: CLOSE_APPLICATIONS
+        subtitle: isFormClosed
           ? "Merci pour l'intérêt que vous portez à MTYM! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "Terminez votre candidature pour qu’elle soit valide",
         ctaLabel: "Continuer votre candidature",
@@ -71,7 +72,7 @@ const ApplicationSection = () => {
     } else {
       setContent({
         title: "Vous avez soumis une candidature",
-        subtitle: CLOSE_APPLICATIONS && (!team || teamMembers <= 3 || teamMembers >= 5)
+        subtitle: isFormClosed && (!team || teamMembers <= 3 || teamMembers >= 5)
           ? "Merci pour l'intérêt que vous portez à MTYM! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "Vous trouverez l'avancement de votre candidature ci-dessous. On vous notifiera des prochaines étapes par mail.",
         ctaLabel: "Mettre à jour votre candidature",
@@ -100,7 +101,7 @@ const ApplicationSection = () => {
         }
       </CardContent>
       
-      {(!CLOSE_APPLICATIONS) &&
+      {(!isFormClosed) &&
         <CardFooter>
           <Button
             onClick={() => router.push('/application')}

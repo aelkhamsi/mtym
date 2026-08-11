@@ -105,14 +105,6 @@ export class ApplicationController {
         application?.id,
         createApplicationDto,
       );
-
-      const applicationStatus = application?.status;
-      if (applicationStatus && applicationStatus.status === 'NOTIFIED') {
-        this.applicationStatusService.update(applicationStatus?.id, {
-          ...applicationStatus,
-          status: 'UPDATED',
-        });
-      }
     } else {
       // create
       application = await this.applicationService.create(
@@ -147,14 +139,6 @@ export class ApplicationController {
       id,
       updateApplicationDto,
     );
-
-    const applicationStatus = application?.status;
-    if (applicationStatus && applicationStatus.status === 'NOTIFIED') {
-      this.applicationStatusService.update(applicationStatus?.id, {
-        ...applicationStatus,
-        status: 'UPDATED',
-      });
-    }
 
     return {
       id: id,
