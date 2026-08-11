@@ -16,12 +16,15 @@ import {
 } from "@mdm/ui"
 import { sendCustomEmail } from "@/app/api/SmtpApi"
 import { postApplicationReviewEmail } from "@/app/api/ApplicationApi"
+import { useAtom } from "jotai"
+import { applicationsAtom } from "@/app/store/admin/applicationsAtom"
 
 const EmailDialog = ({
   application,
 }: {
   application: any
 }) => {
+  const [applications, setApplications] = useAtom(applicationsAtom)
   const [open, setOpen] = useState(false)
   const [subject, setSubject] = useState("")
   const [content, setContent] = useState("")
@@ -44,6 +47,23 @@ const EmailDialog = ({
     try {
       await sendCustomEmail(application?.user?.email, subject, content)
       await postApplicationReviewEmail(application?.id, {subject, content})
+
+      setApplications(applications.map((application: any) =>
+        application.id === application?.id
+          ? {
+              ...application,
+              review: {
+                ...application.review,
+                emails: [...application.review.emails, {
+                  subject,
+                  content,
+                  sentAt: new Date().toISOString()
+                }],
+              },
+            }
+          : application
+      ))
+
       setOpen(false)
       resetForm()
       toast({
@@ -65,7 +85,7 @@ const EmailDialog = ({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="default">Send email</Button>
+        <Button variant="outline">Send email</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-lg">

@@ -4,34 +4,23 @@ import { useRouter } from "next/navigation"
 import { ExpandingArrow} from "@mdm/ui"
 import { Badge } from "@mdm/ui"
 import { getStatusClassname } from "../../components/table/application-status"
-import { formatDate } from "@mdm/utils"
+import { formatDate, timeAgo } from "@mdm/utils"
 import ApplicationStatus from "../../components/table/application-status"
 import EmailDialog from "./EmailDialog"
-
-const timeAgo = (updatedAt: string) => {
-  const diffMs = Date.now() - new Date(updatedAt).getTime();
-  const diffSec = Math.floor(diffMs / 1000);
-
-  if (diffSec < 60) return 'just now';
-
-  const diffMin = Math.floor(diffSec / 60);
-  if (diffMin < 60) return `${diffMin}min ago`;
-
-  const diffHour = Math.floor(diffMin / 60);
-  if (diffHour < 24) return `${diffHour}h ago`;
-
-  const diffDay = Math.floor(diffHour / 24);
-  return `${diffDay} day${diffDay > 1 ? 's' : ''} ago`;
-}
+import { AdminOption } from "../../components/table/columns"
+import { ApplicationReviewer } from "../../components/table/application-reviewer"
 
 const Header = ({
   application,
+  admins
 }:{
   application: any,
+  admins: AdminOption[]
 }) => {
   const router = useRouter()
+  const applicationId = application?.id
+  const reviewerId = application?.review?.reviewerId
   const status = application?.status?.status
-  console.log('application', application)
 
   return (
     <>
@@ -60,8 +49,9 @@ const Header = ({
         </div>
 
         <div className="flex flex-col items-end gap-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             <EmailDialog application={application} />
+            <ApplicationReviewer applicationId={applicationId} reviewerId={reviewerId} admins={admins} />
             <ApplicationStatus applicationId={application?.id} status={status} />
           </div>
 

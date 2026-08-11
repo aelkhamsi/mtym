@@ -80,12 +80,12 @@ export function ApplicationReviewer({
         }}
       >
         <SelectItem value={UNASSIGNED}>Unassigned</SelectItem>
-        {reviewerId && !admins.some((admin) => admin.id === reviewerId) && (
+        {reviewerId && !admins?.some((admin) => admin.id === reviewerId) && (
           <SelectItem value={reviewerId} disabled>
             Unknown admin
           </SelectItem>
         )}
-        {admins.map((admin) => (
+        {admins?.map((admin) => (
           <SelectItem key={admin.id} value={admin.id}>
             {admin.label}
           </SelectItem>

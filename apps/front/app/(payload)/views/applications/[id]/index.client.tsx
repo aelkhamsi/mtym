@@ -32,13 +32,13 @@ export default function ApplicationDetailsClient({
 
   return (
     <div className="w-full">
-      <Header application={application} />
+      <Header application={application} admins={admins}/>
 
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
         <ApplicationPanel application={application} />
 
         <div className="sticky top-6 h-fit">
-          <ReviewerPanel application={application} admins={admins} />
+          <ReviewerPanel application={application} />
         </div>
       </div>
     </div>
