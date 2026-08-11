@@ -48,6 +48,10 @@ const ApplicationSection = () => {
   const [content, setContent] = useState<any>(undefined);
   const router = useRouter();
   const isFormClosed = CLOSE_APPLICATIONS && application?.status?.status !== 'NOTIFIED'
+  const VISIBLE_STATUSES = ['DRAFT', 'PENDING', 'NOTIFIED'];
+  const displayedStatus = VISIBLE_STATUSES.includes(application?.status?.status) 
+    ? application?.status?.status
+    : 'PENDING';
   
   useEffect(() => {
     const applicationStatus = application?.status?.status;
@@ -96,7 +100,7 @@ const ApplicationSection = () => {
           <>
             <div className="text-sm"><span className="font-bold">Date de soumission</span>: {formatDate(application?.createdAt)}</div>
             <div className="text-sm"><span className="font-bold">Date de sauvegarde</span>: {formatDate(application?.updatedAt)}</div>
-            <div className="text-sm"><span className="font-bold">Status</span>: <Badge className={`px-4 ${getBadgeClassname(application?.status?.status)}`}>{application?.status?.status.split('_').join(' ')}</Badge></div>
+            <div className="text-sm"><span className="font-bold">Status</span>: <Badge className={`px-4 ${getBadgeClassname(displayedStatus)}`}>{displayedStatus.split('_').join(' ')}</Badge></div>
           </>
         }
       </CardContent>
