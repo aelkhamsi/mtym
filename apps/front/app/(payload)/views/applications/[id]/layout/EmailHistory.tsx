@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Mail } from "lucide-react";
 import { formatDate, timeAgo } from "@mdm/utils";
 
@@ -12,7 +13,17 @@ interface EmailHistoryProps {
 }
 
 export function EmailHistory({ emails }: EmailHistoryProps) {
-  if (!emails || emails.length === 0) {
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  const sorted = [...(emails ?? [])].sort(
+    (a, b) => new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime(),
+  );
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ block: "end" });
+  }, [sorted.length]);
+
+  if (sorted.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
         <Mail className="mb-2 h-8 w-8" />
@@ -21,12 +32,8 @@ export function EmailHistory({ emails }: EmailHistoryProps) {
     );
   }
 
-  const sorted = [...emails].sort(
-    (a, b) => new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime(),
-  );
-
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex max-h-[525px] flex-col gap-4 overflow-y-auto pr-2">
       {sorted.map((email, index) => (
         <div key={index} className="flex justify-start">
           <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-primary px-4 py-3 text-primary-foreground shadow-sm">
@@ -42,6 +49,8 @@ export function EmailHistory({ emails }: EmailHistoryProps) {
           </div>
         </div>
       ))}
+
+      <div ref={bottomRef} />
     </div>
   );
 }
