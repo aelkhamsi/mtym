@@ -54,9 +54,9 @@ export class ApplicationStatus {
   parentalAuthorizationStatus: FileStatus;
 
   /* createAt & updatedAt */
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 }

@@ -57,9 +57,9 @@ export class ApplicationReview {
   @Column({ type: 'jsonb', default: [] })
   emails: { subject: string; content: string; sentAt: string }[];
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 }

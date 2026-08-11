@@ -121,9 +121,9 @@ export class Application {
   fileGradesUrl: string;
 
   /* createAt & updatedAt */
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 }
