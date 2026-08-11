@@ -8,6 +8,22 @@ import { getStatusClassname } from "../../components/table/application-status"
 import { formatDate } from "@mdm/utils"
 import ApplicationStatus from "../../components/table/application-status"
 
+const timeAgo = (updatedAt: string) => {
+  const diffMs = Date.now() - new Date(updatedAt).getTime();
+  const diffSec = Math.floor(diffMs / 1000);
+
+  if (diffSec < 60) return 'just now';
+
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return `${diffMin}min ago`;
+
+  const diffHour = Math.floor(diffMin / 60);
+  if (diffHour < 24) return `${diffHour}h ago`;
+
+  const diffDay = Math.floor(diffHour / 24);
+  return `${diffDay} day${diffDay > 1 ? 's' : ''} ago`;
+}
+
 const Header = ({
   application,
 }:{
@@ -42,8 +58,13 @@ const Header = ({
           </div>
         </div>
 
+        <div className="">
+          <ApplicationStatus applicationId={application?.id} status={status} />
+          <div className="text-xs">
+            Last update <span className="font-semibold">{timeAgo(application?.status?.updatedAt)}</span>
+          </div>
+        </div>
         
-        <ApplicationStatus applicationId={application?.id} status={status} />
       </div>
     </>
   )
