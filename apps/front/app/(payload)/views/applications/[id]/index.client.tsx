@@ -7,6 +7,7 @@ import ApplicationPanel from "./layout/ApplicationPanel"
 import ReviewerPanel from "./layout/ReviewerPanel"
 import Header from "./layout/Header"
 import { AdminOption } from "../components/table/columns"
+import { ProfileSkeleton } from "@mdm/ui"
 
 export default function ApplicationDetailsClient({
   id,
@@ -25,6 +26,10 @@ export default function ApplicationDetailsClient({
     setApplication(searchResult)
   }, [id, applications])
 
+  if (!application) {
+    return <ProfileSkeleton />
+  }
+
   return (
     <div className="w-full">
       <Header application={application} />
@@ -33,7 +38,7 @@ export default function ApplicationDetailsClient({
         <ApplicationPanel application={application} />
 
         <div className="sticky top-6 h-fit">
-          {application && <ReviewerPanel application={application} admins={admins} />}
+          <ReviewerPanel application={application} admins={admins} />
         </div>
       </div>
     </div>
