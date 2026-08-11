@@ -21,6 +21,6 @@ export class EmailController {
   async findByUserId(@Body() sendEmailDto: SendEmailDto) {
     const { email, subject, content } = sendEmailDto
     await this.mailService.sendCustomEmail(email, subject, content)
-    return { success: true }
+    return { statusCode: 200 }
   }
 }

@@ -44,24 +44,39 @@ const EmailDialog = ({
     if (!subject || !content) return
 
     setIsSending(true)
-    try {
-      await sendCustomEmail(application?.user?.email, subject, content)
-      await postApplicationReviewEmail(application?.id, {subject, content})
 
-      setApplications(applications.map((application: any) =>
-        application.id === application?.id
+    try {
+      const emailResponse = await sendCustomEmail(application?.user?.email, subject, content) as any
+      if (emailResponse?.statusCode !== 200) {
+        throw new Error(emailResponse?.message ?? 'Failed to send email')
+      }
+    } catch (e) {
+      setIsSending(false)
+      toast({
+        title: 'Sending Email',
+        description: 'An error occurred while trying to send the email. Nothing was sent.',
+        variant: 'destructive'
+      })
+      return
+    }
+
+    try {
+      await postApplicationReviewEmail(application?.id, { subject, content })
+
+      setApplications(applications.map((app: any) =>
+        app.id === application?.id
           ? {
-              ...application,
+              ...app,
               review: {
-                ...application.review,
-                emails: [...application.review.emails, {
+                ...app.review,
+                emails: [...app.review.emails, {
                   subject,
                   content,
                   sentAt: new Date().toISOString()
                 }],
               },
             }
-          : application
+          : app
       ))
 
       setOpen(false)
@@ -71,10 +86,12 @@ const EmailDialog = ({
         description: 'An email was sent successfully to the applicant!',
         variant: 'success'
       })
-    } catch(e) { 
+    } catch (e) {
+      setOpen(false)
+      resetForm()
       toast({
         title: 'Sending Email',
-        description: 'An error has occured while trying to send the email!',
+        description: 'The email was sent, but failed to save to the history log.',
         variant: 'destructive'
       })
     } finally {
