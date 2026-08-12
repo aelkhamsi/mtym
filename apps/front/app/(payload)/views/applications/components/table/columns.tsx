@@ -51,6 +51,7 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<ApplicationRow>[] =
         </Button>
       )
     },
+    filterFn: "equalsString"
   },
   {
     accessorKey: "firstName",

@@ -8,6 +8,7 @@ import { statusOptions } from "./application-status"
 import { ApplicationsFacetedFilter } from "./applications-faceted-filter"
 import { FileTextIcon } from "@radix-ui/react-icons"
 import type { AdminOption } from "./columns"
+import { Input } from "@mdm/ui"
 
 export interface ApplicationsToolbarProps<TData> {
   table: Table<TData>
@@ -45,6 +46,14 @@ export function ApplicationsToolbar<TData>({
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
+        <Input
+          placeholder="Filter by id"
+          value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("id")?.setFilterValue(event.target.value)
+          }
+          className="w-[150px]"
+        />
         {table.getColumn("status") && (
           <ApplicationsFacetedFilter
             column={table.getColumn("status")}
