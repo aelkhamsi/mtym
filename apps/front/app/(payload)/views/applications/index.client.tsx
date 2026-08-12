@@ -6,7 +6,6 @@ import { ApplicationRow } from "./components/table/columns";
 import { useEffect, useMemo, useState } from "react";
 import { applicationsAtom } from "@/app/store/admin/applicationsAtom";
 import { useAtomValue } from "jotai";
-import { ProfileSkeleton } from "@mdm/ui";
 
 export default function ApplicationsClient({
   admins,
@@ -33,6 +32,7 @@ export default function ApplicationsClient({
           educationLevel: application?.educationLevel,
           status: application?.status?.status,
           reviewerId: application?.review?.reviewerId ?? null,
+          emails: application?.review?.emails ?? []
         }))
       )
     }

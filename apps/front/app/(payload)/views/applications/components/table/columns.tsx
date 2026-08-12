@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowUpDown } from 'lucide-react'
 import ApplicationEducationLevel from './application-education-level'
 import { ApplicationReviewer } from './application-reviewer'
+import { timeAgo } from '@mdm/utils'
 
 export type AdminOption = { id: string; label: string }
 
@@ -19,6 +20,7 @@ export type ApplicationRow = {
   educationLevel: string,
   status: string,
   reviewerId: string | null,
+  emails: {subject: string, content: string, sentAt: string}[]
 }
 
 const ActionButton = ({
@@ -154,8 +156,20 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<ApplicationRow>[] =
     cell: ({ row }) => {
       const applicatonId = parseFloat(row.getValue("id"));
       const status = row.getValue("status") as string;
+      const sortedEmails = [...(row.original.emails ?? [])].sort(
+        (a, b) => new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime(),
+      )
       
-      return <ApplicationStatus applicationId={applicatonId} status={status} />
+      return (
+        <>
+          <ApplicationStatus applicationId={applicatonId} status={status} />
+          {sortedEmails.length && status === 'NOTIFIED' &&
+            <div className="text-xs">
+              Last email sent <span className="font-semibold">{timeAgo(sortedEmails[sortedEmails.length - 1]?.sentAt)}</span>
+            </div>
+          }
+        </>
+      )
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))

@@ -21,6 +21,9 @@ const Header = ({
   const applicationId = application?.id
   const reviewerId = application?.review?.reviewerId
   const status = application?.status?.status
+  const sortedEmails = [...(application?.review?.emails ?? [])].sort(
+    (a, b) => new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime(),
+  )
 
   return (
     <>
@@ -55,9 +58,11 @@ const Header = ({
             <ApplicationStatus applicationId={application?.id} status={status} />
           </div>
 
-          <div className="text-xs">
-            Last status update <span className="font-semibold">{timeAgo(application?.status?.updatedAt)}</span>
-          </div>
+          {sortedEmails.length &&
+            <div className="text-xs">
+              Last email sent <span className="font-semibold">{timeAgo(sortedEmails[sortedEmails.length - 1]?.sentAt)}</span>
+            </div>
+          }
         </div>
 
       </div>
