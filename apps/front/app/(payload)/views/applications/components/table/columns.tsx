@@ -164,7 +164,7 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<ApplicationRow>[] =
       return (
         <>
           <ApplicationStatus applicationId={applicatonId} status={status} />
-          {sortedEmails.length && status === 'NOTIFIED' &&
+          {sortedEmails.length > 0 && status === 'NOTIFIED' &&
             <div className="text-xs">
               Last email sent <span className="font-semibold">{timeAgo(sortedEmails[sortedEmails.length - 1]?.sentAt)}</span>
             </div>
