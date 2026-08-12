@@ -9,6 +9,7 @@ import { ApplicationsFacetedFilter } from "./applications-faceted-filter"
 import { FileTextIcon } from "@radix-ui/react-icons"
 import type { AdminOption } from "./columns"
 import { Input } from "@mdm/ui"
+import { useState } from "react"
 
 export interface ApplicationsToolbarProps<TData> {
   table: Table<TData>
@@ -42,6 +43,22 @@ export function ApplicationsToolbar<TData>({
       window.URL.revokeObjectURL(url);
     });
   }
+  const [savedPageIndex, setSavedPageIndex] = useState<number | null>(null);
+  const handleIdFilterChange = (value: string) => {
+    const currentFilter = table.getColumn("id")?.getFilterValue() as string | undefined;
+
+    if (value !== "" && !currentFilter) {
+      setSavedPageIndex(table.getState().pagination.pageIndex);
+      table.setPageIndex(0);
+    } else if (value === "" && currentFilter) {
+      if (savedPageIndex !== null) {
+        table.setPageIndex(savedPageIndex);
+        setSavedPageIndex(null);
+      }
+    }
+
+    table.getColumn("id")?.setFilterValue(value);
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -49,9 +66,7 @@ export function ApplicationsToolbar<TData>({
         <Input
           placeholder="Filter by id"
           value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("id")?.setFilterValue(event.target.value)
-          }
+          onChange={(event) => handleIdFilterChange(event.target.value)}
           className="w-[150px]"
         />
         {table.getColumn("status") && (
