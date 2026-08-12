@@ -9,6 +9,7 @@ import ApplicationStatus from "../../components/table/application-status"
 import EmailDialog from "./EmailDialog"
 import { AdminOption } from "../../components/table/columns"
 import { ApplicationReviewer } from "../../components/table/application-reviewer"
+import { ArrowLeft } from 'lucide-react';
 
 const Header = ({
   application,
@@ -28,10 +29,10 @@ const Header = ({
   return (
     <>
       <div
-        className='font-semibold flex cursor-pointer'
+        className='flex items-center font-semibold cursor-pointer'
         onClick={() => router.back()}
       >
-        <ExpandingArrow className='rotate-180 mr-2'/> {"  "} Go Back
+        <ArrowLeft className="h-4 w-4 mr-1" /> Go Back
       </div>
 
       <div className="mb-6 flex items-start justify-between">
