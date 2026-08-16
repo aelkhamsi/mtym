@@ -9,6 +9,7 @@ import { ApplicationsFacetedFilter } from "./applications-faceted-filter"
 import { FileTextIcon } from "@radix-ui/react-icons"
 import axios from 'axios-typescript';
 import { getToken } from "@/lib/utils"
+import { AUTH_CONTEXT_HEADERS } from "@/api/ApiMethods"
 
 export interface ApplicationsToolbarProps<TData> {
   table: Table<TData>
@@ -24,6 +25,7 @@ export function ApplicationsToolbar<TData>({
       {
         method: "GET",
         credentials: "include",
+        headers: AUTH_CONTEXT_HEADERS,
       }
     )
     .then(res => res.blob())

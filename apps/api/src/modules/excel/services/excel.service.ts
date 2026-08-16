@@ -18,7 +18,7 @@ export class ExcelService {
     private readonly configService: ConfigService,
   ) {}
 
-  async downloadApplications() {
+  async downloadApplications(cookie: string) {
     const workbook = new Workbook();
     const sheet = workbook.addWorksheet('applications');
 
@@ -28,7 +28,12 @@ export class ExcelService {
     // rows
     const rows = [];
     const result = await this.applicationService.findAll();
-    const applications = applicationsRowFactory(result, this.configService);
+    const adminNames = await this.getPayloadAdminNames(cookie);
+    const applications = applicationsRowFactory(
+      result,
+      this.configService,
+      adminNames,
+    );
     applications.forEach((application: any) => {
       rows.push(Object.values(application));
     });
@@ -61,6 +66,40 @@ export class ExcelService {
     });
 
     return file;
+  }
+
+  private async getPayloadAdminNames(cookie: string) {
+    const frontendUrl = this.configService.get<string>('app.frontendUrl');
+    if (!frontendUrl) {
+      throw new BadRequestException('Payload URL is not configured');
+    }
+
+    const names = new Map<string, string>();
+    let page = 1;
+    let hasNextPage = true;
+
+    while (hasNextPage) {
+      const response = await fetch(
+        `${frontendUrl.replace(/\/$/, '')}/api/users?limit=100&page=${page}`,
+        { headers: { cookie } },
+      );
+      if (!response.ok) {
+        throw new BadRequestException('Could not load Payload admins');
+      }
+
+      const result = await response.json();
+      for (const admin of result.docs ?? []) {
+        const name = [admin.firstName, admin.lastName]
+          .filter(Boolean)
+          .join(' ');
+        names.set(String(admin.id), name || 'Unnamed admin');
+      }
+
+      hasNextPage = Boolean(result.hasNextPage);
+      page = result.nextPage;
+    }
+
+    return names;
   }
 
   async downloadParticipantDetails() {

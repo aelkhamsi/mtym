@@ -72,6 +72,7 @@ export const cityOptions = [
   { label: "Had Soualem", value: "hadsoualem" },
   { label: "Harhoura", value: "harhoura" },
   { label: "Hawza", value: "hawza" },
+  { label: "Ifrane", value: "ifrane" },
   { label: "Imintanoute", value: "imintanoute" },
   { label: "Imouzzer Kandar", value: "imouzzerkandar" },
   { label: "Imzouren", value: "imzouren" },

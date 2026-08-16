@@ -8,14 +8,15 @@ import { CLOSE_APPLICATIONS } from "config";
 import { useRouter } from "next/navigation";
 
 export default function ApplicationPage() {
-  const user = useAtomValue(userAtom)
+  const user = useAtomValue(userAtom)  
   const router = useRouter();
+  const isFormClosed = CLOSE_APPLICATIONS && user?.application?.status?.status !== 'NOTIFIED'
 
   if (!user) {
     return <ProfileSkeleton />;
   }
 
-  if (CLOSE_APPLICATIONS) {
+  if (isFormClosed) {
     router.push("/profile/application");
     return null;
   }

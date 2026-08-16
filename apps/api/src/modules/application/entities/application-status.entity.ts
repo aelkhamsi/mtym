@@ -12,12 +12,13 @@ import {
 export type Status =
   | 'DRAFT'
   | 'PENDING'
+  | 'INFO_NEEDED'
   | 'NOTIFIED'
   | 'UPDATED'
   | 'VALIDATED'
-  | 'ACCEPTED'
-  | 'REFUSED'
-  | 'WAITLIST';
+  | 'REJECTED'
+  | 'NOT_VALID'
+  | 'NOT_SURE';
 
 export type FileStatus = 'DRAFT' | 'PENDING' | 'VALID' | 'NOT_VALID';
 
@@ -53,9 +54,9 @@ export class ApplicationStatus {
   parentalAuthorizationStatus: FileStatus;
 
   /* createAt & updatedAt */
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 }

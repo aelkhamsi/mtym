@@ -1,0 +1,189 @@
+import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons"
+import { Column } from "@tanstack/react-table"
+import { cn } from "@mdm/utils"
+import { Badge } from "@mdm/ui"
+import { Button } from "@mdm/ui"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from "@mdm/ui"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@mdm/ui"
+import { Separator } from "@mdm/ui"
+import { Status, getStatusClassname } from "./application-status"
+import { useEffect, useRef } from "react"
+
+interface ApplicationsFacetedFilterProps<TData, TValue> {
+  column?: Column<TData, TValue>
+  title?: string
+  options: {
+    label: string
+    value: string
+    icon?: React.ComponentType<{ className?: string }>
+  }[]
+  colorizeOptions?: boolean
+}
+
+export function ApplicationsFacetedFilter<TData, TValue>({
+  column,
+  title,
+  options,
+  colorizeOptions = false,
+}: ApplicationsFacetedFilterProps<TData, TValue>) {
+  const facets = column?.getFacetedUniqueValues()
+  const selectedValues = new Set(column?.getFilterValue() as string[])
+  const storageKey = `applications-table-filter:${column?.id}`
+  const hasHydrated = useRef(false)
+  const filterValue = column?.getFilterValue()
+
+  useEffect(() => {
+    if (hasHydrated.current || !column) return
+    hasHydrated.current = true
+
+    try {
+      const saved = localStorage.getItem(storageKey)
+      if (!saved) return
+
+      const values: string[] = JSON.parse(saved)
+      if (Array.isArray(values) && values.length) {
+        column.setFilterValue(values)
+      }
+    } catch {}
+  }, [column])
+
+  useEffect(() => {
+    if (!hasHydrated.current) return
+
+    try {
+      if (filterValue && (filterValue as string[]).length) {
+        localStorage.setItem(storageKey, JSON.stringify(filterValue))
+      } else {
+        localStorage.removeItem(storageKey)
+      }
+    } catch {}
+  }, [filterValue, storageKey])
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" size="sm" className="h-8 border-dashed">
+          <PlusCircledIcon className="mr-2 h-4 w-4" />
+          {title}
+          {selectedValues?.size > 0 && (
+            <>
+              <Separator orientation="vertical" className="mx-2 h-4" />
+              <Badge
+                variant="secondary"
+                className="rounded-sm px-1 font-normal lg:hidden"
+              >
+                {selectedValues.size}
+              </Badge>
+              <div className="hidden space-x-1 lg:flex">
+                {selectedValues.size > 2 ? (
+                  <Badge
+                    variant="secondary"
+                    className="rounded-sm px-1 font-normal"
+                  >
+                    {selectedValues.size} selected
+                  </Badge>
+                ) : (
+                  options
+                    .filter((option) => selectedValues.has(option.value))
+                    .map((option) => (
+                      <Badge
+                        variant="secondary"
+                        key={option.value}
+                        className={`rounded-sm px-1 font-normal ${colorizeOptions ? getStatusClassname(option.value as Status, 'sm') : ''}`}
+                      >
+                        {option.label}
+                      </Badge>
+                    ))
+                )}
+              </div>
+            </>
+          )}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="w-[200px] p-0"
+        align="start"
+        style={{
+          backgroundColor: "var(--theme-input-bg)",
+          borderColor: "var(--theme-elevation-150)",
+          color: "var(--theme-text)",
+        }}
+      >
+        <Command>
+          <CommandInput placeholder={title} />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup>
+              {options.map((option) => {
+                const isSelected = selectedValues.has(option.value)
+                return (
+                  <CommandItem
+                    key={option.value}
+                    onSelect={() => {
+                      if (isSelected) {
+                        selectedValues.delete(option.value)
+                      } else {
+                        selectedValues.add(option.value)
+                      }
+                      const filterValues = Array.from(selectedValues)
+                      column?.setFilterValue(
+                        filterValues.length ? filterValues : undefined
+                      )
+                    }}
+                  >
+                    <div
+                      className={cn(
+                        "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                        isSelected
+                          ? "bg-primary text-primary-foreground"
+                          : "opacity-50 [&_svg]:invisible"
+                      )}
+                    >
+                      <CheckIcon className={cn("h-4 w-4")} />
+                    </div>
+                    {option.icon && (
+                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                    )}
+                    <div className={colorizeOptions ? getStatusClassname(option.value as Status, 'sm') : ''}>
+                      <span>{option.label}</span>
+                    </div>
+                    {facets?.get(option.value) && (
+                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
+                        {facets.get(option.value)}
+                      </span>
+                    )}
+                  </CommandItem>
+                )
+              })}
+            </CommandGroup>
+            {selectedValues.size > 0 && (
+              <>
+                <CommandSeparator />
+                <CommandGroup>
+                  <CommandItem
+                    onSelect={() => column?.setFilterValue(undefined)}
+                    className="justify-center text-center"
+                  >
+                    Clear filters
+                  </CommandItem>
+                </CommandGroup>
+              </>
+            )}
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  )
+}

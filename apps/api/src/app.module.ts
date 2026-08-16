@@ -12,6 +12,7 @@ import {
   JwtConfig,
   S3Config,
   SmtpConfig,
+  PayloadConfig
 } from './config';
 import { AdminUserModule } from './modules/admin-user/admin-user.module';
 import { MailModule } from './modules/mail/mail.module';
@@ -29,7 +30,7 @@ export class AppModule {
         ConfigModule.forRoot({
           isGlobal: true,
           cache: true,
-          load: [AppConfig, DatabaseConfig, JwtConfig, S3Config, SmtpConfig],
+          load: [AppConfig, DatabaseConfig, JwtConfig, S3Config, SmtpConfig, PayloadConfig],
         }),
         TypeOrmModule.forRootAsync({
           imports: [ConfigModule],

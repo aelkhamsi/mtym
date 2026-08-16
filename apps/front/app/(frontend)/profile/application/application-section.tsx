@@ -25,18 +25,20 @@ const getBadgeClassname = (status: string) => {
       return 'bg-gray-300 text-black';
     case 'PENDING':
       return 'bg-[#FFE380] text-black';
+    case 'INFO_NEEDED':
+      return 'bg-[#EFFF99] text-black';
     case 'NOTIFIED':
       return 'bg-[#79E2F2] text-black';
     case 'UPDATED':
-      return 'bg-[#B3D4FF] text-black';
+      return 'bg-[#DBABFF] text-black';
     case 'VALIDATED':
-      return 'bg-[#79F2C0] text-black';
-    case 'ACCEPTED':
-      return 'bg-[#006644] text-white';
+      return 'bg-[#41D997] text-black';
     case 'REJECTED':
       return 'bg-[#BF2600] text-white';
-    case 'WAITLIST':
-      return 'bg-[#403294] text-white';
+    case 'NOT_VALID':
+      return 'bg-[#DE7190] text-black';
+    case 'NOT_SURE':
+      return 'bg-[#EAED9A] text-black';
   }
 }
 
@@ -45,6 +47,11 @@ const ApplicationSection = () => {
   const team = useAtomValue(teamAtom)
   const [content, setContent] = useState<any>(undefined);
   const router = useRouter();
+  const isFormClosed = CLOSE_APPLICATIONS && application?.status?.status !== 'NOTIFIED'
+  const VISIBLE_STATUSES = ['DRAFT', 'PENDING', 'NOTIFIED'];
+  const displayedStatus = VISIBLE_STATUSES.includes(application?.status?.status) 
+    ? application?.status?.status
+    : 'PENDING';
   
   useEffect(() => {
     const applicationStatus = application?.status?.status;
@@ -53,7 +60,7 @@ const ApplicationSection = () => {
     if (!application) {
       setContent({
         title: "Vous n'avez pas soumis une candidature",
-        subtitle: CLOSE_APPLICATIONS
+        subtitle: isFormClosed
           ? "Merci pour l'intérêt que vous portez à MTYM! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "On attend ta candidature avec impatience.",
         ctaLabel: "Créer votre candidature",
@@ -61,7 +68,7 @@ const ApplicationSection = () => {
     } else if (applicationStatus === 'DRAFT') {
       setContent({
         title: "Vous avez sauvegardé un brouillon de candidature. Elle n'est pas encore soumise!",
-        subtitle: CLOSE_APPLICATIONS
+        subtitle: isFormClosed
           ? "Merci pour l'intérêt que vous portez à MTYM! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "Terminez votre candidature pour qu’elle soit valide",
         ctaLabel: "Continuer votre candidature",
@@ -69,8 +76,8 @@ const ApplicationSection = () => {
     } else {
       setContent({
         title: "Vous avez soumis une candidature",
-        subtitle: CLOSE_APPLICATIONS && (!team || teamMembers <= 3 || teamMembers >= 5)
-          ? "Merci pour l'intérêt que vous portez à MMC! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
+        subtitle: isFormClosed && (!team || teamMembers <= 3 || teamMembers >= 5)
+          ? "Merci pour l'intérêt que vous portez à MTYM! Malheureusement les inscriptions sont désormais closes. Néanmoins, restez à l'écoute pour ne pas manquer de futures opportunités."
           : "Vous trouverez l'avancement de votre candidature ci-dessous. On vous notifiera des prochaines étapes par mail.",
         ctaLabel: "Mettre à jour votre candidature",
       })
@@ -93,12 +100,12 @@ const ApplicationSection = () => {
           <>
             <div className="text-sm"><span className="font-bold">Date de soumission</span>: {formatDate(application?.createdAt)}</div>
             <div className="text-sm"><span className="font-bold">Date de sauvegarde</span>: {formatDate(application?.updatedAt)}</div>
-            <div className="text-sm"><span className="font-bold">Status</span>: <Badge className={`px-4 ${getBadgeClassname(application?.status?.status)}`}>{application?.status?.status}</Badge></div>
+            <div className="text-sm"><span className="font-bold">Status</span>: <Badge className={`px-4 ${getBadgeClassname(displayedStatus)}`}>{displayedStatus.split('_').join(' ')}</Badge></div>
           </>
         }
       </CardContent>
       
-      {(!CLOSE_APPLICATIONS) &&
+      {(!isFormClosed) &&
         <CardFooter>
           <Button
             onClick={() => router.push('/application')}

@@ -73,12 +73,20 @@ export const useApplicationHandlers = (
     const application = form.watch()
 
     try {
+      // Post of application
       const applicationResponse = await postApplication(
         formatApplication(application)
       ) as any;
 
       if (applicationResponse?.statusCode !== 200) {
         throw new Error(applicationResponse?.message ?? 'Post of application failed')
+      }
+
+      // Upload files
+      if (user?.application?.status?.status === 'NOTIFIED') {
+        const files = getFiles(application)
+        await uploadFiles(files, user)
+        await updateApplicationFiles(application, files, user)
       }
 
       toast({

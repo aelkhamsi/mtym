@@ -16,24 +16,23 @@ import {
 import { UserService } from '../services/user.service';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { SerializedUser } from '../entities/serialized-user';
-import { Roles } from 'src/decorators/roles.decorator';
-import { RolesGuard } from 'src/guards/roles.guard';
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
-import { Role } from 'src/guards/role.enum';
-import { User } from '../entities/user.entity';
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
+import { Role } from 'src/modules/auth/strategies/role.enum';
+import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
+import { UserGuard } from 'src/modules/auth/guards/user.guard';
 
 @Controller('mtym-api/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(UserGuard)
   @Get('me')
   @HttpCode(200)
   async findByToken(@Request() req) {
     return req.user;
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthGuard)
   @Get(':id')
   @HttpCode(200)
   async findOne(@Req() req, @Param('id', ParseIntPipe) id: number) {
@@ -49,8 +48,7 @@ export class UserController {
     return new SerializedUser(user);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(AuthGuard)
   @Get()
   @HttpCode(200)
   async findAll() {
@@ -58,8 +56,7 @@ export class UserController {
     return users.map((user) => new SerializedUser(user))
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(AuthGuard)
   @Put(':id')
   @HttpCode(200)
   update(
@@ -77,8 +74,7 @@ export class UserController {
     };
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @UseGuards(AdminGuard)
   @Delete(':id')
   @HttpCode(200)
   remove(@Param('id', ParseIntPipe) id: number) {
