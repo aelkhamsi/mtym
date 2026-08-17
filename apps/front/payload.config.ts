@@ -1,4 +1,5 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
@@ -41,7 +42,31 @@ const storagePlugins: Plugin[] = process.env.MINIO_ENDPOINT
     ]
   : []
 
+// Send transactional emails (password resets, verification) through ZeptoMail's
+// SMTP relay. ZeptoMail authenticates with the literal user `emailapikey` and a
+// send-mail token as the password. When SMTP_PASSWORD is unset (local dev),
+// `email` stays undefined and Payload logs emails to the console instead.
+const emailAdapter = process.env.SMTP_PASSWORD
+  ? nodemailerAdapter({
+      defaultFromAddress: process.env.SMTP_FROM_ADDRESS || 'noreply@mail.mathmaroc.org',
+      defaultFromName: process.env.SMTP_FROM_NAME || 'MTYM',
+      transportOptions: {
+        host: process.env.SMTP_HOST || 'smtp.zeptomail.com',
+        port: Number(process.env.SMTP_PORT) || 587,
+        secure: Number(process.env.SMTP_PORT) === 465,
+        // On 587 the token travels in an AUTH command, so refuse to send at all
+        // rather than fall back to plaintext if STARTTLS isn't offered.
+        requireTLS: true,
+        auth: {
+          user: process.env.SMTP_USER || 'emailapikey',
+          pass: process.env.SMTP_PASSWORD,
+        },
+      },
+    })
+  : undefined
+
 export default buildConfig({
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
   admin: {
     user: Users.slug,
     importMap: {
@@ -91,6 +116,7 @@ export default buildConfig({
     PartnerLogos,
   ],
   editor: lexicalEditor(),
+  email: emailAdapter,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
