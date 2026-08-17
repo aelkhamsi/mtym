@@ -32,7 +32,7 @@ const TeamSection = () => {
 
       <CardFooter className="flex space-x-4">
         {isTeamLeader && !CLOSE_APPLICATIONS && <InviteButton />}
-        <QuitButton isTeamLeader={isTeamLeader} />
+        {/* <QuitButton isTeamLeader={isTeamLeader} /> */}
       </CardFooter>
     </Card>
   )
