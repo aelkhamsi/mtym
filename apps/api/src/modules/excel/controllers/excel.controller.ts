@@ -20,7 +20,7 @@ export class ExcelController {
   @Header('Content-Type', 'text/xlsx')
   async downloadApplications(@Req() req: Request, @Res() res: Response) {
     const file = await this.excelService.downloadApplications(
-      req.headers.cookie ?? '',
+      req.cookies?.['payload-token'] ?? '',
     );
     if (!file) {
       return new BadRequestException();
