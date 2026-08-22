@@ -18,7 +18,7 @@ export class ExcelService {
     private readonly configService: ConfigService,
   ) {}
 
-  async downloadApplications(cookie: string) {
+  async downloadApplications(payloadToken: string) {
     const workbook = new Workbook();
     const sheet = workbook.addWorksheet('applications');
 
@@ -28,7 +28,7 @@ export class ExcelService {
     // rows
     const rows = [];
     const result = await this.applicationService.findAll();
-    const adminNames = await this.getPayloadAdminNames(cookie);
+    const adminNames = await this.getPayloadAdminNames(payloadToken);
     const applications = applicationsRowFactory(
       result,
       this.configService,
@@ -68,7 +68,7 @@ export class ExcelService {
     return file;
   }
 
-  private async getPayloadAdminNames(cookie: string) {
+  private async getPayloadAdminNames(payloadToken: string) {
     const frontendUrl = this.configService.get<string>('app.frontendUrl');
     if (!frontendUrl) {
       throw new BadRequestException('Payload URL is not configured');
@@ -81,7 +81,7 @@ export class ExcelService {
     while (hasNextPage) {
       const response = await fetch(
         `${frontendUrl.replace(/\/$/, '')}/api/users?limit=100&page=${page}`,
-        { headers: { cookie } },
+        { headers: { Authorization: `JWT ${payloadToken}` } },
       );
       if (!response.ok) {
         throw new BadRequestException('Could not load Payload admins');
