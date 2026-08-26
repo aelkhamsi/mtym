@@ -54,7 +54,7 @@ const ParticipationStepsSection = () => {
           </div>
 
           <div className='text-center p-6'>
-            Les participant·es ayant soumis un dossier complet et intégré·es à une équipe de 3 à 5 membres peuvent dès à présent commencer à travailler sur les problèmes, rédiger leur rapport et le soumettre avant le <span className='font-bold'>1 septembre 2026</span>.
+            Les participant·es ayant soumis un dossier complet et intégré·es à une équipe de 3 à 5 membres peuvent dès à présent commencer à travailler sur les problèmes, rédiger leur rapport et le soumettre avant le <span className='font-bold'>7 septembre 2026</span>.
           </div>
 
           <Link href="/tournament-format">
