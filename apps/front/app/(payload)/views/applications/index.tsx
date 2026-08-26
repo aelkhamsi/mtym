@@ -2,6 +2,9 @@ import React from 'react'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import { Gutter, SetStepNav, type StepNavItem } from '@payloadcms/ui'
 import { AdminViewServerProps } from 'payload'
+import { cookies } from 'next/headers'
+import { getAllApplications } from '@/app/api/ApplicationApi'
+import RootProvider from '@/app/(payload)/root-provider'
 import ApplicationsClient from './index.client'
 
 export const ApplicationsView = async ({
@@ -18,6 +21,7 @@ export const ApplicationsView = async ({
     id: String(admin.id),
     label: [admin.firstName, admin.lastName].filter(Boolean).join(' ') || 'Unnamed admin',
   }))
+  const applications = await getAllApplications((await cookies()).toString()) as any[]
   const steps: StepNavItem[] = [
     {
       url: '/admin/applications',
@@ -37,10 +41,12 @@ export const ApplicationsView = async ({
   >
     <SetStepNav nav={steps} />
     <Gutter>
-      <ApplicationsClient
-        admins={admins}
-        currentAdminId={String(initPageResult.req.user.id)}
-      />
+      <RootProvider applications={applications}>
+        <ApplicationsClient
+          admins={admins}
+          currentAdminId={String(initPageResult.req.user.id)}
+        />
+      </RootProvider>
     </Gutter>
   </DefaultTemplate>
 }

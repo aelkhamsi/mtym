@@ -24,7 +24,7 @@ export default function SelectionPage() {
             
             <p>La phase de qualification commence dès l&apos;inscription et se poursuit jusqu&apos;en octobre 2026 avec les tournois régionaux.</p>
             <p>Les participant·es, regroupé·es en équipes de 3 à 5 membres, travaillent sur des problèmes de recherche publiés le <span className="font-semibold">30 juin 2026</span>. Ces problèmes demandent de la réflexion, de l&apos;exploration et une vraie démarche scientifique.</p>
-            <p>Les équipes soumettent un rapport intermédiaire avant le <span className="font-semibold">1er septembre 2026</span>. Ce document permet une première évaluation du travail réalisé et sert de base à la sélection pour les tournois régionaux.</p>
+            <p>Les équipes soumettent un rapport intermédiaire avant le <span className="font-semibold">7 septembre 2026</span>. Ce document permet une première évaluation du travail réalisé et sert de base à la sélection pour les tournois régionaux.</p>
             <p>Les équipes retenues sont ensuite invitées à participer aux tournois régionaux organisés dans leur zone géographique.</p>
 
             <p><span className="font-semibold">Les tournois régionaux</span> se déroulent en <span className="font-semibold">octobre 2026</span> dans 9 villes à travers le Maroc. Chaque tournoi est organisé sur une journée, avec un accueil le matin et des débats scientifiques tout au long de la journée.</p>
