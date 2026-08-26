@@ -3,12 +3,14 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import TeamsMembers from "./teams-members"
 import TeamAvatar from "./teams-avatar"
+import TeamStatus, { Status } from "./team-status"
  
 export type TeamRow = {
   id: string,
   name: string,
   quadrigram: string,
   slogan: string,
+  status: Status,
   leaderName: string,
   leaderId: string,
   members: any[],
@@ -82,6 +84,13 @@ export const columns: ColumnDef<TeamRow>[] = [
     },
   },
   {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => (
+      <TeamStatus teamId={Number(row.original.id)} status={row.original.status} />
+    ),
+  },
+  {
     accessorKey: "leader",
     header: ({ column }) => {
       return (
@@ -130,7 +139,7 @@ export const columns: ColumnDef<TeamRow>[] = [
       const members = row.original?.members;
  
       return <div className='flex justify-end'>
-        <TeamsMembers members={members}/>
+        <TeamsMembers members={members} leaderId={row.original.leaderId}/>
       </div>
     }
   },

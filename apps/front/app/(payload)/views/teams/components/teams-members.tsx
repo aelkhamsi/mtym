@@ -17,11 +17,15 @@ import {
   TableRow,
 } from "@mdm/ui"
 import Link from "next/link";
+import { Crown } from "lucide-react";
+import { getStatusClassname, Status } from "../../applications/components/table/application-status";
 
 const TeamsMembers = ({
   members,
+  leaderId,
 }:{
   members: any[],
+  leaderId: string,
 }) => {  
   return (
     <Dialog>
@@ -50,16 +54,30 @@ const TeamsMembers = ({
             <TableBody>
               {members.map((member) => (
                 <TableRow key={member.id}>
-                  <TableCell className="font-medium">{member.id}</TableCell>
+                  <TableCell className="font-medium">
+                    <span className="flex items-center gap-1">
+                      {member.id}
+                      {String(member.id) === String(leaderId) && (
+                        <Crown className="h-4 w-4 text-amber-500" />
+                      )}
+                    </span>
+                  </TableCell>
                   <TableCell>{member.firstName}</TableCell>
                   <TableCell>{member.lastName}</TableCell>
                   <TableCell>{member.email}</TableCell>
-                  <TableCell className="text-right">
-                    <Link href={`/admin/applications/${member?.application?.id}`} target="_blank">
-                      <Button className="text-xs">
-                        Show Application
-                      </Button>
-                    </Link>
+                  <TableCell>
+                    <div className="flex items-center justify-end gap-2">
+                      {member?.application?.status?.status && (
+                        <div className={getStatusClassname(member.application.status.status as Status, 'sm')}>
+                          {member.application.status.status.split('_').join(' ')}
+                        </div>
+                      )}
+                      <Link href={`/admin/applications/${member?.application?.id}`} target="_blank">
+                        <Button className="text-xs">
+                          Show Application
+                        </Button>
+                      </Link>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
