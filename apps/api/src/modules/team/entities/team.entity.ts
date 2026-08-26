@@ -10,6 +10,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+export enum TeamStatus {
+  APPROVED = 'APPROVED',
+  NEW = 'NEW',
+  DECLINED = 'DECLINED',
+  INCOMPLETE = 'INCOMPLETE',
+}
+
 @Entity({ name: 'teams' })
 export class Team {
   constructor(partial: Partial<Team>) {
@@ -27,6 +34,9 @@ export class Team {
 
   @Column({ type: 'varchar', default: '' })
   quadrigram: string;
+
+  @Column({ type: 'enum', enum: TeamStatus, default: TeamStatus.NEW })
+  status: TeamStatus;
 
   @ManyToOne(() => User)
   @JoinColumn()

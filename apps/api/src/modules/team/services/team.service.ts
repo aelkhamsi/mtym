@@ -142,7 +142,7 @@ export class TeamService {
       throw new NotFoundException('The team does not exist');
     }
 
-    const { name, slogan, quadrigram } = updateTeamDto;
+    const { name, slogan, quadrigram, status } = updateTeamDto;
     if (name !== undefined) {
       await this.assertNameIsAvailable(name, id);
     }
@@ -154,6 +154,7 @@ export class TeamService {
     if (name !== undefined) changes.name = name;
     if (slogan !== undefined) changes.slogan = slogan;
     if (quadrigram !== undefined) changes.quadrigram = quadrigram;
+    if (status !== undefined) changes.status = status;
 
     return this.teamRepository.update({ id }, changes);
   }
