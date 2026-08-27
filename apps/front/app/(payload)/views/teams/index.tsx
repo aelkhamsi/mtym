@@ -2,17 +2,13 @@ import React from 'react'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import { Gutter, SetStepNav, type StepNavItem } from '@payloadcms/ui'
 import { AdminViewServerProps } from 'payload'
-import { cookies } from 'next/headers'
-import { getAllTeams } from '@/app/api/TeamApi'
-import RootProvider from '@/app/(payload)/root-provider'
 import TeamsClient from './index.cilent'
 
-export const TeamsView: React.FC<AdminViewServerProps> = async ({
+export const TeamsView: React.FC<AdminViewServerProps> = ({
   initPageResult, params, searchParams
 }) => {
   if (!initPageResult.req.user) return <p>You must be logged in to access this page.</p>
 
-  const teams = await getAllTeams((await cookies()).toString()) as any[]
   const steps: StepNavItem[] = [
     {
       url: '/admin/teams',
@@ -32,9 +28,7 @@ export const TeamsView: React.FC<AdminViewServerProps> = async ({
   >
     <SetStepNav nav={steps} />
     <Gutter>
-      <RootProvider teams={teams}>
-        <TeamsClient />
-      </RootProvider>
+      <TeamsClient />
     </Gutter>
   </DefaultTemplate>
 }
