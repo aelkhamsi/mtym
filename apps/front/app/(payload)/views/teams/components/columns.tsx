@@ -39,7 +39,8 @@ export const columns: ColumnDef<TeamRow>[] = [
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
-    }
+    },
+    filterFn: "equalsString"
   },
   {
     accessorKey: "name",
@@ -89,6 +90,9 @@ export const columns: ColumnDef<TeamRow>[] = [
     cell: ({ row }) => (
       <TeamStatus teamId={Number(row.original.id)} status={row.original.status} />
     ),
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
   },
   {
     accessorKey: "leader",

@@ -16,6 +16,13 @@ export type Status =
   | "DECLINED"
   | "INCOMPLETE";
 
+export const statusOptions = [
+  { value: "APPROVED", label: "APPROVED" },
+  { value: "NEW", label: "NEW" },
+  { value: "DECLINED", label: "DECLINED" },
+  { value: "INCOMPLETE", label: "INCOMPLETE" },
+]
+
 export const getStatusClassname = (status: Status, size: "sm" | "md") => {
   const baseClassname = `rounded-xl text-center ${size === "md" ? "px-4 py-1 w-[8rem]" : "px-2"}`;
   let colorClassname;

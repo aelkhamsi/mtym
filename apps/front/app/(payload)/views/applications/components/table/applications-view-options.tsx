@@ -1,8 +1,7 @@
 "use client"
 
-import { useEffect, useRef } from "react"
 import { MixerHorizontalIcon } from "@radix-ui/react-icons"
-import { Table, VisibilityState } from "@tanstack/react-table"
+import { Table } from "@tanstack/react-table"
 import { Button } from "@mdm/ui"
 import {
   DropdownMenu,
@@ -17,40 +16,9 @@ interface ApplicationsViewOptionsProps<TData> {
   table: Table<TData>  
 }
 
-const columnVisibilityStorageKey = 'applications-table-column-visibility'
-
 export function ApplicationsViewOptions<TData>({
   table,
 }: ApplicationsViewOptionsProps<TData>) {
-  const hasHydrated = useRef(false)
-  const columnVisibility = table.getState().columnVisibility
-
-  useEffect(() => {
-    if (hasHydrated.current) return
-    hasHydrated.current = true
-
-    try {
-      const saved = localStorage.getItem(columnVisibilityStorageKey)
-      if (!saved) return
-      
-      const visibility: VisibilityState = JSON.parse(saved)
-      table.getAllColumns().forEach((column) => {
-        if (!column.getCanHide()) return
-        if (column.id in visibility) {
-          column.toggleVisibility(!!visibility[column.id])
-        }
-      })
-    } catch {}
-  }, [])
-
-  useEffect(() => {
-    if (!hasHydrated.current) return
-    
-    try {
-      localStorage.setItem(columnVisibilityStorageKey, JSON.stringify(columnVisibility))
-    } catch {}
-  }, [columnVisibility, columnVisibilityStorageKey])
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

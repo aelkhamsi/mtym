@@ -27,6 +27,7 @@ import { ApplicationsPagination } from './applications-pagination';
 import { ApplicationsToolbarProps } from './applications-toolbar';
 import type { AdminOption } from './columns';
 import { usePersistedSorting } from '@/app/(payload)/hooks/usePersistedSorting';
+import { useTablePreferences } from '@/app/(payload)/hooks/useTablePreferences';
 
 const ApplicationsToolbar = dynamic<ApplicationsToolbarProps<any>>(
   () => import('./applications-toolbar').then(module =>   module.ApplicationsToolbar),
@@ -68,6 +69,11 @@ export function ApplicationsTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
+
+  useTablePreferences(table, {
+    storageKey: 'applications-table',
+    persistedFilterIds: ['status', 'reviewerId'],
+  })
 
   return (
     <div className='space-y-4'>
