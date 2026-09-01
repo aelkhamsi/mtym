@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { hashPassword } from 'src/utils/bcrypt';
+import { TeamStatus } from 'src/modules/team/entities/team.entity';
 
 @Injectable()
 export class UserService {
@@ -31,6 +32,27 @@ export class UserService {
         participantDetails: true,
       },
     });
+  }
+
+  /**
+   * Candidates for an admin-created team: their application must be VALIDATED,
+   * and they must belong to a team that is still INCOMPLETE, so pulling them
+   * into a new team does not disturb one that is already finalized.
+   */
+  findEligibleForTeamCreation() {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.application', 'application')
+      .leftJoinAndSelect('application.status', 'status')
+      .innerJoinAndSelect('user.team', 'team')
+      .leftJoinAndSelect('team.leader', 'leader')
+      .leftJoinAndSelect('team.users', 'teamUser')
+      .leftJoinAndSelect('user.participantDetails', 'participantDetails')
+      .where('status.status = :status', { status: 'VALIDATED' })
+      .andWhere('team.status = :teamStatus', {
+        teamStatus: TeamStatus.INCOMPLETE,
+      })
+      .getMany();
   }
 
   findOneById(id: number) {
