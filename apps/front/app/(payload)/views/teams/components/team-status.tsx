@@ -7,8 +7,10 @@ import {
 } from "@mdm/ui";
 import { useAtom } from "jotai";
 import { teamsAtom } from "@/app/store/admin/teamsAtom";
+import { usersAtom } from "@/app/store/admin/usersAtom";
 import { toast } from "@mdm/ui";
 import { updateTeam } from "@/app/api/TeamApi";
+import { getEligibleUsersForTeamCreation } from "@/app/api/UsersApi";
 
 export type Status =
   | "APPROVED"
@@ -58,6 +60,7 @@ const TeamStatus = ({
   status: string,
 }) => {
   const [teams, setTeams] = useAtom(teamsAtom);
+  const [, setUsers] = useAtom(usersAtom);
   const handleStatusChange = async (value: Status) => {
     const response = await updateTeam(teamId, {
       status: value,
@@ -72,6 +75,11 @@ const TeamStatus = ({
           return entry;
         }),
       )
+
+      /* Moving a team to/from INCOMPLETE changes who is eligible for the
+       * create-team member picker, which was seeded once on page load. */
+      const eligibleUsers = await getEligibleUsersForTeamCreation() as any
+      if (Array.isArray(eligibleUsers)) setUsers(eligibleUsers)
 
       toast({
         title: "Status update",

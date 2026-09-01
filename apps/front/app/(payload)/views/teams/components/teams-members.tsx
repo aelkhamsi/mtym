@@ -19,6 +19,7 @@ import {
 import Link from "next/link";
 import { Crown } from "lucide-react";
 import { getStatusClassname, Status } from "../../applications/components/table/application-status";
+import TeamHistoryDialog from "./team-history-dialog";
 
 const TeamsMembers = ({
   members,
@@ -72,6 +73,10 @@ const TeamsMembers = ({
                           {member.application.status.status.split('_').join(' ')}
                         </div>
                       )}
+                      <TeamHistoryDialog
+                        userId={member?.id}
+                        userLabel={`${member?.firstName} ${member?.lastName}`}
+                      />
                       <Link href={`/admin/applications/${member?.application?.id}`} target="_blank">
                         <Button className="text-xs">
                           Show Application

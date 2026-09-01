@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   forwardRef,
   Inject,
@@ -6,8 +7,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateTeamDto } from '../dto/create-team.dto';
+import { CreateTeamAdminDto } from '../dto/create-team-admin.dto';
 import { UpdateTeamDto } from '../dto/update-team.dto';
-import { Team } from '../entities/team.entity';
+import { Team, TeamStatus } from '../entities/team.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
@@ -15,6 +17,10 @@ import { UserService } from 'src/modules/user/services/user.service';
 import { SerializedUser } from 'src/modules/user/entities/serialized-user';
 import { cleanString } from 'src/utils/string';
 import { TeamAccessCodeService } from './team-access-code.service';
+import {
+  MembershipActor,
+  TeamMembershipService,
+} from './team-membership.service';
 
 @Injectable()
 export class TeamService {
@@ -24,6 +30,7 @@ export class TeamService {
     private teamRepository: Repository<Team>,
     @Inject(forwardRef(() => TeamAccessCodeService))
     private teamAccessCodeService: TeamAccessCodeService,
+    private readonly teamMembershipService: TeamMembershipService,
   ) {}
 
   async create(createTeamDto: CreateTeamDto, userId: number) {
@@ -38,6 +45,65 @@ export class TeamService {
     team.leader = new SerializedUser(leader);
 
     return this.teamRepository.save(team);
+  }
+
+  /**
+   * Creates a team on behalf of participants: the admin is not a member, so the
+   * members and the leader come from the payload instead of the session. The
+   * team is saved in one go (members included) so a half-created team can not
+   * be left behind if attaching the members fails.
+   */
+  async createAsAdmin(
+    createTeamAdminDto: CreateTeamAdminDto,
+    actor?: MembershipActor,
+  ) {
+    const { name, slogan, quadrigram, memberIds, leaderId } =
+      createTeamAdminDto;
+
+    if (!memberIds.includes(leaderId)) {
+      throw new BadRequestException('The leader must be one of the members');
+    }
+
+    await this.assertNameIsAvailable(name);
+    await this.assertQuadrigramIsAvailable(quadrigram);
+
+    const members = await Promise.all(
+      memberIds.map((memberId) => this.userService.findOneById(memberId)),
+    );
+
+    const missingIndex = members.findIndex((member) => !member);
+    if (missingIndex !== -1) {
+      throw new NotFoundException(
+        `The user ${memberIds[missingIndex]} does not exist`,
+      );
+    }
+
+    /* A user belongs to at most one team, so refuse rather than silently move
+     * somebody out of the team they are already in. An INCOMPLETE team is not
+     * finalized yet, so its members can still be reassigned. */
+    const alreadyTaken = members.filter(
+      (member) => member.team && member.team.status !== TeamStatus.INCOMPLETE,
+    );
+    if (alreadyTaken.length) {
+      throw new ConflictException(
+        `The user(s) ${alreadyTaken
+          .map((member) => member.id)
+          .join(', ')} already belong to a team`,
+      );
+    }
+
+    const team = this.teamRepository.create({ name, slogan, quadrigram });
+    team.leader = members.find((member) => member.id === leaderId);
+    team.users = members;
+
+    const savedTeam = await this.teamRepository.save(team);
+    await Promise.all(
+      members.map((member) =>
+        this.teamMembershipService.recordJoin(member, savedTeam, actor),
+      ),
+    );
+
+    return this.findOneById(savedTeam.id);
   }
 
   findAll() {
@@ -95,7 +161,7 @@ export class TeamService {
     }
   }
 
-  async addUser(id: number, userId: number) {
+  async addUser(id: number, userId: number, actor?: MembershipActor) {
     const user = await this.userService.findOneById(userId);
     const team = (await this.findOneById(id)) as Team;
     if (!user || !team) {
@@ -107,17 +173,23 @@ export class TeamService {
 
     team.users = [...team.users, user];
     await this.teamRepository.save(team);
+    await this.teamMembershipService.recordJoin(user, team, actor);
     return;
   }
 
-  async removeUser(id: number, userId: number) {
+  async removeUser(id: number, userId: number, actor?: MembershipActor) {
     const team = (await this.findOneById(id)) as Team;
     if (!team) {
       throw new NotFoundException('The team does not exist');
     }
     team.users = team.users.filter((user) => user?.id != userId);
     await this.teamRepository.save(team);
+    await this.teamMembershipService.recordLeave(userId, id, actor);
     return;
+  }
+
+  getUserTeamHistory(userId: number) {
+    return this.teamMembershipService.getHistoryForUser(userId);
   }
 
   async changeLeader(teamId: number, newLeaderId: number) {
