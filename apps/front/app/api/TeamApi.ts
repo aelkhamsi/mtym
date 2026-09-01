@@ -23,6 +23,20 @@ export const createTeam = (team: any) => {
   return ApiMethods.post(url, {body});
 }
 
+/* Admin-side creation: members and leader are chosen explicitly instead of
+ * being derived from the session, so they travel in the body. */
+export const createTeamAsAdmin = (team: {
+  name: string,
+  slogan: string,
+  quadrigram: string,
+  memberIds: number[],
+  leaderId: number,
+}) => {
+  const url = '/teams/admin';
+  const body = {...team};
+  return ApiMethods.post(url, {body});
+}
+
 export const updateTeam = (teamId: number, partialTeam: any) => {
   const url = `/teams/${teamId}`;
   const body = {...partialTeam};
@@ -38,6 +52,11 @@ export const removeUser = (teamId: number, userId?: number) => {
   const url = `/teams/unjoin/${teamId}`;
   const body = userId ? { userId } : {};
   return ApiMethods.put(url, {body});
+}
+
+export const getTeamHistoryForUser = (userId: number) => {
+  const url = `/teams/history/user/${userId}`;
+  return ApiMethods.get(url);
 }
 
 export const changeLeader = (teamId: number, newLeaderId: number) => {

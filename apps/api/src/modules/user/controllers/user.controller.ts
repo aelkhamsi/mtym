@@ -32,6 +32,18 @@ export class UserController {
     return req.user;
   }
 
+  /* Admin-only: backs the member picker in the admin "create team" dialog, so
+   * the eligibility rule (validated application + INCOMPLETE team) lives here
+   * instead of being re-derived from the full user list on the client. Must
+   * stay above the ':id' route, or 'eligible-for-team' would be parsed as an id. */
+  @UseGuards(AdminGuard)
+  @Get('eligible-for-team')
+  @HttpCode(200)
+  async findEligibleForTeamCreation() {
+    const users = await this.userService.findEligibleForTeamCreation();
+    return users.map((user) => new SerializedUser(user));
+  }
+
   @UseGuards(AuthGuard)
   @Get(':id')
   @HttpCode(200)
