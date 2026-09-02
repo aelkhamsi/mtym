@@ -12,11 +12,13 @@ import {
 } from '@nestjs/common';
 import { TeamService } from '../services/team.service';
 import { CreateTeamDto } from '../dto/create-team.dto';
+import { CreateTeamAdminDto } from '../dto/create-team-admin.dto';
 import { UpdateTeamDto } from '../dto/update-team.dto';
 import { SerializedUser } from 'src/modules/user/entities/serialized-user';
 import { RemoveUserDto } from '../dto/remove-user.dto';
 import { ChangeLeaderDto } from '../dto/change-leader.dto';
 import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
+import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
 
 @Controller('mtym-api/teams')
 export class TeamController {
@@ -29,6 +31,26 @@ export class TeamController {
      * every caller and not only for the ones going through this endpoint. */
     const userId = request['user'].id;
     const team = await this.teamService.create(createTeamDto, userId);
+
+    return {
+      ...team,
+      leader: team?.leader ? new SerializedUser(team?.leader) : team?.leader,
+      users: team?.users?.map((user) => new SerializedUser(user)),
+    };
+  }
+
+  /* Admin-only: the team is created for other users, so it is guarded by the
+   * payload session rather than the participant one. */
+  @UseGuards(AdminGuard)
+  @Post('admin')
+  async createAsAdmin(
+    @Req() request: Request,
+    @Body() createTeamAdminDto: CreateTeamAdminDto,
+  ) {
+    const team = await this.teamService.createAsAdmin(
+      createTeamAdminDto,
+      request['user'],
+    );
 
     return {
       ...team,
@@ -92,7 +114,7 @@ export class TeamController {
   @Put('join/:teamId')
   async addUser(@Req() request: Request, @Param('teamId') teamId: string) {
     const userId = request['user'].id;
-    await this.teamService.addUser(+teamId, +userId);
+    await this.teamService.addUser(+teamId, +userId, request['user']);
 
     return {
       id: teamId,
@@ -108,12 +130,20 @@ export class TeamController {
     @Body() removeUserDto: RemoveUserDto,
   ) {
     const userId = removeUserDto?.userId ?? request['user'].id;
-    await this.teamService.removeUser(+teamId, +userId);
+    await this.teamService.removeUser(+teamId, +userId, request['user']);
 
     return {
       id: teamId,
       statusCode: 200,
     };
+  }
+
+  /* Admin-only: surfaces every stint a user has had across teams, so support
+   * can see the full trail when someone has been moved more than once. */
+  @UseGuards(AdminGuard)
+  @Get('history/user/:userId')
+  async getUserTeamHistory(@Param('userId') userId: string) {
+    return this.teamService.getUserTeamHistory(+userId);
   }
 
   @UseGuards(AuthGuard)

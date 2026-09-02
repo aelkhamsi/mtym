@@ -13,6 +13,13 @@ export const getAllUsers = async (cookie?: string) => {
   return ApiMethods.get(url, {cookie});
 }
 
+/* Backs the admin "create team" member picker: the API already restricts the
+ * list to validated applicants stuck on an INCOMPLETE team. */
+export const getEligibleUsersForTeamCreation = async (cookie?: string) => {
+  const url = `/users/eligible-for-team`;
+  return ApiMethods.get(url, {cookie});
+}
+
 export const getUserById = async (id: number, cookie?: string) => {
   const url = `/users/${id}`;
   return ApiMethods.get(url, {cookie});

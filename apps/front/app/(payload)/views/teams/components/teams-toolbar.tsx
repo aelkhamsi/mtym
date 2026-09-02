@@ -7,12 +7,14 @@ import { TeamsViewOptions } from "./teams-view-options"
 import { getStatusClassname, statusOptions, Status } from "./team-status"
 import { TableFacetedFilter } from "@/app/(payload)/components/table-faceted-filter"
 import { useState } from "react"
+import CreateTeamButton from "./create-team-button"
 
 interface TeamsToolbarProps<TData> {
   table: Table<TData>
+  onTeamCreated?: (team: any) => void
 }
 
-export function TeamsToolbar<TData>({ table }: TeamsToolbarProps<TData>) {
+export function TeamsToolbar<TData>({ table, onTeamCreated }: TeamsToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const [savedPageIndex, setSavedPageIndex] = useState<number | null>(null)
 
@@ -68,7 +70,10 @@ export function TeamsToolbar<TData>({ table }: TeamsToolbarProps<TData>) {
         )}
       </div>
 
-      <TeamsViewOptions table={table} />
+      <div className="flex items-center gap-2">
+        {onTeamCreated && <CreateTeamButton onCreated={onTeamCreated} />}
+        <TeamsViewOptions table={table} />
+      </div>
     </div>
   )
 }

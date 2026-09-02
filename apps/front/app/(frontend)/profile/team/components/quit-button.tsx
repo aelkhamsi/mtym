@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from "@mdm/ui";
 import { Button, Separator } from "@mdm/ui";
-import { changeLeader, deleteTeam, removeUser } from "@/app/api/TeamApi";
+import { changeLeader, removeUser } from "@/app/api/TeamApi";
 import { toast } from "@mdm/ui";
 import { useState } from "react";
 import { useAtomValue } from "jotai";
@@ -37,17 +37,10 @@ const QuitButton = ({
 
   const onQuitTeam = async () => {
     try {
-      if (isTeamLeader) {
-        if (newLeaderId) {
-          await changeLeader(team?.id, newLeaderId);
-          await removeUser(team?.id);
-        } else {
-          await removeUser(team?.id);
-          await deleteTeam(team?.id);
-        }
-      } else {
-        await removeUser(team?.id);
+      if (isTeamLeader && newLeaderId) {
+        await changeLeader(team?.id, newLeaderId);
       }
+      await removeUser(team?.id);
 
       window.location.reload();
     } catch(e) {
