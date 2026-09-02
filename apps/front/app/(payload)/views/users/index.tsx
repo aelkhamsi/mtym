@@ -2,17 +2,13 @@ import React from 'react'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import { Gutter, SetStepNav, type StepNavItem } from '@payloadcms/ui'
 import { AdminViewServerProps } from 'payload'
-import { cookies } from 'next/headers'
-import { getAllUsers } from '@/app/api/UsersApi'
-import RootProvider from '@/app/(payload)/root-provider'
 import UsersClient from './index.client'
 
-export const UsersView: React.FC<AdminViewServerProps> = async ({
+export const UsersView: React.FC<AdminViewServerProps> = ({
   initPageResult, params, searchParams
 }) => {
   if (!initPageResult.req.user) return <p>You must be logged in to access this page.</p>
 
-  const users = await getAllUsers((await cookies()).toString()) as any[]
   const steps: StepNavItem[] = [
     {
       url: '/admin/users',
@@ -32,9 +28,7 @@ export const UsersView: React.FC<AdminViewServerProps> = async ({
   >
     <SetStepNav nav={steps} />
     <Gutter>
-      <RootProvider users={users}>
-        <UsersClient />
-      </RootProvider>
+      <UsersClient />
     </Gutter>
   </DefaultTemplate>
 }

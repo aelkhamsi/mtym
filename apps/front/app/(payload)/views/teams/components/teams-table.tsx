@@ -3,10 +3,11 @@
 import {
   ColumnDef,
   ColumnFiltersState,
-  SortingState,
   VisibilityState,
   flexRender,
   getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
@@ -23,9 +24,9 @@ import {
 } from "@mdm/ui"
 import { TeamsPagination } from "./teams-pagination"
 import { useEffect, useState } from "react"
-import { Input } from "@mdm/ui"
-import { TeamsViewOptions } from "./teams-view-options"
-import CreateTeamButton from "./create-team-button"
+import { TeamsToolbar } from "./teams-toolbar"
+import { usePersistedSorting } from '@/app/(payload)/hooks/usePersistedSorting';
+import { useTablePreferences } from '@/app/(payload)/hooks/useTablePreferences';
 
 interface UsersTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -45,7 +46,7 @@ export function TeamsTable<TData, TValue>({
   data,
   onTeamCreated,
 }: UsersTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([])
+  const [sorting, setSorting] = usePersistedSorting('teams-table-sorting')
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   /* Two lifetimes, on purpose: the jump happens once, while the highlight
@@ -69,6 +70,13 @@ export function TeamsTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+  })
+
+  useTablePreferences(table, {
+    storageKey: 'teams-table',
+    persistedFilterIds: ['status'],
   })
 
   useEffect(() => {
@@ -101,27 +109,14 @@ export function TeamsTable<TData, TValue>({
 
   return (
     <div className="space-y-2">
-      <div className="flex justify-between items-center py-4">
-        <Input
-          placeholder="Filter teams by name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-
-        <div className="flex items-center gap-2">
-          <CreateTeamButton
-            onCreated={(team: any) => {
-              setPendingPageFocusId(String(team?.id))
-              setHighlightedTeamId(String(team?.id))
-              onTeamCreated?.(team)
-            }}
-          />
-          <TeamsViewOptions table={table} />
-        </div>
-      </div>
+      <TeamsToolbar
+        table={table}
+        onTeamCreated={(team: any) => {
+          setPendingPageFocusId(String(team?.id))
+          setHighlightedTeamId(String(team?.id))
+          onTeamCreated?.(team)
+        }}
+      />
 
       <div className="rounded-md border">
         <Table>

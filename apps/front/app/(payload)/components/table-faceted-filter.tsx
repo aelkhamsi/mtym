@@ -18,10 +18,8 @@ import {
   PopoverTrigger,
 } from "@mdm/ui"
 import { Separator } from "@mdm/ui"
-import { Status, getStatusClassname } from "./application-status"
-import { useEffect, useRef } from "react"
 
-interface ApplicationsFacetedFilterProps<TData, TValue> {
+interface TableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>
   title?: string
   options: {
@@ -29,47 +27,19 @@ interface ApplicationsFacetedFilterProps<TData, TValue> {
     value: string
     icon?: React.ComponentType<{ className?: string }>
   }[]
-  colorizeOptions?: boolean
+  getOptionClassname?: (value: string) => string
+  onFilterChange?: () => void
 }
 
-export function ApplicationsFacetedFilter<TData, TValue>({
+export function TableFacetedFilter<TData, TValue>({
   column,
   title,
   options,
-  colorizeOptions = false,
-}: ApplicationsFacetedFilterProps<TData, TValue>) {
+  getOptionClassname,
+  onFilterChange,
+}: TableFacetedFilterProps<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
-  const storageKey = `applications-table-filter:${column?.id}`
-  const hasHydrated = useRef(false)
-  const filterValue = column?.getFilterValue()
-
-  useEffect(() => {
-    if (hasHydrated.current || !column) return
-    hasHydrated.current = true
-
-    try {
-      const saved = localStorage.getItem(storageKey)
-      if (!saved) return
-
-      const values: string[] = JSON.parse(saved)
-      if (Array.isArray(values) && values.length) {
-        column.setFilterValue(values)
-      }
-    } catch {}
-  }, [column])
-
-  useEffect(() => {
-    if (!hasHydrated.current) return
-
-    try {
-      if (filterValue && (filterValue as string[]).length) {
-        localStorage.setItem(storageKey, JSON.stringify(filterValue))
-      } else {
-        localStorage.removeItem(storageKey)
-      }
-    } catch {}
-  }, [filterValue, storageKey])
 
   return (
     <Popover>
@@ -101,7 +71,7 @@ export function ApplicationsFacetedFilter<TData, TValue>({
                       <Badge
                         variant="secondary"
                         key={option.value}
-                        className={`rounded-sm px-1 font-normal ${colorizeOptions ? getStatusClassname(option.value as Status, 'sm') : ''}`}
+                        className={`rounded-sm px-1 font-normal ${getOptionClassname?.(option.value) ?? ''}`}
                       >
                         {option.label}
                       </Badge>
@@ -141,6 +111,7 @@ export function ApplicationsFacetedFilter<TData, TValue>({
                       column?.setFilterValue(
                         filterValues.length ? filterValues : undefined
                       )
+                      onFilterChange?.()
                     }}
                   >
                     <div
@@ -156,7 +127,7 @@ export function ApplicationsFacetedFilter<TData, TValue>({
                     {option.icon && (
                       <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
                     )}
-                    <div className={colorizeOptions ? getStatusClassname(option.value as Status, 'sm') : ''}>
+                    <div className={getOptionClassname?.(option.value) ?? ''}>
                       <span>{option.label}</span>
                     </div>
                     {facets?.get(option.value) && (
@@ -173,7 +144,10 @@ export function ApplicationsFacetedFilter<TData, TValue>({
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
+                    onSelect={() => {
+                      column?.setFilterValue(undefined)
+                      onFilterChange?.()
+                    }}
                     className="justify-center text-center"
                   >
                     Clear filters
