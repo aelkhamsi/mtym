@@ -99,7 +99,10 @@ export class TeamService {
     const savedTeam = await this.teamRepository.save(team);
     await Promise.all(
       members.map((member) =>
-        this.teamMembershipService.recordJoin(member, savedTeam, actor),
+        Promise.all([
+          this.teamMembershipService.recordJoin(member, savedTeam, actor),
+          this.userService.setFreeAgent(member.id, false),
+        ]),
       ),
     );
 
@@ -173,7 +176,10 @@ export class TeamService {
 
     team.users = [...team.users, user];
     await this.teamRepository.save(team);
-    await this.teamMembershipService.recordJoin(user, team, actor);
+    await Promise.all([
+      this.teamMembershipService.recordJoin(user, team, actor),
+      this.userService.setFreeAgent(user.id, false),
+    ]);
     return;
   }
 
@@ -186,6 +192,28 @@ export class TeamService {
     await this.teamRepository.save(team);
     await this.teamMembershipService.recordLeave(userId, id, actor);
     return;
+  }
+
+  /**
+   * Free agents are validated applicants pulled out of their team on purpose
+   * so they can be picked up into a different one from the create-team
+   * picker, which otherwise only offers members of an INCOMPLETE team.
+   */
+  async markFreeAgent(userId: number, actor?: MembershipActor) {
+    const user = await this.userService.findOneById(userId);
+    if (!user) {
+      throw new NotFoundException('The user does not exist');
+    }
+    if (user.application?.status?.status !== 'VALIDATED') {
+      throw new BadRequestException(
+        'Only users with a validated application can become a free agent',
+      );
+    }
+
+    if (user.team) {
+      await this.removeUser(user.team.id, userId, actor);
+    }
+    await this.userService.setFreeAgent(userId, true);
   }
 
   getUserTeamHistory(userId: number) {

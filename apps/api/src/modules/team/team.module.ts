@@ -9,6 +9,7 @@ import { TeamAccessCodeService } from './services/team-access-code.service';
 import { TeamAccessCodeController } from './controllers/team-access-code.controller';
 import { TeamMembership } from './entities/team-membership.entity';
 import { TeamMembershipService } from './services/team-membership.service';
+import { teamCommands } from './commands';
 
 @Module({
   imports: [
@@ -16,6 +17,11 @@ import { TeamMembershipService } from './services/team-membership.service';
     TypeOrmModule.forFeature([Team, TeamAccessCode, TeamMembership]),
   ],
   controllers: [TeamController, TeamAccessCodeController],
-  providers: [TeamService, TeamAccessCodeService, TeamMembershipService],
+  providers: [
+    TeamService,
+    TeamAccessCodeService,
+    TeamMembershipService,
+    ...teamCommands,
+  ],
 })
 export class TeamModule {}

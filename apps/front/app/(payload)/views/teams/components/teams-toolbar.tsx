@@ -49,6 +49,14 @@ export function TeamsToolbar<TData>({ table, onTeamCreated }: TeamsToolbarProps<
           }
           className="max-w-sm"
         />
+        <Input
+          placeholder="Filter by member name..."
+          value={(table.getColumn("memberName")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("memberName")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
         {table.getColumn("status") && (
           <TableFacetedFilter
             column={table.getColumn("status")}

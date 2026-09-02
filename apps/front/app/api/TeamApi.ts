@@ -54,6 +54,11 @@ export const removeUser = (teamId: number, userId?: number) => {
   return ApiMethods.put(url, {body});
 }
 
+export const markFreeAgent = (userId: number) => {
+  const url = `/teams/free-agent/${userId}`;
+  return ApiMethods.put(url);
+}
+
 export const getTeamHistoryForUser = (userId: number) => {
   const url = `/teams/history/user/${userId}`;
   return ApiMethods.get(url);

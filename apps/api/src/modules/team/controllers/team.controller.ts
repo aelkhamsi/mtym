@@ -146,6 +146,23 @@ export class TeamController {
     return this.teamService.getUserTeamHistory(+userId);
   }
 
+  /* Admin-only: pulls the user out of their current team (if any) and flags
+   * them as a free agent, so a validated applicant can be reassigned instead
+   * of being stuck once their team is no longer INCOMPLETE. */
+  @UseGuards(AdminGuard)
+  @Put('free-agent/:userId')
+  async markFreeAgent(
+    @Req() request: Request,
+    @Param('userId') userId: string,
+  ) {
+    await this.teamService.markFreeAgent(+userId, request['user']);
+
+    return {
+      id: userId,
+      statusCode: 200,
+    };
+  }
+
   @UseGuards(AuthGuard)
   @Put('change-leader/:teamId')
   async changeLeader(

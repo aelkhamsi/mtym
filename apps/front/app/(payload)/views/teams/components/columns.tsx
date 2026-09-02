@@ -138,12 +138,28 @@ export const columns: ColumnDef<TeamRow>[] = [
     },
   },
   {
+    id: "memberName",
+    accessorFn: (row) => row.members,
+    enableHiding: false,
+    filterFn: (row, id, filterValue) => {
+      const query = String(filterValue ?? "").trim().toLowerCase()
+      if (!query) return true
+
+      const members = (row.getValue(id) as any[]) ?? []
+      return members.some((member) =>
+        `${member?.firstName ?? ""} ${member?.lastName ?? ""}`
+          .toLowerCase()
+          .includes(query)
+      )
+    },
+  },
+  {
     id: "showButton",
     cell: ({ row }) => {
       const members = row.original?.members;
- 
+
       return <div className='flex justify-end'>
-        <TeamsMembers members={members} leaderId={row.original.leaderId}/>
+        <TeamsMembers teamId={Number(row.original.id)} members={members} leaderId={row.original.leaderId}/>
       </div>
     }
   },

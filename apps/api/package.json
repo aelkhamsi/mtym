@@ -24,7 +24,8 @@
     "migration:revert": "npm run typeorm -- -d ./db/typeorm.config.ts migration:revert",
     "migration:show": "npm run typeorm -- migration:show -d ./db/typeorm.config.ts",
     "command:dev": "ts-node -r tsconfig-paths/register ./src/main-cli.ts",
-    "command": "node dist/src/main-cli.js"
+    "command": "node dist/src/main-cli.js",
+    "update-team-statuses": "npm run command:dev update-team-statuses"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.563.0",

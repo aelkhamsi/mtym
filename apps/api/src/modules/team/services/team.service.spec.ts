@@ -36,6 +36,7 @@ const buildService = (existingTeams: { id: number; quadrigram: string; name: str
     userService as any,
     teamRepository as any,
     {} as any,
+    {} as any,
   );
 };
 

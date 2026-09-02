@@ -69,6 +69,12 @@ export class User {
   })
   verificationCode: string;
 
+  @Column({
+    type: 'boolean',
+    default: false,
+  })
+  isFreeAgent: boolean;
+
   @OneToOne(() => Application, (application) => application.user)
   @JoinColumn()
   application: Application;

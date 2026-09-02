@@ -48,7 +48,7 @@ export function TeamsTable<TData, TValue>({
 }: UsersTableProps<TData, TValue>) {
   const [sorting, setSorting] = usePersistedSorting('teams-table-sorting')
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({ memberName: false })
   /* Two lifetimes, on purpose: the jump happens once, while the highlight
    * lingers. Keeping them together would re-jump under the user if they
    * re-sorted or filtered during the few seconds the row stays highlighted. */

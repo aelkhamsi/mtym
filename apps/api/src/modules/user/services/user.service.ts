@@ -36,23 +36,30 @@ export class UserService {
 
   /**
    * Candidates for an admin-created team: their application must be VALIDATED,
-   * and they must belong to a team that is still INCOMPLETE, so pulling them
-   * into a new team does not disturb one that is already finalized.
+   * and they must either belong to a team that is still INCOMPLETE (so pulling
+   * them into a new team does not disturb one that is already finalized) or be
+   * a free agent (validated, but pulled out of their previous team on purpose
+   * to be reassigned).
    */
   findEligibleForTeamCreation() {
     return this.userRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.application', 'application')
       .leftJoinAndSelect('application.status', 'status')
-      .innerJoinAndSelect('user.team', 'team')
+      .leftJoinAndSelect('user.team', 'team')
       .leftJoinAndSelect('team.leader', 'leader')
       .leftJoinAndSelect('team.users', 'teamUser')
       .leftJoinAndSelect('user.participantDetails', 'participantDetails')
       .where('status.status = :status', { status: 'VALIDATED' })
-      .andWhere('team.status = :teamStatus', {
-        teamStatus: TeamStatus.INCOMPLETE,
-      })
+      .andWhere(
+        '(user.isFreeAgent = true OR team.status = :teamStatus)',
+        { teamStatus: TeamStatus.INCOMPLETE },
+      )
       .getMany();
+  }
+
+  setFreeAgent(id: number, isFreeAgent: boolean) {
+    return this.userRepository.update({ id }, { isFreeAgent });
   }
 
   findOneById(id: number) {
