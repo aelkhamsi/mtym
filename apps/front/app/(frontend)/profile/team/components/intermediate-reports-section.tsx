@@ -54,12 +54,12 @@ const IntermediateReportRow = ({
       <div className="font-medium">Problème {problemNumber}</div>
       {report
         ? <FilePreviewButton filename={report.fileUrl} />
-        : <span className="text-sm text-muted-foreground">Pas encore déposé</span>
+        : <span className="text-sm text-red-500">Pas encore déposé</span>
       }
     </div>
 
     {canUpload && (
-      <div className="flex gap-3">
+      <div className="space-y-3">
         <Input
           key={inputVersion}
           id={`intermediate-report-${problemNumber}`}
@@ -83,7 +83,7 @@ const IntermediateReportRow = ({
         <Button type="button" disabled={isDisabled} onClick={onSubmit}>
           {isUploading
             ? <LoadingDots color="#808080" />
-            : report ? "Remplacer" : "Envoyer"
+            : "Envoyer"
           }
         </Button>
       </div>

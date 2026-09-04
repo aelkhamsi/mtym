@@ -94,10 +94,12 @@ const FilePreviewButton = ({
   return (
     <>
       <Button
+        variant="outline"
+        className="border-foreground bg-background text-foreground"
         onClick={onPreview}
         disabled={isLoading}
       >
-        Preview <Link1Icon className="ml-1"/>
+        Consulter le fichier <Link1Icon className="ml-1"/>
       </Button>
 
       {error && <p className="text-sm text-red-500">{error}</p>}
