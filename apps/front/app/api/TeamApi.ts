@@ -43,12 +43,13 @@ export const updateTeam = (teamId: number, partialTeam: any) => {
   return ApiMethods.put(url, {body});
 }
 
-export const updateIntermediateReports = (
+export const updateIntermediateReport = (
   teamId: number,
-  reports: Array<{ problemNumber: number; fileUrl: string }>,
+  problemNumber: number,
+  fileUrl: string,
 ) => {
-  const url = `/teams/${teamId}/intermediate-reports`;
-  return ApiMethods.put(url, { body: { reports } });
+  const url = `/teams/${teamId}/intermediate-reports/${problemNumber}`;
+  return ApiMethods.put(url, { body: { fileUrl } });
 }
 
 export const getIntermediateReportUploadUrl = (

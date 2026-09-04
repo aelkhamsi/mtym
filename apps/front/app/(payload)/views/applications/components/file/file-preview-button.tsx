@@ -74,8 +74,9 @@ const FilePreviewButton = ({
     setError(null);
 
     try {
-      const { url } = await getSignedPreviewURL(filename) as { url: string };
-      setPreviewUrl(url);
+      const response = await getSignedPreviewURL(filename) as { url?: string };
+      if (!response?.url) throw new Error();
+      setPreviewUrl(response.url);
       setIsPreviewOpen(true);
     } catch (err) {
       console.error('Failed to fetch preview URL', err);

@@ -21,7 +21,7 @@ import { ChangeLeaderDto } from '../dto/change-leader.dto';
 import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
 import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
 import { TeamReportService } from '../services/team-report.service';
-import { UpdateIntermediateReportsDto } from '../dto/update-intermediate-reports.dto';
+import { UpdateIntermediateReportDto } from '../dto/update-intermediate-reports.dto';
 import { GetReportUploadUrlDto } from '../dto/get-report-upload-url.dto';
 import { UserGuard } from 'src/modules/auth/guards/user.guard';
 
@@ -124,15 +124,17 @@ export class TeamController {
   }
 
   @UseGuards(UserGuard)
-  @Put(':id/intermediate-reports')
-  updateIntermediateReports(
+  @Put(':id/intermediate-reports/:problemNumber')
+  updateIntermediateReport(
     @Req() request: Request,
     @Param('id', ParseIntPipe) teamId: number,
-    @Body() updateIntermediateReportsDto: UpdateIntermediateReportsDto,
+    @Param('problemNumber', ParseIntPipe) problemNumber: number,
+    @Body() updateIntermediateReportDto: UpdateIntermediateReportDto,
   ) {
-    return this.teamReportService.upsertIntermediateReports(
+    return this.teamReportService.upsertIntermediateReport(
       teamId,
-      updateIntermediateReportsDto.reports,
+      problemNumber,
+      updateIntermediateReportDto.fileUrl,
       request['user'].id,
     );
   }

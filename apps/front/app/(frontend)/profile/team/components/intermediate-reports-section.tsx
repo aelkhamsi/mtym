@@ -17,11 +17,11 @@ import {
   toast,
 } from "@mdm/ui"
 import type { TeamReport } from "@mdm/types"
-import { useAtomValue } from "jotai"
+import { useAtom, useAtomValue } from "jotai"
 import { uploadFile } from "@/app/api/MediaApi"
 import {
   getIntermediateReportUploadUrl,
-  updateIntermediateReports,
+  updateIntermediateReport,
 } from "@/app/api/TeamApi"
 import { teamAtom } from "@/app/store/teamAtom"
 import { userAtom } from "@/app/store/userAtom"
@@ -31,15 +31,23 @@ import FilePreviewButton from "@/app/(payload)/views/applications/components/fil
 const IntermediateReportRow = ({
   problemNumber,
   report,
+  selectedFile,
   canUpload,
   onFileChange,
+  onSubmit,
   inputVersion,
+  isDisabled,
+  isUploading,
 }: {
   problemNumber: number
   report?: TeamReport
+  selectedFile?: File
   canUpload: boolean
   onFileChange: (file?: File) => void
+  onSubmit: () => void
   inputVersion: number
+  isDisabled: boolean
+  isUploading: boolean
 }) => (
   <div className="space-y-3 rounded-md border p-4">
     <div className="flex flex-wrap items-center justify-between gap-3">
@@ -51,25 +59,44 @@ const IntermediateReportRow = ({
     </div>
 
     {canUpload && (
-      <Input
-        key={inputVersion}
-        type="file"
-        accept="application/pdf"
-        onChange={(event) => onFileChange(event.target.files?.[0])}
-      />
+      <div className="flex gap-3">
+        <Input
+          key={inputVersion}
+          id={`intermediate-report-${problemNumber}`}
+          type="file"
+          accept="application/pdf"
+          className="hidden"
+          disabled={isDisabled}
+          onChange={(event) => onFileChange(event.target.files?.[0])}
+        />
+        <label
+          htmlFor={`intermediate-report-${problemNumber}`}
+          className="flex flex-1 gap-x-4 rounded-md border px-4 py-2 text-sm hover:cursor-pointer"
+        >
+          <div className="font-semibold">
+            {report || selectedFile ? "Modifier le fichier" : "Ajouter un fichier"}
+          </div>
+          <div>
+            {selectedFile?.name ?? (report ? "✅ Votre fichier a été envoyé!" : "Pas de fichier")}
+          </div>
+        </label>
+        <Button type="button" disabled={isDisabled} onClick={onSubmit}>
+          {isUploading
+            ? <LoadingDots color="#808080" />
+            : report ? "Remplacer" : "Envoyer"
+          }
+        </Button>
+      </div>
     )}
   </div>
 )
 
 const IntermediateReportsSection = () => {
   const user = useAtomValue(userAtom)
-  const team = useAtomValue(teamAtom)
-  const [reports, setReports] = useState<TeamReport[]>(
-    team?.reports?.filter((report) => report.reportType === "INTERMEDIATE") ?? [],
-  )
+  const [team, setTeam] = useAtom(teamAtom)
   const [files, setFiles] = useState<Record<number, File | undefined>>({})
-  const [isLoading, setIsLoading] = useState(false)
-  const [inputVersion, setInputVersion] = useState(0)
+  const [uploadingProblem, setUploadingProblem] = useState<number>()
+  const [inputVersions, setInputVersions] = useState<Record<number, number>>({})
 
   if (!team || !["NEW", "APPROVED"].includes(team.status)) return null
 
@@ -79,92 +106,90 @@ const IntermediateReportsSection = () => {
     (_, index) => index + 1,
   )
 
-  const submit = async () => {
-    const selectedFiles = problemNumbers.map((problemNumber) => ({
-      problemNumber,
-      file: files[problemNumber],
-    }))
+  const submit = async (problemNumber: number) => {
+    const file = files[problemNumber]
 
-    if (selectedFiles.some(({ file }) => !file)) {
+    if (!file) {
       toast({
-        title: "Rapports manquants",
-        description: "Veuillez sélectionner un PDF pour chaque problème.",
+        title: "Rapport manquant",
+        description: "Veuillez sélectionner un PDF.",
         variant: "destructive",
       })
       return
     }
-    if (selectedFiles.some(({ file }) => file?.type !== "application/pdf")) {
+    if (file.type !== "application/pdf") {
       toast({
         title: "Fichier invalide",
-        description: "Tous les rapports doivent être au format PDF.",
+        description: "Le rapport doit être au format PDF.",
         variant: "destructive",
       })
       return
     }
-    if (selectedFiles.some(({ file }) => file!.size > MTYM_REPORT_MAX_FILE_SIZE)) {
+    if (file.size > MTYM_REPORT_MAX_FILE_SIZE) {
       toast({
         title: "Fichier trop volumineux",
-        description: "Chaque fichier doit faire moins de 10 Mo.",
+        description: "Le fichier doit faire moins de 10 Mo.",
         variant: "destructive",
       })
       return
     }
 
-    setIsLoading(true)
+    setUploadingProblem(problemNumber)
 
     try {
-      const uploadedReports = await Promise.all(
-        selectedFiles.map(async ({ problemNumber, file }) => {
-          const checksum = await computeSHA256(file!)
-          const signedUrlResponse = await getIntermediateReportUploadUrl(
-            team.id,
-            problemNumber,
-            file!.size,
-            checksum,
-          ) as { url?: string; fileUrl?: string }
-
-          if (!signedUrlResponse.url || !signedUrlResponse.fileUrl) {
-            throw new Error()
-          }
-
-          const uploadResponse = await uploadFile(
-            signedUrlResponse.url,
-            file!,
-          ) as { statusCode: number }
-          if (uploadResponse.statusCode < 200 || uploadResponse.statusCode >= 300) {
-            throw new Error()
-          }
-
-          return {
-            problemNumber,
-            fileUrl: signedUrlResponse.fileUrl,
-          }
-        }),
-      )
-
-      const savedReports = await updateIntermediateReports(
+      const checksum = await computeSHA256(file)
+      const signedUrlResponse = await getIntermediateReportUploadUrl(
         team.id,
-        uploadedReports,
-      ) as TeamReport[]
-      if (!Array.isArray(savedReports)) {
+        problemNumber,
+        file.size,
+        checksum,
+      ) as { url?: string; fileUrl?: string }
+
+      if (!signedUrlResponse.url || !signedUrlResponse.fileUrl) {
         throw new Error()
       }
 
-      setReports(savedReports)
-      setFiles({})
-      setInputVersion((current) => current + 1)
+      const uploadResponse = await uploadFile(
+        signedUrlResponse.url,
+        file,
+      ) as { statusCode: number }
+      if (uploadResponse.statusCode < 200 || uploadResponse.statusCode >= 300) {
+        throw new Error()
+      }
+
+      const savedReport = await updateIntermediateReport(
+        team.id,
+        problemNumber,
+        signedUrlResponse.fileUrl,
+      ) as TeamReport
+      if (!savedReport.id) throw new Error()
+
+      setTeam((current) => current ? {
+        ...current,
+        reports: [
+          ...(current.reports ?? []).filter(
+            (report) => report.reportType !== "INTERMEDIATE" || report.problemNumber !== problemNumber,
+          ),
+          savedReport,
+        ],
+      } : current)
+      setFiles((current) => ({ ...current, [problemNumber]: undefined }))
+      setInputVersions((current) => ({
+        ...current,
+        [problemNumber]: (current[problemNumber] ?? 0) + 1,
+      }))
       toast({
-        title: "Rapports envoyés",
-        description: "Tous les rapports intermédiaires ont bien été enregistrés.",
+        title: "Rapport envoyé",
+        description: `Le rapport du problème ${problemNumber} a bien été enregistré.`,
       })
     } catch {
       toast({
         title: "Échec de l'envoi",
-        description: "Les rapports n'ont pas pu être envoyés. Veuillez réessayer.",
+        description: "Le rapport n'a pas pu être envoyé. Veuillez réessayer.",
         variant: "destructive",
       })
     } finally {
-      setIsLoading(false)
+      setUploadingProblem(undefined)
     }
   }
 
@@ -173,7 +198,7 @@ const IntermediateReportsSection = () => {
       <CardHeader>
         <CardTitle>Rapports intermédiaires</CardTitle>
         <CardDescription>
-          Sélectionnez un PDF pour chaque problème, puis envoyez tous les rapports en une seule fois.
+          Déposez un rapport PDF pour chaque problème.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -187,9 +212,15 @@ const IntermediateReportsSection = () => {
           <IntermediateReportRow
             key={problemNumber}
             problemNumber={problemNumber}
-            report={reports.find((item) => item.problemNumber === problemNumber)}
+            report={team.reports?.find(
+              (item) => item.reportType === "INTERMEDIATE" && item.problemNumber === problemNumber,
+            )}
+            selectedFile={files[problemNumber]}
             canUpload={isTeamLeader}
-            inputVersion={inputVersion}
+            inputVersion={inputVersions[problemNumber] ?? 0}
+            isDisabled={uploadingProblem !== undefined}
+            isUploading={uploadingProblem === problemNumber}
+            onSubmit={() => submit(problemNumber)}
             onFileChange={(file) => {
               setFiles((current) => ({ ...current, [problemNumber]: file }))
             }}
@@ -197,17 +228,9 @@ const IntermediateReportsSection = () => {
         ))}
 
         {isTeamLeader && (
-          <div className="space-y-2">
-            <Button type="button" disabled={isLoading} onClick={submit}>
-              {isLoading
-                ? <LoadingDots color="#808080" />
-                : "Envoyer tous les rapports"
-              }
-            </Button>
-            <p className="text-xs text-muted-foreground">
-              PDF uniquement, 10 Mo maximum par fichier.
-            </p>
-          </div>
+          <p className="text-xs text-muted-foreground">
+            PDF uniquement, 10 Mo maximum par fichier.
+          </p>
         )}
       </CardContent>
     </Card>

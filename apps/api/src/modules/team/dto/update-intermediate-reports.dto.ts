@@ -1,9 +1,7 @@
-import { IsArray } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export class UpdateIntermediateReportsDto {
-  @IsArray()
-  reports: Array<{
-    problemNumber: number;
-    fileUrl: string;
-  }>;
+export class UpdateIntermediateReportDto {
+  @IsString()
+  @IsNotEmpty()
+  fileUrl: string;
 }

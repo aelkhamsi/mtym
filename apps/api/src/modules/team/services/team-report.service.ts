@@ -54,13 +54,13 @@ export class TeamReportService {
     checksum: string,
     userId: number,
   ) {
-    await this.getEligibleTeam(teamId, userId);
+    const team = await this.getEligibleTeam(teamId, userId);
     if (problemNumber < 1 || problemNumber > MTYM_PROBLEM_COUNT) {
       throw new BadRequestException('Invalid problem number');
     }
 
     const suffix = randomBytes(6).toString('hex');
-    const fileUrl = `reports/${teamId}/intermediate/problem_${problemNumber}_${suffix}.pdf`;
+    const fileUrl = `reports/${team.quadrigram}/intermediate/problem_${problemNumber}_${suffix}.pdf`;
     const url = await this.mediaService.getSignedPutURL(
       userId,
       fileUrl,
@@ -76,55 +76,42 @@ export class TeamReportService {
     return { url, fileUrl };
   }
 
-  async upsertIntermediateReports(
+  async upsertIntermediateReport(
     teamId: number,
-    reports: Array<{ problemNumber: number; fileUrl: string }>,
+    problemNumber: number,
+    fileUrl: string,
     userId: number,
   ) {
     const team = await this.getEligibleTeam(teamId, userId);
-    const problemNumbers = Array.from(
-      { length: MTYM_PROBLEM_COUNT },
-      (_, index) => index + 1,
-    );
-    if (
-      reports.length !== MTYM_PROBLEM_COUNT ||
-      !problemNumbers.every((problemNumber) =>
-        reports.some(
-          (report) =>
-            report.problemNumber === problemNumber && report.fileUrl,
-        ),
-      )
-    ) {
-      throw new BadRequestException('A report is required for every problem');
+    if (problemNumber < 1 || problemNumber > MTYM_PROBLEM_COUNT) {
+      throw new BadRequestException('Invalid problem number');
+    }
+    const expectedPath = `reports/${team.quadrigram}/intermediate/problem_${problemNumber}_`;
+    if (!fileUrl.startsWith(expectedPath) || !fileUrl.endsWith('.pdf')) {
+      throw new BadRequestException('Invalid report file');
     }
 
-    const savedReports = [];
+    let report = await this.teamReportRepository.findOne({
+      where: {
+        team: { id: teamId },
+        reportType: TeamReportType.INTERMEDIATE,
+        problemNumber,
+      },
+    });
 
-    for (const reportInput of reports) {
-      let report = await this.teamReportRepository.findOne({
-        where: {
-          team: { id: teamId },
-          reportType: TeamReportType.INTERMEDIATE,
-          problemNumber: reportInput.problemNumber,
-        },
+    if (!report) {
+      report = this.teamReportRepository.create({
+        team,
+        reportType: TeamReportType.INTERMEDIATE,
+        problemNumber,
+        fileUrl,
       });
-
-      if (!report) {
-        report = this.teamReportRepository.create({
-          team,
-          reportType: TeamReportType.INTERMEDIATE,
-          problemNumber: reportInput.problemNumber,
-          fileUrl: reportInput.fileUrl,
-        });
-      } else {
-        report.fileUrl = reportInput.fileUrl;
-      }
-
-      const savedReport = await this.teamReportRepository.save(report);
-      const { team: _, ...result } = savedReport;
-      savedReports.push(result);
+    } else {
+      report.fileUrl = fileUrl;
     }
 
-    return savedReports;
+    const savedReport = await this.teamReportRepository.save(report);
+    const { team: _, ...result } = savedReport;
+    return result;
   }
 }
