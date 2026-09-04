@@ -43,6 +43,24 @@ export const updateTeam = (teamId: number, partialTeam: any) => {
   return ApiMethods.put(url, {body});
 }
 
+export const updateIntermediateReports = (
+  teamId: number,
+  reports: Array<{ problemNumber: number; fileUrl: string }>,
+) => {
+  const url = `/teams/${teamId}/intermediate-reports`;
+  return ApiMethods.put(url, { body: { reports } });
+}
+
+export const getIntermediateReportUploadUrl = (
+  teamId: number,
+  problemNumber: number,
+  size: number,
+  checksum: string,
+) => {
+  const url = `/teams/${teamId}/intermediate-reports/${problemNumber}/signed-url`;
+  return ApiMethods.post(url, { body: { size, checksum } });
+}
+
 export const addUser = (teamId: number) => {
   const url = `/teams/join/${teamId}`;
   return ApiMethods.put(url);
