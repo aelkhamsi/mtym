@@ -82,8 +82,8 @@ const TeamsMembers = ({
         <Button className="text-xs">Show Members</Button>
       </DialogTrigger>
 
-      <DialogContent className="bg-white">
-        <DialogHeader>
+      <DialogContent className="max-h-[90vh] w-[calc(100vw-2rem)] max-w-6xl overflow-y-auto bg-white">
+        <DialogHeader className="min-w-0">
           <DialogTitle>Team Members</DialogTitle>
           <DialogDescription className="text-xs">
             You&apos;ll find the list of all the team members
@@ -113,9 +113,9 @@ const TeamsMembers = ({
                   </TableCell>
                   <TableCell>{member.firstName}</TableCell>
                   <TableCell>{member.lastName}</TableCell>
-                  <TableCell>{member.email}</TableCell>
+                  <TableCell className="break-all">{member.email}</TableCell>
                   <TableCell>
-                    <div className="flex items-center justify-end gap-2">
+                    <div className="flex flex-wrap items-center justify-end gap-2">
                       {member?.application?.status?.status && (
                         <div className={getStatusClassname(member.application.status.status as Status, 'sm')}>
                           {member.application.status.status.split('_').join(' ')}
