@@ -82,13 +82,15 @@ const TeamsMembers = ({
         <Button className="text-xs">Show Members</Button>
       </DialogTrigger>
 
-      <DialogContent className="bg-white">
+      <DialogContent className="max-w-5xl bg-white">
         <DialogHeader>
           <DialogTitle>Team Members</DialogTitle>
           <DialogDescription className="text-xs">
             You&apos;ll find the list of all the team members
           </DialogDescription>
+        </DialogHeader>
 
+        <div className="max-h-[60vh] w-full overflow-y-auto">
           <Table>
             <TableCaption>{members.length === 0 ? <span className="text-xs text-gray-400">Empty list</span> : ''}</TableCaption>
             <TableHeader>
@@ -145,7 +147,7 @@ const TeamsMembers = ({
               ))}
             </TableBody>
           </Table>
-        </DialogHeader>
+        </div>
       </DialogContent>
     </Dialog>
   )

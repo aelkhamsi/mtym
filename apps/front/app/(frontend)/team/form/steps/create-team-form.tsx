@@ -56,7 +56,7 @@ export const CreateTeamForm = ({
           name="slogan"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Slogan <RequiredAsterisk /></FormLabel>
+              <FormLabel>Slogan</FormLabel>
               <FormControl>
                 <Input placeholder="Slogan de l'équipe" {...field} />
               </FormControl>

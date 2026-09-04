@@ -8,7 +8,7 @@ import { z } from "zod"
  */
 export const createTeamAdminSchema = z.object({
   name: z.string().trim().min(1, {message: 'A name is required'}).max(1000, {message: 'Maximum 1000 characters'}),
-  slogan: z.string().trim().min(1, {message: 'A slogan is required'}).max(1000, {message: 'Maximum 1000 characters'}),
+  slogan: z.string().trim().max(1000, {message: 'Maximum 1000 characters'}).optional(),
   quadrigram: z.string().trim().transform((v: string) => v.toUpperCase()).refine((v: string) => /^[A-Z]{4}$/.test(v), {
     message: "A quadrigram is made of exactly 4 letters (A–Z), no digits.",
   }).refine((v: string) => !/^(.)\1{3}$/.test(v), {

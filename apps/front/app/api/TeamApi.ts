@@ -27,7 +27,7 @@ export const createTeam = (team: any) => {
  * being derived from the session, so they travel in the body. */
 export const createTeamAsAdmin = (team: {
   name: string,
-  slogan: string,
+  slogan?: string,
   quadrigram: string,
   memberIds: number[],
   leaderId: number,
