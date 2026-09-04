@@ -50,7 +50,7 @@ export const styleApplicationsSheet = (sheet) => {
   }
 
   // status style
-  for (let i = 29; i <= 29; i++) {
+  for (let i = 29; i <= 30; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -60,7 +60,7 @@ export const styleApplicationsSheet = (sheet) => {
   }
 
   // team style
-  for (let i = 30; i <= 32; i++) {
+  for (let i = 31; i <= 34; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
