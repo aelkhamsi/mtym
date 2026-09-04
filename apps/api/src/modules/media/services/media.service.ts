@@ -28,12 +28,13 @@ export class MediaService {
     type: string,
     size: number,
     checksum: string,
+    maxFileSize = this.maxFileSize,
   ) {
     if (!this.acceptedTypes.includes(type)) {
       return null;
     }
 
-    if (size > this.maxFileSize) {
+    if (size > maxFileSize) {
       return null;
     }
 

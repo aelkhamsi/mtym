@@ -9,6 +9,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { TeamReport } from './team-report.entity';
 
 export enum TeamStatus {
   APPROVED = 'APPROVED',
@@ -45,6 +46,9 @@ export class Team {
   @OneToMany(() => User, (user) => user.team)
   @JoinColumn()
   users: User[];
+
+  @OneToMany(() => TeamReport, (report) => report.team)
+  reports: TeamReport[];
 
   /* createAt & updatedAt */
   @CreateDateColumn()
