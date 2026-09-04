@@ -83,7 +83,7 @@ const IntermediateReportRow = ({
         <Button type="button" disabled={isDisabled} onClick={onSubmit}>
           {isUploading
             ? <LoadingDots color="#808080" />
-            : "Envoyer"
+            : "Envoyer le fichier"
           }
         </Button>
       </div>
