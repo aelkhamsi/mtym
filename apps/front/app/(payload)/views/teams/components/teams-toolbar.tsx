@@ -50,6 +50,14 @@ export function TeamsToolbar<TData>({ table, onTeamCreated }: TeamsToolbarProps<
           className="max-w-sm"
         />
         <Input
+          placeholder="Filter teams by quadrigram..."
+          value={(table.getColumn("quadrigram")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("quadrigram")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+        <Input
           placeholder="Filter by member name..."
           value={(table.getColumn("memberName")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>

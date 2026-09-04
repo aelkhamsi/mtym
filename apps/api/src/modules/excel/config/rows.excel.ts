@@ -58,6 +58,7 @@ export const applicationsRowFactory = (
     teamId: application?.user?.team?.id,
     teamName: application?.user?.team?.name,
     teamQuadrigram: application?.user?.team?.quadrigram,
+    teamStatus: application?.user?.team?.status,
   }));
 };
 
