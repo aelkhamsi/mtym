@@ -32,7 +32,7 @@ const TeamReview = ({
 
           <div className="grid gap-6 lg:grid-cols-2">
             <ProblemsPanel reports={reports} />
-            <ReviewPanel review={review} />
+            <ReviewPanel teamId={teamId} review={review} />
           </div>
           
         </DialogHeader>
