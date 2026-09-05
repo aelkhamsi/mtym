@@ -196,11 +196,16 @@ export class TeamController {
     @Req() request: Request,
     @Param('userId') userId: string,
   ) {
-    await this.teamService.markFreeAgent(+userId, request['user']);
+    const { leaderChanged, newLeaderId } = await this.teamService.markFreeAgent(
+      +userId,
+      request['user'],
+    );
 
     return {
       id: userId,
       statusCode: 200,
+      leaderChanged,
+      newLeaderId,
     };
   }
 
@@ -219,9 +224,38 @@ export class TeamController {
     };
   }
 
+  /* Admin-only: lets the teams admin view reassign a team's creator directly,
+   * rather than only through the participant-facing endpoint above. */
+  @UseGuards(AdminGuard)
+  @Put('admin/change-leader/:teamId')
+  async changeLeaderAsAdmin(
+    @Param('teamId') teamId: string,
+    @Body() changeLeaderDto: ChangeLeaderDto,
+  ) {
+    await this.teamService.changeLeader(+teamId, +changeLeaderDto.newLeaderId);
+
+    return {
+      id: teamId,
+      statusCode: 200,
+    };
+  }
+
   @UseGuards(AuthGuard)
   @Delete(':id')
   delete(@Param('id') id: string) {
     return this.teamService.delete(+id);
+  }
+
+  /* Admin-only: recomputes every team's status from its members' application
+   * statuses, the same logic the `update-team-statuses` CLI command runs. */
+  @UseGuards(AdminGuard)
+  @Post('update-statuses')
+  async updateStatuses() {
+    const updated = await this.teamService.updateAllStatuses();
+
+    return {
+      updated,
+      statusCode: 200,
+    };
   }
 }

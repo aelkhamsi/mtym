@@ -117,7 +117,7 @@ export const JoinTeamForm = ({
                                 {team.label}
                               </div>
 
-                              <div className='ml-6'> <span className='text-gray-500'>Créateur de l&apos;équipe: </span>{team.leader}</div>
+                              <div className='ml-6'> <span className='text-gray-500'>Lead de l&apos;équipe: </span>{team.leader}</div>
                             </div>
                             
                           </CommandItem>

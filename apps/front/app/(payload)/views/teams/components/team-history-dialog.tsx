@@ -29,9 +29,11 @@ const formatDate = (value: string | null) =>
 const TeamHistoryDialog = ({
   userId,
   userLabel,
+  triggerClassName,
 }:{
   userId: number,
   userLabel: string,
+  triggerClassName?: string,
 }) => {
   const [history, setHistory] = useState<any[] | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -50,7 +52,7 @@ const TeamHistoryDialog = ({
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="outline" className="text-xs">
+        <Button variant="outline" size="sm" className={triggerClassName ?? "text-xs"}>
           <History className="mr-1 h-3 w-3" />
           History
         </Button>

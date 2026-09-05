@@ -9,6 +9,7 @@ import { TableFacetedFilter } from "@/app/(payload)/components/table-faceted-fil
 import { useState } from "react"
 import CreateTeamButton from "./create-team-button"
 import { AdminOption } from "./columns"
+import UpdateTeamStatusesButton from "./update-team-statuses-button"
 
 interface TeamsToolbarProps<TData> {
   table: Table<TData>
@@ -111,6 +112,7 @@ export function TeamsToolbar<TData>({
       </div>
 
       <div className="flex items-center gap-2">
+        <UpdateTeamStatusesButton />
         {onTeamCreated && <CreateTeamButton onCreated={onTeamCreated} />}
         <TeamsViewOptions table={table} />
       </div>

@@ -27,7 +27,7 @@ export const createTeam = (team: any) => {
  * being derived from the session, so they travel in the body. */
 export const createTeamAsAdmin = (team: {
   name: string,
-  slogan: string,
+  slogan?: string,
   quadrigram: string,
   memberIds: number[],
   leaderId: number,
@@ -97,7 +97,20 @@ export const changeLeader = (teamId: number, newLeaderId: number) => {
   return ApiMethods.put(url, {body});
 }
 
+export const changeLeaderAsAdmin = (teamId: number, newLeaderId: number) => {
+  const url = `/teams/admin/change-leader/${teamId}`;
+  const body = {
+    newLeaderId
+  }
+  return ApiMethods.put(url, {body});
+}
+
 export const deleteTeam = (teamId: number) => {
   const url = `/teams/${teamId}`;
   return ApiMethods.delete(url);
+}
+
+export const updateTeamStatuses = () => {
+  const url = '/teams/update-statuses';
+  return ApiMethods.post(url);
 }
