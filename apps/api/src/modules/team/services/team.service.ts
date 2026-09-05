@@ -114,6 +114,7 @@ export class TeamService {
       .createQueryBuilder('team')
       .leftJoinAndSelect('team.leader', 'leader')
       .leftJoinAndSelect('team.users', 'user')
+      .leftJoinAndSelect('team.review', 'review')
       .leftJoinAndSelect('user.application', 'application')
       .leftJoinAndSelect('application.status', 'status')
       .getMany();
@@ -124,6 +125,7 @@ export class TeamService {
       .createQueryBuilder('team')
       .leftJoinAndSelect('team.leader', 'leader')
       .leftJoinAndSelect('team.users', 'user')
+      .leftJoinAndSelect('team.review', 'review')
       .leftJoinAndSelect('user.application', 'application')
       .leftJoinAndSelect('application.status', 'status')
       .where('team.id = :id', { id })

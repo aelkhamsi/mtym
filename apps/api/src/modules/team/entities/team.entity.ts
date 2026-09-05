@@ -6,10 +6,12 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { TeamReport } from './team-report.entity';
+import { TeamReview } from './team-review.entity';
 
 export enum TeamStatus {
   APPROVED = 'APPROVED',
@@ -38,6 +40,12 @@ export class Team {
 
   @Column({ type: 'enum', enum: TeamStatus, default: TeamStatus.NEW })
   status: TeamStatus;
+
+  @OneToOne(
+    () => TeamReview,
+    (teamReview) => teamReview.team,
+  )
+  review: TeamReview;
 
   @ManyToOne(() => User)
   @JoinColumn()
