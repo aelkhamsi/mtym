@@ -7,6 +7,7 @@ import TeamSection from "./components/team-section";
 import NoTeamSection from "./components/no-team-section";
 import { teamAtom } from "@/app/store/teamAtom";
 import { applicationAtom } from "@/app/store/applicationAtom";
+import IntermediateReportsSection from "./components/intermediate-reports-section";
 
 export default function TeamPage() {
   const team = useAtomValue(teamAtom)
@@ -23,7 +24,10 @@ export default function TeamPage() {
       <Separator />
 
       {team
-        ? <TeamSection  />
+        ? <>
+            <TeamSection />
+            <IntermediateReportsSection />
+          </>
         : <NoTeamSection />
       }
     </div>

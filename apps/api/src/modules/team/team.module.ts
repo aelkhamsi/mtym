@@ -10,17 +10,27 @@ import { TeamAccessCodeController } from './controllers/team-access-code.control
 import { TeamMembership } from './entities/team-membership.entity';
 import { TeamMembershipService } from './services/team-membership.service';
 import { teamCommands } from './commands';
+import { TeamReport } from './entities/team-report.entity';
+import { TeamReportService } from './services/team-report.service';
+import { MediaModule } from '../media/media.module';
 
 @Module({
   imports: [
     UserModule,
-    TypeOrmModule.forFeature([Team, TeamAccessCode, TeamMembership]),
+    MediaModule,
+    TypeOrmModule.forFeature([
+      Team,
+      TeamAccessCode,
+      TeamMembership,
+      TeamReport,
+    ]),
   ],
   controllers: [TeamController, TeamAccessCodeController],
   providers: [
     TeamService,
     TeamAccessCodeService,
     TeamMembershipService,
+    TeamReportService,
     ...teamCommands,
   ],
 })

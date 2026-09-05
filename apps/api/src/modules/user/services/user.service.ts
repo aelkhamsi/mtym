@@ -72,6 +72,7 @@ export class UserService {
         team: {
           leader: true,
           users: true,
+          reports: true,
         },
         participantDetails: true,
       },

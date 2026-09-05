@@ -53,6 +53,7 @@ export const applicationsColumns = [
   { header: 'Team ID', key: 'team_id', width: 10 },
   { header: 'Team Name', key: 'team_name', width: 10 },
   { header: 'Team Quadrigram', key: 'team_quadrigram', width: 10 },
+  { header: 'Team Status', key: 'team_status', width: 15 },
 ];
 
 export const participantDetailsColumns = [

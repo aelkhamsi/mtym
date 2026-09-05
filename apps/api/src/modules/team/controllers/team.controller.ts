@@ -9,6 +9,7 @@ import {
   Put,
   Req,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { TeamService } from '../services/team.service';
 import { CreateTeamDto } from '../dto/create-team.dto';
@@ -19,10 +20,17 @@ import { RemoveUserDto } from '../dto/remove-user.dto';
 import { ChangeLeaderDto } from '../dto/change-leader.dto';
 import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
 import { AdminGuard } from 'src/modules/auth/guards/admin.guard';
+import { TeamReportService } from '../services/team-report.service';
+import { UpdateIntermediateReportDto } from '../dto/update-intermediate-reports.dto';
+import { GetReportUploadUrlDto } from '../dto/get-report-upload-url.dto';
+import { UserGuard } from 'src/modules/auth/guards/user.guard';
 
 @Controller('mtym-api/teams')
 export class TeamController {
-  constructor(private readonly teamService: TeamService) {}
+  constructor(
+    private readonly teamService: TeamService,
+    private readonly teamReportService: TeamReportService,
+  ) {}
 
   @UseGuards(AuthGuard)
   @Post()
@@ -96,6 +104,39 @@ export class TeamController {
     const team = await this.teamService.findOneByQuadrigram(quadrigram);
     if (team) return team;
     throw new NotFoundException();
+  }
+
+  @UseGuards(UserGuard)
+  @Post(':id/intermediate-reports/:problemNumber/signed-url')
+  getIntermediateReportUploadUrl(
+    @Req() request: Request,
+    @Param('id', ParseIntPipe) teamId: number,
+    @Param('problemNumber', ParseIntPipe) problemNumber: number,
+    @Body() body: GetReportUploadUrlDto,
+  ) {
+    return this.teamReportService.getIntermediateReportUploadUrl(
+      teamId,
+      problemNumber,
+      body.size,
+      body.checksum,
+      request['user'].id,
+    );
+  }
+
+  @UseGuards(UserGuard)
+  @Put(':id/intermediate-reports/:problemNumber')
+  updateIntermediateReport(
+    @Req() request: Request,
+    @Param('id', ParseIntPipe) teamId: number,
+    @Param('problemNumber', ParseIntPipe) problemNumber: number,
+    @Body() updateIntermediateReportDto: UpdateIntermediateReportDto,
+  ) {
+    return this.teamReportService.upsertIntermediateReport(
+      teamId,
+      problemNumber,
+      updateIntermediateReportDto.fileUrl,
+      request['user'].id,
+    );
   }
 
   @UseGuards(AuthGuard)
