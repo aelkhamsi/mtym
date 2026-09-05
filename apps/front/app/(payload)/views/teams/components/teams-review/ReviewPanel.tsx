@@ -52,7 +52,7 @@ const ReviewPanel = ({
   return (
     <Card className="border-0 shadow-none">
       <CardHeader className="px-0 py-6">
-        <CardTitle className="text-lg">Review Panel</CardTitle>
+        <CardTitle className="text-lg p-2 bg-gray-100 rounded-md">Review Panel</CardTitle>
       </CardHeader>
 
       <CardContent className="px-0">
@@ -98,7 +98,7 @@ const ReviewForm = ({
           : team
       ))
       toast({
-        title: 'Team Review',
+        title: <span className="text-green-700">Team Review</span>,
         description: 'Your team review was saved successfully',
       })
     } catch {
@@ -119,7 +119,7 @@ const ReviewForm = ({
       )}
 
       <Form {...form}>
-        <form id="form-application-review" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-8">
+        <form id="form-application-review" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-4">
           <ReviewRadioGroup form={form} name="intermediateReportScore" label="Score" options={reportScoreOptions} />
           
           <ReviewRadioGroup form={form} name="intermediateReportDecision" label="Decision" options={reportDecisionOptions} />

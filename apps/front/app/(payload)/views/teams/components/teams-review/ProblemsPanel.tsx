@@ -35,7 +35,7 @@ export const ProblemsPanel = ({
   return (
     <Card className="border-0 shadow-none">
       <CardHeader className="px-0 py-6">
-        <CardTitle className="text-lg">Problems Panel</CardTitle>
+        <CardTitle className="text-lg p-2 bg-gray-100 rounded-md">Problems Panel</CardTitle>
       </CardHeader>
 
       <CardContent className="px-0">

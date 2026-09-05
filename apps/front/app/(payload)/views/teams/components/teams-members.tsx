@@ -79,7 +79,7 @@ const TeamsMembers = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="text-xs">Show Members</Button>
+        <Button className="text-xs" variant={"outline"}>Show Members</Button>
       </DialogTrigger>
 
       <DialogContent className="max-h-[90vh] w-[calc(100vw-2rem)] max-w-6xl overflow-y-auto bg-white">

@@ -5,6 +5,9 @@ import TeamsMembers from "./teams-members"
 import TeamAvatar from "./teams-avatar"
 import TeamStatus, { Status } from "./team-status"
 import TeamReview from "./teams-review/layout"
+import { TeamReviewer } from "./team-reviewer"
+
+export type AdminOption = { id: string; label: string }
  
 export type TeamRow = {
   id: string,
@@ -19,7 +22,7 @@ export type TeamRow = {
   review: any,
 }
  
-export const columns: ColumnDef<TeamRow>[] = [
+export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
   {
     id: "identicon",
     cell: ({ row }) => {
@@ -167,23 +170,47 @@ export const columns: ColumnDef<TeamRow>[] = [
     },
   },
   {
-    id: "showMembersButton",
-    cell: ({ row }) => {
-      const members = row.original?.members;
-
-      return <div className='flex justify-end'>
-        <TeamsMembers teamId={Number(row.original.id)} members={members} leaderId={row.original.leaderId}/>
-      </div>
-    }
+    accessorKey: "reviewerId",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Reviewer
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => (
+      <TeamReviewer
+        teamId={Number(row.original.id)}
+        review={row.original.review}
+        admins={admins}
+      />
+    ),
+    filterFn: (row, _, value: string[]) =>
+      value.includes(row.original.review.id ?? "__unassigned__"),
   },
   {
-    id: "reviewButton",
+    id: "actionButtons",
     cell: ({ row }) => {
+      const members = row.original?.members;
       const review = row.original?.review;
       const reports = row.original?.reports;
 
-      return <div className='flex justify-end'>
-        <TeamReview teamId={Number(row.original.id)} review={review} reports={reports} />
+      return <div className='flex justify-end gap-4'>
+        <TeamsMembers 
+          teamId={Number(row.original.id)}
+          members={members}
+          leaderId={row.original.leaderId}
+        />
+
+        <TeamReview 
+          teamId={Number(row.original.id)}
+          review={review}
+          reports={reports}
+        />
       </div>
     }
   },

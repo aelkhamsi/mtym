@@ -8,13 +8,21 @@ import { getStatusClassname, statusOptions, Status } from "./team-status"
 import { TableFacetedFilter } from "@/app/(payload)/components/table-faceted-filter"
 import { useState } from "react"
 import CreateTeamButton from "./create-team-button"
+import { AdminOption } from "./columns"
 
 interface TeamsToolbarProps<TData> {
   table: Table<TData>
-  onTeamCreated?: (team: any) => void
+  onTeamCreated?: (team: any) => void,
+  admins: AdminOption[]
+  currentAdminId: string
 }
 
-export function TeamsToolbar<TData>({ table, onTeamCreated }: TeamsToolbarProps<TData>) {
+export function TeamsToolbar<TData>({ 
+  table,
+  onTeamCreated,
+  admins,
+  currentAdminId
+}: TeamsToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const [savedPageIndex, setSavedPageIndex] = useState<number | null>(null)
 
@@ -42,28 +50,28 @@ export function TeamsToolbar<TData>({ table, onTeamCreated }: TeamsToolbarProps<
           className="w-[150px]"
         />
         <Input
-          placeholder="Filter teams by name..."
+          placeholder="Filter by name"
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="w-[150px]"
         />
         <Input
-          placeholder="Filter teams by quadrigram..."
+          placeholder="Filter by quadrigram"
           value={(table.getColumn("quadrigram")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("quadrigram")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="w-[150px]"
         />
         <Input
-          placeholder="Filter by member name..."
+          placeholder="Filter by member name"
           value={(table.getColumn("memberName")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("memberName")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="w-[180px]"
         />
         {table.getColumn("status") && (
           <TableFacetedFilter
@@ -71,6 +79,22 @@ export function TeamsToolbar<TData>({ table, onTeamCreated }: TeamsToolbarProps<
             title="Status"
             options={statusOptions}
             getOptionClassname={(value) => getStatusClassname(value as Status, 'sm')}
+            onFilterChange={() => table.setPageIndex(0)}
+          />
+        )}
+        {table.getColumn("reviewerId") && (
+          <TableFacetedFilter
+            column={table.getColumn("reviewerId")}
+            title="Reviewer"
+            options={[
+              { value: "__unassigned__", label: "Unassigned" },
+              ...admins.map((admin) => ({
+                value: admin.id,
+                label: admin.id === currentAdminId
+                  ? `Assigned to me (${admin.label})`
+                  : admin.label,
+              })),
+            ]}
             onFilterChange={() => table.setPageIndex(0)}
           />
         )}
