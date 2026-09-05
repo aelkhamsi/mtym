@@ -188,7 +188,7 @@ const CreateTeamButton = ({
         <DialogHeader>
           <DialogTitle>Create a team</DialogTitle>
           <DialogDescription className="text-xs">
-            The team is created on behalf of its members, one of whom is its creator.
+            The team is created on behalf of its members, one of whom is its lead.
           </DialogDescription>
         </DialogHeader>
 
@@ -303,12 +303,12 @@ const CreateTeamButton = ({
               name="leaderId"
               render={({ field }: any) => (
                 <FormItem>
-                  <FormLabel>Creator</FormLabel>
+                  <FormLabel>Lead</FormLabel>
                   <FormControl>
                     {selectedMembers.length ? (
                       <RadioGroup
                         /* Empty string, not undefined: the group has to stay
-                         * controlled across "no creator yet" -> "creator". */
+                         * controlled across "no lead yet" -> "lead". */
                         value={field.value !== undefined ? String(field.value) : ""}
                         onValueChange={(value: string) => field.onChange(Number(value))}
                         className="space-y-1"
@@ -329,12 +329,12 @@ const CreateTeamButton = ({
                       </RadioGroup>
                     ) : (
                       <p className="text-xs text-gray-400">
-                        Pick the members first, then designate their creator.
+                        Pick the members first, then designate their lead.
                       </p>
                     )}
                   </FormControl>
                   <FormDescription className="text-xs">
-                    The creator is the team lead and gets extra rights on some features.
+                    The lead gets extra rights on some features.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

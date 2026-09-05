@@ -40,7 +40,7 @@ const TeamMembers = () => {
               <TableCell>{user?.email}</TableCell>
               <TableCell className="flex justify-end">
                 {user?.id === creator?.id
-                  ? <Badge className="bg-green-700">Créateur</Badge>
+                  ? <Badge className="bg-green-700">Lead</Badge>
                   : isTeamCreator
                     ? <ActionButton user={user} team={team ?? undefined} />
                     : ''

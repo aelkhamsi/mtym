@@ -3,7 +3,7 @@ import { z } from "zod"
 /**
  * Admin-side counterpart of `createTeamSchema`. The name/slogan/quadrigram
  * rules are the same as the participant form (messages are in English because
- * the admin is), plus the members and the creator, which a participant never
+ * the admin is), plus the members and the lead, which a participant never
  * picks: they are implicitly themselves.
  */
 export const createTeamAdminSchema = z.object({
@@ -17,13 +17,13 @@ export const createTeamAdminSchema = z.object({
   memberIds: z.array(z.number())
     .min(3, {message: 'A team must have at least 3 members'})
     .max(5, {message: 'A team can not have more than 5 members'}),
-  leaderId: z.number({required_error: 'A creator is required'}),
+  leaderId: z.number({required_error: 'A lead is required'}),
 }).superRefine(({ memberIds, leaderId }, ctx) => {
   if (!memberIds.includes(leaderId)) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       path: ["leaderId"],
-      message: "The creator must be one of the selected members",
+      message: "The lead must be one of the selected members",
     });
   }
 });

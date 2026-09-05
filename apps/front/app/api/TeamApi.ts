@@ -91,7 +91,20 @@ export const changeLeader = (teamId: number, newLeaderId: number) => {
   return ApiMethods.put(url, {body});
 }
 
+export const changeLeaderAsAdmin = (teamId: number, newLeaderId: number) => {
+  const url = `/teams/admin/change-leader/${teamId}`;
+  const body = {
+    newLeaderId
+  }
+  return ApiMethods.put(url, {body});
+}
+
 export const deleteTeam = (teamId: number) => {
   const url = `/teams/${teamId}`;
   return ApiMethods.delete(url);
+}
+
+export const updateTeamStatuses = () => {
+  const url = '/teams/update-statuses';
+  return ApiMethods.post(url);
 }
