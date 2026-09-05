@@ -33,6 +33,8 @@ export default function TeamsClient() {
             leaderName: `${team?.leader?.firstName} ${team?.leader?.lastName}`,
             numberOfMembers: team?.users?.length,
             members: team?.users,
+            reports: team?.reports,
+            review: team?.review
           }))
       )
     }

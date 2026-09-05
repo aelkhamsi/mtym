@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Patch,
+  Put,
 } from '@nestjs/common';
 import { TeamReviewService } from '../services/team-review.service';
 import { CreateTeamReviewDto } from '../dto/create-team-review.dto';
@@ -31,7 +32,7 @@ export class TeamReviewController {
     return this.teamReviewService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateTeamReviewDto,

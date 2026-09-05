@@ -4,6 +4,7 @@ import { ArrowUpDown } from "lucide-react"
 import TeamsMembers from "./teams-members"
 import TeamAvatar from "./teams-avatar"
 import TeamStatus, { Status } from "./team-status"
+import TeamReview from "./teams-review/layout"
  
 export type TeamRow = {
   id: string,
@@ -14,6 +15,8 @@ export type TeamRow = {
   leaderName: string,
   leaderId: string,
   members: any[],
+  reports: any[],
+  review: any,
 }
  
 export const columns: ColumnDef<TeamRow>[] = [
@@ -164,12 +167,23 @@ export const columns: ColumnDef<TeamRow>[] = [
     },
   },
   {
-    id: "showButton",
+    id: "showMembersButton",
     cell: ({ row }) => {
       const members = row.original?.members;
 
       return <div className='flex justify-end'>
         <TeamsMembers teamId={Number(row.original.id)} members={members} leaderId={row.original.leaderId}/>
+      </div>
+    }
+  },
+  {
+    id: "reviewButton",
+    cell: ({ row }) => {
+      const review = row.original?.review;
+      const reports = row.original?.reports;
+
+      return <div className='flex justify-end'>
+        <TeamReview teamId={Number(row.original.id)} review={review} reports={reports} />
       </div>
     }
   },
