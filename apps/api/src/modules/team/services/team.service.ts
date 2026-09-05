@@ -21,6 +21,9 @@ import {
   MembershipActor,
   TeamMembershipService,
 } from './team-membership.service';
+import { Status } from 'src/modules/application/entities/application-status.entity';
+
+const DECLINED_APPLICATION_STATUSES: Status[] = ['NOT_VALID', 'REJECTED'];
 
 @Injectable()
 export class TeamService {
@@ -157,7 +160,8 @@ export class TeamService {
     const cleanName = cleanString(name);
     const teams = await this.teamRepository.find();
     const teamExists = teams?.some(
-      (team) => cleanString(team?.name) == cleanName && team.id !== currentTeamId,
+      (team) =>
+        cleanString(team?.name) == cleanName && team.id !== currentTeamId,
     );
     if (teamExists) {
       throw new ConflictException('Team with this name already exists');
@@ -197,7 +201,9 @@ export class TeamService {
   /**
    * Free agents are validated applicants pulled out of their team on purpose
    * so they can be picked up into a different one from the create-team
-   * picker, which otherwise only offers members of an INCOMPLETE team.
+   * picker, which otherwise only offers members of an INCOMPLETE team. If the
+   * freed user was the team's leader, leadership is handed to whoever is left
+   * rather than leaving the team pointing at someone no longer on it.
    */
   async markFreeAgent(userId: number, actor?: MembershipActor) {
     const user = await this.userService.findOneById(userId);
@@ -210,10 +216,35 @@ export class TeamService {
       );
     }
 
+    let leaderChanged = false;
+    let newLeaderId: number | null = null;
+
     if (user.team) {
-      await this.removeUser(user.team.id, userId, actor);
+      const teamId = user.team.id;
+      const wasLeader = user.team.leader?.id === userId;
+      await this.removeUser(teamId, userId, actor);
+
+      if (wasLeader) {
+        newLeaderId = await this.reassignLeader(teamId);
+        leaderChanged = true;
+      }
     }
+
     await this.userService.setFreeAgent(userId, true);
+    return { leaderChanged, newLeaderId };
+  }
+
+  /**
+   * Hands leadership to whoever is left on the team — there's no seniority
+   * concept to prefer one remaining member over another — or clears it if
+   * the team is now empty.
+   */
+  private async reassignLeader(teamId: number): Promise<number | null> {
+    const team = (await this.findOneById(teamId)) as Team;
+    const newLeader = team.users[0] ?? null;
+    team.leader = newLeader;
+    await this.teamRepository.save(team);
+    return newLeader?.id ?? null;
   }
 
   getUserTeamHistory(userId: number) {
@@ -226,9 +257,11 @@ export class TeamService {
       throw new NotFoundException('The team does not exist');
     }
 
-    const user = await this.userService.findOneById(newLeaderId);
+    const user = team.users?.find((member) => member.id === newLeaderId);
     if (!user) {
-      throw new NotFoundException('The chosen new leader does not exist');
+      throw new BadRequestException(
+        'The chosen new leader must be a member of the team',
+      );
     }
 
     team.leader = user;
@@ -264,5 +297,63 @@ export class TeamService {
       id,
     );
     return this.teamRepository.delete({ id });
+  }
+
+  /**
+   * Recomputes every team's status from its members' application statuses.
+   * Members with no application (or no status yet) count as neither
+   * validated nor declined, so a team can only land on APPROVED/INCOMPLETE
+   * via a validated count and on DECLINED when every member is explicitly
+   * NOT_VALID/REJECTED. Anything else (empty team, mixed pending members)
+   * is left untouched rather than guessed at.
+   */
+  async updateAllStatuses() {
+    const teams = await this.findAll();
+    const updated: {
+      id: number;
+      name: string;
+      from: TeamStatus;
+      to: TeamStatus;
+    }[] = [];
+
+    for (const team of teams) {
+      const nextStatus = this.resolveStatus(team);
+      if (nextStatus && nextStatus !== team.status) {
+        await this.teamRepository.update(team.id, { status: nextStatus });
+        updated.push({
+          id: team.id,
+          name: team.name,
+          from: team.status,
+          to: nextStatus,
+        });
+      }
+    }
+
+    return updated;
+  }
+
+  private resolveStatus(team: Team): TeamStatus | null {
+    const members = team.users ?? [];
+    if (!members.length) {
+      return null;
+    }
+
+    const validatedCount = members.filter(
+      (user) => user.application?.status?.status === 'VALIDATED',
+    ).length;
+
+    if (validatedCount >= 3) {
+      return TeamStatus.APPROVED;
+    }
+
+    if (validatedCount > 0) {
+      return TeamStatus.INCOMPLETE;
+    }
+
+    const allDeclined = members.every((user) =>
+      DECLINED_APPLICATION_STATUSES.includes(user.application?.status?.status),
+    );
+
+    return allDeclined ? TeamStatus.DECLINED : null;
   }
 }

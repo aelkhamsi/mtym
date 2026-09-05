@@ -8,6 +8,7 @@ import { getStatusClassname, statusOptions, Status } from "./team-status"
 import { TableFacetedFilter } from "@/app/(payload)/components/table-faceted-filter"
 import { useState } from "react"
 import CreateTeamButton from "./create-team-button"
+import UpdateTeamStatusesButton from "./update-team-statuses-button"
 
 interface TeamsToolbarProps<TData> {
   table: Table<TData>
@@ -87,6 +88,7 @@ export function TeamsToolbar<TData>({ table, onTeamCreated }: TeamsToolbarProps<
       </div>
 
       <div className="flex items-center gap-2">
+        <UpdateTeamStatusesButton />
         {onTeamCreated && <CreateTeamButton onCreated={onTeamCreated} />}
         <TeamsViewOptions table={table} />
       </div>
