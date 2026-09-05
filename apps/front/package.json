@@ -13,7 +13,8 @@
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=./payload.config.ts payload"
   },
   "prettier": "config/prettier.config.js",
   "dependencies": {
@@ -39,6 +40,7 @@
     "@vercel/og": "^0.0.26",
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "framer-motion": "^8.5.5",
