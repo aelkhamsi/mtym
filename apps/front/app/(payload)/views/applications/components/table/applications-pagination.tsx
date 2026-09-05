@@ -1,7 +1,3 @@
-"use client"
-
-import { useEffect, useRef } from "react"
-import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -18,7 +14,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@mdm/ui"
-import { Route } from "next"
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
@@ -27,10 +22,6 @@ interface DataTablePaginationProps<TData> {
 export function ApplicationsPagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const hasHydrated = useRef(false)
   const { pageIndex, pageSize } = table.getState().pagination
   const pageSizes = [
     {label: '10', value: 10},
@@ -38,31 +29,6 @@ export function ApplicationsPagination<TData>({
     {label: '50', value: 50},
     {label: 'all', value: 9999},
   ];
-
-  useEffect(() => {
-    if (hasHydrated.current) return
-    hasHydrated.current = true
-
-    const pageParam = searchParams.get("page")
-    const sizeParam = searchParams.get("pageSize")
-
-    if (sizeParam && !isNaN(Number(sizeParam))) {
-      table.setPageSize(Number(sizeParam))
-    }
-    if (pageParam && !isNaN(Number(pageParam))) {
-      table.setPageIndex(Math.max(0, Number(pageParam) - 1))
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!hasHydrated.current) return
-
-    const params = new URLSearchParams(searchParams.toString())
-    params.set("page", `${pageIndex + 1}`)
-    params.set("pageSize", `${pageSize}`)
-
-    router.replace(`${pathname}?${params.toString()}` as Route, { scroll: false })
-  }, [pageIndex, pageSize])
 
   return (
     <div className="flex items-center justify-between px-2 py-4">

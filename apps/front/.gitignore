@@ -44,9 +44,10 @@ next-env.d.ts
 front.db
 front.db-shm
 front.db-wal
-# payload.db is committed (ships the schema to prod); only ignore its transient WAL sidecars
+payload.db
 payload.db-shm
 payload.db-wal
+payload.db.*
 
 # payload uploads (user-uploaded media, served from public)
 /public/images/payload/

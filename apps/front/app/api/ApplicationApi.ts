@@ -22,10 +22,6 @@ export const getApplicationById = (id: number, cookie?: string) => {
   return ApiMethods.get(url, {cookie});
 }
 
-export const getApplicationReview = (applicationId: number, cookie?: string) => {
-  return ApiMethods.get(`/applications/review/${applicationId}`, {cookie});
-}
-
 export const getApplicationByUserId = (userId: number) => {
   const url = `/applications/user/${userId}`
   return ApiMethods.get(url)

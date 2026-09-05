@@ -7,14 +7,23 @@ import {
 } from "@mdm/ui";
 import { useAtom } from "jotai";
 import { teamsAtom } from "@/app/store/admin/teamsAtom";
+import { usersAtom } from "@/app/store/admin/usersAtom";
 import { toast } from "@mdm/ui";
 import { updateTeam } from "@/app/api/TeamApi";
+import { getEligibleUsersForTeamCreation } from "@/app/api/UsersApi";
 
 export type Status =
   | "APPROVED"
   | "NEW"
   | "DECLINED"
   | "INCOMPLETE";
+
+export const statusOptions = [
+  { value: "APPROVED", label: "APPROVED" },
+  { value: "NEW", label: "NEW" },
+  { value: "DECLINED", label: "DECLINED" },
+  { value: "INCOMPLETE", label: "INCOMPLETE" },
+]
 
 export const getStatusClassname = (status: Status, size: "sm" | "md") => {
   const baseClassname = `rounded-xl text-center ${size === "md" ? "px-4 py-1 w-[8rem]" : "px-2"}`;
@@ -58,6 +67,7 @@ const TeamStatus = ({
   status: string,
 }) => {
   const [teams, setTeams] = useAtom(teamsAtom);
+  const [, setUsers] = useAtom(usersAtom);
   const handleStatusChange = async (value: Status) => {
     const response = await updateTeam(teamId, {
       status: value,
@@ -72,6 +82,11 @@ const TeamStatus = ({
           return entry;
         }),
       )
+
+      /* Moving a team to/from INCOMPLETE changes who is eligible for the
+       * create-team member picker, which was seeded once on page load. */
+      const eligibleUsers = await getEligibleUsersForTeamCreation() as any
+      if (Array.isArray(eligibleUsers)) setUsers(eligibleUsers)
 
       toast({
         title: "Status update",

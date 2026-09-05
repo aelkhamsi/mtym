@@ -15,3 +15,10 @@ security/
 
 # local docker compose overrides
 docker-compose.override.yaml
+
+# local build/db backups made by deploy & rollback scripts — never commit
+*.bak
+*.bak.*
+.next.bak.*
+dist.bak.*
+*.dump

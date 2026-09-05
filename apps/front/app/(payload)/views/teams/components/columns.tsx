@@ -39,7 +39,8 @@ export const columns: ColumnDef<TeamRow>[] = [
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
-    }
+    },
+    filterFn: "equalsString"
   },
   {
     accessorKey: "name",
@@ -85,10 +86,23 @@ export const columns: ColumnDef<TeamRow>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => (
       <TeamStatus teamId={Number(row.original.id)} status={row.original.status} />
     ),
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
   },
   {
     accessorKey: "leader",
@@ -98,7 +112,7 @@ export const columns: ColumnDef<TeamRow>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Creator
+          Lead
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -134,12 +148,28 @@ export const columns: ColumnDef<TeamRow>[] = [
     },
   },
   {
+    id: "memberName",
+    accessorFn: (row) => row.members,
+    enableHiding: false,
+    filterFn: (row, id, filterValue) => {
+      const query = String(filterValue ?? "").trim().toLowerCase()
+      if (!query) return true
+
+      const members = (row.getValue(id) as any[]) ?? []
+      return members.some((member) =>
+        `${member?.firstName ?? ""} ${member?.lastName ?? ""}`
+          .toLowerCase()
+          .includes(query)
+      )
+    },
+  },
+  {
     id: "showButton",
     cell: ({ row }) => {
       const members = row.original?.members;
- 
+
       return <div className='flex justify-end'>
-        <TeamsMembers members={members} leaderId={row.original.leaderId}/>
+        <TeamsMembers teamId={Number(row.original.id)} members={members} leaderId={row.original.leaderId}/>
       </div>
     }
   },

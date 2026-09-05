@@ -74,8 +74,9 @@ const FilePreviewButton = ({
     setError(null);
 
     try {
-      const { url } = await getSignedPreviewURL(filename) as { url: string };
-      setPreviewUrl(url);
+      const response = await getSignedPreviewURL(filename) as { url?: string };
+      if (!response?.url) throw new Error();
+      setPreviewUrl(response.url);
       setIsPreviewOpen(true);
     } catch (err) {
       console.error('Failed to fetch preview URL', err);
@@ -93,10 +94,12 @@ const FilePreviewButton = ({
   return (
     <>
       <Button
+        variant="outline"
+        className="border-foreground bg-background text-foreground"
         onClick={onPreview}
         disabled={isLoading}
       >
-        Preview <Link1Icon className="ml-1"/>
+        Consulter le fichier <Link1Icon className="ml-1"/>
       </Button>
 
       {error && <p className="text-sm text-red-500">{error}</p>}

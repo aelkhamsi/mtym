@@ -23,10 +23,43 @@ export const createTeam = (team: any) => {
   return ApiMethods.post(url, {body});
 }
 
+/* Admin-side creation: members and leader are chosen explicitly instead of
+ * being derived from the session, so they travel in the body. */
+export const createTeamAsAdmin = (team: {
+  name: string,
+  slogan?: string,
+  quadrigram: string,
+  memberIds: number[],
+  leaderId: number,
+}) => {
+  const url = '/teams/admin';
+  const body = {...team};
+  return ApiMethods.post(url, {body});
+}
+
 export const updateTeam = (teamId: number, partialTeam: any) => {
   const url = `/teams/${teamId}`;
   const body = {...partialTeam};
   return ApiMethods.put(url, {body});
+}
+
+export const updateIntermediateReport = (
+  teamId: number,
+  problemNumber: number,
+  fileUrl: string,
+) => {
+  const url = `/teams/${teamId}/intermediate-reports/${problemNumber}`;
+  return ApiMethods.put(url, { body: { fileUrl } });
+}
+
+export const getIntermediateReportUploadUrl = (
+  teamId: number,
+  problemNumber: number,
+  size: number,
+  checksum: string,
+) => {
+  const url = `/teams/${teamId}/intermediate-reports/${problemNumber}/signed-url`;
+  return ApiMethods.post(url, { body: { size, checksum } });
 }
 
 export const addUser = (teamId: number) => {
@@ -40,8 +73,26 @@ export const removeUser = (teamId: number, userId?: number) => {
   return ApiMethods.put(url, {body});
 }
 
+export const markFreeAgent = (userId: number) => {
+  const url = `/teams/free-agent/${userId}`;
+  return ApiMethods.put(url);
+}
+
+export const getTeamHistoryForUser = (userId: number) => {
+  const url = `/teams/history/user/${userId}`;
+  return ApiMethods.get(url);
+}
+
 export const changeLeader = (teamId: number, newLeaderId: number) => {
   const url = `/teams/change-leader/${teamId}`;
+  const body = {
+    newLeaderId
+  }
+  return ApiMethods.put(url, {body});
+}
+
+export const changeLeaderAsAdmin = (teamId: number, newLeaderId: number) => {
+  const url = `/teams/admin/change-leader/${teamId}`;
   const body = {
     newLeaderId
   }
@@ -51,4 +102,9 @@ export const changeLeader = (teamId: number, newLeaderId: number) => {
 export const deleteTeam = (teamId: number) => {
   const url = `/teams/${teamId}`;
   return ApiMethods.delete(url);
+}
+
+export const updateTeamStatuses = () => {
+  const url = '/teams/update-statuses';
+  return ApiMethods.post(url);
 }

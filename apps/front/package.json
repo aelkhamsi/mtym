@@ -13,8 +13,7 @@
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "start": "next start",
-    "lint": "eslint .",
-    "payload": "cross-env PAYLOAD_CONFIG_PATH=./payload.config.ts payload"
+    "lint": "eslint ."
   },
   "prettier": "config/prettier.config.js",
   "dependencies": {
@@ -70,7 +69,6 @@
     "@types/three": "^0.171.0",
     "autoprefixer": "^10.4.16",
     "concurrently": "^7.6.0",
-    "cross-env": "^10.1.0",
     "postcss": "^8.4.31",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",

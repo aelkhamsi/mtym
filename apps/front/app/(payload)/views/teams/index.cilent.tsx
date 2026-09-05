@@ -3,12 +3,19 @@
 import { useEffect, useState } from "react";
 import { TeamRow, columns } from "./components/columns";
 import { TeamsTable } from "./components/teams-table";
-import { useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 import { teamsAtom } from "@/app/store/admin/teamsAtom";
 
 export default function TeamsClient() {
-  const teams = useAtomValue(teamsAtom);
+  const [teams, setTeams] = useAtom(teamsAtom);
   const [tableData, setTableData] = useState<TeamRow[]>([])
+
+  /* Appended rather than prepended: the list is served in creation order, so
+   * this is where the new team would sit after a reload too. The table then
+   * jumps to the page holding it, whatever the sorting in place. */
+  const handleTeamCreated = (team: any) => {
+    setTeams([...(Array.isArray(teams) ? teams : []), team])
+  }
 
   useEffect(() => {
     if (teams) {
@@ -37,7 +44,7 @@ export default function TeamsClient() {
         Teams
       </div>
       
-      <TeamsTable columns={columns} data={tableData} />
+      <TeamsTable columns={columns} data={tableData} onTeamCreated={handleTeamCreated} />
     </div>
   );
 }

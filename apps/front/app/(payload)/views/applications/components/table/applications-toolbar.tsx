@@ -4,8 +4,8 @@ import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
 import { Button } from "@mdm/ui"
 import { ApplicationsViewOptions } from "./applications-view-options"
-import { statusOptions } from "./application-status"
-import { ApplicationsFacetedFilter } from "./applications-faceted-filter"
+import { getStatusClassname, statusOptions, Status } from "./application-status"
+import { TableFacetedFilter } from "@/app/(payload)/components/table-faceted-filter"
 import { FileTextIcon } from "@radix-ui/react-icons"
 import type { AdminOption } from "./columns"
 import { Input } from "@mdm/ui"
@@ -70,15 +70,16 @@ export function ApplicationsToolbar<TData>({
           className="w-[150px]"
         />
         {table.getColumn("status") && (
-          <ApplicationsFacetedFilter
+          <TableFacetedFilter
             column={table.getColumn("status")}
             title="Status"
             options={statusOptions}
-            colorizeOptions
+            getOptionClassname={(value) => getStatusClassname(value as Status, 'sm')}
+            onFilterChange={() => table.setPageIndex(0)}
           />
         )}
         {table.getColumn("reviewerId") && (
-          <ApplicationsFacetedFilter
+          <TableFacetedFilter
             column={table.getColumn("reviewerId")}
             title="Reviewer"
             options={[
@@ -90,6 +91,7 @@ export function ApplicationsToolbar<TData>({
                   : admin.label,
               })),
             ]}
+            onFilterChange={() => table.setPageIndex(0)}
           />
         )}
         {isFiltered && (
