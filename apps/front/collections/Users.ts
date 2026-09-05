@@ -20,6 +20,16 @@ export const Users: CollectionConfig = {
   },
   fields: [
     {
+      name: 'jury',
+      label: 'Jury',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        className: 'jury-checkbox',
+        description: 'Show only Applications, Teams, and Users in the admin panel.',
+      },
+    },
+    {
       name: 'firstName',
       type: 'text',
     },
