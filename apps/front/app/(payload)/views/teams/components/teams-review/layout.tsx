@@ -32,7 +32,7 @@ const TeamReview = ({
         </div>
       </DialogTrigger>
 
-      <DialogContent className="max-h-[90vh] w-[calc(100vw-2rem)] max-w-6xl overflow-y-auto bg-white">
+      <DialogContent className="max-h-[90vh] w-[calc(100vw-2rem)] max-w-7xl overflow-y-auto bg-white">
         <DialogHeader className="min-w-0">
           <DialogTitle>Team Review</DialogTitle>
 
