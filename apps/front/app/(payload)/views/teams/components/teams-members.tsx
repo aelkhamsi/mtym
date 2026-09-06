@@ -179,9 +179,11 @@ const TeamsMembers = ({
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
 
-                          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                          <DropdownMenuItem 
+                            className="hover:cursor-pointer hover:bg-gray-100"
+                            onSelect={(e) => e.preventDefault()}
+                          >
                             <TeamHistoryDialog
-                              className="hover:cursor-pointer hover:bg-gray-100 w-full h-full"
                               userId={member?.id}
                               userLabel={`${member?.firstName} ${member?.lastName}`}
                             />

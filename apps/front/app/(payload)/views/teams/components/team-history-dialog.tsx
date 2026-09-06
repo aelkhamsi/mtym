@@ -27,12 +27,10 @@ const formatDate = (value: string | null) =>
 
 const TeamHistoryDialog = ({
   userId,
-  userLabel,
-  className,
+  userLabel
 }:{
   userId: number,
-  userLabel: string,
-  className?: string,
+  userLabel: string
 }) => {
   const [history, setHistory] = useState<any[] | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -51,16 +49,10 @@ const TeamHistoryDialog = ({
       }}
     >
       <DialogTrigger asChild>
-        <div className={className}>Show History</div>
+        <div>Show History</div>
       </DialogTrigger>
 
-      <DialogContent className="bg-white max-h-[80vh] overflow-y-auto sm:max-w-[40rem]"
-      onPointerDownOutside={(e) => {
-      // ignore outside-clicks originating from the nested dialog
-      if ((e.target as HTMLElement).closest('[role="dialog"]')) {
-        e.preventDefault();
-      }
-    }}>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Team history</DialogTitle>
           <DialogDescription className="text-xs">
