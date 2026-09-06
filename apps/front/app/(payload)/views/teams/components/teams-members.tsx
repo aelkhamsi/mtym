@@ -18,14 +18,22 @@ import {
   TableHeader,
   TableRow,
 } from "@mdm/ui"
-import Link from "next/link";
-import { Crown } from "lucide-react";
+import { MoreVertical, Crown } from "lucide-react";
 import { getStatusClassname, Status } from "../../applications/components/table/application-status";
 import TeamHistoryDialog from "./team-history-dialog";
 import { markFreeAgent, changeLeaderAsAdmin } from "@/app/api/TeamApi";
 import { getEligibleUsersForTeamCreation } from "@/app/api/UsersApi";
 import { teamsAtom } from "@/app/store/admin/teamsAtom";
 import { usersAtom } from "@/app/store/admin/usersAtom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@mdm/ui"
+import { useRouter } from "next/navigation"
 
 const TeamsMembers = ({
   teamId,
@@ -39,23 +47,17 @@ const TeamsMembers = ({
   const [teams, setTeams] = useAtom(teamsAtom)
   const [, setUsers] = useAtom(usersAtom)
   const [members, setMembers] = useState(initialMembers)
+  const router = useRouter()
 
   useEffect(() => {
     setMembers(initialMembers)
   }, [initialMembers])
 
-  /* Freeing someone up removes them from this team, so the dialog's own list
-   * and the teams table behind it (member count, "Show Members" contents on
-   * a reopen) both need the same update rather than waiting for a reload. */
   const handleMarkFreeAgent = async (member: any) => {
     const response = await markFreeAgent(member.id) as any
 
     if (response?.statusCode === 200) {
       const remainingMembers = members.filter((entry) => entry.id !== member.id)
-      /* When the freed member was the leader, the API hands leadership to
-       * whoever is left and reports who that is, so the table's Lead
-       * column can be patched in the same round trip instead of going stale
-       * until a reload. */
       const newLeader = response?.leaderChanged
         ? remainingMembers.find((entry) => entry.id === response.newLeaderId) ?? null
         : undefined
@@ -137,13 +139,13 @@ const TeamsMembers = ({
                 <TableHead>Last Name</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead className="w-44">Actions</TableHead>
+                <TableHead></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {members.map((member) => (
                 <TableRow key={member.id}>
-                  <TableCell className="align-top font-medium">
+                  <TableCell>
                     <span className="flex items-center gap-1">
                       {member.id}
                       {String(member.id) === String(leaderId) && (
@@ -151,49 +153,63 @@ const TeamsMembers = ({
                       )}
                     </span>
                   </TableCell>
-                  <TableCell className="align-top">{member.firstName}</TableCell>
-                  <TableCell className="align-top">{member.lastName}</TableCell>
-                  <TableCell className="break-all align-top">{member.email}</TableCell>
-                  <TableCell className="align-top">
+                  <TableCell>{member.firstName}</TableCell>
+                  <TableCell>{member.lastName}</TableCell>
+                  <TableCell className="break-all">{member.email}</TableCell>
+                  <TableCell>
                     {member?.application?.status?.status && (
-                      <div className={getStatusClassname(member.application.status.status as Status, 'sm')}>
+                      <div className={getStatusClassname(member.application.status.status as Status, 'md')}>
                         {member.application.status.status.split('_').join(' ')}
                       </div>
                     )}
                   </TableCell>
-                  <TableCell className="align-top">
-                    <div className="flex max-w-[15rem] flex-wrap justify-end gap-1.5">
-                      <TeamHistoryDialog
-                        userId={member?.id}
-                        userLabel={`${member?.firstName} ${member?.lastName}`}
-                        triggerClassName="text-xs"
-                      />
-                      {member?.application?.status?.status === 'VALIDATED' && (
-                        <Button
-                          size="sm"
-                          className="text-xs"
-                          variant="outline"
-                          onClick={() => handleMarkFreeAgent(member)}
-                        >
-                          Mark as Free Agent
-                        </Button>
-                      )}
-                      {String(member.id) !== String(leaderId) && (
-                        <Button
-                          size="sm"
-                          className="text-xs"
-                          variant="outline"
-                          onClick={() => handleMakeLead(member)}
-                        >
-                          Make Lead
-                        </Button>
-                      )}
-                      <Link href={`/admin/applications/${member?.application?.id}`} target="_blank">
-                        <Button size="sm" className="text-xs">
-                          Show Application
-                        </Button>
-                      </Link>
-                    </div>
+                  <TableCell className="flex justify-end">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                          <MoreVertical className='h-6 cursor-pointer'/>
+                      </DropdownMenuTrigger>
+                      
+                      <DropdownMenuContent>
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem 
+                            className="hover:cursor-pointer hover:bg-gray-100"
+                            onClick={() => router.push(`/admin/applications/${member?.application?.id}`)}
+                          >
+                            Show Application
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+
+                          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                            <TeamHistoryDialog
+                              className="hover:cursor-pointer hover:bg-gray-100 w-full h-full"
+                              userId={member?.id}
+                              userLabel={`${member?.firstName} ${member?.lastName}`}
+                            />
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+
+                          {member?.application?.status?.status === 'VALIDATED' && <>
+                            <DropdownMenuItem
+                              className="hover:cursor-pointer hover:bg-gray-100"
+                              onClick={() => handleMarkFreeAgent(member)}
+                            >
+                              Mark as Free Agent
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                          </>}
+                        
+                          {String(member.id) !== String(leaderId) && <>
+                            <DropdownMenuItem
+                              className="hover:cursor-pointer hover:bg-gray-100" 
+                              onClick={() => handleMakeLead(member)}
+                            >
+                              Mark as Lead
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                          </>}                          
+                        </DropdownMenuGroup>                        
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </TableCell>
                 </TableRow>
               ))}

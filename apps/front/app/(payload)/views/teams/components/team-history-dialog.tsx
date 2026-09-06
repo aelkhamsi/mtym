@@ -20,7 +20,6 @@ import {
   TableRow,
   format,
 } from "@mdm/ui"
-import { History } from "lucide-react"
 import { getTeamHistoryForUser } from "@/app/api/TeamApi"
 
 const formatDate = (value: string | null) =>
@@ -29,11 +28,11 @@ const formatDate = (value: string | null) =>
 const TeamHistoryDialog = ({
   userId,
   userLabel,
-  triggerClassName,
+  className,
 }:{
   userId: number,
   userLabel: string,
-  triggerClassName?: string,
+  className?: string,
 }) => {
   const [history, setHistory] = useState<any[] | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -52,13 +51,16 @@ const TeamHistoryDialog = ({
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className={triggerClassName ?? "text-xs"}>
-          <History className="mr-1 h-3 w-3" />
-          History
-        </Button>
+        <div className={className}>Show History</div>
       </DialogTrigger>
 
-      <DialogContent className="bg-white max-h-[80vh] overflow-y-auto sm:max-w-[40rem]">
+      <DialogContent className="bg-white max-h-[80vh] overflow-y-auto sm:max-w-[40rem]"
+      onPointerDownOutside={(e) => {
+      // ignore outside-clicks originating from the nested dialog
+      if ((e.target as HTMLElement).closest('[role="dialog"]')) {
+        e.preventDefault();
+      }
+    }}>
         <DialogHeader>
           <DialogTitle>Team history</DialogTitle>
           <DialogDescription className="text-xs">
