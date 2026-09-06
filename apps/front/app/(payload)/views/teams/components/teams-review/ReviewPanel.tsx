@@ -42,6 +42,15 @@ const reportScoreOptions = [
   {label: '4', value: 4},
 ]
 
+const aiSuspicionOptions = [
+  {label: '0', value: 0},
+  {label: '20', value: 20},
+  {label: '40', value: 40},
+  {label: '60', value: 60},
+  {label: '80', value: 80},
+  {label: '100', value: 100},
+]
+
 const ReviewPanel = ({
   teamId,
   review,
@@ -120,15 +129,13 @@ const ReviewForm = ({
 
       <Form {...form}>
         <form id="form-application-review" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-4">
-          <ReviewRadioGroup form={form} name="intermediateReportScore" label="Score" options={reportScoreOptions} />
-          
+          <ReviewRadioGroup form={form} name="intermediateReportScore1" label="Problem 1 Score" options={reportScoreOptions} />
+          <ReviewRadioGroup form={form} name="intermediateReportScore2" label="Problem 2 Score" options={reportScoreOptions} />
+          <ReviewRadioGroup form={form} name="intermediateReportScore3" label="Problem 3 Score" options={reportScoreOptions} />
+          <ReviewRadioGroup form={form} name="intermediateReportScore4" label="Problem 4 Score" options={reportScoreOptions} />
+          <ReviewRadioGroup form={form} name="aiSuspicionScore" label="AI Suspicion Score (in %)" options={aiSuspicionOptions} />
           <ReviewRadioGroup form={form} name="intermediateReportDecision" label="Decision" options={reportDecisionOptions} />
-          
-          <ReviewTextArea
-            form={form}
-            name="comment"
-            label="Comments"
-          />
+          <ReviewTextArea form={form} name="comment" label="Comments" />
 
           <div className="flex">
             <Button className="flex-1">

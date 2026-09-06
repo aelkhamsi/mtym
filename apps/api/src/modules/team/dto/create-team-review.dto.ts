@@ -17,7 +17,31 @@ export class CreateTeamReviewDto {
   @IsInt()
   @Min(0)
   @Max(4)
-  intermediateReportScore?: number;
+  intermediateReportScore1?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  @Max(4)
+  intermediateReportScore2?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  @Max(4)
+  intermediateReportScore3?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  @Max(4)
+  intermediateReportScore4?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  @Max(100)
+  aiSuspicionScore?: number;
 
   @IsOptional()
   @IsEnum(DecisionEnum)

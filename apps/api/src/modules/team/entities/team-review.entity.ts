@@ -31,7 +31,19 @@ export class TeamReview {
   reviewerId: string | null;
 
   @Column({ type: 'int', nullable: true })
-  intermediateReportScore: number | null;
+  intermediateReportScore1: number | null;
+
+  @Column({ type: 'int', nullable: true })
+  intermediateReportScore2: number | null;
+
+  @Column({ type: 'int', nullable: true })
+  intermediateReportScore3: number | null;
+
+  @Column({ type: 'int', nullable: true })
+  intermediateReportScore4: number | null;
+
+  @Column({ type: 'int', nullable: true })
+  aiSuspicionScore: number | null;
 
   @Column({ type: 'enum', enum: DecisionEnum, nullable: true })
   intermediateReportDecision: DecisionEnum | null;

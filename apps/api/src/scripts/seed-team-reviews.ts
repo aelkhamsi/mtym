@@ -14,7 +14,11 @@ async function seedTeamReviews() {
     const review = reviewRepo.create({
       team,
       reviewerId: null,
-      intermediateReportScore: null,
+      intermediateReportScore1: null,
+      intermediateReportScore2: null,
+      intermediateReportScore3: null,
+      intermediateReportScore4: null,
+      aiSuspicionScore: null,
       intermediateReportDecision: null,
       comment: null,
     });
