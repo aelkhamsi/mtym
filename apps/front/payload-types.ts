@@ -139,6 +139,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  jury?: boolean | null;
   firstName?: string | null;
   lastName?: string | null;
   updatedAt: string;
@@ -485,6 +486,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  jury?: T;
   firstName?: T;
   lastName?: T;
   updatedAt?: T;

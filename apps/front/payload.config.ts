@@ -3,7 +3,7 @@ import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
-import { buildConfig, type Plugin } from 'payload'
+import { buildConfig, type CollectionConfig, type Plugin } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
@@ -73,6 +73,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     components: {
+      providers: ['@/app/(payload)/components/JuryPageAccess'],
       graphics: {
         Logo: '@/app/components/Logo#Logo',
         Icon: '@/app/components/Logo#Icon',
@@ -114,7 +115,17 @@ export default buildConfig({
     Partners,
     PartnerCategories,
     PartnerLogos,
-  ],
+  ].map((collection): CollectionConfig => ({
+    ...collection,
+    admin: {
+      ...collection.admin,
+      hidden: (args) => args.user?.jury === true || (
+        typeof collection.admin?.hidden === 'function'
+          ? collection.admin.hidden(args)
+          : collection.admin?.hidden === true
+      ),
+    },
+  })),
   editor: lexicalEditor(),
   email: emailAdapter,
   secret: process.env.PAYLOAD_SECRET || '',
