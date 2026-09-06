@@ -14,13 +14,7 @@ export const TeamsView: React.FC<AdminViewServerProps> = async ({
   if (!initPageResult.req.user) return <p>You must be logged in to access this page.</p>
 
   const cookie = (await cookies()).toString()
-  /* Users are fetched alongside the teams because the creation dialog needs
-   * somebody to pick as a member; the API already limits that list to
-   * validated applicants stuck on an INCOMPLETE team. */
-  const [teams, users] = await Promise.all([
-    getAllTeams(cookie) as Promise<any[]>,
-    getEligibleUsersForTeamCreation(cookie) as Promise<any[]>,
-  ])
+  const teams = await (getAllTeams(cookie) as Promise<any[]>)
   const usersCollection = await initPageResult.req.payload.find({
     collection: 'users',
     pagination: false,
@@ -49,7 +43,7 @@ export const TeamsView: React.FC<AdminViewServerProps> = async ({
   >
     <SetStepNav nav={steps} />
     <Gutter>
-      <RootProvider teams={teams} users={users}>
+      <RootProvider teams={teams}>
         <TeamsClient
           admins={admins}
           currentAdminId={String(initPageResult.req.user.id)}

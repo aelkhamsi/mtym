@@ -1,14 +1,18 @@
-import React from 'react'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 import { Gutter, SetStepNav, type StepNavItem } from '@payloadcms/ui'
 import { AdminViewServerProps } from 'payload'
 import ApplicationsClient from './index.client'
+import { cookies } from 'next/headers'
+import { getAllApplications } from '@/app/api/ApplicationApi'
+import RootProvider from '../../root-provider'
 
 export const ApplicationsView = async ({
   initPageResult, params, searchParams
 }: AdminViewServerProps) => {
   if (!initPageResult.req.user) return <p>You must be logged in to access this page.</p>
 
+  const cookie = (await cookies()).toString()
+  const applications = await (getAllApplications(cookie) as Promise<any[]>)
   const usersCollection = await initPageResult.req.payload.find({
     collection: 'users',
     pagination: false,
@@ -37,10 +41,12 @@ export const ApplicationsView = async ({
   >
     <SetStepNav nav={steps} />
     <Gutter>
-      <ApplicationsClient
-        admins={admins}
-        currentAdminId={String(initPageResult.req.user.id)}
-      />
+      <RootProvider applications={applications}>
+        <ApplicationsClient
+          admins={admins}
+          currentAdminId={String(initPageResult.req.user.id)}
+        />
+      </RootProvider>
     </Gutter>
   </DefaultTemplate>
 }

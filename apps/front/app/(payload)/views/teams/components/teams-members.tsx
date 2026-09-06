@@ -45,7 +45,6 @@ const TeamsMembers = ({
   leaderId: string,
 }) => {
   const [teams, setTeams] = useAtom(teamsAtom)
-  const [, setUsers] = useAtom(usersAtom)
   const [members, setMembers] = useState(initialMembers)
   const router = useRouter()
 
@@ -73,9 +72,6 @@ const TeamsMembers = ({
           }
         }),
       )
-
-      const eligibleUsers = await getEligibleUsersForTeamCreation() as any
-      if (Array.isArray(eligibleUsers)) setUsers(eligibleUsers)
 
       toast({
         title: "Free agent",
