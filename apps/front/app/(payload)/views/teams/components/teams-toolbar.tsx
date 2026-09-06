@@ -51,7 +51,7 @@ export function TeamsToolbar<TData>({
           className="w-[150px]"
         />
         <Input
-          placeholder="Filter by name"
+          placeholder="Filter by team name"
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)

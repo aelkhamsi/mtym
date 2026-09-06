@@ -190,7 +190,7 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
       />
     ),
     filterFn: (row, _, value: string[]) =>
-      value.includes(row.original.review.id ?? "__unassigned__"),
+      value.includes(row.original.review.reviewerId ?? "__unassigned__"),
   },
   {
     id: "actionButtons",
