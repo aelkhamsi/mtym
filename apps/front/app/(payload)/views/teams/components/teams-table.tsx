@@ -52,6 +52,7 @@ const JURY_COLUMN_VISIBILITY: VisibilityState = {
   quadrigram: true,
   slogan: false,
   status: false,
+  intermediateReportDecision: true,
   leader: false,
   numberOfMembers: false,
   memberName: false,
@@ -97,7 +98,9 @@ export function TeamsTable<TData, TValue>({
 
   useTablePreferences(table, {
     storageKey: user?.jury === true ? 'teams-table-jury' : 'teams-table',
-    persistedFilterIds: ['status'],
+    persistedFilterIds: user?.jury === true
+      ? ['intermediateReportDecision']
+      : ['status', 'intermediateReportDecision'],
     columnVisibilityDefaults: user?.jury === true ? JURY_COLUMN_VISIBILITY : undefined,
   })
 

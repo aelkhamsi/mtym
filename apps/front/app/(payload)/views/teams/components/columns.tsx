@@ -7,6 +7,9 @@ import TeamStatus, { Status } from "./team-status"
 import TeamReview from "./teams-review/layout"
 import { TeamReviewer } from "./team-reviewer"
 import HideFromJury from "@/app/(payload)/components/HideFromJury"
+import IntermediateReportDecision, {
+  type IntermediateReportDecisionValue,
+} from "./intermediate-report-decision"
 
 export type AdminOption = { id: string; label: string }
  
@@ -16,6 +19,7 @@ export type TeamRow = {
   quadrigram: string,
   slogan: string,
   status: Status,
+  intermediateReportDecision: IntermediateReportDecisionValue | null,
   leaderName: string,
   leaderId: string,
   members: any[],
@@ -106,6 +110,28 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
     },
     cell: ({ row }) => (
       <TeamStatus teamId={Number(row.original.id)} status={row.original.status} />
+    ),
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
+  },
+  {
+    accessorKey: "intermediateReportDecision",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Intermediate Report Decision
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => (
+      <IntermediateReportDecision
+        decision={row.original.intermediateReportDecision}
+      />
     ),
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))

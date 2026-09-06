@@ -11,6 +11,11 @@ import CreateTeamButton from "./create-team-button"
 import { AdminOption } from "./columns"
 import UpdateTeamStatusesButton from "./update-team-statuses-button"
 import HideFromJury from "@/app/(payload)/components/HideFromJury"
+import {
+  getIntermediateReportDecisionClassname,
+  intermediateReportDecisionOptions,
+  type IntermediateReportDecisionValue,
+} from "./intermediate-report-decision"
 
 interface TeamsToolbarProps<TData> {
   table: Table<TData>
@@ -88,6 +93,20 @@ export function TeamsToolbar<TData>({
             />
           )}
         </HideFromJury>
+        {table.getColumn("intermediateReportDecision") && (
+          <TableFacetedFilter
+            column={table.getColumn("intermediateReportDecision")}
+            title="Intermediate Report Decision"
+            options={intermediateReportDecisionOptions}
+            getOptionClassname={(value) =>
+              getIntermediateReportDecisionClassname(
+                value as IntermediateReportDecisionValue,
+                "sm",
+              )
+            }
+            onFilterChange={() => table.setPageIndex(0)}
+          />
+        )}
         {table.getColumn("reviewerId") && (
           <TableFacetedFilter
             column={table.getColumn("reviewerId")}
