@@ -1,12 +1,13 @@
 'use client'
 
-import { NavGroup, Link } from '@payloadcms/ui'
+import { NavGroup, Link, useAuth } from '@payloadcms/ui'
 import { usePathname } from 'next/navigation'
+import type { User } from '../../../payload-types'
 
 const links = [
-  { label: 'Applications', href: '/admin/applications' },
+  { label: 'Applications', href: '/admin/applications', hideFromJury: true },
   { label: 'Teams', href: '/admin/teams' },
-  { label: 'Users', href: '/admin/users' }
+  { label: 'Users', href: '/admin/users', hideFromJury: true }
 ]
 
 const NavLink = ({
@@ -33,10 +34,14 @@ const NavLink = ({
   )
 }
 
-export const CustomNavLinks = () => (
-  <NavGroup label={"Views"}>
-    {links.map((link, index) => <NavLink label={link.label} href={link.href} key={`link_${index}`}/>)}
-  </NavGroup>
-)
+export const CustomNavLinks = () => {
+  const { user } = useAuth<User>()
+
+  return (
+    <NavGroup label={"Views"}>
+      {links.filter((link) => user?.jury !== true || !link.hideFromJury).map((link, index) => <NavLink label={link.label} href={link.href} key={`link_${index}`}/>)}
+    </NavGroup>
+  )
+}
 
 export default CustomNavLinks;

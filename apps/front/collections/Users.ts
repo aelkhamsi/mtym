@@ -24,9 +24,10 @@ export const Users: CollectionConfig = {
       label: 'Jury',
       type: 'checkbox',
       defaultValue: false,
+      saveToJWT: true,
       admin: {
         className: 'jury-checkbox',
-        description: 'Show only Applications, Teams, and Users in the admin panel.',
+        description: 'Show only Teams in the admin panel.',
       },
     },
     {
