@@ -49,7 +49,7 @@ export class ApplicationService {
       .leftJoinAndSelect('user.team', 'team');
 
     this.addValidFilter(query, filter);
-    return query.getMany();
+    return query.orderBy('application.id', 'ASC').getMany();
   }
 
   findOneById(id: number, filter?: string) {

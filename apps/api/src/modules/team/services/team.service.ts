@@ -121,6 +121,7 @@ export class TeamService {
       .leftJoinAndSelect('team.reports', 'reports')
       .leftJoinAndSelect('user.application', 'application')
       .leftJoinAndSelect('application.status', 'status')
+      .orderBy('team.id', 'ASC')
       .getMany();
   }
 
