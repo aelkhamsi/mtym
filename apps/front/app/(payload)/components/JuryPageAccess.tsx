@@ -13,6 +13,7 @@ const allowedPages = [
   '/admin/reset',
   '/admin/verify',
   '/admin/unauthorized',
+  '/admin/account',
 ]
 
 export default function JuryPageAccess({ children }: { children?: ReactNode }) {

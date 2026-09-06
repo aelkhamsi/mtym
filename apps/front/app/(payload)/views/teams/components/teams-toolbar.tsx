@@ -67,14 +67,16 @@ export function TeamsToolbar<TData>({
           }
           className="w-[150px]"
         />
-        <Input
-          placeholder="Filter by member name"
-          value={(table.getColumn("memberName")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("memberName")?.setFilterValue(event.target.value)
-          }
-          className="w-[180px]"
-        />
+        <HideFromJury>
+          <Input
+            placeholder="Filter by member name"
+            value={(table.getColumn("memberName")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("memberName")?.setFilterValue(event.target.value)
+            }
+            className="w-[180px]"
+          />
+        </HideFromJury>
         <HideFromJury>
           {table.getColumn("status") && (
             <TableFacetedFilter
@@ -119,7 +121,9 @@ export function TeamsToolbar<TData>({
           <UpdateTeamStatusesButton />
           {onTeamCreated && <CreateTeamButton onCreated={onTeamCreated} />}
         </HideFromJury>
-        <TeamsViewOptions table={table} />
+        <HideFromJury>
+          <TeamsViewOptions table={table} />
+        </HideFromJury>
       </div>
     </div>
   )

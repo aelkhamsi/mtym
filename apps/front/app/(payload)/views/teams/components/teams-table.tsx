@@ -28,6 +28,8 @@ import { TeamsToolbar } from "./teams-toolbar"
 import { usePersistedSorting } from '@/app/(payload)/hooks/usePersistedSorting';
 import { useTablePreferences } from '@/app/(payload)/hooks/useTablePreferences';
 import { AdminOption } from "./columns"
+import { useAuth } from "@payloadcms/ui"
+import type { User } from "../../../../../payload-types"
 
 interface UsersTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -43,6 +45,19 @@ interface UsersTableProps<TData, TValue> {
  * highlighted, so the creation is visible without resetting what the user had
  * set up (sorting, page size, filter). */
 const HIGHLIGHT_DURATION = 4000
+const JURY_COLUMN_VISIBILITY: VisibilityState = {
+  identicon: true,
+  id: true,
+  name: true,
+  quadrigram: true,
+  slogan: false,
+  status: false,
+  leader: false,
+  numberOfMembers: false,
+  memberName: false,
+  reviewerId: true,
+  actionButtons: true,
+}
 
 export function TeamsTable<TData, TValue>({
   columns,
@@ -51,6 +66,7 @@ export function TeamsTable<TData, TValue>({
   admins,
   currentAdminId,
 }: UsersTableProps<TData, TValue>) {
+  const { user } = useAuth<User>()
   const [sorting, setSorting] = usePersistedSorting('teams-table-sorting')
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({ memberName: false })
@@ -80,8 +96,9 @@ export function TeamsTable<TData, TValue>({
   })
 
   useTablePreferences(table, {
-    storageKey: 'teams-table',
+    storageKey: user?.jury === true ? 'teams-table-jury' : 'teams-table',
     persistedFilterIds: ['status'],
+    columnVisibilityDefaults: user?.jury === true ? JURY_COLUMN_VISIBILITY : undefined,
   })
 
   useEffect(() => {
