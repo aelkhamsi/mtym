@@ -6,6 +6,7 @@ import TeamAvatar from "./teams-avatar"
 import TeamStatus, { Status } from "./team-status"
 import TeamReview from "./teams-review/layout"
 import { TeamReviewer } from "./team-reviewer"
+import HideFromJury from "@/app/(payload)/components/HideFromJury"
 
 export type AdminOption = { id: string; label: string }
  
@@ -200,11 +201,13 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
       const reports = row.original?.reports;
 
       return <div className='flex justify-end gap-4'>
-        <TeamsMembers 
-          teamId={Number(row.original.id)}
-          members={members}
-          leaderId={row.original.leaderId}
-        />
+        <HideFromJury>
+          <TeamsMembers
+            teamId={Number(row.original.id)}
+            members={members}
+            leaderId={row.original.leaderId}
+          />
+        </HideFromJury>
 
         <TeamReview 
           teamId={Number(row.original.id)}

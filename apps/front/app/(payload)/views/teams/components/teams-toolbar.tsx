@@ -10,6 +10,7 @@ import { useState } from "react"
 import CreateTeamButton from "./create-team-button"
 import { AdminOption } from "./columns"
 import UpdateTeamStatusesButton from "./update-team-statuses-button"
+import HideFromJury from "@/app/(payload)/components/HideFromJury"
 
 interface TeamsToolbarProps<TData> {
   table: Table<TData>
@@ -74,15 +75,17 @@ export function TeamsToolbar<TData>({
           }
           className="w-[180px]"
         />
-        {table.getColumn("status") && (
-          <TableFacetedFilter
-            column={table.getColumn("status")}
-            title="Status"
-            options={statusOptions}
-            getOptionClassname={(value) => getStatusClassname(value as Status, 'sm')}
-            onFilterChange={() => table.setPageIndex(0)}
-          />
-        )}
+        <HideFromJury>
+          {table.getColumn("status") && (
+            <TableFacetedFilter
+              column={table.getColumn("status")}
+              title="Status"
+              options={statusOptions}
+              getOptionClassname={(value) => getStatusClassname(value as Status, 'sm')}
+              onFilterChange={() => table.setPageIndex(0)}
+            />
+          )}
+        </HideFromJury>
         {table.getColumn("reviewerId") && (
           <TableFacetedFilter
             column={table.getColumn("reviewerId")}
@@ -112,8 +115,10 @@ export function TeamsToolbar<TData>({
       </div>
 
       <div className="flex items-center gap-2">
-        <UpdateTeamStatusesButton />
-        {onTeamCreated && <CreateTeamButton onCreated={onTeamCreated} />}
+        <HideFromJury>
+          <UpdateTeamStatusesButton />
+          {onTeamCreated && <CreateTeamButton onCreated={onTeamCreated} />}
+        </HideFromJury>
         <TeamsViewOptions table={table} />
       </div>
     </div>
