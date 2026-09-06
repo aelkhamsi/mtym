@@ -26,6 +26,7 @@ export const Users: CollectionConfig = {
       defaultValue: false,
       saveToJWT: true,
       admin: {
+        condition: (data, siblingData, { user }) => user?.jury !== true,
         className: 'jury-checkbox',
         description: 'Show only Teams in the admin panel.',
       },
