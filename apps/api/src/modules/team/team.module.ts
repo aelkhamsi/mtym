@@ -13,6 +13,9 @@ import { teamCommands } from './commands';
 import { TeamReport } from './entities/team-report.entity';
 import { TeamReportService } from './services/team-report.service';
 import { MediaModule } from '../media/media.module';
+import { TeamReviewController } from './controllers/team-review.controller';
+import { TeamReviewService } from './services/team-review.service';
+import { TeamReview } from './entities/team-review.entity';
 
 @Module({
   imports: [
@@ -23,14 +26,16 @@ import { MediaModule } from '../media/media.module';
       TeamAccessCode,
       TeamMembership,
       TeamReport,
+      TeamReview,
     ]),
   ],
-  controllers: [TeamController, TeamAccessCodeController],
+  controllers: [TeamController, TeamAccessCodeController, TeamReviewController],
   providers: [
     TeamService,
     TeamAccessCodeService,
     TeamMembershipService,
     TeamReportService,
+    TeamReviewService,
     ...teamCommands,
   ],
 })

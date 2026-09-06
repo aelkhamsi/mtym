@@ -1,7 +1,7 @@
 import { cityLabelMap, educationFieldLabelMap, educationLevelLabelMap, guardianLabelMap, previousParticipationLabelMap, regionLabelMap, yesNoLabelMap } from "@mdm/shared"
 import { formatDate } from "@mdm/utils"
 import { ReactNode } from "react"
-import FilePreviewButton from "../components/file/file-preview-button"
+import FilePreviewButton from "../../components/file/file-preview-button"
 
 export type Field = {
   label: string

@@ -1,14 +1,22 @@
 "use client"
 
-import { useEffect, useState } from "react";
-import { TeamRow, columns } from "./components/columns";
+import { useEffect, useMemo, useState } from "react";
+import { AdminOption, TeamRow, getColumns } from "./components/columns";
 import { TeamsTable } from "./components/teams-table";
 import { useAtom } from "jotai";
 import { teamsAtom } from "@/app/store/admin/teamsAtom";
 
-export default function TeamsClient() {
+export default function TeamsClient({
+  admins,
+  currentAdminId,
+}: {
+  admins: AdminOption[]
+  currentAdminId: string
+}) {
   const [teams, setTeams] = useAtom(teamsAtom);
   const [tableData, setTableData] = useState<TeamRow[]>([])
+  const columns = useMemo(() => getColumns(admins), [admins])
+  
 
   /* Appended rather than prepended: the list is served in creation order, so
    * this is where the new team would sit after a reload too. The table then
@@ -33,6 +41,8 @@ export default function TeamsClient() {
             leaderName: `${team?.leader?.firstName} ${team?.leader?.lastName}`,
             numberOfMembers: team?.users?.length,
             members: team?.users,
+            reports: team?.reports,
+            review: team?.review
           }))
       )
     }
@@ -44,7 +54,13 @@ export default function TeamsClient() {
         Teams
       </div>
       
-      <TeamsTable columns={columns} data={tableData} onTeamCreated={handleTeamCreated} />
+      <TeamsTable 
+        columns={columns}
+        data={tableData}
+        onTeamCreated={handleTeamCreated}
+        admins={admins}
+        currentAdminId={currentAdminId}
+      />
     </div>
   );
 }

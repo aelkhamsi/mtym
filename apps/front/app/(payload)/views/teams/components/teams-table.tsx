@@ -27,11 +27,14 @@ import { useEffect, useState } from "react"
 import { TeamsToolbar } from "./teams-toolbar"
 import { usePersistedSorting } from '@/app/(payload)/hooks/usePersistedSorting';
 import { useTablePreferences } from '@/app/(payload)/hooks/useTablePreferences';
+import { AdminOption } from "./columns"
 
 interface UsersTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  onTeamCreated?: (team: any) => void
+  onTeamCreated?: (team: any) => void,
+  admins: AdminOption[]
+  currentAdminId: string
 }
 
 /* A team created from here lands wherever the current sorting puts it, which
@@ -45,6 +48,8 @@ export function TeamsTable<TData, TValue>({
   columns,
   data,
   onTeamCreated,
+  admins,
+  currentAdminId,
 }: UsersTableProps<TData, TValue>) {
   const [sorting, setSorting] = usePersistedSorting('teams-table-sorting')
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -116,6 +121,8 @@ export function TeamsTable<TData, TValue>({
           setHighlightedTeamId(String(team?.id))
           onTeamCreated?.(team)
         }}
+        admins={admins}
+        currentAdminId={currentAdminId}
       />
 
       <div className="rounded-md border">

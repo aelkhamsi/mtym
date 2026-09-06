@@ -52,6 +52,12 @@ export const updateIntermediateReport = (
   return ApiMethods.put(url, { body: { fileUrl } });
 }
 
+export const updateTeamReview = (teamReviewId: number, partialTeamReview: any) => {
+  return ApiMethods.put(`/teams/review/${teamReviewId}`, {
+    body: partialTeamReview,
+  });
+}
+
 export const getIntermediateReportUploadUrl = (
   teamId: number,
   problemNumber: number,

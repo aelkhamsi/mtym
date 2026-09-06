@@ -26,7 +26,7 @@ import {
 import { teamAtom } from "@/app/store/teamAtom"
 import { userAtom } from "@/app/store/userAtom"
 import { computeSHA256 } from "@/app/utils/file.utils"
-import FilePreviewButton from "@/app/(payload)/views/applications/components/file/file-preview-button"
+import FilePreviewButton from "@/app/(payload)/views/components/file/file-preview-button"
 
 const IntermediateReportRow = ({
   problemNumber,

@@ -21,6 +21,15 @@ export const TeamsView: React.FC<AdminViewServerProps> = async ({
     getAllTeams(cookie) as Promise<any[]>,
     getEligibleUsersForTeamCreation(cookie) as Promise<any[]>,
   ])
+  const usersCollection = await initPageResult.req.payload.find({
+    collection: 'users',
+    pagination: false,
+    sort: 'firstName',
+  })
+  const admins = usersCollection.docs.map((admin) => ({
+    id: String(admin.id),
+    label: [admin.firstName, admin.lastName].filter(Boolean).join(' ') || 'Unnamed admin',
+  }))
   const steps: StepNavItem[] = [
     {
       url: '/admin/teams',
@@ -41,7 +50,10 @@ export const TeamsView: React.FC<AdminViewServerProps> = async ({
     <SetStepNav nav={steps} />
     <Gutter>
       <RootProvider teams={teams} users={users}>
-        <TeamsClient />
+        <TeamsClient
+          admins={admins}
+          currentAdminId={String(initPageResult.req.user.id)}
+        />
       </RootProvider>
     </Gutter>
   </DefaultTemplate>
