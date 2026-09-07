@@ -17,7 +17,7 @@ const getTeamReportFields = (
 ): Field[] => {
   if (!reports) return []
 
-  return [...reports]
+  return reports
     .sort((a: any, b: any) => Number(a.problemNumber) - Number(b.problemNumber))
     .map((report: any) => ({
       label: `Problème ${report.problemNumber}`,
