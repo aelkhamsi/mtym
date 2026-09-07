@@ -1,10 +1,9 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { useAtom } from "jotai"
 import { Check, Crown, Plus } from "lucide-react"
 import { cn } from "@mdm/utils"
 import {
@@ -40,7 +39,7 @@ import {
   createTeamAdminDefaultValues,
   createTeamAdminSchema,
 } from "@/app/schemas/create-team-admin.schema"
-import { usersAtom } from "@/app/store/admin/usersAtom"
+import { getEligibleUsersForTeamCreation } from "@/app/api/UsersApi"
 
 type CreateTeamFormValues = z.infer<typeof createTeamAdminSchema>
 
@@ -59,24 +58,19 @@ const CreateTeamButton = ({
 }:{
   onCreated: (team: any) => void,
 }) => {
-  const [users, setUsers] = useAtom(usersAtom)
+  const [eligibleUsers, setEligibleUsers] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
   const form = useForm<CreateTeamFormValues>({
     resolver: zodResolver(createTeamAdminSchema),
     defaultValues: createTeamAdminDefaultValues,
     mode: "onChange",
   })
 
-  /* The API already limits `users` to validated applicants stuck on an
-   * INCOMPLETE team, so nothing further needs filtering here. */
-  const eligibleUsers = useMemo(() => (Array.isArray(users) ? users : []), [users])
-
   const memberIds = form.watch("memberIds") ?? []
   const leaderId = form.watch("leaderId")
   const selectedMembers = useMemo(
-    () => eligibleUsers.filter((user: any) => memberIds.includes(Number(user?.id))),
+    () => eligibleUsers?.filter((user: any) => memberIds.includes(Number(user?.id))),
     [eligibleUsers, memberIds],
   )
 
@@ -151,12 +145,6 @@ const CreateTeamButton = ({
       return
     }
 
-    /* The members just moved to a non-INCOMPLETE team, so they no longer
-     * belong in this eligible-only list: drop them instead of relabeling. */
-    if (Array.isArray(users)) {
-      setUsers(users.filter((user: any) => !formData.memberIds.includes(Number(user?.id))))
-    }
-
     onCreated(response)
     closeAndReset()
 
@@ -165,6 +153,19 @@ const CreateTeamButton = ({
       description: `${response.name} (${response.quadrigram}) has been created with success`,
     })
   }
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    async function loadEligibleUsers() {
+      setIsLoading(true);
+      const users = await getEligibleUsersForTeamCreation();
+      setEligibleUsers(users);
+      setIsLoading(false);
+    }
+
+    loadEligibleUsers();
+  }, [isOpen]);
 
   return (
     <Dialog
@@ -259,7 +260,7 @@ const CreateTeamButton = ({
                           No member available.
                         </CommandEmpty>
                         <CommandGroup>
-                          {eligibleUsers.map((user: any) => {
+                          {eligibleUsers?.map((user: any) => {
                             const userId = Number(user?.id)
                             const isSelected = memberIds.includes(userId)
 
@@ -305,7 +306,7 @@ const CreateTeamButton = ({
                 <FormItem>
                   <FormLabel>Lead</FormLabel>
                   <FormControl>
-                    {selectedMembers.length ? (
+                    {selectedMembers?.length ? (
                       <RadioGroup
                         /* Empty string, not undefined: the group has to stay
                          * controlled across "no lead yet" -> "lead". */
@@ -313,7 +314,7 @@ const CreateTeamButton = ({
                         onValueChange={(value: string) => field.onChange(Number(value))}
                         className="space-y-1"
                       >
-                        {selectedMembers.map((user: any) => (
+                        {selectedMembers?.map((user: any) => (
                           <label
                             key={user?.id}
                             className="flex items-center gap-2 text-sm hover:cursor-pointer"
