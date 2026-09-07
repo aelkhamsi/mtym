@@ -6,15 +6,14 @@ import { useEffect, type ReactNode } from 'react'
 import type { User } from '../../../payload-types'
 
 const allowedPages = [
-  '/admin/applications',
   '/admin/teams',
-  '/admin/users',
   '/admin/login',
   '/admin/logout',
   '/admin/forgot',
   '/admin/reset',
   '/admin/verify',
   '/admin/unauthorized',
+  '/admin/account',
 ]
 
 export default function JuryPageAccess({ children }: { children?: ReactNode }) {
@@ -26,7 +25,7 @@ export default function JuryPageAccess({ children }: { children?: ReactNode }) {
   )
 
   useEffect(() => {
-    if (isHidden) router.replace('/admin/applications')
+    if (isHidden) router.replace('/admin/teams')
   }, [isHidden, router])
 
   return isHidden ? null : children

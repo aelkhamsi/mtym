@@ -362,8 +362,8 @@ importers:
         specifier: 3.85.0
         version: 3.85.0(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.77.4))(payload@3.85.0(graphql@16.14.0)(typescript@5.2.2))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.2.2)
       '@payloadcms/ui':
-        specifier: ^3.87.0
-        version: 3.87.0(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.77.4))(payload@3.85.0(graphql@16.14.0)(typescript@5.2.2))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.2.2)
+        specifier: 3.85.0
+        version: 3.85.0(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.77.4))(payload@3.85.0(graphql@16.14.0)(typescript@5.2.2))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.2.2)
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.1.24
         version: 2.1.24(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)

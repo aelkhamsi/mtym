@@ -17,12 +17,12 @@ const getTeamReportFields = (
 ): Field[] => {
   if (!reports) return []
 
-  return [
-    ...reports.map((report: any) => ({
+  return reports
+    .sort((a: any, b: any) => Number(a.problemNumber) - Number(b.problemNumber))
+    .map((report: any) => ({
       label: `Problème ${report.problemNumber}`,
-      value: report?.fileUrl ? <FilePreviewButton filename={report?.fileUrl} /> : null,  
+      value: report?.fileUrl ? <FilePreviewButton filename={report?.fileUrl} /> : null,
     }))
-  ]
 }
 
 export const ProblemsPanel = ({

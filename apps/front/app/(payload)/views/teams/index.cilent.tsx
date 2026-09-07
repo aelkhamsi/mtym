@@ -37,6 +37,7 @@ export default function TeamsClient({
             quadrigram: team?.quadrigram,
             slogan: team?.slogan,
             status: team?.status,
+            intermediateReportDecision: team?.review?.intermediateReportDecision ?? null,
             leaderId: team?.leader?.id,
             leaderName: `${team?.leader?.firstName} ${team?.leader?.lastName}`,
             numberOfMembers: team?.users?.length,

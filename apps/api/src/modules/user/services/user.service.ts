@@ -21,6 +21,9 @@ export class UserService {
 
   findAll() {
     return this.userRepository.find({
+      order: {
+        id: 'ASC',
+      },
       relations: {
         application: {
           status: true,
