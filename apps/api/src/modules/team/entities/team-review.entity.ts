@@ -12,6 +12,7 @@ import { Team } from './team.entity';
 export enum DecisionEnum {
   PASS = 'PASS',
   FAIL = 'FAIL',
+  PERM_FAIL = 'PERM_FAIL',
   NOT_SURE = 'NOT_SURE'
 }
 
