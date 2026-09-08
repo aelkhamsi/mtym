@@ -46,9 +46,21 @@ export class ApplicationService {
       .leftJoinAndSelect('application.status', 'status')
       .leftJoinAndSelect('application.review', 'review')
       .leftJoinAndSelect('application.user', 'user')
-      .leftJoinAndSelect('user.team', 'team');
 
     this.addValidFilter(query, filter);
+    return query.orderBy('application.id', 'ASC').getMany();
+  }
+
+  findAllForExport() {
+    const query = this.applicationRepository
+      .createQueryBuilder('application')
+      .leftJoinAndSelect('application.status', 'status')
+      .leftJoinAndSelect('application.review', 'review')
+      .leftJoinAndSelect('application.user', 'user')
+      .leftJoinAndSelect('user.team', 'team')
+      .leftJoinAndSelect('team.review', 'teamReview')
+      .leftJoinAndSelect('team.reports', 'teamReports');
+
     return query.orderBy('application.id', 'ASC').getMany();
   }
 
