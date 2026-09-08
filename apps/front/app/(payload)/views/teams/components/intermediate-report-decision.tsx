@@ -1,8 +1,9 @@
-export type IntermediateReportDecisionValue = "PASS" | "FAIL" | "NOT_SURE"
+export type IntermediateReportDecisionValue = "PASS" | "FAIL" | "NOT_SURE" | "PERM_FAIL" 
 
 export const intermediateReportDecisionOptions = [
   { value: "PASS", label: "PASS" },
   { value: "FAIL", label: "FAIL" },
+  { value: "PERM_FAIL", label: "PERM FAIL" },
   { value: "NOT_SURE", label: "NOT SURE" },
 ]
 
@@ -18,7 +19,10 @@ export const getIntermediateReportDecisionClassname = (
       colorClassname = "bg-[#41D997] text-black"
       break
     case "FAIL":
-      colorClassname = "bg-[#BF2600] text-white"
+      colorClassname = "bg-[#b33d20] text-white"
+      break
+    case "PERM_FAIL":
+      colorClassname = "bg-[#6e2310] text-white"
       break
     case "NOT_SURE":
       colorClassname = "bg-[#EAED9A] text-black"

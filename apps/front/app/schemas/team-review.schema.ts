@@ -6,7 +6,7 @@ export const teamReviewSchema = z.object({
   intermediateReportScore3: z.number({ message: "Choisissez une option" }).int().min(0).max(4),
   intermediateReportScore4: z.number({ message: "Choisissez une option" }).int().min(0).max(4),
   aiSuspicionScore: z.number({ message: "Choisissez une option" }).int().min(0).max(100),
-  intermediateReportDecision: z.enum(["PASS", "FAIL", "NOT_SURE"], { message: "Choisissez une option" }),
+  intermediateReportDecision: z.enum(["PASS", "FAIL", "NOT_SURE", "PERM_FAIL"], { message: "Choisissez une option" }),
   comment: z.string().nullable().optional()
 })
 

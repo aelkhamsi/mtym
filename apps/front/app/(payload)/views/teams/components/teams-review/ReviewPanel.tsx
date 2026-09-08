@@ -32,6 +32,7 @@ const reportDecisionOptions = [
   {label: 'Pass', value: 'PASS'},
   {label: 'Fail', value: 'FAIL'},
   {label: 'Not sure', value: 'NOT_SURE'},
+  {label: 'Permanent Fail', value: 'PERM_FAIL'},
 ]
 
 const reportScoreOptions = [
