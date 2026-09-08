@@ -4,7 +4,7 @@ import { AdminViewServerProps } from 'payload'
 import ApplicationsClient from './index.client'
 import { cookies } from 'next/headers'
 import { getAllApplications } from '@/app/api/ApplicationApi'
-import RootProvider from '../../root-provider'
+import RootProvider from '@/app/(payload)/root-provider'
 
 export const ApplicationsView = async ({
   initPageResult, params, searchParams

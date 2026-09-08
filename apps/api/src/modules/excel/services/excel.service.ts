@@ -27,7 +27,7 @@ export class ExcelService {
 
     // rows
     const rows = [];
-    const result = await this.applicationService.findAll();
+    const result = await this.applicationService.findAllForExport();
     const adminNames = await this.getPayloadAdminNames(payloadToken);
     const applications = applicationsRowFactory(
       result,
