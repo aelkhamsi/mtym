@@ -24,7 +24,6 @@ export default function ApplicationDetailsClient({
 
     const searchResult = applications.find((application: any) => application?.id === +id)
     setApplication(searchResult)
-    console.log('application', searchResult)
   }, [id, applications])
 
   if (!application) {

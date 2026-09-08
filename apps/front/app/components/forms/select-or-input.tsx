@@ -75,7 +75,6 @@ const SelectOrInput = ({
           control={form.control}
           name={name}
           render={({ field }) => {
-            console.log('field.value', field.value)
             return (
             <FormItem>
               {labelComponent}
