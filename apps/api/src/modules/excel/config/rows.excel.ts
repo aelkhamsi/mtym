@@ -16,6 +16,7 @@ export const applicationsRowFactory = (
     dateOfBirth: new Date(application?.dateOfBirth),
     identityCardNumber: application?.identityCardNumber,
     city: cityLabelMap[application?.city],
+    updatedCity: cityLabelMap[application?.review?.updatedCity],
     region: regionLabelMap[application?.region],
     phoneNumber: application?.phoneNumber,
     allergyOrMedication: application?.allergyOrMedication,

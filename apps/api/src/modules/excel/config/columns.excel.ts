@@ -6,6 +6,7 @@ export const applicationsColumns = [
   { header: 'Date of Birth', key: 'dob', width: 15 },
   { header: 'CNIE', key: 'cnie', width: 12 },
   { header: 'City', key: 'city', width: 15 },
+  { header: 'Updated City', key: 'updated-city', width: 15 },
   { header: 'Region', key: 'region', width: 20 },
   { header: 'Phone number', key: 'phone-number', width: 17 },
   { header: 'Allergies or Medication', key: 'alergies-or-medication', width: 20 },
