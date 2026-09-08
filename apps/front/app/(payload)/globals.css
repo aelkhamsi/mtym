@@ -7,3 +7,10 @@
     --gutter-h: 24px; /* default is usually larger, e.g. base(3)+ */
   }
 }
+
+.checkbox-input input[type='checkbox'] {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}

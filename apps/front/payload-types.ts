@@ -139,6 +139,9 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  /**
+   * Show only Teams in the admin panel.
+   */
   jury?: boolean | null;
   firstName?: string | null;
   lastName?: string | null;

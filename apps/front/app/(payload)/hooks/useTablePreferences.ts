@@ -5,11 +5,12 @@ import { usePathname, useSearchParams } from "next/navigation"
 type TablePreferencesOptions = {
   storageKey: string
   persistedFilterIds: string[]
+  columnVisibilityDefaults?: VisibilityState
 }
 
 export function useTablePreferences<TData>(
   table: Table<TData>,
-  { storageKey, persistedFilterIds }: TablePreferencesOptions,
+  { storageKey, persistedFilterIds, columnVisibilityDefaults }: TablePreferencesOptions,
 ) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -54,6 +55,14 @@ export function useTablePreferences<TData>(
 
     setHasHydrated(true)
   }, [])
+
+  useEffect(() => {
+    if (!columnVisibilityDefaults) return
+
+    Object.entries(columnVisibilityDefaults).forEach(([columnId, isVisible]) => {
+      table.getColumn(columnId)?.toggleVisibility(isVisible)
+    })
+  }, [columnVisibilityDefaults])
 
   useEffect(() => {
     if (!hasHydrated) return

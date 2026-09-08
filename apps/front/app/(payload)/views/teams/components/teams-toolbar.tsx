@@ -10,6 +10,12 @@ import { useState } from "react"
 import CreateTeamButton from "./create-team-button"
 import { AdminOption } from "./columns"
 import UpdateTeamStatusesButton from "./update-team-statuses-button"
+import HideFromJury from "@/app/(payload)/components/HideFromJury"
+import {
+  getIntermediateReportDecisionClassname,
+  intermediateReportDecisionOptions,
+  type IntermediateReportDecisionValue,
+} from "./intermediate-report-decision"
 
 interface TeamsToolbarProps<TData> {
   table: Table<TData>
@@ -66,20 +72,38 @@ export function TeamsToolbar<TData>({
           }
           className="w-[150px]"
         />
-        <Input
-          placeholder="Filter by member name"
-          value={(table.getColumn("memberName")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("memberName")?.setFilterValue(event.target.value)
-          }
-          className="w-[180px]"
-        />
-        {table.getColumn("status") && (
+        <HideFromJury>
+          <Input
+            placeholder="Filter by member name"
+            value={(table.getColumn("memberName")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("memberName")?.setFilterValue(event.target.value)
+            }
+            className="w-[180px]"
+          />
+        </HideFromJury>
+        <HideFromJury>
+          {table.getColumn("status") && (
+            <TableFacetedFilter
+              column={table.getColumn("status")}
+              title="Status"
+              options={statusOptions}
+              getOptionClassname={(value) => getStatusClassname(value as Status, 'sm')}
+              onFilterChange={() => table.setPageIndex(0)}
+            />
+          )}
+        </HideFromJury>
+        {table.getColumn("intermediateReportDecision") && (
           <TableFacetedFilter
-            column={table.getColumn("status")}
-            title="Status"
-            options={statusOptions}
-            getOptionClassname={(value) => getStatusClassname(value as Status, 'sm')}
+            column={table.getColumn("intermediateReportDecision")}
+            title="Intermediate Report Decision"
+            options={intermediateReportDecisionOptions}
+            getOptionClassname={(value) =>
+              getIntermediateReportDecisionClassname(
+                value as IntermediateReportDecisionValue,
+                "sm",
+              )
+            }
             onFilterChange={() => table.setPageIndex(0)}
           />
         )}
@@ -112,9 +136,13 @@ export function TeamsToolbar<TData>({
       </div>
 
       <div className="flex items-center gap-2">
-        <UpdateTeamStatusesButton />
-        {onTeamCreated && <CreateTeamButton onCreated={onTeamCreated} />}
-        <TeamsViewOptions table={table} />
+        <HideFromJury>
+          <UpdateTeamStatusesButton />
+          {onTeamCreated && <CreateTeamButton onCreated={onTeamCreated} />}
+        </HideFromJury>
+        <HideFromJury>
+          <TeamsViewOptions table={table} />
+        </HideFromJury>
       </div>
     </div>
   )

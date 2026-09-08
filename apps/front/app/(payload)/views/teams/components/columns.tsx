@@ -6,6 +6,10 @@ import TeamAvatar from "./teams-avatar"
 import TeamStatus, { Status } from "./team-status"
 import TeamReview from "./teams-review/layout"
 import { TeamReviewer } from "./team-reviewer"
+import HideFromJury from "@/app/(payload)/components/HideFromJury"
+import IntermediateReportDecision, {
+  type IntermediateReportDecisionValue,
+} from "./intermediate-report-decision"
 
 export type AdminOption = { id: string; label: string }
  
@@ -15,6 +19,7 @@ export type TeamRow = {
   quadrigram: string,
   slogan: string,
   status: Status,
+  intermediateReportDecision: IntermediateReportDecisionValue | null,
   leaderName: string,
   leaderId: string,
   members: any[],
@@ -111,6 +116,28 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
     },
   },
   {
+    accessorKey: "intermediateReportDecision",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Intermediate Report Decision
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => (
+      <IntermediateReportDecision
+        decision={row.original.intermediateReportDecision}
+      />
+    ),
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
+  },
+  {
     accessorKey: "leader",
     header: ({ column }) => {
       return (
@@ -200,11 +227,13 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
       const reports = row.original?.reports;
 
       return <div className='flex justify-end gap-4'>
-        <TeamsMembers 
-          teamId={Number(row.original.id)}
-          members={members}
-          leaderId={row.original.leaderId}
-        />
+        <HideFromJury>
+          <TeamsMembers
+            teamId={Number(row.original.id)}
+            members={members}
+            leaderId={row.original.leaderId}
+          />
+        </HideFromJury>
 
         <TeamReview 
           teamId={Number(row.original.id)}
