@@ -11,6 +11,8 @@ import IntermediateReportDecision, {
   type IntermediateReportDecisionValue,
 } from "./intermediate-report-decision"
 
+export const UNASSIGNED_REVIEWER = "__unassigned__"
+
 export type AdminOption = { id: string; label: string }
  
 export type TeamRow = {
@@ -197,7 +199,8 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
     },
   },
   {
-    accessorKey: "reviewerId",
+    id: "reviewerId",
+    accessorFn: (row) => row.review?.reviewerId ?? UNASSIGNED_REVIEWER,
     header: ({ column }) => {
       return (
         <Button
@@ -216,8 +219,16 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
         admins={admins}
       />
     ),
-    filterFn: (row, _, value: string[]) =>
-      value.includes(row.original.review.reviewerId ?? "__unassigned__"),
+    sortingFn: (rowA, rowB, columnId) => {
+      const label = (row: typeof rowA) => {
+        const reviewerId = row.getValue<string>(columnId)
+        if (reviewerId === UNASSIGNED_REVIEWER) return ""
+        return admins.find((admin) => admin.id === reviewerId)?.label ?? reviewerId
+      }
+      return label(rowA).localeCompare(label(rowB))
+    },
+    filterFn: (row, columnId, value: string[]) =>
+      value.includes(row.getValue(columnId)),
   },
   {
     id: "actionButtons",

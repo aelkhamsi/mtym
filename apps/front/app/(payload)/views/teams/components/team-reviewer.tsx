@@ -10,11 +10,9 @@ import {
   SelectValue,
   toast,
 } from "@mdm/ui"
-import type { AdminOption } from "./columns"
+import { UNASSIGNED_REVIEWER as UNASSIGNED, type AdminOption } from "./columns"
 import { updateTeamReview } from "@/app/api/TeamApi"
 import { teamsAtom } from "@/app/store/admin/teamsAtom"
-
-const UNASSIGNED = "__unassigned__"
 
 export function TeamReviewer({
   teamId,
