@@ -3,9 +3,11 @@ export type Team = {
   name: string;
   slogan: string;
   quadrigram: string;
+  qualifCenter: string;
   status: "APPROVED" | "NEW" | "DECLINED" | "INCOMPLETE";
   leader: any;
   users?: any[],
+  review: any;
   reports?: TeamReport[];
 }
 

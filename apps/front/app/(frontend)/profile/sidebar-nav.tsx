@@ -6,8 +6,9 @@ import { cn } from "@mdm/utils"
 import { buttonVariants } from "@mdm/ui"
 import { userAtom } from "@/app/store/userAtom"
 import { useAtomValue } from "jotai"
+import { teamAtom } from "@/app/store/teamAtom"
 
-const getSidebarNavItems = (qualified: boolean|undefined) => ([
+const getSidebarNavItems = (teamStatus?: string) => ([
   {
     title: "Compte",
     href: "/profile/account",
@@ -20,16 +21,16 @@ const getSidebarNavItems = (qualified: boolean|undefined) => ([
     title: "Équipe",
     href: "/profile/team",
   },
-  ...(qualified 
-    ? [{title: "Participation", href: "/profile/participant-details"}]
+  ...(teamStatus === 'APPROVED' 
+    ? [{title: "Tournoi régional", href: "/profile/regional-tournament"}]
     : []
   )
 ])
 
 export function SidebarNav({className, ...props}:{className?: string}) {
   const pathname = usePathname()
-  const user = useAtomValue(userAtom)
-  const hasValidApplication = user?.application && user?.application?.status?.status === 'PENDING'
+  const team = useAtomValue(teamAtom)
+  console.log('team', team)
 
   return (
     <nav
@@ -39,7 +40,7 @@ export function SidebarNav({className, ...props}:{className?: string}) {
       )}
       {...props}
     >
-      {getSidebarNavItems(user?.qualified)
+      {getSidebarNavItems(team?.status)
         .map((item) => (
           <Link
             key={item.href}
@@ -53,8 +54,7 @@ export function SidebarNav({className, ...props}:{className?: string}) {
             )}
           >
             {item.title}
-            {item.href === '/profile/application' && (hasValidApplication ? <span>✅</span> : <span>⚠️</span>)}
-            {item.href === '/profile/participant-details' && (user?.participantDetails?.status === 'COMPLETE' ? <span>✅</span> : <span>⚠️</span>)}
+            {item.href === '/profile/application'}
           </Link>
         ))
       }

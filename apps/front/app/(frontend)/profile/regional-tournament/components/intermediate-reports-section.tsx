@@ -98,7 +98,7 @@ const IntermediateReportsSection = () => {
   const [uploadingProblem, setUploadingProblem] = useState<number>()
   const [inputVersions, setInputVersions] = useState<Record<number, number>>({})
 
-  if (!team || !["NEW", "APPROVED"].includes(team.status)) return null
+  if (!team || !["APPROVED"].includes(team.status)) return null
 
   const isTeamLeader = team.leader?.id === user?.id
   const problemNumbers = Array.from(
