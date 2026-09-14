@@ -26,7 +26,7 @@ export default function TeamPage() {
       {team
         ? <>
             <TeamSection />
-            {/* <IntermediateReportsSection /> */}
+            <IntermediateReportsSection />
           </>
         : <NoTeamSection />
       }

@@ -216,7 +216,7 @@ const IntermediateReportsSection = () => {
               (item) => item.reportType === "INTERMEDIATE" && item.problemNumber === problemNumber,
             )}
             selectedFile={files[problemNumber]}
-            canUpload={isTeamLeader}
+            canUpload={false && isTeamLeader} // lazy a way of closing report uploads :)
             inputVersion={inputVersions[problemNumber] ?? 0}
             isDisabled={uploadingProblem !== undefined}
             isUploading={uploadingProblem === problemNumber}
