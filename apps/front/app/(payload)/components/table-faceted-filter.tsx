@@ -29,6 +29,7 @@ interface TableFacetedFilterProps<TData, TValue> {
   }[]
   getOptionClassname?: (value: string) => string
   onFilterChange?: () => void
+  showZeroCounts?: boolean
 }
 
 export function TableFacetedFilter<TData, TValue>({
@@ -37,6 +38,7 @@ export function TableFacetedFilter<TData, TValue>({
   options,
   getOptionClassname,
   onFilterChange,
+  showZeroCounts = false,
 }: TableFacetedFilterProps<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
@@ -130,9 +132,9 @@ export function TableFacetedFilter<TData, TValue>({
                     <div className={getOptionClassname?.(option.value) ?? ''}>
                       <span>{option.label}</span>
                     </div>
-                    {facets?.get(option.value) && (
-                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
-                        {facets.get(option.value)}
+                    {(facets?.get(option.value) || showZeroCounts) && (
+                      <span className="ml-auto flex h-4 min-w-4 items-center justify-center font-mono text-xs">
+                        {facets?.get(option.value) ?? 0}
                       </span>
                     )}
                   </CommandItem>

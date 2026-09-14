@@ -8,7 +8,7 @@ import { getStatusClassname, statusOptions, Status } from "./team-status"
 import { TableFacetedFilter } from "@/app/(payload)/components/table-faceted-filter"
 import { useState } from "react"
 import CreateTeamButton from "./create-team-button"
-import { AdminOption } from "./columns"
+import { AdminOption, UNASSIGNED_REVIEWER } from "./columns"
 import UpdateTeamStatusesButton from "./update-team-statuses-button"
 import HideFromJury from "@/app/(payload)/components/HideFromJury"
 import {
@@ -112,7 +112,7 @@ export function TeamsToolbar<TData>({
             column={table.getColumn("reviewerId")}
             title="Reviewer"
             options={[
-              { value: "__unassigned__", label: "Unassigned" },
+              { value: UNASSIGNED_REVIEWER, label: "Unassigned" },
               ...admins.map((admin) => ({
                 value: admin.id,
                 label: admin.id === currentAdminId
@@ -120,6 +120,7 @@ export function TeamsToolbar<TData>({
                   : admin.label,
               })),
             ]}
+            showZeroCounts
             onFilterChange={() => table.setPageIndex(0)}
           />
         )}
