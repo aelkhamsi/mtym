@@ -142,6 +142,7 @@ export class TeamController {
   @UseGuards(AuthGuard)
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateTeamDto: UpdateTeamDto) {
+    console.log('update team object', updateTeamDto)
     const update = await this.teamService.update(+id, updateTeamDto);
 
     return {

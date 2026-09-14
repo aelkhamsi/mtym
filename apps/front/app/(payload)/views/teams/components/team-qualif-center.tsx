@@ -10,46 +10,51 @@ import {
   SelectValue,
   toast,
 } from "@mdm/ui"
-import { UNASSIGNED_OPTION as UNASSIGNED, type AdminOption } from "./columns"
-import { updateTeamReview } from "@/app/api/TeamApi"
+import { UNASSIGNED_OPTION as UNASSIGNED } from "./columns"
+import { updateTeam } from "@/app/api/TeamApi"
 import { teamsAtom } from "@/app/store/admin/teamsAtom"
+import { capitalize } from "@mdm/utils"
 
-export function TeamReviewer({
+export enum QualifCenter {
+  CASABLANCA = 'casablanca',
+  RABAT = 'rabat',
+  MARTIL = 'martil',
+  BENGUERIR = 'benguerir',
+  AGADIR = 'agadir',
+  FEZ = 'fez',
+  OUJDA = 'oujda',
+  ONLINE = 'online',
+}
+
+export function TeamQualifCenter({
   teamId,
-  review,
-  admins,
+  qualifCenter, 
 }: {
   teamId: number,
-  review: any,
-  admins: AdminOption[]
+  qualifCenter: QualifCenter,
 }) {
   const [teams, setTeams] = useAtom(teamsAtom)
   const [saving, setSaving] = useState(false)
+  console.log('qualifCenter', qualifCenter)
 
   const handleChange = async (value: string) => {
-    const nextReviewerId = value === UNASSIGNED ? null : value
+    const nextQualifCenter = value === UNASSIGNED ? null : value
 
     setSaving(true)
     try {
-      const response = await updateTeamReview(review?.id, {
-        reviewerId: nextReviewerId,
+      const response = await updateTeam(teamId, {
+        qualifCenter: nextQualifCenter,
       }) as any
       if (response?.statusCode >= 400) throw new Error()
 
       setTeams(teams?.map((team: any) =>
         team.id === teamId
-          ? {
-              ...team,
-              review: {
-                ...team.review,
-                reviewerId: nextReviewerId,
-              },
-            }
+          ? {...team, qualifCenter: nextQualifCenter }
           : team
       ))
-      toast({ title: "Reviewer updated" })
+      toast({ title: "Qualification center updated" })
     } catch {
-      toast({ title: "Could not update reviewer", variant: "destructive" })
+      toast({ title: "Could not update qualification center", variant: "destructive" })
     } finally {
       setSaving(false)
     }
@@ -57,7 +62,7 @@ export function TeamReviewer({
 
   return (
     <Select
-      value={review?.reviewerId ?? UNASSIGNED}
+      value={qualifCenter ?? UNASSIGNED}
       onValueChange={handleChange}
       disabled={saving}
     >
@@ -78,14 +83,14 @@ export function TeamReviewer({
         }}
       >
         <SelectItem value={UNASSIGNED}>Unassigned</SelectItem>
-        {review?.reviewerId && !admins?.some((admin) => admin.id === review?.reviewerId) && (
-          <SelectItem value={review?.reviewerId} disabled>
+        {qualifCenter && !Object.values(QualifCenter)?.some((center) => center === qualifCenter) && (
+          <SelectItem value={qualifCenter} disabled>
             Unknown admin
           </SelectItem>
         )}
-        {admins?.map((admin) => (
-          <SelectItem key={admin.id} value={admin.id}>
-            {admin.label}
+        {Object.entries(QualifCenter)?.map(([key, value]) => (
+          <SelectItem key={key} value={value}>
+            {capitalize(value)}
           </SelectItem>
         ))}
       </SelectContent>

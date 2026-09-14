@@ -147,7 +147,7 @@ export const styleParticipantDetailsSheet = (sheet) => {
   }
 
   // status style
-  for (let i = 23; i <= 26; i++) {
+  for (let i = 24; i <= 26; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -157,7 +157,7 @@ export const styleParticipantDetailsSheet = (sheet) => {
   }
 
   // team style
-  for (let i = 27; i <= 31; i++) {
+  for (let i = 27; i <= 33; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',

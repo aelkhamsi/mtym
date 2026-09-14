@@ -12,7 +12,6 @@ import { UpdateTeamDto } from '../dto/update-team.dto';
 import { Team, TeamStatus } from '../entities/team.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { UserService } from 'src/modules/user/services/user.service';
 import { SerializedUser } from 'src/modules/user/entities/serialized-user';
 import { cleanString } from 'src/utils/string';
@@ -280,21 +279,11 @@ export class TeamService {
       throw new NotFoundException('The team does not exist');
     }
 
-    const { name, slogan, quadrigram, status } = updateTeamDto;
-    if (name !== undefined) {
-      await this.assertNameIsAvailable(name, id);
-    }
-    if (quadrigram !== undefined) {
-      await this.assertQuadrigramIsAvailable(quadrigram, id);
-    }
+    const { name, quadrigram } = updateTeamDto;
+    if (name !== undefined) await this.assertNameIsAvailable(name, id);
+    if (quadrigram !== undefined) await this.assertQuadrigramIsAvailable(quadrigram, id);
 
-    const changes: QueryDeepPartialEntity<Team> = {};
-    if (name !== undefined) changes.name = name;
-    if (slogan !== undefined) changes.slogan = slogan;
-    if (quadrigram !== undefined) changes.quadrigram = quadrigram;
-    if (status !== undefined) changes.status = status;
-
-    return this.teamRepository.update({ id }, changes);
+    return this.teamRepository.update({ id }, updateTeamDto);
   }
 
   async delete(id: number) {

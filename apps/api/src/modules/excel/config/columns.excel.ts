@@ -57,6 +57,7 @@ export const applicationsColumns = [
   { header: 'Team Status', key: 'team_status', width: 15 },
   { header: 'Team Interim Reports N°', key: 'team_intermediate_reports_number', width: 15 },
   { header: 'Team Interim Decision', key: 'team_intermediate_decision', width: 15 },
+  { header: 'Team Qualif Center', key: 'team_qualif_center', width: 15 },
 ];
 
 export const participantDetailsColumns = [

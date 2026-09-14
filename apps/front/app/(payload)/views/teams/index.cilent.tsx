@@ -27,6 +27,7 @@ export default function TeamsClient({
 
   useEffect(() => {
     if (teams) {
+      console.log('teams', teams)
       const list = Array.isArray(teams) ? teams : []
       setTableData(
         list
@@ -38,6 +39,7 @@ export default function TeamsClient({
             slogan: team?.slogan,
             status: team?.status,
             intermediateReportDecision: team?.review?.intermediateReportDecision ?? null,
+            qualifCenter: team?.qualifCenter,
             leaderId: team?.leader?.id,
             leaderName: `${team?.leader?.firstName} ${team?.leader?.lastName}`,
             numberOfMembers: team?.users?.length,

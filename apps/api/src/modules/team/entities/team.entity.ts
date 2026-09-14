@@ -20,6 +20,17 @@ export enum TeamStatus {
   INCOMPLETE = 'INCOMPLETE',
 }
 
+export enum QualifCenter {
+  CASABLANCA = 'casablanca',
+  RABAT = 'rabat',
+  MARTIL = 'martil',
+  BENGUERIR = 'benguerir',
+  AGADIR = 'agadir',
+  FEZ = 'fez',
+  OUJDA = 'oujda',
+  ONLINE = 'online',
+}
+
 @Entity({ name: 'teams' })
 export class Team {
   constructor(partial: Partial<Team>) {
@@ -57,6 +68,9 @@ export class Team {
 
   @OneToMany(() => TeamReport, (report) => report.team)
   reports: TeamReport[];
+
+  @Column({ type: 'enum', enum: QualifCenter, nullable: true })
+  qualifCenter: QualifCenter;
 
   /* createAt & updatedAt */
   @CreateDateColumn()
