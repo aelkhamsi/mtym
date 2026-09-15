@@ -112,4 +112,8 @@ export class CreateApplicationDto {
   @IsString()
   @IsOptional()
   fileGradesUrl: string;
+
+  @IsString()
+  @IsOptional()
+  parentalAuthorizationUrl: string;
 }

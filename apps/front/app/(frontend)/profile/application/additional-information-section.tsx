@@ -21,39 +21,50 @@ import { zodFileValidation } from "@/app/schemas/application.schema"
 import { computeSHA256, generateFileName, getUploadFolderName } from "@/app/utils/file.utils"
 import { getSignedURL, uploadFile } from "@/app/api/MediaApi"
 import { putApplication } from "@/app/api/ApplicationApi"
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 import { useAtomValue } from "jotai"
 import { userAtom } from "@/app/store/userAtom"
 import { applicationAtom } from "@/app/store/applicationAtom"
+import FilePreviewButton from "@/app/(payload)/views/components/file/file-preview-button"
 
-const additionalInformationSchema = z.object({
-    fileCnie: zodFileValidation,
-    fileCnieUrl: z.any().optional()
-  })
-
-const AdditionalInformationsSection = () => {
+const AdditionalInformationsSection = ({
+  fieldName = "fileCnie",
+  filePrefix = "cnie",
+  label = "Justificatif d'identité du participant avec photo (carte d'identité, passeport, carte d'élève...)",
+  description = <><span className="text-blue-500">Remarque</span>: Le document doit de préference être la CNIE ou le passeport. Sinon, vous pouvez envoyer tout document contenant les informations de l&apos;élève avec sa photo; ou bien son acte de naissance accompagné de sa photo dans le même PDF.</>,
+}: {
+  fieldName?: string
+  filePrefix?: string
+  label?: ReactNode
+  description?: ReactNode
+}) => {
   const user = useAtomValue(userAtom)
   const application = useAtomValue(applicationAtom)
   const [isFormLoading, setIsFormLoading] = useState(false)
+  const urlFieldName = `${fieldName}Url`
+  const additionalInformationSchema = z.object({
+    [fieldName]: zodFileValidation,
+    [urlFieldName]: z.any().optional(),
+  })
   const form = useForm({
     resolver: zodResolver(additionalInformationSchema),
     defaultValues: {
-      fileCnie: undefined,
-      fileCnieUrl: application?.fileCnieUrl,
+      [fieldName]: undefined,
+      [urlFieldName]: application?.[urlFieldName],
     },
     mode: "onChange",
   }) as UseFormReturn<any>;
 
   const onSubmit = async (formData: z.infer<typeof additionalInformationSchema>) => {
     setIsFormLoading(true)
-    const { fileCnie } = formData;
+    const selectedFiles = formData[fieldName];
     
     let file = undefined
-    if (fileCnie && fileCnie.length) {
+    if (selectedFiles && selectedFiles.length) {
       file = new File(
-        [fileCnie[0]], 
-        `cnie_${generateFileName()}` + '.' + fileCnie[0]?.name.split('.').pop(),
-        { type: fileCnie[0]?.type },
+        [selectedFiles[0]],
+        `${filePrefix}_${generateFileName()}` + '.' + selectedFiles[0]?.name.split('.').pop(),
+        { type: selectedFiles[0]?.type },
       )
     }
     
@@ -65,7 +76,7 @@ const AdditionalInformationsSection = () => {
     }
 
     const fileUrls = {
-      fileCnieUrl: file ? `${uploadFolderName}/${file.name}` : (application?.fileCnieUrl ?? null),
+      [urlFieldName]: file ? `${uploadFolderName}/${file.name}` : (application?.[urlFieldName] ?? null),
     }
 
     await putApplication(application?.id, fileUrls) as any
@@ -80,29 +91,30 @@ const AdditionalInformationsSection = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="fileCnie"
+          name={fieldName}
           render={({ field }) => {
-            initFileInput(field, "fileCnie")
+            initFileInput(field, fieldName)
 
             return (
               <FormItem>
-                <FormLabel>Justificatif d&apos;identité du participant avec photo (carte d&apos;identité, passeport, carte d&apos;élève...) <RequiredAsterisk /></FormLabel>
+                <FormLabel>{label} <RequiredAsterisk /></FormLabel>
                 <FormControl>
-                  <FileInput form={form} id="fileCnie" />
+                  <FileInput form={form} id={fieldName} />
                 </FormControl>
                 <FormDescription>
-                  <span className="text-blue-500">Remarque</span>: Le document doit de préference être la CNIE ou le passeport. Sinon, vous pouvez envoyer tout document contenant les informations de l&apos;élève avec sa photo; ou bien son acte de naissance accompagné de sa photo dans le même PDF.
+                  {description}
                 </FormDescription>
+                {application?.[urlFieldName] && <FilePreviewButton filename={application[urlFieldName]} />}
                 <FormMessage />
               </FormItem>
             )
           }}
         />
 
-        <Button type="submit">
+        <Button type="submit" disabled={isFormLoading || !form.watch(fieldName)?.length}>
           {isFormLoading
             ? <LoadingDots color="#808080" />
-            : (application?.fileCnieUrl ? 'Mettre à jour les informations' : 'Envoyer les informations')
+            : (application?.[urlFieldName] ? 'Mettre à jour les informations' : 'Envoyer les informations')
           }
         </Button>
       </form>

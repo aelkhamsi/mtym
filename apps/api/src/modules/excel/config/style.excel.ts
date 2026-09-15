@@ -60,7 +60,7 @@ export const styleApplicationsSheet = (sheet) => {
   }
 
   // team style
-  for (let i = 32; i <= 37; i++) {
+  for (let i = 32; i <= 39; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
