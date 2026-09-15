@@ -9,6 +9,7 @@ import {
 import { useAtomValue } from "jotai"
 import { teamAtom } from "@/app/store/teamAtom"
 import { qualificationCenters } from "./qualification-centers"
+import AdditionalInformationsSection from "../../application/additional-information-section"
 
 const QualificationCenterSection = () => {
   const team = useAtomValue(teamAtom)
@@ -46,6 +47,12 @@ const QualificationCenterSection = () => {
                 </div>
               </>
             }
+            <AdditionalInformationsSection
+              fieldName="parentalAuthorization"
+              filePrefix="parentalAuthorization"
+              label="Autorisation parentale"
+              description="Déposez votre autorisation parentale individuelle. Images ou PDF, 3 Mo maximum."
+            />
           </>
           : <>
             <p>Malheureusement 😔, votre équipe n'a pas été retenu pour participer aux tournois régionaux de MTYM!</p>
