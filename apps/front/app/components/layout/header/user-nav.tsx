@@ -76,12 +76,12 @@ export function UserNav({
 
           <DropdownMenuSeparator />
 
-          {user?.qualified && 
+          {user?.team.status === 'APPROVED' && 
             <DropdownMenuItem
-              onClick={() => router.push('/profile/participant-details')}
+              onClick={() => router.push('/profile/regional-tournament')}
               className="hover:cursor-pointer"
             >
-              Participation
+              Tournoi Régional
             </DropdownMenuItem>
           }
         </DropdownMenuGroup>

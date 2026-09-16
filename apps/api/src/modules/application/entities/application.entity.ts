@@ -120,6 +120,9 @@ export class Application {
   @Column({ type: 'varchar', nullable: true })
   fileGradesUrl: string;
 
+  @Column({ type: 'varchar', nullable: true })
+  parentalAuthorizationUrl: string;
+
   /* createAt & updatedAt */
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;

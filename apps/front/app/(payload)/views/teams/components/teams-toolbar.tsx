@@ -8,7 +8,7 @@ import { getStatusClassname, statusOptions, Status } from "./team-status"
 import { TableFacetedFilter } from "@/app/(payload)/components/table-faceted-filter"
 import { useState } from "react"
 import CreateTeamButton from "./create-team-button"
-import { AdminOption, UNASSIGNED_REVIEWER } from "./columns"
+import { AdminOption, UNASSIGNED_OPTION } from "./columns"
 import UpdateTeamStatusesButton from "./update-team-statuses-button"
 import HideFromJury from "@/app/(payload)/components/HideFromJury"
 import {
@@ -16,6 +16,8 @@ import {
   intermediateReportDecisionOptions,
   type IntermediateReportDecisionValue,
 } from "./intermediate-report-decision"
+import { QualifCenter } from "./team-qualif-center"
+import { capitalize } from "@mdm/utils"
 
 interface TeamsToolbarProps<TData> {
   table: Table<TData>
@@ -74,10 +76,10 @@ export function TeamsToolbar<TData>({
         />
         <HideFromJury>
           <Input
-            placeholder="Filter by member name"
-            value={(table.getColumn("memberName")?.getFilterValue() as string) ?? ""}
+            placeholder="Filter by member email"
+            value={(table.getColumn("memberEmail")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("memberName")?.setFilterValue(event.target.value)
+              table.getColumn("memberEmail")?.setFilterValue(event.target.value)
             }
             className="w-[180px]"
           />
@@ -112,12 +114,27 @@ export function TeamsToolbar<TData>({
             column={table.getColumn("reviewerId")}
             title="Reviewer"
             options={[
-              { value: UNASSIGNED_REVIEWER, label: "Unassigned" },
+              { value: UNASSIGNED_OPTION, label: "Unassigned" },
               ...admins.map((admin) => ({
                 value: admin.id,
                 label: admin.id === currentAdminId
                   ? `Assigned to me (${admin.label})`
                   : admin.label,
+              })),
+            ]}
+            showZeroCounts
+            onFilterChange={() => table.setPageIndex(0)}
+          />
+        )}
+        {table.getColumn("qualifCenter") && (
+          <TableFacetedFilter
+            column={table.getColumn("qualifCenter")}
+            title="Qualif Center"
+            options={[
+              { value: UNASSIGNED_OPTION, label: "Unassigned" },
+              ...Object.values(QualifCenter).map((center) => ({
+                value: center,
+                label: capitalize(center),
               })),
             ]}
             showZeroCounts

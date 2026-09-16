@@ -10,8 +10,10 @@ import HideFromJury from "@/app/(payload)/components/HideFromJury"
 import IntermediateReportDecision, {
   type IntermediateReportDecisionValue,
 } from "./intermediate-report-decision"
+import { QualifCenter, TeamQualifCenter } from "./team-qualif-center"
+import { capitalize } from "@mdm/utils"
 
-export const UNASSIGNED_REVIEWER = "__unassigned__"
+export const UNASSIGNED_OPTION = "__unassigned__"
 
 export type AdminOption = { id: string; label: string }
  
@@ -22,6 +24,7 @@ export type TeamRow = {
   slogan: string,
   status: Status,
   intermediateReportDecision: IntermediateReportDecisionValue | null,
+  qualifCenter: QualifCenter,
   leaderName: string,
   leaderId: string,
   members: any[],
@@ -183,7 +186,7 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
     },
   },
   {
-    id: "memberName",
+    id: "memberEmail",
     accessorFn: (row) => row.members,
     enableHiding: false,
     filterFn: (row, id, filterValue) => {
@@ -192,7 +195,7 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
 
       const members = (row.getValue(id) as any[]) ?? []
       return members.some((member) =>
-        `${member?.firstName ?? ""} ${member?.lastName ?? ""}`
+        `${member?.email ?? ""}`
           .toLowerCase()
           .includes(query)
       )
@@ -200,7 +203,7 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
   },
   {
     id: "reviewerId",
-    accessorFn: (row) => row.review?.reviewerId ?? UNASSIGNED_REVIEWER,
+    accessorFn: (row) => row.review?.reviewerId ?? UNASSIGNED_OPTION,
     header: ({ column }) => {
       return (
         <Button
@@ -222,13 +225,36 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
     sortingFn: (rowA, rowB, columnId) => {
       const label = (row: typeof rowA) => {
         const reviewerId = row.getValue<string>(columnId)
-        if (reviewerId === UNASSIGNED_REVIEWER) return ""
+        if (reviewerId === UNASSIGNED_OPTION) return ""
         return admins.find((admin) => admin.id === reviewerId)?.label ?? reviewerId
       }
       return label(rowA).localeCompare(label(rowB))
     },
     filterFn: (row, columnId, value: string[]) =>
       value.includes(row.getValue(columnId)),
+  },
+  {
+    id: "qualifCenter",
+    accessorFn: (row) => row.qualifCenter ?? UNASSIGNED_OPTION,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Qualif Center
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => (
+      <TeamQualifCenter
+        teamId={Number(row.original.id)}
+        qualifCenter={row.original.qualifCenter}
+      />
+    ),
+    sortingFn: 'alphanumeric',
+    filterFn: 'arrIncludesSome'
   },
   {
     id: "actionButtons",

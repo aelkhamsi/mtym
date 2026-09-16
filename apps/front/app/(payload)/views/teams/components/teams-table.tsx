@@ -55,7 +55,7 @@ const JURY_COLUMN_VISIBILITY: VisibilityState = {
   intermediateReportDecision: true,
   leader: false,
   numberOfMembers: false,
-  memberName: false,
+  memberEmail: false,
   reviewerId: true,
   actionButtons: true,
 }
@@ -70,7 +70,7 @@ export function TeamsTable<TData, TValue>({
   const { user } = useAuth<User>()
   const [sorting, setSorting] = usePersistedSorting('teams-table-sorting')
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({ memberName: false })
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({ memberEmail: false })
   /* Two lifetimes, on purpose: the jump happens once, while the highlight
    * lingers. Keeping them together would re-jump under the user if they
    * re-sorted or filtered during the few seconds the row stays highlighted. */
