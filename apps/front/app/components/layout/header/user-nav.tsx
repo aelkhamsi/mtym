@@ -76,7 +76,7 @@ export function UserNav({
 
           <DropdownMenuSeparator />
 
-          {user?.team.status === 'APPROVED' && 
+          {user?.team?.status === 'APPROVED' && 
             <DropdownMenuItem
               onClick={() => router.push('/profile/regional-tournament')}
               className="hover:cursor-pointer"
