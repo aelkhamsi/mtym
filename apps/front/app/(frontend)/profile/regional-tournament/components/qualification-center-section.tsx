@@ -5,15 +5,16 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  Link1Icon,
 } from "@mdm/ui"
 import { useAtomValue } from "jotai"
 import { teamAtom } from "@/app/store/teamAtom"
 import { qualificationCenters } from "./qualification-centers"
-import AdditionalInformationsSection from "../../application/additional-information-section"
+import Link from "next/link"
 
 const QualificationCenterSection = () => {
   const team = useAtomValue(teamAtom)
-  if (!team || !["APPROVED"].includes(team.status)) return null
+  if (!team || !team?.qualifCenter || !["APPROVED"].includes(team.status)) return null
 
   const positiveReviewDecision = team?.review?.intermediateReportDecision === 'PASS'
 
@@ -42,17 +43,11 @@ const QualificationCenterSection = () => {
               : <>
                 <p>Votre équipe a été affecté au centre de qualification suivant: </p>
                 <div className="bg-gray-100 p-2">
-                  <p><span className="text-gray-400">Ville:</span> {qualificationCenters[team?.qualifCenter]?.label}</p>
-                  <p><span className="text-gray-400">Adresse:</span> {qualificationCenters[team?.qualifCenter]?.address} </p>
+                  <p><span className="text-gray-400 text-sm font-light">Centre:</span> {qualificationCenters[team?.qualifCenter]?.establishment} - {qualificationCenters[team?.qualifCenter]?.city}</p>
+                  <p><span className="text-gray-400 text-sm font-light">Adresse:</span> <Link className='inline-flex text-blue-400' href={qualificationCenters[team?.qualifCenter]?.address} target='_blank'>Lien <Link1Icon /></Link></p>
                 </div>
               </>
             }
-            <AdditionalInformationsSection
-              fieldName="parentalAuthorization"
-              filePrefix="parentalAuthorization"
-              label="Autorisation parentale"
-              description="Déposez votre autorisation parentale individuelle. Images ou PDF, 3 Mo maximum."
-            />
           </>
           : <>
             <p>Malheureusement 😔, votre équipe n'a pas été retenu pour participer aux tournois régionaux de MTYM!</p>

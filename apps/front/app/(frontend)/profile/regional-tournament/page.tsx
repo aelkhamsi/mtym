@@ -6,6 +6,7 @@ import { userAtom } from "@/app/store/userAtom";
 import IntermediateReportsSection from "./components/intermediate-reports-section";
 import { teamAtom } from "@/app/store/teamAtom";
 import QualificationCenterSection from "./components/qualification-center-section";
+import ParentalAuthorizationSection from "./components/parental-authorization-section";
 
 export default function RegionalTournamentPage() {
   const team = useAtomValue(teamAtom)
@@ -24,6 +25,7 @@ export default function RegionalTournamentPage() {
 
       <IntermediateReportsSection />
       <QualificationCenterSection />
+      <ParentalAuthorizationSection />
     </div>
   )
 }

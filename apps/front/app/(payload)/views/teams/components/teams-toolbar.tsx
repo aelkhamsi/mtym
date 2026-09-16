@@ -76,10 +76,10 @@ export function TeamsToolbar<TData>({
         />
         <HideFromJury>
           <Input
-            placeholder="Filter by member name"
-            value={(table.getColumn("memberName")?.getFilterValue() as string) ?? ""}
+            placeholder="Filter by member email"
+            value={(table.getColumn("memberEmail")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("memberName")?.setFilterValue(event.target.value)
+              table.getColumn("memberEmail")?.setFilterValue(event.target.value)
             }
             className="w-[180px]"
           />

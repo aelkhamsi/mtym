@@ -186,7 +186,7 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
     },
   },
   {
-    id: "memberName",
+    id: "memberEmail",
     accessorFn: (row) => row.members,
     enableHiding: false,
     filterFn: (row, id, filterValue) => {
@@ -195,7 +195,7 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
 
       const members = (row.getValue(id) as any[]) ?? []
       return members.some((member) =>
-        `${member?.firstName ?? ""} ${member?.lastName ?? ""}`
+        `${member?.email ?? ""}`
           .toLowerCase()
           .includes(query)
       )

@@ -15,8 +15,8 @@ import {
 import { useForm, UseFormReturn } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { RequiredAsterisk } from "@/app/components/forms/required-asterisk"
-import { FileInput } from "../../application/form/components/file-input"
-import { initFileInput } from "../../application/form/steps/upload-step"
+import { FileInput } from "../../../application/form/components/file-input"
+import { initFileInput } from "../../../application/form/steps/upload-step"
 import { zodFileValidation } from "@/app/schemas/application.schema"
 import { computeSHA256, generateFileName, getUploadFolderName } from "@/app/utils/file.utils"
 import { getSignedURL, uploadFile } from "@/app/api/MediaApi"
@@ -114,7 +114,7 @@ const AdditionalInformationsSection = ({
         <Button type="submit" disabled={isFormLoading || !form.watch(fieldName)?.length}>
           {isFormLoading
             ? <LoadingDots color="#808080" />
-            : (application?.[urlFieldName] ? 'Mettre à jour les informations' : 'Envoyer les informations')
+            : (application?.[urlFieldName] ? 'Mettre à jour le fichier' : 'Envoyer le fichier')
           }
         </Button>
       </form>
