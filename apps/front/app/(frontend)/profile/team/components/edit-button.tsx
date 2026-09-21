@@ -114,6 +114,7 @@ const EditButton = ({
             />
             <FormField
               control={form.control}
+              disabled={true}
               name="quadrigram"
               render={({ field }) => (
                 <FormItem>
