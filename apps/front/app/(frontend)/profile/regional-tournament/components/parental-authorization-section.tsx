@@ -29,7 +29,7 @@ const ParentalAuthorizationSection = () => {
         <p>Pour valider votre participation et confirmer votre présence, vous allez devoir uploader une autorisation parentale.</p>
         <p>Cette autorisation parentale est individuelle. Chaque membre de l&apos;équipe devra <span className="font-semibold">la remplir, la légaliser puis l&apos;uploader</span></p>
 
-        {team?.qualifCenter === 'fez' || team?.qualifCenter === 'benguerir' || team?.qualifCenter === 'rabat'
+        {team?.qualifCenter === 'benguerir' || team?.qualifCenter === 'rabat'
           ? <p className="font-semibold text-red-900">Nous allons vous partager (dans cette même page) très prochainement le modèle de l&apos;autorisation à remplir relatif à votre centre. Ne remplissez pas à autre modèle entre temps.</p>
           : <p>Chaque centre de qualification requiert une autorisation parentale différente. Il est donc impératif d&apos;utiliser le modèle suivant: <Link className='inline-flex text-blue-400' href={qualificationCenters[team?.qualifCenter]?.parentalAuthorizationUrl} target='_target'> Lien <Link1Icon /></Link></p>  
         }
