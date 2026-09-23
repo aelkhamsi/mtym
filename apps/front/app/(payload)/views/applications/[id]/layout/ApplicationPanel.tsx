@@ -27,47 +27,49 @@ const ApplicationPanel = ({
   return (
     <Card>
       <CardHeader className="space-y-4">
-          <CardTitle>Application Panel</CardTitle>
-
-          <Tabs value={tab} onValueChange={setTab}>
-            <TabsList className="w-full justify-start">
-              <TabsTrigger value="personal"> Personal </TabsTrigger>
-              <TabsTrigger value="education"> Education </TabsTrigger>
-              <TabsTrigger value="motivation"> Motivation </TabsTrigger>
-              <TabsTrigger value="documents"> Documents </TabsTrigger>
-            </TabsList>
-
-            <Separator  className="my-6"/>
-
-            <TabsContent value="personal">
-              <ApplicationTab
-                title="Personal Information"
-                fields={applicationSections.personal}
-              />
-            </TabsContent>
-
-            <TabsContent value="education">
-              <ApplicationTab
-                title="Education"
-                fields={applicationSections.education}
-              />
-            </TabsContent>
-
-            <TabsContent value="motivation">
-              <ApplicationTab
-                title="Motivation"
-                fields={applicationSections.motivation}
-              />
-            </TabsContent>
-
-            <TabsContent value="documents">
-              <ApplicationTab
-                title="Documents"
-                fields={applicationSections.documents}
-              />
-            </TabsContent>
-          </Tabs>        
+        <CardTitle>Application Panel</CardTitle>
       </CardHeader>
+
+      <CardContent>
+        <Tabs value={tab} onValueChange={setTab}>
+          <TabsList className="w-full justify-start">
+            <TabsTrigger value="personal"> Personal </TabsTrigger>
+            <TabsTrigger value="education"> Education </TabsTrigger>
+            <TabsTrigger value="motivation"> Motivation </TabsTrigger>
+            <TabsTrigger value="documents"> Documents </TabsTrigger>
+          </TabsList>
+
+          <Separator  className="my-6"/>
+
+          <TabsContent value="personal">
+            <ApplicationTab
+              title="Personal Information"
+              fields={applicationSections.personal}
+            />
+          </TabsContent>
+
+          <TabsContent value="education">
+            <ApplicationTab
+              title="Education"
+              fields={applicationSections.education}
+            />
+          </TabsContent>
+
+          <TabsContent value="motivation">
+            <ApplicationTab
+              title="Motivation"
+              fields={applicationSections.motivation}
+            />
+          </TabsContent>
+
+          <TabsContent value="documents">
+            <ApplicationTab
+              title="Documents"
+              fields={applicationSections.documents}
+            />
+          </TabsContent>
+        </Tabs>    
+      </CardContent>
     </Card>
   )
 }
@@ -82,7 +84,7 @@ const ApplicationTab = ({
   return (
     <Card className="border-0 shadow-none">
       <CardHeader className="px-0 pt-0 pb-6">
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="text-gray-700">{title}</CardTitle>
       </CardHeader>
 
       <CardContent className="px-0">

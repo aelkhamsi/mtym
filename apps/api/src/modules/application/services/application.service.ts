@@ -70,6 +70,7 @@ export class ApplicationService {
       .where('application.id = :id', { id })
       .leftJoinAndSelect('application.status', 'status')
       .leftJoinAndSelect('application.user', 'user')
+      .leftJoinAndSelect('user.team', 'team')
       .leftJoinAndSelect('application.review', 'review')
 
     this.addValidFilter(query, filter);
