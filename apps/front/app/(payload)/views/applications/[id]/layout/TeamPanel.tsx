@@ -19,17 +19,11 @@ const TeamPanel = ({
   
   return (
     <Card>
-      <CardHeader className="space-y-4">
-        <CardTitle>Team Panel</CardTitle>
-      </CardHeader>
-
-      <CardContent>
-        <div className="divide-y rounded-lg border">
-          {teamFields.map((field, index) => (
-            <TeamField key={`field_${index}`} field={field} />
-          ))}
-        </div>
-      </CardContent>
+      <div className="divide-y rounded-lg border">
+        {teamFields.map((field, index) => (
+          <TeamField key={`field_${index}`} field={field} />
+        ))}
+      </div>
     </Card>
   )
 }
