@@ -33,10 +33,10 @@ const ApplicationPanel = ({
       <CardContent>
         <Tabs value={tab} onValueChange={setTab}>
           <TabsList className="w-full justify-start">
-            <TabsTrigger value="personal"> Personal </TabsTrigger>
-            <TabsTrigger value="education"> Education </TabsTrigger>
-            <TabsTrigger value="motivation"> Motivation </TabsTrigger>
-            <TabsTrigger value="documents"> Documents </TabsTrigger>
+            <TabsTrigger className="text-md" value="personal"> Personal </TabsTrigger>
+            <TabsTrigger className="text-md" value="education"> Education </TabsTrigger>
+            <TabsTrigger className="text-md" value="motivation"> Motivation </TabsTrigger>
+            <TabsTrigger className="text-md" value="documents"> Documents </TabsTrigger>
           </TabsList>
 
           <Separator  className="my-6"/>
@@ -83,10 +83,6 @@ const ApplicationTab = ({
 }) => {
   return (
     <Card className="border-0 shadow-none">
-      <CardHeader className="px-0 pt-0 pb-6">
-        <CardTitle className="text-gray-700">{title}</CardTitle>
-      </CardHeader>
-
       <CardContent className="px-0">
         <div className="divide-y rounded-lg border">
           {fields.map((field, index) => (

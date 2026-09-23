@@ -57,6 +57,12 @@ const cityCheclistOptions = [
   {label: 'Not sure', value: 'NOT_SURE'},
 ]
 
+const parentalAuthorizationOptions = [
+  {label: 'Valid', value: 'VALID'},
+  {label: 'Wrong center', value: 'WRONG_CENTER'},
+  {label: 'Non valid', value: 'NOT_VALID'},
+]
+
 const ReviewerPanel = ({
   application,
 }:{
@@ -150,6 +156,8 @@ const ReviewForm = ({
 
       <Form {...form}>
         <form id="form-application-review" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-8">
+
+          <h1 className="px-4 bg-[#F6A806] rounded-md">Application</h1>
           
           <ReviewRadioGroup form={form} name="identityCheck" label="Identity" options={checklistOptions}/>
 
@@ -177,7 +185,7 @@ const ReviewForm = ({
                     </FormControl>
                     <SelectContent>
                       {cityOptions.map(option =>
-                        <SelectItem value={option.value}>{option.label}</SelectItem>
+                        <SelectItem key={`value_{${option.value}`} value={option.value}>{option.label}</SelectItem>
                       )}
                     </SelectContent>
                   </Select>
@@ -192,6 +200,10 @@ const ReviewForm = ({
             name="comment"
             label="Comments"
           />
+
+          <h1 className="px-4 bg-[#F6A806] rounded-md">Qualification Phase</h1>
+          
+          <ReviewRadioGroup form={form} name="parentalAuthorizationCheck" label="Parental Authorization" options={parentalAuthorizationOptions} />
 
           <div className="flex">
             <Button className="flex-1">
