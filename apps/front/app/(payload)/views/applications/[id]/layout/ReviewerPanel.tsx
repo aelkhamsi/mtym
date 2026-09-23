@@ -195,15 +195,15 @@ const ReviewForm = ({
             }}
           />
 
+          <h1 className="px-4 bg-[#F6A806] rounded-md">Qualification Phase</h1>
+          
+          <ReviewRadioGroup form={form} name="F" label="Parental Authorization" options={parentalAuthorizationOptions} />
+
           <ReviewTextArea
             form={form}
             name="comment"
             label="Comments"
           />
-
-          <h1 className="px-4 bg-[#F6A806] rounded-md">Qualification Phase</h1>
-          
-          <ReviewRadioGroup form={form} name="parentalAuthorizationCheck" label="Parental Authorization" options={parentalAuthorizationOptions} />
 
           <div className="flex">
             <Button className="flex-1">
@@ -231,7 +231,7 @@ const ReviewTextArea = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className="text-[#724F03] underline">{label}</FormLabel>
           <FormControl>
           <Textarea
             rows={8}
