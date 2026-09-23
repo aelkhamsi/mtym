@@ -16,6 +16,7 @@ export type Status =
   | 'NOTIFIED'
   | 'UPDATED'
   | 'VALIDATED'
+  | 'QUALIFIED'
   | 'REJECTED'
   | 'NOT_VALID'
   | 'NOT_SURE';

@@ -1,5 +1,5 @@
 import { IsEnum, IsOptional, IsString } from 'class-validator';
-import { CityCheck, ReviewCheck } from '../entities/application-review.entity';
+import { CityCheck, ParentalAuthorizationCheck, ReviewCheck } from '../entities/application-review.entity';
 
 export class UpdateApplicationReviewDto {
   @IsOptional()
@@ -25,6 +25,10 @@ export class UpdateApplicationReviewDto {
   @IsOptional()
   @IsEnum(ReviewCheck)
   pictureCheck: ReviewCheck | null;
+  
+  @IsOptional()
+  @IsEnum(ParentalAuthorizationCheck)
+  parentalAuthorizationCheck: ParentalAuthorizationCheck | null;
 
   @IsOptional()
   @IsString()

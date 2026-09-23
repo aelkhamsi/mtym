@@ -21,6 +21,12 @@ export enum CityCheck {
   NOT_SURE = 'NOT_SURE',
 }
 
+export enum ParentalAuthorizationCheck {
+  VALID = 'VALID',
+  NOT_VALID = 'NOT_VALID',
+  WRONG_CENTER = 'WRONG_CENTER'
+}
+
 @Entity({ name: 'applications_reviews' })
 export class ApplicationReview {
   @PrimaryGeneratedColumn()
@@ -50,6 +56,9 @@ export class ApplicationReview {
 
   @Column({ type: 'enum', enum: ReviewCheck, nullable: true })
   pictureCheck: ReviewCheck | null;
+
+  @Column({ type: 'enum', enum: ParentalAuthorizationCheck, nullable: true })
+  parentalAuthorizationCheck: ParentalAuthorizationCheck | null;
 
   @Column({ type: 'text', nullable: true })
   comment: string | null;

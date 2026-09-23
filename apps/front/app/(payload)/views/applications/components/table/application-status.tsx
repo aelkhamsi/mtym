@@ -17,6 +17,7 @@ export type Status =
   | 'NOTIFIED'
   | 'UPDATED'
   | 'VALIDATED'
+  | 'QUALIFIED'
   | 'REJECTED'
   | 'NOT_VALID'
   | 'NOT_SURE'
@@ -44,6 +45,9 @@ export const getStatusClassname = (status: Status, size: 'sm' | 'md') => {
     case 'VALIDATED':
       colorClassname = 'bg-[#41D997] text-black';
       break;
+    case 'QUALIFIED':
+      colorClassname = 'bg-[#D4AF37] text-black';
+      break;
     case 'REJECTED':
       colorClassname = 'bg-[#BF2600] text-white';
       break;
@@ -65,6 +69,7 @@ export const statusOptions = [
   { value: "NOTIFIED", label: "NOTIFIED"},
   { value: "UPDATED", label: "UPDATED"},
   { value: "VALIDATED", label: "VALIDATED"},
+  { value: "QUALIFIED", label: "QUALIFIED"},
   { value: "REJECTED", label: "REJECTED"},
   { value: "NOT_VALID", label: "NOT VALID"},
   { value: "NOT_SURE", label: "NOT SURE"}
@@ -137,6 +142,7 @@ const ApplicationStatus = ({
           <SelectItem value="NOTIFIED"><StatusCard value='NOTIFIED' /></SelectItem>
           <SelectItem value="UPDATED"><StatusCard value='UPDATED' /></SelectItem>
           <SelectItem value="VALIDATED"><StatusCard value='VALIDATED' /></SelectItem>
+          <SelectItem value="QUALIFIED"><StatusCard value='QUALIFIED' /></SelectItem>
           <SelectItem value="REJECTED"><StatusCard value='REJECTED' /></SelectItem>
           <SelectItem value="NOT_VALID"><StatusCard value='NOT_VALID' /></SelectItem>
           <SelectItem value="NOT_SURE"><StatusCard value='NOT_SURE' /></SelectItem>

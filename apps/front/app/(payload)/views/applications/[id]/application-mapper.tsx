@@ -64,6 +64,7 @@ export function getApplicationSections(
       { label: 'CNIE', value: application?.fileCnieUrl ? <FilePreviewButton filename={application.fileCnieUrl} /> : null },
       { label: 'Photo', value: application?.filePhotoUrl ? <FilePreviewButton filename={application.filePhotoUrl} /> : null },
       { label: 'Grades', value: application?.fileGradesUrl ? <FilePreviewButton filename={application.fileGradesUrl} /> : null },
+      { label: 'Parental Authorization', value: application?.parentalAuthorizationUrl ? <FilePreviewButton filename={application.parentalAuthorizationUrl} /> : null },
     ]
   }
 }
