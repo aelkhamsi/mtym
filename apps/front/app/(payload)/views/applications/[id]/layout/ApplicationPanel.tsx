@@ -26,48 +26,42 @@ const ApplicationPanel = ({
   
   return (
     <Card>
-      <CardHeader className="space-y-4">
-          <CardTitle>Application Panel</CardTitle>
+      <Tabs value={tab} onValueChange={setTab}>
+        <TabsList className="w-full justify-start">
+          <TabsTrigger className="text-md" value="personal"> Personal </TabsTrigger>
+          <TabsTrigger className="text-md" value="education"> Education </TabsTrigger>
+          <TabsTrigger className="text-md" value="motivation"> Motivation </TabsTrigger>
+          <TabsTrigger className="text-md" value="documents"> Documents </TabsTrigger>
+        </TabsList>
 
-          <Tabs value={tab} onValueChange={setTab}>
-            <TabsList className="w-full justify-start">
-              <TabsTrigger value="personal"> Personal </TabsTrigger>
-              <TabsTrigger value="education"> Education </TabsTrigger>
-              <TabsTrigger value="motivation"> Motivation </TabsTrigger>
-              <TabsTrigger value="documents"> Documents </TabsTrigger>
-            </TabsList>
+        <TabsContent value="personal">
+          <ApplicationTab
+            title="Personal Information"
+            fields={applicationSections.personal}
+          />
+        </TabsContent>
 
-            <Separator  className="my-6"/>
+        <TabsContent value="education">
+          <ApplicationTab
+            title="Education"
+            fields={applicationSections.education}
+          />
+        </TabsContent>
 
-            <TabsContent value="personal">
-              <ApplicationTab
-                title="Personal Information"
-                fields={applicationSections.personal}
-              />
-            </TabsContent>
+        <TabsContent value="motivation">
+          <ApplicationTab
+            title="Motivation"
+            fields={applicationSections.motivation}
+          />
+        </TabsContent>
 
-            <TabsContent value="education">
-              <ApplicationTab
-                title="Education"
-                fields={applicationSections.education}
-              />
-            </TabsContent>
-
-            <TabsContent value="motivation">
-              <ApplicationTab
-                title="Motivation"
-                fields={applicationSections.motivation}
-              />
-            </TabsContent>
-
-            <TabsContent value="documents">
-              <ApplicationTab
-                title="Documents"
-                fields={applicationSections.documents}
-              />
-            </TabsContent>
-          </Tabs>        
-      </CardHeader>
+        <TabsContent value="documents">
+          <ApplicationTab
+            title="Documents"
+            fields={applicationSections.documents}
+          />
+        </TabsContent>
+      </Tabs>
     </Card>
   )
 }
@@ -81,17 +75,11 @@ const ApplicationTab = ({
 }) => {
   return (
     <Card className="border-0 shadow-none">
-      <CardHeader className="px-0 pt-0 pb-6">
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-
-      <CardContent className="px-0">
-        <div className="divide-y rounded-lg border">
-          {fields.map((field, index) => (
-            <ApplicationField key={`field_${index}`} field={field} />
-          ))}
-        </div>
-      </CardContent>
+      <div className="divide-y rounded-lg border">
+        {fields.map((field, index) => (
+          <ApplicationField key={`field_${index}`} field={field} />
+        ))}
+      </div>
     </Card>
   )
 }
@@ -104,7 +92,7 @@ const ApplicationField = ({
   return (
     <div
       key={field.label}
-      className="grid grid-cols-[220px_1fr] gap-4 px-6 py-4"
+      className="grid grid-cols-[220px_1fr] px-6 py-4"
     >
       <div className="text-muted-foreground">
         {field.label}

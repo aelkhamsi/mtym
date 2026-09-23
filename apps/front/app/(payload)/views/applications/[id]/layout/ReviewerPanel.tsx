@@ -57,6 +57,12 @@ const cityCheclistOptions = [
   {label: 'Not sure', value: 'NOT_SURE'},
 ]
 
+const parentalAuthorizationOptions = [
+  {label: 'Valid', value: 'VALID'},
+  {label: 'Wrong center', value: 'WRONG_CENTER'},
+  {label: 'Non valid', value: 'NOT_VALID'},
+]
+
 const ReviewerPanel = ({
   application,
 }:{
@@ -150,6 +156,8 @@ const ReviewForm = ({
 
       <Form {...form}>
         <form id="form-application-review" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-8">
+
+          <h1 className="px-4 bg-[#F6A806] rounded-md">Application</h1>
           
           <ReviewRadioGroup form={form} name="identityCheck" label="Identity" options={checklistOptions}/>
 
@@ -177,7 +185,7 @@ const ReviewForm = ({
                     </FormControl>
                     <SelectContent>
                       {cityOptions.map(option =>
-                        <SelectItem value={option.value}>{option.label}</SelectItem>
+                        <SelectItem key={`value_{${option.value}`} value={option.value}>{option.label}</SelectItem>
                       )}
                     </SelectContent>
                   </Select>
@@ -186,6 +194,10 @@ const ReviewForm = ({
               );
             }}
           />
+
+          <h1 className="px-4 bg-[#F6A806] rounded-md">Qualification Phase</h1>
+          
+          <ReviewRadioGroup form={form} name="F" label="Parental Authorization" options={parentalAuthorizationOptions} />
 
           <ReviewTextArea
             form={form}
@@ -219,7 +231,7 @@ const ReviewTextArea = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className="text-[#724F03] underline">{label}</FormLabel>
           <FormControl>
           <Textarea
             rows={8}

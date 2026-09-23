@@ -5,6 +5,7 @@ export const applicationReviewSchema = z.object({
   levelCheck: z.enum(["YES", "NO", "NOT_SURE"], { message: "Choisissez une option" }),
   pictureCheck: z.enum(["YES", "NO", "NOT_SURE"], { message: "Choisissez une option" }),
   cityCheck: z.enum(["YES", "CHANGED", "NOT_SURE"], { message: "Choisissez une option" }),
+  parentalAuthorizationCheck: z.enum(["VALID", "WRONG_CENTER", "NOT_VALID"], { message: "Choisissez une option" }),
   updatedCity: z.string().nullable().optional(),
   comment: z.string().nullable().optional()
 })
@@ -15,5 +16,6 @@ export const applicationReviewDefaultValues = {
   pictureCheck: null,
   cityCheck: null,
   updatedCity: null,
+  parentalAuthorizationCheck: null,
   comment: null
 }

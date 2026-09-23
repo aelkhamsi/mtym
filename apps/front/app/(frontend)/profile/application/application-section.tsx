@@ -33,6 +33,8 @@ const getBadgeClassname = (status: string) => {
       return 'bg-[#DBABFF] text-black';
     case 'VALIDATED':
       return 'bg-[#41D997] text-black';
+    case 'QUALIFIED':
+      return 'bg-[#D4AF37] text-black';
     case 'REJECTED':
       return 'bg-[#BF2600] text-white';
     case 'NOT_VALID':
