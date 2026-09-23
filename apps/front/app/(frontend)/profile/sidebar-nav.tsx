@@ -30,7 +30,6 @@ const getSidebarNavItems = (teamStatus?: string) => ([
 export function SidebarNav({className, ...props}:{className?: string}) {
   const pathname = usePathname()
   const team = useAtomValue(teamAtom)
-  console.log('team', team)
 
   return (
     <nav

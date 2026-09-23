@@ -14,7 +14,7 @@ export default function ApplicationDetailsClient({
   id,
   admins,
 }:{
-  id: string|undefined,
+  id: number|undefined,
   admins: AdminOption[],
 }) {
   const applications = useAtomValue(applicationsAtom)
@@ -23,7 +23,7 @@ export default function ApplicationDetailsClient({
   useEffect(() => {
     if (!id || !applications || !Array.isArray(applications)) return;
 
-    const searchResult = applications.find((application: any) => application?.id === +id)
+    const searchResult = applications.find((application: any) => application?.id === id)
     setApplication(searchResult)
   }, [id, applications])
 

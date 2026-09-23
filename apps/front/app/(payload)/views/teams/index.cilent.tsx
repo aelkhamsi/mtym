@@ -27,7 +27,6 @@ export default function TeamsClient({
 
   useEffect(() => {
     if (teams) {
-      console.log('teams', teams)
       const list = Array.isArray(teams) ? teams : []
       setTableData(
         list

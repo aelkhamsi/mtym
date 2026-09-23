@@ -13,7 +13,7 @@ export const ApplicationDetailsView: React.FC<AdminViewServerProps> = async ({
   if (!initPageResult.req.user) return <p>You must be logged in to access this page.</p>
   
   const cookie = (await cookies()).toString()
-  const applicationId = (await params)?.segments?.[1] ?? '0'
+  const applicationId = params?.segments?.[1] ?? 0
   const application = await (getApplicationById(+applicationId, cookie) as Promise<any[]>)
   const usersCollection = await initPageResult.req.payload.find({
     collection: 'users',
@@ -38,7 +38,7 @@ export const ApplicationDetailsView: React.FC<AdminViewServerProps> = async ({
     {/* <SetStepNav nav={steps} /> */}
     <Gutter>
       <RootProvider applications={[application]}>
-        <ApplicationDetailsClient id={applicationId} admins={admins} />
+        <ApplicationDetailsClient id={+applicationId} admins={admins} />
       </RootProvider>
     </Gutter>
   </DefaultTemplate>

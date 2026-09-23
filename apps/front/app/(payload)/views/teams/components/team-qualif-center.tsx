@@ -35,7 +35,6 @@ export function TeamQualifCenter({
 }) {
   const [teams, setTeams] = useAtom(teamsAtom)
   const [saving, setSaving] = useState(false)
-  console.log('qualifCenter', qualifCenter)
 
   const handleChange = async (value: string) => {
     const nextQualifCenter = value === UNASSIGNED ? null : value
