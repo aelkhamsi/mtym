@@ -9,12 +9,13 @@ import { AdminOption } from "../components/table/columns"
 import { ProfileSkeleton } from "@mdm/ui"
 import ApplicationPanel from "./layout/ApplicationPanel"
 import TeamPanel from "./layout/TeamPanel"
+import { log } from "console"
 
 export default function ApplicationDetailsClient({
   id,
   admins,
 }:{
-  id: number|undefined,
+  id: string|undefined,
   admins: AdminOption[],
 }) {
   const applications = useAtomValue(applicationsAtom)
@@ -23,8 +24,9 @@ export default function ApplicationDetailsClient({
   useEffect(() => {
     if (!id || !applications || !Array.isArray(applications)) return;
 
-    const searchResult = applications.find((application: any) => application?.id === id)
+    const searchResult = applications.find((application: any) => application?.id === +id)
     setApplication(searchResult)
+    console.log('application', searchResult)
   }, [id, applications])
 
   if (!application) {

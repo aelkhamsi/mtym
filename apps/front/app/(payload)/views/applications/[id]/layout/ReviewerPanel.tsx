@@ -197,7 +197,7 @@ const ReviewForm = ({
 
           <h1 className="px-4 bg-[#F6A806] rounded-md">Qualification Phase</h1>
           
-          <ReviewRadioGroup form={form} name="F" label="Parental Authorization" options={parentalAuthorizationOptions} />
+          <ReviewRadioGroup form={form} name="parentalAuthorizationCheck" label="Parental Authorization" options={parentalAuthorizationOptions} />
 
           <ReviewTextArea
             form={form}

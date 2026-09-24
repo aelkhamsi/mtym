@@ -25,6 +25,9 @@ export const ApplicationDetailsView: React.FC<AdminViewServerProps> = async ({
     label: [admin.firstName, admin.lastName].filter(Boolean).join(' ') || 'Unnamed admin',
   }))
 
+  const resolvedParams = await params
+  const id = resolvedParams?.segments?.[1]
+
   return <DefaultTemplate
     visibleEntities={initPageResult.visibleEntities}
     i18n={initPageResult.req.i18n}
@@ -38,7 +41,7 @@ export const ApplicationDetailsView: React.FC<AdminViewServerProps> = async ({
     {/* <SetStepNav nav={steps} /> */}
     <Gutter>
       <RootProvider applications={[application]}>
-        <ApplicationDetailsClient id={+applicationId} admins={admins} />
+        <ApplicationDetailsClient id={id} admins={admins} />
       </RootProvider>
     </Gutter>
   </DefaultTemplate>
