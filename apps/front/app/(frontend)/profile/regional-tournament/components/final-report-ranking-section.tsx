@@ -18,6 +18,8 @@ function RankingEditor({ teamId, initialRanking, canEdit }: {
   const [, setTeam] = useAtom(teamAtom)
   const [ranking, setRanking] = useState(initialRanking ?? defaultRanking)
   const [saving, setSaving] = useState(false)
+  const orderChanged = ranking.some((problem, index) => problem !== (initialRanking ?? defaultRanking)[index])
+  const needsSaving = !initialRanking || orderChanged
 
   const move = (index: number, direction: -1 | 1) => {
     const next = [...ranking]
@@ -50,6 +52,20 @@ function RankingEditor({ teamId, initialRanking, canEdit }: {
       </CardHeader>
       <CardContent className="space-y-4">
         {!initialRanking && !canEdit && <p className="text-sm text-muted-foreground">Votre équipe n&apos;a pas encore classé les problèmes.</p>}
+        {(canEdit || initialRanking) && (
+          <div aria-live="polite" className="text-sm">
+            {orderChanged ? (
+              <>
+                <p className="font-medium text-amber-700">Modifications non enregistrées</p>
+                {initialRanking && <p className="text-muted-foreground">Classement enregistré : {initialRanking.map((problem) => `Problème ${problem}`).join(" → ")}</p>}
+              </>
+            ) : initialRanking ? (
+              <p className="text-green-700">Classement enregistré</p>
+            ) : (
+              <p className="text-muted-foreground">Aucun classement enregistré. L&apos;ordre affiché est celui par défaut.</p>
+            )}
+          </div>
+        )}
         {(canEdit || initialRanking) && ranking.map((problemNumber, index) => (
           <div key={problemNumber} className="flex items-center justify-between gap-3 rounded-md border p-3">
             <span>{index + 1}. Problème {problemNumber}</span>
@@ -61,7 +77,12 @@ function RankingEditor({ teamId, initialRanking, canEdit }: {
             )}
           </div>
         ))}
-        {canEdit && <Button type="button" disabled={saving} onClick={save}>{saving ? "Enregistrement…" : "Enregistrer les préférences"}</Button>}
+        {canEdit && (
+          <div className="flex flex-wrap gap-2">
+            <Button type="button" disabled={saving || !needsSaving} onClick={save}>{saving ? "Enregistrement…" : "Enregistrer les préférences"}</Button>
+            {orderChanged && <Button type="button" variant="outline" disabled={saving} onClick={() => setRanking(initialRanking ?? defaultRanking)}>Annuler les modifications</Button>}
+          </div>
+        )}
       </CardContent>
     </Card>
   )
