@@ -10,6 +10,7 @@ import { FileTextIcon } from "@radix-ui/react-icons"
 import type { AdminOption } from "./columns"
 import { Input } from "@mdm/ui"
 import { useState } from "react"
+import { PARENTAL_AUTH_STYLES, parentalAuthCheckOptions, ParentalAuthCheckValue } from "./parental-auth-decision"
 
 export interface ApplicationsToolbarProps<TData> {
   table: Table<TData>
@@ -91,6 +92,16 @@ export function ApplicationsToolbar<TData>({
                   : admin.label,
               })),
             ]}
+            onFilterChange={() => table.setPageIndex(0)}
+          />
+        )}
+        {table.getColumn("parentalAuhotizationCheck") && (
+          <TableFacetedFilter
+            column={table.getColumn("parentalAuhotizationCheck")}
+            title="Parental Auth Check"
+            options={parentalAuthCheckOptions}
+            getOptionClassname={(value) => PARENTAL_AUTH_STYLES[value as ParentalAuthCheckValue]
+            }
             onFilterChange={() => table.setPageIndex(0)}
           />
         )}

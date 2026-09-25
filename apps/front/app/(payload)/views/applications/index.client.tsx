@@ -31,6 +31,7 @@ export default function ApplicationsClient({
           establishment: application?.highschool,
           educationLevel: application?.educationLevel,
           status: application?.status?.status,
+          parentalAuhotizationCheck: application?.review?.parentalAuthorizationCheck,
           reviewerId: application?.review?.reviewerId ?? null,
           emails: application?.review?.emails ?? []
         }))
