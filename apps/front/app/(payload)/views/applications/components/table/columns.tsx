@@ -8,6 +8,7 @@ import { ArrowUpDown } from 'lucide-react'
 import ApplicationEducationLevel from './application-education-level'
 import { ApplicationReviewer } from './application-reviewer'
 import { timeAgo } from '@mdm/utils'
+import ParentalAuthCheck, { ParentalAuthCheckValue } from './parental-auth-decision'
 
 export type AdminOption = { id: string; label: string }
 
@@ -19,6 +20,7 @@ export type ApplicationRow = {
   establishment: string,
   educationLevel: string,
   status: string,
+  parentalAuhotizationCheck: ParentalAuthCheckValue,
   reviewerId: string | null,
   emails: {subject: string, content: string, sentAt: string}[]
 }
@@ -172,6 +174,28 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<ApplicationRow>[] =
         </>
       )
     },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
+  },
+  {
+    accessorKey: "parentalAuhotizationCheck",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Parental Auth Check
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => (
+      <ParentalAuthCheck
+        parentalAuthCheck={row.original.parentalAuhotizationCheck}
+      />
+    ),
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
     },

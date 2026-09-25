@@ -155,7 +155,7 @@ export function TeamsToolbar<TData>({
 
       <div className="flex items-center gap-2">
         <HideFromJury>
-          <UpdateTeamStatusesButton />
+          {/* <UpdateTeamStatusesButton /> */}
           {onTeamCreated && <CreateTeamButton onCreated={onTeamCreated} />}
         </HideFromJury>
         <HideFromJury>
