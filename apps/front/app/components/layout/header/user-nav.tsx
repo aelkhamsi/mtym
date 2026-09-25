@@ -84,6 +84,14 @@ export function UserNav({
               Tournoi Régional
             </DropdownMenuItem>
           }
+          {user?.team?.review?.intermediateReportDecision === 'PASS' &&
+            <DropdownMenuItem
+              onClick={() => router.push('/profile/final-tournament')}
+              className="hover:cursor-pointer"
+            >
+              Rapport final
+            </DropdownMenuItem>
+          }
         </DropdownMenuGroup>
         
         <DropdownMenuSeparator />

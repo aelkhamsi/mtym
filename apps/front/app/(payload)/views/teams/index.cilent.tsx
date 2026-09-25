@@ -44,6 +44,7 @@ export default function TeamsClient({
             numberOfMembers: team?.users?.length,
             members: team?.users,
             reports: team?.reports,
+            finalReportRanking: team?.finalReportRanking,
             review: team?.review
           }))
       )

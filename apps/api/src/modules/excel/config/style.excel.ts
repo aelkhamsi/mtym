@@ -60,7 +60,7 @@ export const styleApplicationsSheet = (sheet) => {
   }
 
   // team style
-  for (let i = 32; i <= 39; i++) {
+  for (let i = 32; i <= sheet.columnCount; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
@@ -191,4 +191,3 @@ export const styleParticipantDetailsSheet = (sheet) => {
     right: { style: 'thin', color: { argb: 'FFFFFF' } },
   };
 };
-

@@ -3,7 +3,7 @@
 import { Separator } from "@mdm/ui"
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/app/store/userAtom";
-import IntermediateReportsSection from "./components/intermediate-reports-section";
+import ReportsSection from "./components/intermediate-reports-section";
 import { teamAtom } from "@/app/store/teamAtom";
 import QualificationCenterSection from "./components/qualification-center-section";
 import ParentalAuthorizationSection from "./components/parental-authorization-section";
@@ -23,7 +23,7 @@ export default function RegionalTournamentPage() {
 
       <Separator />
 
-      <IntermediateReportsSection />
+      <ReportsSection reportType="INTERMEDIATE" />
       <QualificationCenterSection />
       <ParentalAuthorizationSection />
     </div>

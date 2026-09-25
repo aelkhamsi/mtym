@@ -58,6 +58,15 @@ export const applicationsColumns = [
   { header: 'Team Interim Reports N°', key: 'team_intermediate_reports_number', width: 15 },
   { header: 'Team Interim Decision', key: 'team_intermediate_decision', width: 15 },
   { header: 'Team Qualif Center', key: 'team_qualif_center', width: 15 },
+  { header: 'Team Final Reports N°', key: 'team_final_reports_number', width: 15 },
+  { header: 'Final Report Problem 1', key: 'final_report_problem_1', width: 20 },
+  { header: 'Final Report Problem 2', key: 'final_report_problem_2', width: 20 },
+  { header: 'Final Report Problem 3', key: 'final_report_problem_3', width: 20 },
+  { header: 'Final Report Problem 4', key: 'final_report_problem_4', width: 20 },
+  { header: 'Defense Preference 1', key: 'defense_preference_1', width: 20 },
+  { header: 'Defense Preference 2', key: 'defense_preference_2', width: 20 },
+  { header: 'Defense Preference 3', key: 'defense_preference_3', width: 20 },
+  { header: 'Defense Preference 4', key: 'defense_preference_4', width: 20 },
   { header: 'Parental Authorization', key: 'parental-authorization', width: 25 },
 ];
 

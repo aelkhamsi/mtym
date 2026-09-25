@@ -20,7 +20,9 @@ import type { TeamReport } from "@mdm/types"
 import { useAtom, useAtomValue } from "jotai"
 import { uploadFile } from "@/app/api/MediaApi"
 import {
+  getFinalReportUploadUrl,
   getIntermediateReportUploadUrl,
+  updateFinalReport,
   updateIntermediateReport,
 } from "@/app/api/TeamApi"
 import { teamAtom } from "@/app/store/teamAtom"
@@ -28,7 +30,8 @@ import { userAtom } from "@/app/store/userAtom"
 import { computeSHA256 } from "@/app/utils/file.utils"
 import FilePreviewButton from "@/app/(payload)/views/components/file/file-preview-button"
 
-const IntermediateReportRow = ({
+const ReportRow = ({
+  reportType,
   problemNumber,
   report,
   selectedFile,
@@ -39,6 +42,7 @@ const IntermediateReportRow = ({
   isDisabled,
   isUploading,
 }: {
+  reportType: "INTERMEDIATE" | "FINAL"
   problemNumber: number
   report?: TeamReport
   selectedFile?: File
@@ -62,7 +66,7 @@ const IntermediateReportRow = ({
       <div className="space-y-3">
         <Input
           key={inputVersion}
-          id={`intermediate-report-${problemNumber}`}
+          id={`${reportType}-report-${problemNumber}`}
           type="file"
           accept="application/pdf"
           className="hidden"
@@ -70,7 +74,7 @@ const IntermediateReportRow = ({
           onChange={(event) => onFileChange(event.target.files?.[0])}
         />
         <label
-          htmlFor={`intermediate-report-${problemNumber}`}
+          htmlFor={`${reportType}-report-${problemNumber}`}
           className="flex flex-1 gap-x-4 rounded-md border px-4 py-2 text-sm hover:cursor-pointer"
         >
           <div className="font-semibold">
@@ -91,14 +95,16 @@ const IntermediateReportRow = ({
   </div>
 )
 
-const IntermediateReportsSection = () => {
+const ReportsSection = ({ reportType }: { reportType: "INTERMEDIATE" | "FINAL" }) => {
   const user = useAtomValue(userAtom)
   const [team, setTeam] = useAtom(teamAtom)
   const [files, setFiles] = useState<Record<number, File | undefined>>({})
   const [uploadingProblem, setUploadingProblem] = useState<number>()
   const [inputVersions, setInputVersions] = useState<Record<number, number>>({})
 
-  if (!team || !["APPROVED"].includes(team.status)) return null
+  if (!team) return null
+  if (reportType === "FINAL" && team.review?.intermediateReportDecision !== "PASS") return null
+  if (reportType === "INTERMEDIATE" && team.status !== "APPROVED") return null
 
   const isTeamLeader = team.leader?.id === user?.id
   const problemNumbers = Array.from(
@@ -138,7 +144,8 @@ const IntermediateReportsSection = () => {
 
     try {
       const checksum = await computeSHA256(file)
-      const signedUrlResponse = await getIntermediateReportUploadUrl(
+      const getUploadUrl = reportType === "FINAL" ? getFinalReportUploadUrl : getIntermediateReportUploadUrl
+      const signedUrlResponse = await getUploadUrl(
         team.id,
         problemNumber,
         file.size,
@@ -157,7 +164,8 @@ const IntermediateReportsSection = () => {
         throw new Error()
       }
 
-      const savedReport = await updateIntermediateReport(
+      const saveReport = reportType === "FINAL" ? updateFinalReport : updateIntermediateReport
+      const savedReport = await saveReport(
         team.id,
         problemNumber,
         signedUrlResponse.fileUrl,
@@ -168,7 +176,7 @@ const IntermediateReportsSection = () => {
         ...current,
         reports: [
           ...(current.reports ?? []).filter(
-            (report) => report.reportType !== "INTERMEDIATE" || report.problemNumber !== problemNumber,
+            (report) => report.reportType !== reportType || report.problemNumber !== problemNumber,
           ),
           savedReport,
         ],
@@ -196,7 +204,7 @@ const IntermediateReportsSection = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Rapports intermédiaires</CardTitle>
+        <CardTitle>{reportType === "FINAL" ? "Rapports finaux" : "Rapports intermédiaires"}</CardTitle>
         <CardDescription>
           Déposez un rapport PDF pour chaque problème.
         </CardDescription>
@@ -209,14 +217,15 @@ const IntermediateReportsSection = () => {
         )}
 
         {problemNumbers.map((problemNumber) => (
-          <IntermediateReportRow
+          <ReportRow
             key={problemNumber}
+            reportType={reportType}
             problemNumber={problemNumber}
             report={team.reports?.find(
-              (item) => item.reportType === "INTERMEDIATE" && item.problemNumber === problemNumber,
+              (item) => item.reportType === reportType && item.problemNumber === problemNumber,
             )}
             selectedFile={files[problemNumber]}
-            canUpload={false && isTeamLeader} // lazy a way of closing report uploads :)
+            canUpload={reportType === "FINAL" && isTeamLeader}
             inputVersion={inputVersions[problemNumber] ?? 0}
             isDisabled={uploadingProblem !== undefined}
             isUploading={uploadingProblem === problemNumber}
@@ -237,4 +246,4 @@ const IntermediateReportsSection = () => {
   )
 }
 
-export default IntermediateReportsSection
+export default ReportsSection

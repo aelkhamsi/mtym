@@ -13,10 +13,12 @@ const TeamReview = ({
   teamId,
   review,
   reports,
+  finalReportRanking,
 }:{
   teamId: number,
   review: any,
   reports: any[],
+  finalReportRanking: number[] | null,
 }) => {
   const notificationBgColor = reports?.length === 0 ? "bg-black" : "bg-red-500"
 
@@ -39,7 +41,7 @@ const TeamReview = ({
           <Separator />
 
           <div className="grid gap-6 lg:grid-cols-2">
-            <ProblemsPanel reports={reports} />
+            <ProblemsPanel reports={reports} finalReportRanking={finalReportRanking} />
             <ReviewPanel teamId={teamId} review={review} />
           </div>
           

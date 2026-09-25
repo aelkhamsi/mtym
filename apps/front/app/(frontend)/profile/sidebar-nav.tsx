@@ -8,7 +8,7 @@ import { userAtom } from "@/app/store/userAtom"
 import { useAtomValue } from "jotai"
 import { teamAtom } from "@/app/store/teamAtom"
 
-const getSidebarNavItems = (teamStatus?: string) => ([
+const getSidebarNavItems = (teamStatus?: string, intermediateReportDecision?: string) => ([
   {
     title: "Compte",
     href: "/profile/account",
@@ -24,7 +24,11 @@ const getSidebarNavItems = (teamStatus?: string) => ([
   ...(teamStatus === 'APPROVED' 
     ? [{title: "Tournoi régional", href: "/profile/regional-tournament"}]
     : []
-  )
+  ),
+  ...(intermediateReportDecision === 'PASS'
+    ? [{title: "Rapport final", href: "/profile/final-tournament"}]
+    : []
+  ),
 ])
 
 export function SidebarNav({className, ...props}:{className?: string}) {
@@ -39,7 +43,7 @@ export function SidebarNav({className, ...props}:{className?: string}) {
       )}
       {...props}
     >
-      {getSidebarNavItems(team?.status)
+      {getSidebarNavItems(team?.status, team?.review?.intermediateReportDecision)
         .map((item) => (
           <Link
             key={item.href}

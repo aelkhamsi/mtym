@@ -14,6 +14,7 @@ import { randomBytes } from 'crypto';
 import { MediaService } from 'src/modules/media/services/media.service';
 import { Team, TeamStatus } from '../entities/team.entity';
 import { TeamReport, TeamReportType } from '../entities/team-report.entity';
+import { DecisionEnum } from '../entities/team-review.entity';
 
 @Injectable()
 export class TeamReportService {
@@ -28,10 +29,11 @@ export class TeamReportService {
   private async getEligibleTeam(
     teamId: number,
     userId: number,
+    reportType: TeamReportType,
   ) {
     const team = await this.teamRepository.findOne({
       where: { id: teamId },
-      relations: { leader: true },
+      relations: { leader: true, review: true },
     });
     if (!team) {
       throw new NotFoundException('The team does not exist');
@@ -39,7 +41,11 @@ export class TeamReportService {
     if (team.leader?.id !== userId) {
       throw new ForbiddenException('Only the team leader can upload reports');
     }
-    if (![TeamStatus.NEW, TeamStatus.APPROVED].includes(team.status)) {
+    if (reportType === TeamReportType.FINAL) {
+      if (team.review?.intermediateReportDecision !== DecisionEnum.PASS) {
+        throw new ForbiddenException('Final reports are not available for this team');
+      }
+    } else if (![TeamStatus.NEW, TeamStatus.APPROVED].includes(team.status)) {
       throw new ForbiddenException(
         'Reports are not available for this team status',
       );
@@ -47,20 +53,29 @@ export class TeamReportService {
     return team;
   }
 
-  async getIntermediateReportUploadUrl(
+  private reportFilePrefix(
+    team: Team,
+    reportType: TeamReportType,
+    problemNumber: number,
+  ) {
+    return `reports/${team.quadrigram}/${reportType.toLowerCase()}/problem_${problemNumber}_`;
+  }
+
+  async getReportUploadUrl(
     teamId: number,
     problemNumber: number,
     size: number,
     checksum: string,
     userId: number,
+    reportType: TeamReportType,
   ) {
-    const team = await this.getEligibleTeam(teamId, userId);
+    const team = await this.getEligibleTeam(teamId, userId, reportType);
     if (problemNumber < 1 || problemNumber > MTYM_PROBLEM_COUNT) {
       throw new BadRequestException('Invalid problem number');
     }
 
     const suffix = randomBytes(6).toString('hex');
-    const fileUrl = `reports/${team.quadrigram}/intermediate/problem_${problemNumber}_${suffix}.pdf`;
+    const fileUrl = `${this.reportFilePrefix(team, reportType, problemNumber)}${suffix}.pdf`;
     const url = await this.mediaService.getSignedPutURL(
       userId,
       fileUrl,
@@ -76,17 +91,18 @@ export class TeamReportService {
     return { url, fileUrl };
   }
 
-  async upsertIntermediateReport(
+  async upsertReport(
     teamId: number,
     problemNumber: number,
     fileUrl: string,
     userId: number,
+    reportType: TeamReportType,
   ) {
-    const team = await this.getEligibleTeam(teamId, userId);
+    const team = await this.getEligibleTeam(teamId, userId, reportType);
     if (problemNumber < 1 || problemNumber > MTYM_PROBLEM_COUNT) {
       throw new BadRequestException('Invalid problem number');
     }
-    const expectedPath = `reports/${team.quadrigram}/intermediate/problem_${problemNumber}_`;
+    const expectedPath = this.reportFilePrefix(team, reportType, problemNumber);
     if (!fileUrl.startsWith(expectedPath) || !fileUrl.endsWith('.pdf')) {
       throw new BadRequestException('Invalid report file');
     }
@@ -94,7 +110,7 @@ export class TeamReportService {
     let report = await this.teamReportRepository.findOne({
       where: {
         team: { id: teamId },
-        reportType: TeamReportType.INTERMEDIATE,
+        reportType,
         problemNumber,
       },
     });
@@ -102,7 +118,7 @@ export class TeamReportService {
     if (!report) {
       report = this.teamReportRepository.create({
         team,
-        reportType: TeamReportType.INTERMEDIATE,
+        reportType,
         problemNumber,
         fileUrl,
       });
@@ -113,5 +129,12 @@ export class TeamReportService {
     const savedReport = await this.teamReportRepository.save(report);
     const { team: _, ...result } = savedReport;
     return result;
+  }
+
+  async updateFinalReportRanking(teamId: number, userId: number, ranking: number[]) {
+    const team = await this.getEligibleTeam(teamId, userId, TeamReportType.FINAL);
+    team.finalReportRanking = ranking;
+    await this.teamRepository.save(team);
+    return { finalReportRanking: ranking };
   }
 }

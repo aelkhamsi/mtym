@@ -8,7 +8,19 @@ export const applicationsRowFactory = (
   const endpoint = configService.get('s3.endpoint');
   const bucketName = configService.get('s3.name');
 
-  return applications.map((application: any) => ({
+  return applications.map((application: any) => {
+    const team = application?.user?.team;
+    const intermediateReports = team?.reports?.filter((report) => report.reportType === 'INTERMEDIATE') ?? [];
+    const finalReports = team?.reports?.filter((report) => report.reportType === 'FINAL') ?? [];
+    const finalReportLink = (problemNumber: number) => {
+      const fileUrl = finalReports.find((report) => report.problemNumber === problemNumber)?.fileUrl;
+      return {
+        text: fileUrl ? 'link' : ' ',
+        hyperlink: fileUrl ? `${endpoint}/${bucketName}/${fileUrl}` : '',
+      };
+    };
+
+    return {
     id: application?.id,
     firstName: application?.user?.firstName,
     lastName: application?.user?.lastName,
@@ -60,14 +72,24 @@ export const applicationsRowFactory = (
     teamName: application?.user?.team?.name,
     teamQuadrigram: application?.user?.team?.quadrigram,
     teamStatus: application?.user?.team?.status,
-    teamInterimReportsNumber: application?.user?.team?.reports?.length,
+    teamInterimReportsNumber: team ? intermediateReports.length : undefined,
     teamInterimReportsDecision: application?.user?.team?.review?.intermediateReportDecision,
     teamQualifCenter: application?.user?.team?.qualifCenter,
+    teamFinalReportsNumber: team ? finalReports.length : undefined,
+    finalReportProblem1: finalReportLink(1),
+    finalReportProblem2: finalReportLink(2),
+    finalReportProblem3: finalReportLink(3),
+    finalReportProblem4: finalReportLink(4),
+    defensePreference1: team?.finalReportRanking?.[0],
+    defensePreference2: team?.finalReportRanking?.[1],
+    defensePreference3: team?.finalReportRanking?.[2],
+    defensePreference4: team?.finalReportRanking?.[3],
     parentalAuthorization: {
       text: application?.parentalAuthorizationUrl ? 'link' : ' ',
       hyperlink: application?.parentalAuthorizationUrl ? `${endpoint}/${bucketName}/${application.parentalAuthorizationUrl}` : '',
     },
-  }));
+    };
+  });
 };
 
 export const participantDetailsRowFactory = (participantDetails: any[], users: any[], configService) => {
