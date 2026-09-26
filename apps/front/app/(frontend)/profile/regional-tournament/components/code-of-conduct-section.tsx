@@ -27,8 +27,8 @@ const CodeOfConductSection = () => {
       <CardContent className="space-y-4">
         <p>Pour valider votre participation et confirmer votre présence, vous devez :</p>
         <ul className="list-disc space-y-1 pl-6">
-          <li>lire le règlement général ;</li>
-          <li>signer et uploader le Code de Conduite. Ce document est individuel : chaque membre de l&apos;équipe devra le lire, l&apos;imprimer, le signer puis l&apos;uploader.</li>
+          <li><span className="font-semibold">lire le règlement général ;</span></li>
+          <li>signer et uploader le Code de Conduite. Ce document est individuel : chaque membre de l&apos;équipe devra <span className="font-semibold">le lire, l&apos;imprimer, le signer puis l&apos;uploader</span>.</li>
         </ul>
 
         <p>Lien vers le Code de Conduite (à signer !) : <Link className="inline-flex text-blue-400" href={codeOfConductDocumentUrl} target="_blank" rel="noopener noreferrer">Lien <Link1Icon /></Link></p>
