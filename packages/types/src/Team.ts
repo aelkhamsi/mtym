@@ -9,6 +9,7 @@ export type Team = {
   users?: any[],
   review: any;
   reports?: TeamReport[];
+  finalReportRanking?: number[] | null;
 }
 
 export type TeamReport = {

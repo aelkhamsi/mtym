@@ -29,6 +29,7 @@ export type TeamRow = {
   leaderId: string,
   members: any[],
   reports: any[],
+  finalReportRanking: number[] | null,
   review: any,
 }
  
@@ -262,6 +263,7 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
       const members = row.original?.members;
       const review = row.original?.review;
       const reports = row.original?.reports;
+      const finalReportRanking = row.original?.finalReportRanking;
 
       return <div className='flex justify-end gap-4'>
         <HideFromJury>
@@ -276,6 +278,7 @@ export const getColumns = (admins: AdminOption[]): ColumnDef<TeamRow>[] => [
           teamId={Number(row.original.id)}
           review={review}
           reports={reports}
+          finalReportRanking={finalReportRanking}
         />
       </div>
     }

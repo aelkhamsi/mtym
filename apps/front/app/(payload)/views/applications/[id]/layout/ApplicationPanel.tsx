@@ -1,12 +1,6 @@
 'use client'
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Separator,
-} from "@mdm/ui"
+import { Card } from "@mdm/ui"
 import {
   Tabs,
   TabsContent,

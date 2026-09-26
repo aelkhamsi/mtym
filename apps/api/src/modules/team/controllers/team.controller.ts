@@ -24,6 +24,8 @@ import { TeamReportService } from '../services/team-report.service';
 import { UpdateIntermediateReportDto } from '../dto/update-intermediate-reports.dto';
 import { GetReportUploadUrlDto } from '../dto/get-report-upload-url.dto';
 import { UserGuard } from 'src/modules/auth/guards/user.guard';
+import { TeamReportType } from '../entities/team-report.entity';
+import { UpdateFinalReportRankingDto } from '../dto/update-final-report-ranking.dto';
 
 @Controller('mtym-api/teams')
 export class TeamController {
@@ -114,12 +116,13 @@ export class TeamController {
     @Param('problemNumber', ParseIntPipe) problemNumber: number,
     @Body() body: GetReportUploadUrlDto,
   ) {
-    return this.teamReportService.getIntermediateReportUploadUrl(
+    return this.teamReportService.getReportUploadUrl(
       teamId,
       problemNumber,
       body.size,
       body.checksum,
       request['user'].id,
+      TeamReportType.INTERMEDIATE,
     );
   }
 
@@ -131,11 +134,61 @@ export class TeamController {
     @Param('problemNumber', ParseIntPipe) problemNumber: number,
     @Body() updateIntermediateReportDto: UpdateIntermediateReportDto,
   ) {
-    return this.teamReportService.upsertIntermediateReport(
+    return this.teamReportService.upsertReport(
       teamId,
       problemNumber,
       updateIntermediateReportDto.fileUrl,
       request['user'].id,
+      TeamReportType.INTERMEDIATE,
+    );
+  }
+
+  @UseGuards(UserGuard)
+  @Post(':id/final-reports/:problemNumber/signed-url')
+  getFinalReportUploadUrl(
+    @Req() request: Request,
+    @Param('id', ParseIntPipe) teamId: number,
+    @Param('problemNumber', ParseIntPipe) problemNumber: number,
+    @Body() body: GetReportUploadUrlDto,
+  ) {
+    return this.teamReportService.getReportUploadUrl(
+      teamId,
+      problemNumber,
+      body.size,
+      body.checksum,
+      request['user'].id,
+      TeamReportType.FINAL,
+    );
+  }
+
+  @UseGuards(UserGuard)
+  @Put(':id/final-reports/:problemNumber')
+  updateFinalReport(
+    @Req() request: Request,
+    @Param('id', ParseIntPipe) teamId: number,
+    @Param('problemNumber', ParseIntPipe) problemNumber: number,
+    @Body() body: UpdateIntermediateReportDto,
+  ) {
+    return this.teamReportService.upsertReport(
+      teamId,
+      problemNumber,
+      body.fileUrl,
+      request['user'].id,
+      TeamReportType.FINAL,
+    );
+  }
+
+  @UseGuards(UserGuard)
+  @Put(':id/final-report-ranking')
+  updateFinalReportRanking(
+    @Req() request: Request,
+    @Param('id', ParseIntPipe) teamId: number,
+    @Body() body: UpdateFinalReportRankingDto,
+  ) {
+    return this.teamReportService.updateFinalReportRanking(
+      teamId,
+      request['user'].id,
+      body.ranking,
     );
   }
 

@@ -69,6 +69,9 @@ export class Team {
   @OneToMany(() => TeamReport, (report) => report.team)
   reports: TeamReport[];
 
+  @Column({ type: 'int', array: true, nullable: true })
+  finalReportRanking: number[] | null;
+
   @Column({ type: 'enum', enum: QualifCenter, nullable: true })
   qualifCenter: QualifCenter;
 

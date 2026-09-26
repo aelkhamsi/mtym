@@ -123,6 +123,9 @@ export class Application {
   @Column({ type: 'varchar', nullable: true })
   parentalAuthorizationUrl: string;
 
+  @Column({ type: 'varchar', nullable: true })
+  codeOfConductUrl: string;
+
   /* createAt & updatedAt */
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;

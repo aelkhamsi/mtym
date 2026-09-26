@@ -24,7 +24,7 @@ const getSidebarNavItems = (teamStatus?: string) => ([
   ...(teamStatus === 'APPROVED' 
     ? [{title: "Tournoi régional", href: "/profile/regional-tournament"}]
     : []
-  )
+  ),
 ])
 
 export function SidebarNav({className, ...props}:{className?: string}) {

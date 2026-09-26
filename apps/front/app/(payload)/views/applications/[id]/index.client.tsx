@@ -9,7 +9,6 @@ import { AdminOption } from "../components/table/columns"
 import { ProfileSkeleton } from "@mdm/ui"
 import ApplicationPanel from "./layout/ApplicationPanel"
 import TeamPanel from "./layout/TeamPanel"
-import { log } from "console"
 
 export default function ApplicationDetailsClient({
   id,
@@ -26,7 +25,6 @@ export default function ApplicationDetailsClient({
 
     const searchResult = applications.find((application: any) => application?.id === +id)
     setApplication(searchResult)
-    console.log('application', searchResult)
   }, [id, applications])
 
   if (!application) {

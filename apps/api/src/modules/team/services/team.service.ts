@@ -283,7 +283,10 @@ export class TeamService {
     if (name !== undefined) await this.assertNameIsAvailable(name, id);
     if (quadrigram !== undefined) await this.assertQuadrigramIsAvailable(quadrigram, id);
 
-    return this.teamRepository.update({ id }, updateTeamDto);
+    const { finalReportRanking: _, ...teamUpdate } = updateTeamDto as UpdateTeamDto & {
+      finalReportRanking?: number[];
+    };
+    return this.teamRepository.update({ id }, teamUpdate);
   }
 
   async delete(id: number) {

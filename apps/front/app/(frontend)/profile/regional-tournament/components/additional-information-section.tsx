@@ -11,6 +11,7 @@ import {
   FormDescription,
   Button,
   LoadingDots,
+  toast,
 } from "@mdm/ui"
 import { useForm, UseFormReturn } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -22,7 +23,7 @@ import { computeSHA256, generateFileName, getUploadFolderName } from "@/app/util
 import { getSignedURL, uploadFile } from "@/app/api/MediaApi"
 import { putApplication } from "@/app/api/ApplicationApi"
 import { ReactNode, useState } from "react"
-import { useAtomValue } from "jotai"
+import { useAtomValue, useSetAtom } from "jotai"
 import { userAtom } from "@/app/store/userAtom"
 import { applicationAtom } from "@/app/store/applicationAtom"
 import FilePreviewButton from "@/app/(payload)/views/components/file/file-preview-button"
@@ -40,6 +41,7 @@ const AdditionalInformationsSection = ({
 }) => {
   const user = useAtomValue(userAtom)
   const application = useAtomValue(applicationAtom)
+  const setApplication = useSetAtom(applicationAtom)
   const [isFormLoading, setIsFormLoading] = useState(false)
   const urlFieldName = `${fieldName}Url`
   const additionalInformationSchema = z.object({
@@ -57,33 +59,42 @@ const AdditionalInformationsSection = ({
 
   const onSubmit = async (formData: z.infer<typeof additionalInformationSchema>) => {
     setIsFormLoading(true)
-    const selectedFiles = formData[fieldName];
-    
-    let file = undefined
-    if (selectedFiles && selectedFiles.length) {
-      file = new File(
-        [selectedFiles[0]],
-        `${filePrefix}_${generateFileName()}` + '.' + selectedFiles[0]?.name.split('.').pop(),
-        { type: selectedFiles[0]?.type },
-      )
-    }
-    
-    const uploadFolderName = `applications/${getUploadFolderName(user?.firstName, user?.lastName)}`;
-    if (file) {
-      const checksum = await computeSHA256(file);
-      const signedURLResponse = await getSignedURL(`${uploadFolderName}/${file.name}`, file.type, file.size, checksum) as any;
-      await uploadFile(signedURLResponse?.url, file) as any;
-    }
+    try {
+      const selectedFiles = formData[fieldName];
 
-    const fileUrls = {
-      [urlFieldName]: file ? `${uploadFolderName}/${file.name}` : (application?.[urlFieldName] ?? null),
+      let file = undefined
+      if (selectedFiles && selectedFiles.length) {
+        file = new File(
+          [selectedFiles[0]],
+          `${filePrefix}_${generateFileName()}` + '.' + selectedFiles[0]?.name.split('.').pop(),
+          { type: selectedFiles[0]?.type },
+        )
+      }
+
+      const uploadFolderName = `applications/${getUploadFolderName(user?.firstName, user?.lastName)}`;
+      if (file) {
+        const checksum = await computeSHA256(file);
+        const signedURLResponse = await getSignedURL(`${uploadFolderName}/${file.name}`, file.type, file.size, checksum) as any;
+        const uploadResponse = await uploadFile(signedURLResponse?.url, file) as { statusCode: number };
+        if (uploadResponse.statusCode < 200 || uploadResponse.statusCode >= 300) throw new Error("Upload failed")
+      }
+
+      const fileUrls = {
+        [urlFieldName]: file ? `${uploadFolderName}/${file.name}` : (application?.[urlFieldName] ?? null),
+      }
+
+      const updateResponse = await putApplication(application?.id, fileUrls) as { statusCode: number }
+      if (updateResponse.statusCode !== 200) throw new Error("Application update failed")
+
+      setApplication((current: any) => ({ ...current, ...fileUrls }))
+      form.setValue(urlFieldName, fileUrls[urlFieldName])
+      form.resetField(fieldName)
+      toast({ title: application?.[urlFieldName] ? "Document mis à jour" : "Document envoyé" })
+    } catch {
+      toast({ title: "Envoi impossible", description: "Veuillez réessayer.", variant: "destructive" })
+    } finally {
+      setIsFormLoading(false)
     }
-
-    await putApplication(application?.id, fileUrls) as any
-
-    setTimeout(() => {
-      window.location.reload()
-    }, 1000)
   }
 
   return (
@@ -99,7 +110,7 @@ const AdditionalInformationsSection = ({
               <FormItem>
                 <FormLabel>{label} <RequiredAsterisk /></FormLabel>
                 <FormControl>
-                  <FileInput form={form} id={fieldName} />
+                  <FileInput key={application?.[urlFieldName]} form={form} id={fieldName} />
                 </FormControl>
                 <FormDescription>
                   {description}

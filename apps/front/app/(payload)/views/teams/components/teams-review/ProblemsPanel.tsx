@@ -13,36 +13,49 @@ type Field = {
 }
 
 const getTeamReportFields = (
-  reports?: any,
+  reports: any[],
+  reportType: "INTERMEDIATE" | "FINAL",
 ): Field[] => {
   if (!reports) return []
 
   return reports
-    .sort((a: any, b: any) => Number(a.problemNumber) - Number(b.problemNumber))
-    .map((report: any) => ({
+    .filter((report) => report.reportType === reportType)
+    .sort((a, b) => Number(a.problemNumber) - Number(b.problemNumber))
+    .map((report) => ({
       label: `Problème ${report.problemNumber}`,
-      value: report?.fileUrl ? <FilePreviewButton filename={report?.fileUrl} /> : null,
+      value: report?.fileUrl ? <FilePreviewButton filename={report.fileUrl} /> : null,
     }))
 }
 
 export const ProblemsPanel = ({
   reports,
+  finalReportRanking,
 }: {
   reports: any[]
+  finalReportRanking: number[] | null
 }) => {
-  const reportFields = getTeamReportFields(reports)
-
   return (
     <Card className="border-0 shadow-none">
       <CardHeader className="px-0 py-6">
-        <CardTitle className="text-lg p-2 bg-gray-100 rounded-md">Problems Panel</CardTitle>
+        <CardTitle className="text-lg p-2 bg-gray-100 rounded-md">Rapports et préférences</CardTitle>
       </CardHeader>
 
       <CardContent className="px-0">
-        <div className="divide-y rounded-lg border">
-          {reportFields.map((field, index) => (
-            <ReportField key={`field_${index}`} field={field} />
+        <div className="space-y-5">
+          {(["INTERMEDIATE", "FINAL"] as const).map((reportType) => (
+            <div key={reportType}>
+              <h3 className="mb-2 font-medium">{reportType === "FINAL" ? "Rapports finaux" : "Rapports intermédiaires"}</h3>
+              <div className="divide-y rounded-lg border">
+                {getTeamReportFields(reports, reportType).map((field) => (
+                  <ReportField key={`${reportType}-${field.label}`} field={field} />
+                ))}
+              </div>
+            </div>
           ))}
+          <div>
+            <h3 className="mb-2 font-medium">Préférences de défense</h3>
+            <p className="text-sm">{finalReportRanking?.map((problem, index) => `${index + 1}. Problème ${problem}`).join(" · ") ?? "Non renseignées"}</p>
+          </div>
         </div>
       </CardContent>
     </Card>

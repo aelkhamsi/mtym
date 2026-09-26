@@ -65,6 +65,7 @@ export function getApplicationSections(
       { label: 'Photo', value: application?.filePhotoUrl ? <FilePreviewButton filename={application.filePhotoUrl} /> : null },
       { label: 'Grades', value: application?.fileGradesUrl ? <FilePreviewButton filename={application.fileGradesUrl} /> : null },
       { label: 'Parental Authorization', value: application?.parentalAuthorizationUrl ? <FilePreviewButton filename={application.parentalAuthorizationUrl} /> : null },
+      { label: 'Code de Conduite', value: application?.codeOfConductUrl ? <FilePreviewButton filename={application.codeOfConductUrl} /> : null },
     ]
   }
 }

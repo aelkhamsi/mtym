@@ -52,6 +52,15 @@ export const updateIntermediateReport = (
   return ApiMethods.put(url, { body: { fileUrl } });
 }
 
+export const updateFinalReport = (teamId: number, problemNumber: number, fileUrl: string) =>
+  ApiMethods.put(`/teams/${teamId}/final-reports/${problemNumber}`, { body: { fileUrl } });
+
+export const getFinalReportUploadUrl = (teamId: number, problemNumber: number, size: number, checksum: string) =>
+  ApiMethods.post(`/teams/${teamId}/final-reports/${problemNumber}/signed-url`, { body: { size, checksum } });
+
+export const updateFinalReportRanking = (teamId: number, ranking: number[]) =>
+  ApiMethods.put(`/teams/${teamId}/final-report-ranking`, { body: { ranking } });
+
 export const updateTeamReview = (teamReviewId: number, partialTeamReview: any) => {
   return ApiMethods.put(`/teams/review/${teamReviewId}`, {
     body: partialTeamReview,
