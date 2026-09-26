@@ -6,6 +6,7 @@ import ReportsSection from "./components/intermediate-reports-section";
 import { teamAtom } from "@/app/store/teamAtom";
 import QualificationCenterSection from "./components/qualification-center-section";
 import ParentalAuthorizationSection from "./components/parental-authorization-section";
+import CodeOfConductSection from "./components/code-of-conduct-section";
 import FinalReportRankingSection from "./components/final-report-ranking-section"
 
 export default function RegionalTournamentPage() {
@@ -68,6 +69,7 @@ export default function RegionalTournamentPage() {
         {canSeeFinalReport && (
           <TabsContent value="documents" className="mt-6 space-y-6">
             <ParentalAuthorizationSection />
+            <CodeOfConductSection />
           </TabsContent>
         )}
       </Tabs>

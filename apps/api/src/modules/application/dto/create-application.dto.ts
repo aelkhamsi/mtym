@@ -116,4 +116,8 @@ export class CreateApplicationDto {
   @IsString()
   @IsOptional()
   parentalAuthorizationUrl: string;
+
+  @IsString()
+  @IsOptional()
+  codeOfConductUrl: string;
 }

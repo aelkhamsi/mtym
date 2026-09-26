@@ -68,6 +68,7 @@ export const applicationsColumns = [
   { header: 'Defense Preference 3', key: 'defense_preference_3', width: 20 },
   { header: 'Defense Preference 4', key: 'defense_preference_4', width: 20 },
   { header: 'Parental Authorization', key: 'parental-authorization', width: 25 },
+  { header: 'Code de Conduite', key: 'code-of-conduct', width: 25 },
 ];
 
 export const participantDetailsColumns = [

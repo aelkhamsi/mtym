@@ -88,6 +88,10 @@ export const applicationsRowFactory = (
       text: application?.parentalAuthorizationUrl ? 'link' : ' ',
       hyperlink: application?.parentalAuthorizationUrl ? `${endpoint}/${bucketName}/${application.parentalAuthorizationUrl}` : '',
     },
+    codeOfConduct: {
+      text: application?.codeOfConductUrl ? 'link' : ' ',
+      hyperlink: application?.codeOfConductUrl ? `${endpoint}/${bucketName}/${application.codeOfConductUrl}` : '',
+    },
     };
   });
 };
