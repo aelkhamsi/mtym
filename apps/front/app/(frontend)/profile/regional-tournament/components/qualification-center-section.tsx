@@ -19,12 +19,12 @@ const QualificationCenterSection = () => {
   const positiveReviewDecision = team?.review?.intermediateReportDecision === 'PASS'
 
   return (
-    <Card>
+    <Card className="border-[#F6A806]">
       <CardHeader>
         <CardTitle>Résultat de la sélection intermédiaire</CardTitle>
       </CardHeader>
+      
       <CardContent className="space-y-4">
-
         Resultat: <span 
           className={`
             ${positiveReviewDecision ? 'bg-green-700' : 'bg-red-800'}
