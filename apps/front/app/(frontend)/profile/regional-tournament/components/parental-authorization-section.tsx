@@ -20,6 +20,8 @@ const ParentalAuthorizationSection = () => {
   const positiveReviewDecision = team?.review?.intermediateReportDecision === 'PASS'
   if (!positiveReviewDecision) return null
 
+  const canUpload = false
+
   return (
     <Card>
       <CardHeader>
@@ -36,6 +38,7 @@ const ParentalAuthorizationSection = () => {
           filePrefix="parentalAuthorization"
           label="Autorisation parentale"
           description="Images ou PDF, 3 Mo maximum."
+          canUpload={canUpload}
         />
       </CardContent>
     </Card>

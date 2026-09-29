@@ -19,6 +19,8 @@ const CodeOfConductSection = () => {
   const team = useAtomValue(teamAtom)
   if (!team?.qualifCenter || team.status !== "APPROVED" || team.review?.intermediateReportDecision !== "PASS") return null
 
+  const canUpload = false
+
   return (
     <Card>
       <CardHeader>
@@ -39,6 +41,7 @@ const CodeOfConductSection = () => {
           filePrefix="codeOfConduct"
           label="Code de Conduite"
           description="Images ou PDF, 3 Mo maximum."
+          canUpload={canUpload}
         />
       </CardContent>
     </Card>

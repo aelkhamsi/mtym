@@ -33,11 +33,13 @@ const AdditionalInformationsSection = ({
   filePrefix = "cnie",
   label = "Justificatif d'identité du participant avec photo (carte d'identité, passeport, carte d'élève...)",
   description = <><span className="text-blue-500">Remarque</span>: Le document doit de préference être la CNIE ou le passeport. Sinon, vous pouvez envoyer tout document contenant les informations de l&apos;élève avec sa photo; ou bien son acte de naissance accompagné de sa photo dans le même PDF.</>,
+  canUpload = true
 }: {
   fieldName?: string
   filePrefix?: string
   label?: ReactNode
-  description?: ReactNode
+  description?: ReactNode,
+  canUpload?: boolean,
 }) => {
   const user = useAtomValue(userAtom)
   const application = useAtomValue(applicationAtom)
@@ -122,12 +124,14 @@ const AdditionalInformationsSection = ({
           }}
         />
 
-        <Button type="submit" disabled={isFormLoading || !form.watch(fieldName)?.length}>
-          {isFormLoading
-            ? <LoadingDots color="#808080" />
-            : (application?.[urlFieldName] ? 'Mettre à jour le fichier' : 'Envoyer le fichier')
-          }
-        </Button>
+        {canUpload &&
+          <Button type="submit" disabled={isFormLoading || !form.watch(fieldName)?.length}>
+            {isFormLoading
+              ? <LoadingDots color="#808080" />
+              : (application?.[urlFieldName] ? 'Mettre à jour le fichier' : 'Envoyer le fichier')
+            }
+          </Button>
+        }
       </form>
     </Form>
   )
