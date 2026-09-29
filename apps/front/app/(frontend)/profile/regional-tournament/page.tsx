@@ -3,7 +3,7 @@
 import { Separator, Tabs, TabsContent, TabsList, TabsTrigger } from "@mdm/ui"
 import { MTYM_PROBLEM_COUNT } from "@mdm/shared"
 import { useAtomValue } from "jotai";
-import ReportsSection from "./components/intermediate-reports-section";
+import ReportsSection from "./components/reports-section";
 import { teamAtom } from "@/app/store/teamAtom";
 import { applicationAtom } from "@/app/store/applicationAtom";
 import QualificationCenterSection from "./components/qualification-center-section";
