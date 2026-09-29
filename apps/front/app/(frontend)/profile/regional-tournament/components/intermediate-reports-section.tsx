@@ -95,7 +95,7 @@ const ReportRow = ({
   </div>
 )
 
-const ReportsSection = ({ reportType }: { reportType: "INTERMEDIATE" | "FINAL" }) => {
+const ReportsSection = ({ reportType, canUpload }: { reportType: "INTERMEDIATE" | "FINAL", canUpload: boolean }) => {
   const user = useAtomValue(userAtom)
   const [team, setTeam] = useAtom(teamAtom)
   const [files, setFiles] = useState<Record<number, File | undefined>>({})
@@ -225,7 +225,7 @@ const ReportsSection = ({ reportType }: { reportType: "INTERMEDIATE" | "FINAL" }
               (item) => item.reportType === reportType && item.problemNumber === problemNumber,
             )}
             selectedFile={files[problemNumber]}
-            canUpload={reportType === "FINAL" && isTeamLeader}
+            canUpload={canUpload && isTeamLeader}
             inputVersion={inputVersions[problemNumber] ?? 0}
             isDisabled={uploadingProblem !== undefined}
             isUploading={uploadingProblem === problemNumber}

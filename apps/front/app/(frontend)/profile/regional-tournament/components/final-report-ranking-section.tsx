@@ -93,5 +93,8 @@ export default function FinalReportRankingSection() {
   const user = useAtomValue(userAtom)
   if (team?.review?.intermediateReportDecision !== "PASS") return null
 
-  return <RankingEditor teamId={team.id} initialRanking={team.finalReportRanking} canEdit={team.leader?.id === user?.id} />
+  const isLeader = team.leader?.id === user?.id
+  const canEdit = false
+
+  return <RankingEditor teamId={team.id} initialRanking={team.finalReportRanking} canEdit={canEdit && isLeader} />
 }

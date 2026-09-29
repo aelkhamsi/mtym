@@ -73,12 +73,12 @@ export default function RegionalTournamentPage() {
         </TabsList>
         
         <TabsContent value="intermediate" className="mt-6 space-y-6">
-          <ReportsSection reportType="INTERMEDIATE" />
+          <ReportsSection reportType="INTERMEDIATE" canUpload={false} />
         </TabsContent>
 
         {canSeeFinalReport && (
           <TabsContent value="final" className="mt-6 space-y-6">
-            <ReportsSection reportType="FINAL" />
+            <ReportsSection reportType="FINAL" canUpload={false} />
             <FinalReportRankingSection />
           </TabsContent>
         )}
