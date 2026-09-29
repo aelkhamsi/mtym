@@ -157,7 +157,7 @@ export const styleParticipantDetailsSheet = (sheet) => {
   }
 
   // team style
-  for (let i = 27; i <= 33; i++) {
+  for (let i = 27; i <= 34; i++) {
     sheet.getColumn(i).fill = {
       type: 'pattern',
       pattern: 'solid',
