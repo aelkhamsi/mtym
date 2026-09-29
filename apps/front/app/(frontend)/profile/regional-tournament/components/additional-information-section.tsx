@@ -110,10 +110,14 @@ const AdditionalInformationsSection = ({
 
             return (
               <FormItem>
-                <FormLabel>{label} <RequiredAsterisk /></FormLabel>
-                <FormControl>
-                  <FileInput key={application?.[urlFieldName]} form={form} id={fieldName} />
-                </FormControl>
+                {canUpload && 
+                  <>
+                    <FormLabel>{label} <RequiredAsterisk /></FormLabel>
+                    <FormControl>
+                      <FileInput key={application?.[urlFieldName]} form={form} id={fieldName} />
+                    </FormControl>
+                  </>
+                }
                 <FormDescription>
                   {description}
                 </FormDescription>
