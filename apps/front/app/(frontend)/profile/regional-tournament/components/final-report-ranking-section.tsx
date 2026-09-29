@@ -95,6 +95,7 @@ export default function FinalReportRankingSection() {
 
   const isLeader = team.leader?.id === user?.id
   const canEdit = false
+  console.log('canEdit', canEdit, 'isLeader', isLeader)
 
   return <RankingEditor teamId={team.id} initialRanking={team.finalReportRanking} canEdit={canEdit && isLeader} />
 }
