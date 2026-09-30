@@ -179,6 +179,41 @@ export class TeamController {
   }
 
   @UseGuards(UserGuard)
+  @Post(':id/presentation/:problemNumber/signed-url')
+  getPresentationUploadUrl(
+    @Req() request: Request,
+    @Param('id', ParseIntPipe) teamId: number,
+    @Param('problemNumber', ParseIntPipe) problemNumber: number,
+    @Body() body: GetReportUploadUrlDto,
+  ) {
+    return this.teamReportService.getReportUploadUrl(
+      teamId,
+      problemNumber,
+      body.size,
+      body.checksum,
+      request['user'].id,
+      TeamReportType.PRESENTATION,
+    );
+  }
+
+  @UseGuards(UserGuard)
+  @Put(':id/presentation/:problemNumber')
+  updatePresentation(
+    @Req() request: Request,
+    @Param('id', ParseIntPipe) teamId: number,
+    @Param('problemNumber', ParseIntPipe) problemNumber: number,
+    @Body() updateIntermediateReportDto: UpdateIntermediateReportDto,
+  ) {
+    return this.teamReportService.upsertReport(
+      teamId,
+      problemNumber,
+      updateIntermediateReportDto.fileUrl,
+      request['user'].id,
+      TeamReportType.PRESENTATION,
+    );
+  }
+
+  @UseGuards(UserGuard)
   @Put(':id/final-report-ranking')
   updateFinalReportRanking(
     @Req() request: Request,

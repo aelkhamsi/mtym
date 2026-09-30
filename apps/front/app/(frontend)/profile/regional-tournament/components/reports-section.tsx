@@ -22,8 +22,10 @@ import { uploadFile } from "@/app/api/MediaApi"
 import {
   getFinalReportUploadUrl,
   getIntermediateReportUploadUrl,
+  getPresentationUploadUrl,
   updateFinalReport,
   updateIntermediateReport,
+  updatePresentation,
 } from "@/app/api/TeamApi"
 import { teamAtom } from "@/app/store/teamAtom"
 import { userAtom } from "@/app/store/userAtom"
@@ -42,7 +44,7 @@ const ReportRow = ({
   isDisabled,
   isUploading,
 }: {
-  reportType: "INTERMEDIATE" | "FINAL"
+  reportType: "INTERMEDIATE" | "FINAL" | "PRESENTATION"
   problemNumber: number
   report?: TeamReport
   selectedFile?: File
@@ -55,7 +57,8 @@ const ReportRow = ({
 }) => (
   <div className="space-y-3 rounded-md border p-4">
     <div className="flex flex-wrap items-center justify-between gap-3">
-      <div className="font-medium">Problème {problemNumber}</div>
+      {reportType !== 'PRESENTATION' && <div className="font-medium">Problème {problemNumber}</div>}
+    
       {report
         ? <FilePreviewButton filename={report.fileUrl} />
         : <span className="text-sm text-red-500">Pas encore déposé</span>
@@ -95,20 +98,30 @@ const ReportRow = ({
   </div>
 )
 
-const ReportsSection = ({ reportType, canUpload }: { reportType: "INTERMEDIATE" | "FINAL", canUpload: boolean }) => {
+const ReportsSection = ({ reportType, canUpload }: { reportType: "INTERMEDIATE" | "FINAL" | "PRESENTATION", canUpload: boolean }) => {
   const user = useAtomValue(userAtom)
   const [team, setTeam] = useAtom(teamAtom)
   const [files, setFiles] = useState<Record<number, File | undefined>>({})
   const [uploadingProblem, setUploadingProblem] = useState<number>()
   const [inputVersions, setInputVersions] = useState<Record<number, number>>({})
+  const getUploadUrl = {
+    'INTERMEDIATE': getIntermediateReportUploadUrl,
+    'FINAL': getFinalReportUploadUrl,
+    'PRESENTATION': getPresentationUploadUrl
+  }
+  const updateReport = {
+    'INTERMEDIATE': updateIntermediateReport,
+    'FINAL': updateFinalReport,
+    'PRESENTATION': updatePresentation
+  }
 
   if (!team) return null
-  if (reportType === "FINAL" && team.review?.intermediateReportDecision !== "PASS") return null
+  if ((reportType === "FINAL" || reportType === "PRESENTATION") && team.review?.intermediateReportDecision !== "PASS") return null
   if (reportType === "INTERMEDIATE" && team.status !== "APPROVED") return null
 
   const isTeamLeader = team.leader?.id === user?.id
   const problemNumbers = Array.from(
-    { length: MTYM_PROBLEM_COUNT },
+    { length: reportType !== 'PRESENTATION' ? MTYM_PROBLEM_COUNT : 1 },
     (_, index) => index + 1,
   )
 
@@ -144,8 +157,9 @@ const ReportsSection = ({ reportType, canUpload }: { reportType: "INTERMEDIATE" 
 
     try {
       const checksum = await computeSHA256(file)
-      const getUploadUrl = reportType === "FINAL" ? getFinalReportUploadUrl : getIntermediateReportUploadUrl
-      const signedUrlResponse = await getUploadUrl(
+      const getUploadUrlFn = getUploadUrl[reportType]
+      const uploadReportFn = updateReport[reportType]
+      const signedUrlResponse = await getUploadUrlFn(
         team.id,
         problemNumber,
         file.size,
@@ -164,8 +178,7 @@ const ReportsSection = ({ reportType, canUpload }: { reportType: "INTERMEDIATE" 
         throw new Error()
       }
 
-      const saveReport = reportType === "FINAL" ? updateFinalReport : updateIntermediateReport
-      const savedReport = await saveReport(
+      const savedReport = await uploadReportFn(
         team.id,
         problemNumber,
         signedUrlResponse.fileUrl,
@@ -204,9 +217,14 @@ const ReportsSection = ({ reportType, canUpload }: { reportType: "INTERMEDIATE" 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{reportType === "FINAL" ? "Rapports finaux" : "Rapports intermédiaires"}</CardTitle>
+        <CardTitle>
+          {reportType === "FINAL" && "Rapports finaux"}
+          {reportType === "INTERMEDIATE" && "Rapports intermédiaires"}
+          {reportType === "PRESENTATION" && "Présentation"}
+        </CardTitle>
         <CardDescription>
-          Déposez un rapport PDF pour chaque problème.
+          {(reportType === "FINAL" || reportType === "INTERMEDIATE") && "Déposez un rapport PDF pour chaque problème."}
+          {reportType === "PRESENTATION" && "Veuillez déposer le support de présentation du problème que vous allez défendre sous format PDF."}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
