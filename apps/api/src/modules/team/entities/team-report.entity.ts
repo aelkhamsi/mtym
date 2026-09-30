@@ -13,6 +13,7 @@ import { Team } from './team.entity';
 export enum TeamReportType {
   INTERMEDIATE = 'INTERMEDIATE',
   FINAL = 'FINAL',
+  PRESENTATION = 'PRESENTATION'
 }
 
 @Entity({ name: 'team_reports' })

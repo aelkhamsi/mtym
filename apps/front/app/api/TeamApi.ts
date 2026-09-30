@@ -58,6 +58,12 @@ export const updateFinalReport = (teamId: number, problemNumber: number, fileUrl
 export const getFinalReportUploadUrl = (teamId: number, problemNumber: number, size: number, checksum: string) =>
   ApiMethods.post(`/teams/${teamId}/final-reports/${problemNumber}/signed-url`, { body: { size, checksum } });
 
+export const updatePresentation = (teamId: number, problemNumber: number, fileUrl: string) =>
+  ApiMethods.put(`/teams/${teamId}/presentation/${problemNumber}`, { body: { fileUrl } });
+
+export const getPresentationUploadUrl = (teamId: number, problemNumber: number, size: number, checksum: string) =>
+  ApiMethods.post(`/teams/${teamId}/presentation/${problemNumber}/signed-url`, { body: { size, checksum } });
+
 export const updateFinalReportRanking = (teamId: number, ranking: number[]) =>
   ApiMethods.put(`/teams/${teamId}/final-report-ranking`, { body: { ranking } });
 

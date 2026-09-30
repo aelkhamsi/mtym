@@ -20,13 +20,14 @@ export default function RegionalTournamentPage() {
   const application = useAtomValue(applicationAtom)
   const review = team?.review
   const canSeeFinalReport = review?.intermediateReportDecision === "PASS"
-  const missingReports = (reportType: "INTERMEDIATE" | "FINAL") =>
-    Array.from({ length: MTYM_PROBLEM_COUNT }, (_, index) => index + 1).some(
+  const missingReports = (reportType: "INTERMEDIATE" | "FINAL" | "PRESENTATION") =>
+    Array.from({ length: reportType !== 'PRESENTATION' ? MTYM_PROBLEM_COUNT : 1 }, (_, index) => index + 1).some(
       (problemNumber) => !team?.reports?.some(
         (report) => report.reportType === reportType && report.problemNumber === problemNumber && report.fileUrl,
       ),
     )
   const missingFinal = missingReports("FINAL") || team?.finalReportRanking?.length !== MTYM_PROBLEM_COUNT
+  const missingPresentation = missingReports("PRESENTATION")
   const missingDocuments = !application?.parentalAuthorizationUrl || !application?.codeOfConductUrl
 
   return (
@@ -60,6 +61,15 @@ export default function RegionalTournamentPage() {
               {missingFinal && <MissingDot />}
             </TabsTrigger>
           }
+          {canSeeFinalReport && 
+            <TabsTrigger
+              className="data-[state=active]:bg-[#F6A806] data-[state=active]:text-white"
+              value="presentation"
+            >
+              Présentation
+              {missingPresentation && <MissingDot />}
+            </TabsTrigger>
+          }
           {canSeeFinalReport &&
             <TabsTrigger
               className="data-[state=active]:bg-[#F6A806] data-[state=active]:text-white"
@@ -80,6 +90,12 @@ export default function RegionalTournamentPage() {
           <TabsContent value="final" className="mt-6 space-y-6">
             <ReportsSection reportType="FINAL" canUpload={false} />
             <FinalReportRankingSection />
+          </TabsContent>
+        )}
+
+        {canSeeFinalReport && (
+          <TabsContent value="presentation" className="mt-6 space-y-6">
+            <ReportsSection reportType="PRESENTATION" canUpload={true} />
           </TabsContent>
         )}
         
