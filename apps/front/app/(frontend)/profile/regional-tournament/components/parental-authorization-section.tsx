@@ -20,7 +20,7 @@ const ParentalAuthorizationSection = () => {
   const positiveReviewDecision = team?.review?.intermediateReportDecision === 'PASS'
   if (!positiveReviewDecision) return null
 
-  const canUpload = false
+  const canUpload = true
 
   return (
     <Card>
