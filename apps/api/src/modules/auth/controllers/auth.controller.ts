@@ -14,10 +14,15 @@ import { SignupDto } from '../dto/sign-up.dto';
 import { LoginAdminDto } from '../dto/login-admin.dto';
 import { SignupAdminDto } from '../dto/sign-up-admin.dto';
 import { AdminGuard } from '../guards/admin.guard';
+import { ImpersonateDto } from '../dto/impersonate.dto';
+import { UserService } from 'src/modules/user/services/user.service';
 
 @Controller('mtym-api/auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService
+  ) {}
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
@@ -105,6 +110,32 @@ export class AuthController {
     });
 
     res.json({ statusCode: 200 });
+  }
+
+  @UseGuards(AdminGuard)
+  @HttpCode(HttpStatus.OK)
+  @Post('impersonate')
+  async impersonate(@Res() res, @Body() impersonateDto: ImpersonateDto) {
+    const { userId } = impersonateDto;
+    const user = await this.userService.findOneById(userId);
+
+    const { accessToken, refreshToken } = await this.authService.login(user);
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+      maxAge: 60 * 60 * 1000,
+    });
+    res.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      domain: process.env.NODE_ENV === 'production' ? '.mathmaroc.org' : undefined,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json({ statusCode: 200, verified: user?.verified });
   }
 
   @HttpCode(HttpStatus.OK)
