@@ -1,6 +1,7 @@
 import { Button } from "@mdm/ui"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
+import UsersImpersonateButton from "./users-impersonate-button"
  
 export type UserRow = {
   id: string,
@@ -96,4 +97,14 @@ export const columns: ColumnDef<UserRow>[] = [
       )
     },
   },
+  {
+    accessorKey: "impersonateBtn",
+    header: () => '',
+    cell: ({ row }) => (
+      <UsersImpersonateButton
+        userId={+row.original.id}
+      />
+    ),
+  }
+  
 ]

@@ -29,6 +29,12 @@ export const refreshToken = (cookie?: string) => {
   })
 }
 
+export const impersonate = (userId: number) => {
+  const url = '/auth/impersonate';
+  const body = { userId }
+  return ApiMethods.post(url, {body})
+}
+
 export const logout = () => {
   const url = '/auth/logout';
   return ApiMethods.post(url);
