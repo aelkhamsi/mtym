@@ -1,7 +1,9 @@
+import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import SectionContainer from '@/app/components/section-container'
 import PartnerCard from './partner-card'
+import PartnersTabs, { isPartnerScope } from './partners-tabs'
 
 export const dynamic = 'force-dynamic'
 
@@ -23,11 +25,24 @@ type CategorySection = {
   partners: Partner[]
 }
 
-export default async function PartnersPage() {
+type Props = {
+  searchParams: Promise<{ type?: string | string[] }>
+}
+
+export default async function PartnersPage({ searchParams }: Props) {
+  const { type } = await searchParams
+  if (!isPartnerScope(type)) redirect('/partners?type=regional')
+  const scope = type
+
   const payload = await getPayload({ config })
 
   const [partnersResult, categoriesResult] = await Promise.all([
-    payload.find({ collection: 'partners', limit: 500, depth: 1 }),
+    payload.find({
+      collection: 'partners',
+      limit: 500,
+      depth: 1,
+      where: { scope: { equals: scope } },
+    }),
     payload.find({
       collection: 'partner-categories',
       limit: 200,
@@ -39,17 +54,11 @@ export default async function PartnersPage() {
     const logo = doc.logo && typeof doc.logo === 'object' ? doc.logo : null
     const card = logo?.sizes?.card
     const imageSrc =
-      (card?.url as string | undefined) ??
-      (logo?.url as string | undefined) ??
-      ''
+      (card?.url as string | undefined) ?? (logo?.url as string | undefined) ?? ''
     const imageWidth =
-      (card?.width as number | undefined) ??
-      (logo?.width as number | undefined) ??
-      600
+      (card?.width as number | undefined) ?? (logo?.width as number | undefined) ?? 600
     const imageHeight =
-      (card?.height as number | undefined) ??
-      (logo?.height as number | undefined) ??
-      400
+      (card?.height as number | undefined) ?? (logo?.height as number | undefined) ?? 400
 
     const categoryId =
       doc.category && typeof doc.category === 'object'
@@ -83,14 +92,16 @@ export default async function PartnersPage() {
 
   return (
     <SectionContainer className="pt-24 pb-20 z-0">
-      <div className="space-y-6">
+      <div className="space-y-8">
+        <PartnersTabs current={scope} />
+
         {sections.length === 0 ? (
           <p className="text-center text-gray-500">
             Nos partenaires seront bientôt annoncés.
           </p>
         ) : (
           sections.map((section) => (
-            <div key={section.id}>
+            <div key={`${scope}-${section.id}`}>
               <h2
                 className="animate-fade-up opacity-0 text-center text-3xl font-bold drop-shadow-sm"
                 style={{ animationDelay: '0.30s', animationFillMode: 'forwards' }}

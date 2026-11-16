@@ -10,7 +10,7 @@ export const Partners: CollectionConfig = {
   slug: 'partners',
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'category', 'order'],
+    defaultColumns: ['name', 'scope', 'category', 'order'],
   },
   access: {
     read: () => true,
@@ -58,6 +58,21 @@ export const Partners: CollectionConfig = {
       relationTo: 'partner-categories',
       hasMany: false,
       required: true,
+    },
+    {
+      name: 'scope',
+      type: 'select',
+      hasMany: true,
+      required: true,
+      defaultValue: ['regional'],
+      options: [
+        { label: 'Régional', value: 'regional' },
+        { label: 'National', value: 'national' },
+      ],
+      admin: {
+        description:
+          'Which tab(s) of the /partners page this partner appears on. Pick both to show it on both.',
+      },
     },
     {
       name: 'order',
