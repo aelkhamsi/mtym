@@ -322,6 +322,10 @@ export interface Partner {
   };
   category: number | PartnerCategory;
   /**
+   * Which tab(s) of the /partners page this partner appears on. Pick both to show it on both.
+   */
+  scope: ('regional' | 'national')[];
+  /**
    * Controls the display order of the cards within a category (lowest first).
    */
   order?: number | null;
@@ -614,6 +618,7 @@ export interface PartnersSelect<T extends boolean = true> {
   logo?: T;
   description?: T;
   category?: T;
+  scope?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;
